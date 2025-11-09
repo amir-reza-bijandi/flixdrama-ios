@@ -10,7 +10,7 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="relative isolate min-h-screen">
+<div class="relative isolate min-h-screen text-foreground-primary font-semibold leading-none">
 	<Background />
 	{@render children()}
 </div>

@@ -5,4 +5,5 @@
 	--default-font-family: OmnesArabic;
 
 	--color-background-primary: var(--color-gray-900);
+	--color-foreground-primary: var(--color-gray-50);
 }

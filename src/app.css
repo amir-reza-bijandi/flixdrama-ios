@@ -1,1 +1,5 @@
 @import 'tailwindcss';
+
+@theme {
+	--color-background-primary: var(--color-gray-900);
+}

@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import '$lib/styles/font.css';
+@import './font.css';
 
 @theme {
 	--default-font-family: OmnesArabic;

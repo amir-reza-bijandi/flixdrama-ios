@@ -37,6 +37,8 @@
 	},
 	"dependencies": {
 		"@lucide/svelte": "^0.553.0",
+		"@steeze-ui/heroicons": "^2.4.2",
+		"@steeze-ui/svelte-icon": "^1.6.2",
 		"mode-watcher": "^1.1.0"
 	}
 }

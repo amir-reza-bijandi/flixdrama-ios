@@ -1,0 +1,80 @@
+@font-face {
+	font-family: OmnesArabic;
+	font-style: normal;
+	font-weight: 900;
+	font-stretch: 100%;
+	src: url(/font/omnes-arabic-black.woff2) format('woff2');
+	font-display: block;
+}
+
+@font-face {
+	font-family: OmnesArabic;
+	font-style: normal;
+	font-weight: 800;
+	font-stretch: 100%;
+	src: url(/font/omnes-arabic-bold.woff2) format('woff2');
+	font-display: block;
+}
+
+@font-face {
+	font-family: OmnesArabic;
+	font-style: normal;
+	font-weight: 700;
+	font-stretch: 100%;
+	src: url(/font/omnes-arabic-semi-bold.woff2) format('woff2');
+	font-display: block;
+}
+
+@font-face {
+	font-family: OmnesArabic;
+	font-style: normal;
+	font-weight: 600;
+	font-stretch: 100%;
+	src: url(/font/omnes-arabic-medium.woff2) format('woff2');
+	font-display: block;
+}
+
+@font-face {
+	font-family: OmnesArabic;
+	font-style: normal;
+	font-weight: 500;
+	font-stretch: 100%;
+	src: url(/font/omnes-arabic.woff2) format('woff2');
+	font-display: block;
+}
+
+@font-face {
+	font-family: OmnesArabic;
+	font-style: normal;
+	font-weight: 400;
+	font-stretch: 100%;
+	src: url(/font/omnes-arabic-light.woff2) format('woff2');
+	font-display: block;
+}
+
+@font-face {
+	font-family: OmnesArabic;
+	font-style: normal;
+	font-weight: 300;
+	font-stretch: 100%;
+	src: url(/font/omnes-arabic-extra-light.woff2) format('woff2');
+	font-display: block;
+}
+
+@font-face {
+	font-family: OmnesArabic;
+	font-style: normal;
+	font-weight: 200;
+	font-stretch: 100%;
+	src: url(/font/omnes-arabic-thin.woff2) format('woff2');
+	font-display: block;
+}
+
+@font-face {
+	font-family: OmnesArabic;
+	font-style: normal;
+	font-weight: 100;
+	font-stretch: 100%;
+	src: url(/font/omnes-arabic-hairline.woff2) format('woff2');
+	font-display: block;
+}

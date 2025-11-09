@@ -13,6 +13,8 @@
 
 <div class="relative isolate min-h-screen leading-none font-semibold text-foreground-primary">
 	<Background />
-	<Header />
-	{@render children()}
+	<div class="mx-auto max-w-lg">
+		<Header />
+		{@render children()}
+	</div>
 </div>

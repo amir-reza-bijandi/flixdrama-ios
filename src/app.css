@@ -1,9 +1,80 @@
 @import 'tailwindcss';
 @import './font.css';
 
+:root {
+	--base-color-background-primary: var(--color-gray-100);
+	--base-color-foreground-primary: var(--color-gray-950);
+}
+
+.dark {
+	--base-color-background-primary: var(--color-gray-900);
+	--base-color-foreground-primary: var(--color-gray-50);
+}
+
 @theme {
 	--default-font-family: OmnesArabic;
 
-	--color-background-primary: var(--color-gray-900);
-	--color-foreground-primary: var(--color-gray-50);
+	--color-accent-primary: var(--color-purple-600);
+	--color-accent-primary-tint: var(--color-purple-500);
+	--color-accent-secondary: var(--color-yellow-600);
+	--color-accent-secondary-tint: var(--color-yellow-500);
+	--color-background-primary: var(--base-color-background-primary);
+	--color-foreground-primary: var(--base-color-foreground-primary);
+}
+
+@utility ease-overshoot-light {
+	transition-timing-function: linear(
+		0,
+		0.372 7.6%,
+		0.658 15.6%,
+		0.866 24.2%,
+		0.942 28.8%,
+		1.002 33.7%,
+		1.036 37.8%,
+		1.061 42.2%,
+		1.075 46.9%,
+		1.08 52%,
+		1.069 61%,
+		1.011 85%,
+		1
+	);
+}
+@utility ease-overshoot-medium {
+	transition-timing-function: linear(
+		0,
+		0.466 7.2%,
+		0.816 14.8%,
+		1.06 23%,
+		1.142 27.3%,
+		1.201 31.9%,
+		1.229 35.4%,
+		1.245 39.1%,
+		1.25 43.1%,
+		1.242 47.4%,
+		1.205 55.3%,
+		1.085 72.9%,
+		1.038 81.2%,
+		1.008 90.2%,
+		1
+	);
+}
+@utility ease-overshoot-heavy {
+	transition-timing-function: linear(
+		0,
+		0.557 6.9%,
+		0.976 14.3%,
+		1.134 18.2%,
+		1.257 22.2%,
+		1.349 26.4%,
+		1.411 30.9%,
+		1.435 34.1%,
+		1.446 37.5%,
+		1.443 41.1%,
+		1.426 44.9%,
+		1.361 52.6%,
+		1.153 70.8%,
+		1.07 79.7%,
+		1.015 89.4%,
+		1
+	);
 }

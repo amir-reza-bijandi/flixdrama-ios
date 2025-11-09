@@ -1,16 +1,18 @@
 <script lang="ts">
+	import { ASSETS } from '$lib/assets';
 	import '../app.css';
-	import favicon from '$lib/assets/favicon.svg';
-	import Background from '$lib/components/background.svelte';
+	import Background from './_lib/components/background.svelte';
+	import Header from './_lib/components/header.svelte';
 
 	let { children } = $props();
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" href={ASSETS.FAV_ICON} />
 </svelte:head>
 
-<div class="relative isolate min-h-screen text-foreground-primary font-semibold leading-none">
+<div class="relative isolate min-h-screen leading-none font-semibold text-foreground-primary">
 	<Background />
+	<Header />
 	{@render children()}
 </div>

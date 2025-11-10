@@ -24,7 +24,7 @@
 		disableTransitions={false}
 	/>
 	<Background />
-	<div class="mx-auto max-w-lg">
+	<div class="mx-auto max-w-lg pt-9">
 		<Header />
 		{@render children()}
 	</div>

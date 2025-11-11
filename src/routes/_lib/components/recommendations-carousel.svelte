@@ -84,7 +84,7 @@
 	});
 </script>
 
-<div class="swiper relative isolate mt-6.5 w-full overflow-visible!" bind:this={swiperElm}>
+<div class="swiper relative isolate mt-6.5 mb-8 w-full overflow-visible!" bind:this={swiperElm}>
 	<div class="swiper-wrapper overflow-visible!">
 		{#each DATA as { backdrop, score, title }, index}
 			<div

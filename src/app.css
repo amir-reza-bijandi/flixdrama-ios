@@ -20,13 +20,11 @@
 	--color-accent-secondary-tint: var(--color-yellow-500);
 	--color-background-primary: var(--base-color-background-primary);
 	--color-foreground-primary: var(--base-color-foreground-primary);
-
+	--color-foreground-accent: var(--color-gray-100);
 	--color-stroke-primary: --alpha(var(--color-foreground-primary) / 5%);
 	--color-stroke-secondary: --alpha(var(--color-foreground-primary) / 15%);
-}
 
-@utility ease-overshoot-light {
-	transition-timing-function: linear(
+	--ease-overshoot-light: linear(
 		0,
 		0.372 7.6%,
 		0.658 15.6%,
@@ -41,9 +39,7 @@
 		1.011 85%,
 		1
 	);
-}
-@utility ease-overshoot-medium {
-	transition-timing-function: linear(
+	--ease-overshoot-medium: linear(
 		0,
 		0.466 7.2%,
 		0.816 14.8%,
@@ -60,9 +56,7 @@
 		1.008 90.2%,
 		1
 	);
-}
-@utility ease-overshoot-heavy {
-	transition-timing-function: linear(
+	--ease-overshoot-heavy: linear(
 		0,
 		0.557 6.9%,
 		0.976 14.3%,

@@ -16,7 +16,7 @@
 </svelte:head>
 
 <div
-	class="relative isolate min-h-screen leading-none font-semibold text-foreground-primary transition-colors duration-500"
+	class="relative isolate min-h-screen leading-none font-semibold text-foreground-primary transition-colors duration-500 select-none"
 >
 	<ModeWatcher
 		modeStorageKey={MODE_STORAGE_KEY}

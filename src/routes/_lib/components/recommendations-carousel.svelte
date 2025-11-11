@@ -1,11 +1,11 @@
 <script lang="ts">
+	import { DATA } from '$lib/constants/data';
 	import { Star } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Swiper } from 'swiper';
 	import 'swiper/css';
 	import 'swiper/css/effect-coverflow';
 	import { Autoplay, EffectCoverflow } from 'swiper/modules';
-	import { DATA } from '../constants/data';
 	import { recommendationsCarouselStore } from '../stores/recommendations-carousel-store.svelte';
 
 	const AUTOPLAY_DELAY = 5000;

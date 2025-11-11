@@ -1,6 +1,6 @@
 <script lang="ts">
+	import { DATA } from '$lib/constants/data';
 	import { fade } from 'svelte/transition';
-	import { DATA } from '../constants/data';
 	import { recommendationsCarouselStore } from '../stores/recommendations-carousel-store.svelte';
 </script>
 

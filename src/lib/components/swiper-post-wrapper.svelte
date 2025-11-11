@@ -7,6 +7,6 @@
 	const { children }: Props = $props();
 </script>
 
-<div class="px-5 text-2xl leading-none font-bold">
+<div class="flex w-fit gap-2 px-5">
 	{@render children()}
 </div>

@@ -7,6 +7,6 @@
 	const { children }: Props = $props();
 </script>
 
-<div class="mt-6 px-5">
+<div class="mt-6">
 	{@render children()}
 </div>

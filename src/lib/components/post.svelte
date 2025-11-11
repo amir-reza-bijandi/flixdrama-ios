@@ -11,20 +11,25 @@
 	const { image, score, title, subtitle }: Props = $props();
 </script>
 
-<div class="w-32">
+<div class="w-32 shrink-0">
 	<div class="relative mb-1.5">
 		<div
 			class="relative overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-secondary"
 		>
-			<img class="aspect-2/3 h-auto" src={image} alt="" />
+			<img class="aspect-2/3 h-auto" src={image} alt="" draggable={false} />
 			<div
 				class="absolute top-2 left-2 flex items-center gap-0.5 rounded-full bg-accent-secondary p-1 pr-1.5 text-foreground-accent outline -outline-offset-1 outline-stroke-secondary"
 			>
 				<Icon class="size-3.5" src={Star} theme="solid" />
-				<span class="translate-y-px text-xs leading-none font-bold">{score}</span>
+				<span class="translate-y-px text-xs leading-none font-bold">{score.toFixed(1)}</span>
 			</div>
 		</div>
-		<img class="absolute -bottom-3 left-6 -z-10 h-16 w-20 opacity-75 blur-xl" src={image} alt="" />
+		<img
+			class="absolute -bottom-3 left-6 -z-10 h-16 w-20 opacity-75 blur-xl"
+			src={image}
+			alt=""
+			draggable={false}
+		/>
 	</div>
 	<div class="relative z-10 px-2 text-center">
 		<div class="mb-0.5 line-clamp-2 text-sm leading-snug">{title}</div>

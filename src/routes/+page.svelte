@@ -31,26 +31,33 @@
 	const post = DATA[4];
 </script>
 
-<RecommendationsCarousel />
-<Section>
-	<SectionHeading>TV Releases</SectionHeading>
-	<SectionSelect optionList={OPTION_LIST} />
-	<Swiper>
-		<SwiperPostWrapper>
-			{#each DATA as { poster, title, score }}
-				<Post image={poster} subtitle="Episode {Math.floor(Math.random() * 16)}" {title} {score} />
-			{/each}
-		</SwiperPostWrapper>
-	</Swiper>
-</Section>
-<Section>
-	<SectionHeading>Movie Releases</SectionHeading>
-	<SectionSelect optionList={OPTION_LIST} />
-	<Swiper>
-		<SwiperPostWrapper>
-			{#each DATA as { poster, title, score }}
-				<Post image={poster} {title} {score} />
-			{/each}
-		</SwiperPostWrapper>
-	</Swiper>
-</Section>
+<div class="pb-5">
+	<RecommendationsCarousel />
+	<Section>
+		<SectionHeading>TV Releases</SectionHeading>
+		<SectionSelect optionList={OPTION_LIST} />
+		<Swiper>
+			<SwiperPostWrapper>
+				{#each DATA as { poster, title, score }}
+					<Post
+						image={poster}
+						subtitle="Episode {Math.floor(Math.random() * 16)}"
+						{title}
+						{score}
+					/>
+				{/each}
+			</SwiperPostWrapper>
+		</Swiper>
+	</Section>
+	<Section>
+		<SectionHeading>Movie Releases</SectionHeading>
+		<SectionSelect optionList={OPTION_LIST} />
+		<Swiper>
+			<SwiperPostWrapper>
+				{#each DATA as { poster, title, score }}
+					<Post image={poster} {title} {score} />
+				{/each}
+			</SwiperPostWrapper>
+		</Swiper>
+	</Section>
+</div>

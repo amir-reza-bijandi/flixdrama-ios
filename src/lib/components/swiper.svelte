@@ -38,7 +38,10 @@
 </script>
 
 <div
-	class={['scrollbar-hidden touch-pan-y overflow-x-auto', isSwiping && 'pointer-events-none']}
+	class={[
+		'-my-4 scrollbar-hidden touch-pan-y overflow-x-auto py-4',
+		isSwiping && 'pointer-events-none'
+	]}
 	onpointerdown={handlePointerDown}
 	onpointermove={handlePointerMove}
 	bind:this={swiperElm}

@@ -4,11 +4,13 @@
 :root {
 	--base-color-background-primary: var(--color-gray-100);
 	--base-color-foreground-primary: var(--color-gray-900);
+	--base-color-foreground-secondary: var(--color-gray-700);
 }
 
 .dark {
 	--base-color-background-primary: var(--color-gray-900);
 	--base-color-foreground-primary: var(--color-gray-100);
+	--base-color-foreground-secondary: var(--color-gray-300);
 }
 
 @theme {
@@ -20,6 +22,7 @@
 	--color-accent-secondary-tint: var(--color-yellow-500);
 	--color-background-primary: var(--base-color-background-primary);
 	--color-foreground-primary: var(--base-color-foreground-primary);
+	--color-foreground-secondary: var(--base-color-foreground-secondary);
 	--color-foreground-accent: var(--color-gray-100);
 	--color-stroke-primary: --alpha(var(--color-foreground-primary) / 5%);
 	--color-stroke-secondary: --alpha(var(--color-foreground-primary) / 15%);

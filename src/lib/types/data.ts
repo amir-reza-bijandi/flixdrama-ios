@@ -9,7 +9,7 @@ export type Media = {
 	title: string;
 	year: number;
 	genres: string[];
-	score: string;
+	score: number;
 	country: Country;
 	synopsis: string;
 };

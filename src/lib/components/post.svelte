@@ -1,0 +1,37 @@
+<script lang="ts">
+	import { Star } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
+
+	type Props = {
+		image: string;
+		title: string;
+		subtitle: string;
+		score: number;
+	};
+	const { image, score, title, subtitle }: Props = $props();
+</script>
+
+<div class="w-32">
+	<div class="relative mb-1.5">
+		<div
+			class="relative overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-secondary"
+		>
+			<img class="aspect-2/3 h-auto" src={image} alt="" />
+			<div
+				class="absolute top-2 left-2 flex items-center gap-0.5 rounded-full bg-accent-secondary p-1 pr-1.5 text-foreground-accent outline -outline-offset-1 outline-stroke-secondary"
+			>
+				<Icon class="size-3.5" src={Star} theme="solid" />
+				<span class="translate-y-px text-xs leading-none font-bold">{score}</span>
+			</div>
+		</div>
+		<img class="absolute -bottom-3 left-6 -z-10 h-16 w-20 opacity-75 blur-xl" src={image} alt="" />
+	</div>
+	<div class="relative z-10 px-2 text-center">
+		<div class="mb-0.5 line-clamp-2 text-sm leading-snug">{title}</div>
+		<div
+			class="line-clamp-1 text-xs leading-none font-medium text-foreground-secondary transition-colors duration-500"
+		>
+			{subtitle}
+		</div>
+	</div>
+</div>

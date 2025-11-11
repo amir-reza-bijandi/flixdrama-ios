@@ -5,7 +5,7 @@
 	type Props = {
 		image: string;
 		title: string;
-		subtitle: string;
+		subtitle?: string;
 		score: number;
 	};
 	const { image, score, title, subtitle }: Props = $props();
@@ -33,10 +33,12 @@
 	</div>
 	<div class="relative z-10 px-2 text-center">
 		<div class="mb-0.5 line-clamp-2 text-sm leading-snug">{title}</div>
-		<div
-			class="line-clamp-1 text-xs leading-none font-medium text-foreground-secondary transition-colors duration-500"
-		>
-			{subtitle}
-		</div>
+		{#if subtitle}
+			<div
+				class="line-clamp-1 text-xs leading-none font-medium text-foreground-secondary transition-colors duration-500"
+			>
+				{subtitle}
+			</div>
+		{/if}
 	</div>
 </div>

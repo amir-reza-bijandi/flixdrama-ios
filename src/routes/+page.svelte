@@ -49,7 +49,7 @@
 	<Swiper>
 		<SwiperPostWrapper>
 			{#each DATA as { poster, title, score }}
-				<Post image={poster} subtitle="Episode {Math.floor(Math.random() * 16)}" {title} {score} />
+				<Post image={poster} {title} {score} />
 			{/each}
 		</SwiperPostWrapper>
 	</Swiper>

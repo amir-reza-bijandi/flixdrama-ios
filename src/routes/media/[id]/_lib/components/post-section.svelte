@@ -2,11 +2,13 @@
 	import type { Snippet } from 'svelte';
 
 	type Props = {
+		heading: string;
 		children: Snippet;
 	};
-	const { children }: Props = $props();
+	const { heading, children }: Props = $props();
 </script>
 
-<div class="mt-6 px-5">
+<div>
+	<div class="mt-5 mb-2.5 font-bold">{heading}</div>
 	{@render children()}
 </div>

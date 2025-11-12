@@ -1,11 +1,14 @@
 <script lang="ts">
+	import { toRem } from '$lib/utilities/general';
 	import type { Snippet } from 'svelte';
 	import type { PointerEventHandler } from 'svelte/elements';
 
 	type Props = {
 		children: Snippet;
+		padding?: number;
+		gap?: number;
 	};
-	const { children }: Props = $props();
+	const { children, padding = 0, gap = 0 }: Props = $props();
 
 	let isSwiping = $state(false);
 	let swiperElm = $state<HTMLElement | null>(null);
@@ -38,8 +41,10 @@
 </script>
 
 <div
+	style:--padding={toRem(padding)}
+	style:--gap={toRem(gap)}
 	class={[
-		'-my-4 scrollbar-hidden touch-pan-y overflow-x-auto py-4',
+		'mx-[calc(var(--padding)*-1)] -my-4 scrollbar-hidden flex touch-pan-y gap-(--gap) overflow-x-auto px-(--padding) py-4',
 		isSwiping && 'pointer-events-none'
 	]}
 	onpointerdown={handlePointerDown}

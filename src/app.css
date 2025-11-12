@@ -23,7 +23,8 @@
 	--color-accent-secondary: var(--color-yellow-600);
 	--color-accent-secondary-tint: var(--color-yellow-500);
 	--color-background-primary: var(--base-color-background-primary);
-	--color-background-secondary: --alpha(var(--base-color-background-secondary) / 5%);
+	--color-background-secondary: --alpha(var(--base-color-background-secondary) / 10%);
+	--color-background-tertiary: --alpha(var(--base-color-background-secondary) / 5%);
 	--color-foreground-primary: var(--base-color-foreground-primary);
 	--color-foreground-secondary: var(--base-color-foreground-secondary);
 	--color-foreground-accent: var(--color-gray-100);

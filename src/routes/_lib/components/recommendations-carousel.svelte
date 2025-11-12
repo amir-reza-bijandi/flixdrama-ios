@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Separator from '$lib/components/separator.svelte';
 	import { DATA } from '$lib/constants/data';
 	import { Star } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -103,7 +104,7 @@
 						class="absolute right-4 bottom-4 left-4 flex scale-75 items-center gap-2 font-bold opacity-0 transition-[opacity,scale] duration-500 ease-overshoot-light group-[&.active]:scale-100 group-[&.active]:opacity-100"
 					>
 						<span class="line-clamp-1">{title}</span>
-						<span class="h-2.5 w-px bg-stroke-secondary"></span>
+						<Separator variant="secondary" size={10} />
 						<div
 							class="flex items-center gap-1 text-accent-secondary dark:text-accent-secondary-tint"
 						>

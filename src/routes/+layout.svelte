@@ -24,7 +24,7 @@
 		disableTransitions={false}
 	/>
 	<Background />
-	<div class="mx-auto max-w-lg overflow-hidden pt-9">
+	<div class="relative mx-auto flex min-h-screen max-w-lg flex-col overflow-hidden pt-9">
 		<Header />
 		{@render children()}
 	</div>

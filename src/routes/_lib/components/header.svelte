@@ -3,7 +3,7 @@
 	import ModeToggle from './mode-toggle.svelte';
 </script>
 
-<div class="relative flex items-center justify-between px-7">
+<div class="relative z-10 flex items-center justify-between px-7">
 	<Branding />
 	<ModeToggle />
 </div>

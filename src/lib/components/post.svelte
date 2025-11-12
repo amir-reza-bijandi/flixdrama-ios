@@ -1,17 +1,25 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { Star } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 
 	type Props = {
+		id: number;
 		image: string;
 		title: string;
 		subtitle?: string;
 		score: number;
 	};
-	const { image, score, title, subtitle }: Props = $props();
+	const { id, image, score, title, subtitle }: Props = $props();
 </script>
 
-<div class="w-32 shrink-0">
+<a
+	class="block w-32 shrink-0"
+	href={resolve('/media/[id]', {
+		id: String(id)
+	})}
+	draggable="false"
+>
 	<div class="relative mb-1.5">
 		<div
 			class="relative overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-secondary"
@@ -41,4 +49,4 @@
 			</div>
 		{/if}
 	</div>
-</div>
+</a>

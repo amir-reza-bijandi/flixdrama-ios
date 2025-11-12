@@ -6,8 +6,8 @@
 	import SwiperPostWrapper from '$lib/components/swiper-post-wrapper.svelte';
 	import Swiper from '$lib/components/swiper.svelte';
 	import { DATA } from '$lib/constants/data';
+	import type { Country } from '$lib/types/data';
 	import RecommendationsCarousel from './_lib/components/recommendations-carousel.svelte';
-	import type { Country } from './_lib/types/data';
 
 	const OPTION_LIST = [
 		{
@@ -38,8 +38,9 @@
 		<SectionSelect optionList={OPTION_LIST} />
 		<Swiper>
 			<SwiperPostWrapper>
-				{#each DATA as { poster, title, score }}
+				{#each DATA as { id, poster, title, score }}
 					<Post
+						{id}
 						image={poster}
 						subtitle="Episode {Math.floor(Math.random() * 16)}"
 						{title}
@@ -54,8 +55,8 @@
 		<SectionSelect optionList={OPTION_LIST} />
 		<Swiper>
 			<SwiperPostWrapper>
-				{#each DATA as { poster, title, score }}
-					<Post image={poster} {title} {score} />
+				{#each DATA as { id, poster, title, score }}
+					<Post {id} image={poster} {title} {score} />
 				{/each}
 			</SwiperPostWrapper>
 		</Swiper>

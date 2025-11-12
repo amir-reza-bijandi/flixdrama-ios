@@ -11,7 +11,7 @@
 
 <div class="absolute top-0 left-1/2 w-132 -translate-x-1/2">
 	<img
-		style="mask-image: linear-gradient(to bottom, rgba(0,0,0,0.30), rgba(0,0,0,0))"
+		style="mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0))"
 		class="aspect-video h-auto w-full"
 		src={backdrop}
 		alt=""

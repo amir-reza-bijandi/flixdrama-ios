@@ -38,7 +38,7 @@
 		{@render item(route, route.pathname === page.url.pathname)}
 		{#if index === ROUTES.length / 2 - 1}
 			<button
-				class="h-fit rounded-full bg-accent-primary p-3 outline -outline-offset-1 outline-stroke-primary"
+				class="h-fit rounded-full bg-accent-primary p-3 text-foreground-accent outline -outline-offset-1 outline-stroke-primary"
 			>
 				<Icon class="size-6" src={Pencil} theme="solid" />
 			</button>

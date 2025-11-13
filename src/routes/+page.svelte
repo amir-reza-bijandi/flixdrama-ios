@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Post from '$lib/components/post.svelte';
-	import SectionHeading from '$lib/components/section-heading.svelte';
 	import SectionSelect, { type Option } from '$lib/components/section-select.svelte';
 	import Section from '$lib/components/section.svelte';
 	import Swiper from '$lib/components/swiper.svelte';
@@ -17,8 +16,7 @@
 
 <div style:--bottom-padding={navigationStore.bottomSpacing} class="pb-(--bottom-padding)">
 	<RecommendationsCarousel />
-	<Section>
-		<SectionHeading>TV Releases</SectionHeading>
+	<Section heading="TV Releases">
 		<SectionSelect {optionList} />
 		<Swiper gap={8} padding={20}>
 			{#each DATA as { id, poster, title, score }}
@@ -32,8 +30,7 @@
 			{/each}
 		</Swiper>
 	</Section>
-	<Section>
-		<SectionHeading>Movie Releases</SectionHeading>
+	<Section heading="Movie Releases">
 		<SectionSelect {optionList} />
 		<Swiper gap={8} padding={20}>
 			{#each DATA as { id, poster, title, score }}

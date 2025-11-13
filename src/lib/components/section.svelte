@@ -3,10 +3,14 @@
 
 	type Props = {
 		children: Snippet;
+		heading: string;
 	};
-	const { children }: Props = $props();
+	const { children, heading }: Props = $props();
 </script>
 
 <div class="mt-6 px-5">
+	<div class="text-2xl leading-none font-bold">
+		{heading}
+	</div>
 	{@render children()}
 </div>

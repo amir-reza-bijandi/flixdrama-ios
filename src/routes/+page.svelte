@@ -34,7 +34,7 @@
 	<Section>
 		<SectionHeading>Movie Releases</SectionHeading>
 		<SectionSelect {optionList} />
-		<Swiper>
+		<Swiper gap={8} padding={20}>
 			{#each DATA as { id, poster, title, score }}
 				<Post {id} image={poster} {title} {score} />
 			{/each}

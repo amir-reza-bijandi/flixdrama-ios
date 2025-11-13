@@ -8,7 +8,7 @@
 	import RecommendationsCarousel from './_lib/components/recommendations-carousel.svelte';
 	import { navigationStore } from './_lib/stores/navigation-store.svelte';
 
-	const optionList = Object.keys(COUNTRY_LABEL_MAP).map<Option<Country>>((country) => ({
+	const options = Object.keys(COUNTRY_LABEL_MAP).map<Option<Country>>((country) => ({
 		name: COUNTRY_LABEL_MAP[country as Country],
 		value: country as Country
 	}));
@@ -17,7 +17,7 @@
 <div style:--bottom-padding={navigationStore.bottomSpacing} class="pb-(--bottom-padding)">
 	<RecommendationsCarousel />
 	<Section heading="TV Releases">
-		<Select {optionList} />
+		<Select {options} />
 		<Swiper gap={8} padding={20}>
 			{#each DATA as { id, poster, title, score }}
 				<Post
@@ -31,7 +31,7 @@
 		</Swiper>
 	</Section>
 	<Section heading="Movie Releases">
-		<Select {optionList} />
+		<Select {options} />
 		<Swiper gap={8} padding={20}>
 			{#each DATA as { id, poster, title, score }}
 				<Post {id} image={poster} {title} {score} />

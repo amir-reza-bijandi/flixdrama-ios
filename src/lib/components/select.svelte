@@ -3,11 +3,11 @@
 		name: string;
 		value: T;
 	}>;
-	type OptionList = ReadonlyArray<Option>;
-	export type SelectEventHandler<T extends OptionList> = (value: T[number]['value']) => void;
+	type Options = ReadonlyArray<Option>;
+	export type SelectEventHandler<T extends Options> = (value: T[number]['value']) => void;
 </script>
 
-<script lang="ts" generics="T extends OptionList">
+<script lang="ts" generics="T extends Options">
 	import { toRem } from '$lib/utilities/general';
 
 	const MAX_OPTION_WIDTH = 92;
@@ -15,10 +15,10 @@
 	const DATASET_KEY = 'selected';
 
 	type Props = {
-		optionList: T;
+		options: T;
 		onSelect?: SelectEventHandler<T>;
 	};
-	let { optionList }: Props = $props();
+	let { options: optionList }: Props = $props();
 
 	type IndicatorRect = {
 		x: number;

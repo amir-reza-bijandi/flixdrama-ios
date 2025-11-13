@@ -18,7 +18,7 @@
 	/>
 	<div class="absolute top-29.5 left-1/2 -translate-x-1/2">
 		<div
-			class="flex items-center gap-2 rounded-full bg-background-secondary p-2.5 outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg"
+			class="flex items-center gap-2 rounded-full bg-background-secondary p-3 outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg"
 		>
 			<button>
 				<Icon class="size-5" src={Play} theme="solid" />

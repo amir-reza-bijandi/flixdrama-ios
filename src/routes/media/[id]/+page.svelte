@@ -44,16 +44,18 @@
 			</Score>
 			<ShortInfo data={shortInfoData} />
 			<Genres data={genres} />
-			<Synopsis>
-				{synopsis}
-			</Synopsis>
-			<PostSection heading="Recommendations">
-				<Swiper gap={8} padding={24}>
-					{#each DATA as { id, poster, title, score }}
-						<Post {id} image={poster} {title} {score} />
-					{/each}
-				</Swiper>
-			</PostSection>
+			<div class="flex flex-col gap-4">
+				<Synopsis>
+					{synopsis}
+				</Synopsis>
+				<PostSection heading="Recommendations">
+					<Swiper gap={8} padding={24}>
+						{#each DATA as { id, poster, title, score }}
+							<Post {id} image={poster} {title} {score} />
+						{/each}
+					</Swiper>
+				</PostSection>
+			</div>
 		</div>
 	</div>
 </div>

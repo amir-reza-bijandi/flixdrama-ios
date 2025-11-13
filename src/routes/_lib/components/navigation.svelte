@@ -31,7 +31,7 @@
 </script>
 
 <div
-	class="fixed bottom-5 left-1/2 z-50 flex h-20.5 -translate-x-1/2 items-center justify-center gap-3 overflow-hidden rounded-full bg-background-primary/50 px-3 outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg"
+	class="fixed bottom-5 left-1/2 z-50 flex h-20.5 -translate-x-1/2 items-center justify-center gap-3 overflow-hidden rounded-full bg-background-primary/50 px-3 outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg transition-colors"
 	bind:clientHeight={navigationStore.height}
 >
 	{#each ROUTES as route, index}

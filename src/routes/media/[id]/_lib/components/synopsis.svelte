@@ -25,7 +25,7 @@
 
 <PostSection heading="Synopsis">
 	<div
-		class="relative rounded-2xl bg-background-secondary text-sm leading-normal outline -outline-offset-1 outline-stroke-primary"
+		class="relative rounded-2xl bg-background-secondary text-sm leading-normal outline -outline-offset-1 outline-stroke-primary transition-colors"
 	>
 		<div
 			style:--height={isExpanded ? toRem(maxTextHeight) : toRem(MIN_TEXT_HEIGHT)}
@@ -42,7 +42,7 @@
 			<button
 				style:--padding={toRem(EXPAND_BUTTON_PADDING)}
 				style:--width={toRem(expandButtonWidth)}
-				class="absolute -bottom-4 left-1/2 flex h-8 w-(--width) -translate-x-1/2 items-center overflow-hidden rounded-full bg-background-secondary leading-none font-bold shadow-absolute-content outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg"
+				class="absolute -bottom-4 left-1/2 flex h-8 w-(--width) -translate-x-1/2 items-center overflow-hidden rounded-full bg-background-secondary leading-none font-bold shadow-absolute-content outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg transition-[background-color,box-shadow]"
 				onclick={handleToggleExpand}
 			>
 				<div class="px-(--padding)" bind:clientWidth={expandIconWidth}>

@@ -7,7 +7,7 @@
 
 <button
 	class={[
-		'flex size-10 items-center justify-center rounded-full bg-background-secondary outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg',
+		'flex size-10 items-center justify-center rounded-full bg-background-secondary outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg transition-colors',
 		ClassValue
 	]}
 	{...restOfProps}

@@ -22,7 +22,7 @@
 >
 	<div class="relative mb-1.5">
 		<div
-			class="relative overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-secondary"
+			class="relative overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-secondary transition-colors"
 		>
 			<img class="aspect-2/3 h-auto" src={image} alt="" draggable={false} />
 			<div

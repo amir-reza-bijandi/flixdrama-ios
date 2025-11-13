@@ -41,7 +41,8 @@
 				on: {
 					init: (swiper) => {
 						slideElms.forEach(
-							(slideElm) => (slideElm.style.transitionProperty = 'transform, box-shadow')
+							(slideElm) =>
+								(slideElm.style.transitionProperty = 'transform, box-shadow, outline-color')
 						);
 						showGlow(swiper);
 						recommendationsCarouselStore.currentIndex = swiper.realIndex;
@@ -65,11 +66,13 @@
 			});
 
 			function disableTransition() {
-				slideElms.forEach((slideElm) => (slideElm.style.transitionDuration = `0ms, ${SPEED}ms`));
+				slideElms.forEach(
+					(slideElm) => (slideElm.style.transitionDuration = `0ms, ${SPEED}ms, ${SPEED}ms`)
+				);
 			}
 			function enableTransition() {
 				slideElms.forEach(
-					(slideElm) => (slideElm.style.transitionDuration = `${SPEED}ms, ${SPEED}ms`)
+					(slideElm) => (slideElm.style.transitionDuration = `${SPEED}ms, ${SPEED}ms, ${SPEED}ms`)
 				);
 			}
 			function hideGlow() {
@@ -89,7 +92,7 @@
 	<div class="swiper-wrapper overflow-visible!">
 		{#each DATA as { backdrop, score, title }, index}
 			<div
-				class="swiper-slide group aspect-video h-auto! w-90! overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-primary [&.active]:shadow-[0px_0px_6rem_--alpha(var(--color-foreground-primary)/10%)]"
+				class="swiper-slide group aspect-video h-auto! w-90! overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-primary transition-colors [&.active]:shadow-[0px_0px_6rem_--alpha(var(--color-foreground-primary)/10%)]"
 				bind:this={slideElms[index]}
 			>
 				<a class="relative block" href="/">

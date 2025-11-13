@@ -39,7 +39,7 @@
 		class="relative mt-49 flex-1 p-6 pb-(--bottom-padding)"
 	>
 		<div
-			class="absolute inset-0 rounded-t-3xl border-t border-stroke-primary bg-background-tertiary backdrop-blur-lg"
+			class="absolute inset-0 rounded-t-3xl border-t border-stroke-primary bg-background-tertiary backdrop-blur-lg transition-colors"
 		></div>
 		<div class="relative z-10">
 			<div class="text-2xl leading-none font-bold">{title}</div>

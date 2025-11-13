@@ -8,7 +8,7 @@
 <div class="mt-3 flex items-center gap-1">
 	{#each data as genre}
 		<button
-			class="inline-block translate-y-px rounded-full bg-background-secondary p-2 text-sm leading-none outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg"
+			class="inline-block translate-y-px rounded-full bg-background-secondary p-2 text-sm leading-none outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg transition-colors"
 		>
 			<span class="inline-block translate-y-px">{genre}</span>
 		</button>

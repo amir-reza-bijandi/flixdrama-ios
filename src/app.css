@@ -31,6 +31,8 @@
 	--color-stroke-primary: --alpha(var(--color-foreground-primary) / 5%);
 	--color-stroke-secondary: --alpha(var(--color-foreground-primary) / 15%);
 
+	--shadow-absolute-content: 0px 0px 2.25rem --alpha(var(--color-background-primary) / 33%);
+
 	--ease-overshoot-light: linear(
 		0,
 		0.372 7.6%,

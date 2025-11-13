@@ -42,7 +42,7 @@
 			<button
 				style:--padding={toRem(EXPAND_BUTTON_PADDING)}
 				style:--width={toRem(expandButtonWidth)}
-				class="absolute -bottom-4 left-1/2 flex h-8 w-(--width) -translate-x-1/2 items-center overflow-hidden rounded-full bg-background-secondary leading-none font-bold outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg"
+				class="absolute -bottom-4 left-1/2 flex h-8 w-(--width) -translate-x-1/2 items-center overflow-hidden rounded-full bg-background-secondary leading-none font-bold shadow-absolute-content outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg"
 				onclick={handleToggleExpand}
 			>
 				<div class="px-(--padding)" bind:clientWidth={expandIconWidth}>

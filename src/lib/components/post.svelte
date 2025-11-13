@@ -43,7 +43,7 @@
 		<div class="mb-0.5 line-clamp-2 text-sm leading-snug">{title}</div>
 		{#if subtitle}
 			<div
-				class="line-clamp-1 text-xs leading-none font-medium text-foreground-secondary transition-colors duration-500"
+				class="line-clamp-1 text-xs leading-none font-medium text-foreground-secondary transition-colors"
 			>
 				{subtitle}
 			</div>

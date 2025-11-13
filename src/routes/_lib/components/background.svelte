@@ -23,6 +23,6 @@
 		/>
 	{/key}
 	<div
-		class="absolute inset-0 bg-background-primary/70 bg-[url(/image/noise.png)] transition-colors duration-500"
+		class="absolute inset-0 bg-background-primary/70 bg-[url(/image/noise.png)] transition-colors"
 	></div>
 </div>

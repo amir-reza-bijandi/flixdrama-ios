@@ -51,7 +51,7 @@
 		<span
 			style:--width={toRem(labelWidth < MIN_ITEM_WIDTH ? MIN_ITEM_WIDTH : labelWidth)}
 			class={[
-				'relative flex w-(--width) justify-center transition-[width,height] duration-500 ease-overshoot-heavy',
+				'relative flex w-(--width) justify-center transition-[width,height] ease-overshoot-heavy',
 				isActive ? 'h-10.5' : 'h-6'
 			]}
 		>

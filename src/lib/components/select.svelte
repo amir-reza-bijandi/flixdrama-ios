@@ -69,6 +69,6 @@
 	<span
 		style:--width={toRem(indicatorRect.width)}
 		style:--x="{indicatorRect.x}px"
-		class="absolute left-(--x) -z-10 h-full w-(--width) rounded-full border border-stroke-secondary bg-accent-primary transition-[width,left] duration-500 ease-overshoot-light"
+		class="absolute left-(--x) -z-10 h-full w-(--width) rounded-full border border-stroke-secondary bg-accent-primary transition-[width,left] ease-overshoot-light"
 	></span>
 </div>

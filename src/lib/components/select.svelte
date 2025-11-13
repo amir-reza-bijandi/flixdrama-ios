@@ -49,7 +49,7 @@
 	}
 </script>
 
-<div class="relative isolate mt-3 mb-4 flex gap-2" bind:this={selectElm}>
+<div class="relative isolate mt-2 mb-4 flex gap-2" bind:this={selectElm}>
 	{#each optionList as { name, value }, index (value)}
 		<button
 			style="max-width: {toRem(MAX_OPTION_WIDTH)};"

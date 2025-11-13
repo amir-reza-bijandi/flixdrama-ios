@@ -25,7 +25,7 @@
 
 <PostSection heading="Synopsis">
 	<div
-		class="relative rounded-2xl bg-background-secondary text-sm leading-normal outline -outline-offset-1 outline-stroke-primary transition-colors"
+		class="relative rounded-2xl bg-background-tertiary text-sm leading-normal outline -outline-offset-1 outline-stroke-primary transition-colors"
 	>
 		<div
 			style:--height={isExpanded ? toRem(maxTextHeight) : toRem(MIN_TEXT_HEIGHT)}

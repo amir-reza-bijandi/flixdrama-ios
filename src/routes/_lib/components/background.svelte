@@ -14,7 +14,7 @@
 <div class="absolute inset-0 -z-10 overflow-hidden bg-background-primary">
 	{#key image}
 		<img
-			class="absolute h-full w-full scale-125 object-cover"
+			class="absolute h-full w-full scale-125 object-cover blur-[128px]"
 			src={image}
 			alt=""
 			transition:fade={{
@@ -23,6 +23,6 @@
 		/>
 	{/key}
 	<div
-		class="absolute inset-0 bg-background-primary/70 bg-[url(/image/noise.png)] backdrop-blur-[128px] transition-colors duration-500"
+		class="absolute inset-0 bg-background-primary/70 bg-[url(/image/noise.png)] transition-colors duration-500"
 	></div>
 </div>

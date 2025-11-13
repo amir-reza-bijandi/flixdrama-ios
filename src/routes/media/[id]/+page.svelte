@@ -2,8 +2,7 @@
 	import { page } from '$app/state';
 	import Post from '$lib/components/post.svelte';
 	import Swiper from '$lib/components/swiper.svelte';
-	import { DATA } from '$lib/constants/data';
-	import type { Country, Type } from '$lib/types/data';
+	import { COUNTRY_LABEL_MAP, DATA, TYPE_LABEL_MAP } from '$lib/constants/data';
 	import { CalendarIcon, GlobeIcon, TvIcon } from '@lucide/svelte';
 	import Genres from './_lib/components/genres.svelte';
 	import PostSection from './_lib/components/post-section.svelte';
@@ -12,17 +11,6 @@
 	import ShortInfo from './_lib/components/short-info.svelte';
 	import Synopsis from './_lib/components/synopsis.svelte';
 	import TrailerBackdrop from './_lib/components/trailer-backdrop.svelte';
-
-	const TYPE_LABEL_MAP: Record<Type, string> = {
-		movie: 'Movie',
-		tv: 'TV'
-	} as const;
-	const COUNTRY_LABEL_MAP: Record<Country, string> = {
-		korea: 'South Korea',
-		china: 'China',
-		japan: 'Japan',
-		thai: 'Thailand'
-	} as const;
 
 	const { backdrop, title, type, country, year, genres, synopsis, score } = $derived(
 		DATA.find(({ id }) => id === Number(page.params.id)) ?? DATA[0]

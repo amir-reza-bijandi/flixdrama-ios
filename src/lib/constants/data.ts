@@ -1,4 +1,4 @@
-import type { Media } from '../types/data';
+import type { Country, Media, Type } from '../types/data';
 
 export const DATA = [
 	{
@@ -132,3 +132,15 @@ export const DATA = [
 			"The series centers on a group of high school students who have inherited various superhuman abilities—such as flight, high-speed regeneration, and enhanced senses—from their parents, who were elite secret agents working for the South Korean government's National Intelligence Service (NIS). After their special unit was suddenly disbanded, the parents went into hiding, forcing their children to suppress their powers to live ordinary lives and avoid detection. However, when a mysterious and ruthless assassin begins systematically targeting people with powers, both the students and their parents are forced to step out of the shadows. They must use their formidable abilities to protect themselves and expose the dark secrets of the NIS program that created them."
 	}
 ] as const satisfies Media[];
+
+export const COUNTRY_LABEL_MAP = {
+	korea: 'South Korea',
+	china: 'China',
+	japan: 'Japan',
+	thai: 'Thailand'
+} as const satisfies Record<Country, string>;
+
+export const TYPE_LABEL_MAP = {
+	movie: 'Movie',
+	tv: 'TV'
+} as const satisfies Record<Type, string>;

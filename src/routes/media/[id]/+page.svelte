@@ -45,24 +45,27 @@
 
 <div class="flex flex-1 flex-col">
 	<TrailerBackdrop {backdrop} />
-	<div
-		class="relative mt-49 flex-1 rounded-t-3xl border-t border-stroke-primary bg-background-tertiary p-6 backdrop-blur-lg"
-	>
-		<div class="text-2xl leading-none font-bold">{title}</div>
-		<Score>
-			{score}
-		</Score>
-		<ShortInfo data={shortInfoData} />
-		<Genres data={genres} />
-		<Synopsis>
-			{synopsis}
-		</Synopsis>
-		<PostSection heading="Recommendations">
-			<Swiper gap={8} padding={24}>
-				{#each DATA as { id, poster, title, score }}
-					<Post {id} image={poster} {title} {score} />
-				{/each}
-			</Swiper>
-		</PostSection>
+	<div class="relative mt-49 flex-1 p-6">
+		<div
+			class="absolute inset-0 rounded-t-3xl border-t border-stroke-primary bg-background-tertiary backdrop-blur-lg"
+		></div>
+		<div class="relative z-10">
+			<div class="text-2xl leading-none font-bold">{title}</div>
+			<Score>
+				{score}
+			</Score>
+			<ShortInfo data={shortInfoData} />
+			<Genres data={genres} />
+			<Synopsis>
+				{synopsis}
+			</Synopsis>
+			<PostSection heading="Recommendations">
+				<Swiper gap={8} padding={24}>
+					{#each DATA as { id, poster, title, score }}
+						<Post {id} image={poster} {title} {score} />
+					{/each}
+				</Swiper>
+			</PostSection>
+		</div>
 	</div>
 </div>

@@ -10,15 +10,15 @@
 <script lang="ts" generics="T extends Options">
 	import { toRem } from '$lib/utilities/general';
 
-	const MAX_OPTION_WIDTH = 92;
 	const DEFAULT_SELECTED_INDEX = 0;
 	const DATASET_KEY = 'selected';
 
 	type Props = {
 		options: T;
 		onSelect?: SelectEventHandler<T>;
+		maxOptionWidth?: number;
 	};
-	let { options: optionList }: Props = $props();
+	let { options, maxOptionWidth = 92 }: Props = $props();
 
 	type IndicatorRect = {
 		x: number;
@@ -34,7 +34,7 @@
 		else
 			return {
 				x: 0,
-				width: MAX_OPTION_WIDTH
+				width: maxOptionWidth
 			};
 	});
 
@@ -50,9 +50,9 @@
 </script>
 
 <div class="relative isolate mt-2 mb-4 flex gap-2" bind:this={selectElm}>
-	{#each optionList as { name, value }, index (value)}
+	{#each options as { name, value }, index (value)}
 		<button
-			style="max-width: {toRem(MAX_OPTION_WIDTH)};"
+			style="max-width: {toRem(maxOptionWidth)};"
 			class={[
 				'inline-block cursor-pointer p-2 text-sm leading-none transition-colors duration-300',
 				index === selectedIndex && 'text-foreground-accent'

@@ -7,6 +7,7 @@
 	import { COUNTRY_LABEL_MAP, DATA } from '$lib/constants/data';
 	import type { Country } from '$lib/types/data';
 	import RecommendationsCarousel from './_lib/components/recommendations-carousel.svelte';
+	import { navigationStore } from './_lib/stores/navigation-store.svelte';
 
 	const optionList = Object.keys(COUNTRY_LABEL_MAP).map<Option<Country>>((country) => ({
 		name: COUNTRY_LABEL_MAP[country as Country],
@@ -14,7 +15,7 @@
 	}));
 </script>
 
-<div class="pb-5">
+<div style:--bottom-padding={navigationStore.bottomSpacing} class="pb-(--bottom-padding)">
 	<RecommendationsCarousel />
 	<Section>
 		<SectionHeading>TV Releases</SectionHeading>

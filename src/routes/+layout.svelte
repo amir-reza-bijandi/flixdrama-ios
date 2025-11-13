@@ -4,6 +4,7 @@
 	import '../app.css';
 	import Background from './_lib/components/background.svelte';
 	import Header from './_lib/components/header.svelte';
+	import Navigation from './_lib/components/navigation.svelte';
 
 	const MODE_STORAGE_KEY = 'flixdrama-mode';
 	const THEME_STORAGE_KEY = 'flixdrama-theme';
@@ -24,7 +25,10 @@
 		disableTransitions={false}
 	/>
 	<Background />
-	<div class="relative mx-auto flex min-h-screen max-w-lg flex-col overflow-hidden pt-9">
+	<Navigation />
+	<div
+		class="relative mx-auto flex min-h-screen max-w-lg flex-col overflow-hidden pt-9 pb-(--padding-bottom)"
+	>
 		<Header />
 		{@render children()}
 	</div>

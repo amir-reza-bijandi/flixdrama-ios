@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Post from '$lib/components/post.svelte';
-	import SectionSelect, { type Option } from '$lib/components/section-select.svelte';
 	import Section from '$lib/components/section.svelte';
+	import Select, { type Option } from '$lib/components/select.svelte';
 	import Swiper from '$lib/components/swiper.svelte';
 	import { COUNTRY_LABEL_MAP, DATA } from '$lib/constants/data';
 	import type { Country } from '$lib/types/data';
@@ -17,7 +17,7 @@
 <div style:--bottom-padding={navigationStore.bottomSpacing} class="pb-(--bottom-padding)">
 	<RecommendationsCarousel />
 	<Section heading="TV Releases">
-		<SectionSelect {optionList} />
+		<Select {optionList} />
 		<Swiper gap={8} padding={20}>
 			{#each DATA as { id, poster, title, score }}
 				<Post
@@ -31,7 +31,7 @@
 		</Swiper>
 	</Section>
 	<Section heading="Movie Releases">
-		<SectionSelect {optionList} />
+		<Select {optionList} />
 		<Swiper gap={8} padding={20}>
 			{#each DATA as { id, poster, title, score }}
 				<Post {id} image={poster} {title} {score} />

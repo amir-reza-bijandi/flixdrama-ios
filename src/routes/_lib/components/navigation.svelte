@@ -1,9 +1,11 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import type { HeroIcon } from '$lib/types/icon';
 	import { toRem } from '$lib/utilities/general';
 	import { FolderArrowDown, Home, Pencil } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { backOut } from 'svelte/easing';
 	import { fly, scale } from 'svelte/transition';
 	import { navigationStore } from '../stores/navigation-store.svelte';
 
@@ -28,6 +30,15 @@
 	] as const satisfies Route[];
 
 	let labelWidth = $state(0);
+	let mainButtonWidth = $state(0);
+	let mainButtonHeight = $state(0);
+	const isFeedbackRoute = $derived(page.url.pathname === resolve('/feedback'));
+
+	$effect(() => {
+		if (isFeedbackRoute) {
+			labelWidth = MIN_ITEM_WIDTH;
+		}
+	});
 </script>
 
 <div
@@ -37,17 +48,41 @@
 	{#each ROUTES as route, index}
 		{@render item(route, route.pathname === page.url.pathname)}
 		{#if index === ROUTES.length / 2 - 1}
-			<button
-				class="h-fit rounded-full bg-accent-primary p-3 text-foreground-accent outline -outline-offset-1 outline-stroke-primary"
+			<a
+				style:--width={toRem(mainButtonWidth)}
+				style:--height={toRem(mainButtonHeight)}
+				class="flex h-(--height) w-(--width) items-center justify-center rounded-full bg-accent-primary text-foreground-accent outline -outline-offset-1 outline-stroke-primary transition-[width,height] ease-overshoot-medium"
+				href={resolve('/feedback')}
 			>
-				<Icon class="size-6" src={Pencil} theme="solid" />
-			</button>
+				{#key isFeedbackRoute}
+					<span
+						class="absolute"
+						in:scale={{
+							duration: 500,
+							easing: backOut
+						}}
+						out:scale={{
+							duration: 500
+						}}
+						bind:clientWidth={mainButtonWidth}
+						bind:clientHeight={mainButtonHeight}
+					>
+						{#if isFeedbackRoute}
+							<span class="inline-block p-4 font-bold"> Feedback </span>
+						{:else}
+							<span class="block p-3">
+								<Icon class="size-6" src={Pencil} theme="solid" />
+							</span>
+						{/if}
+					</span>
+				{/key}
+			</a>
 		{/if}
 	{/each}
 </div>
 
-{#snippet item({ label, icon, pathname }: Route, isActive: boolean)}
-	<a class="p-2" href={pathname}>
+{#snippet item({ label, icon, pathname }: (typeof ROUTES)[number], isActive: boolean)}
+	<a class="p-2" href={resolve(pathname)}>
 		<span
 			style:--width={toRem(labelWidth < MIN_ITEM_WIDTH ? MIN_ITEM_WIDTH : labelWidth)}
 			class={[

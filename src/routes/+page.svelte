@@ -5,6 +5,7 @@
 	import Swiper from '$lib/components/swiper.svelte';
 	import { COUNTRY_LABEL_MAP, DATA } from '$lib/constants/data';
 	import type { Country } from '$lib/types/data';
+	import { toRem } from '$lib/utilities/general';
 	import RecommendationsCarousel from './_lib/components/recommendations-carousel.svelte';
 	import { navigationStore } from './_lib/stores/navigation-store.svelte';
 
@@ -14,7 +15,7 @@
 	}));
 </script>
 
-<div style:--bottom-padding={navigationStore.bottomSpacing} class="pb-(--bottom-padding)">
+<div style:--bottom-padding={toRem(navigationStore.requiredSpace)} class="pb-(--bottom-padding)">
 	<RecommendationsCarousel />
 	<Section heading="TV Releases">
 		<Select {options} />

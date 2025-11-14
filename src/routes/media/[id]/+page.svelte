@@ -3,6 +3,7 @@
 	import Post from '$lib/components/post.svelte';
 	import Swiper from '$lib/components/swiper.svelte';
 	import { COUNTRY_LABEL_MAP, DATA, TYPE_LABEL_MAP } from '$lib/constants/data';
+	import { toRem } from '$lib/utilities/general';
 	import { CalendarIcon, GlobeIcon, TvIcon } from '@lucide/svelte';
 	import { navigationStore } from '../../_lib/stores/navigation-store.svelte';
 	import Genres from './_lib/components/genres.svelte';
@@ -35,7 +36,7 @@
 <div class="flex flex-1 flex-col">
 	<TrailerBackdrop {backdrop} />
 	<div
-		style:--bottom-padding={navigationStore.bottomSpacing}
+		style:--bottom-padding={toRem(navigationStore.requiredSpace)}
 		class="relative mt-49 flex-1 p-6 pb-(--bottom-padding)"
 	>
 		<div

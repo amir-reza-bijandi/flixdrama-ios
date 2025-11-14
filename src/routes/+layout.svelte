@@ -27,7 +27,7 @@
 	<Background />
 	<Navigation />
 	<div
-		class="relative mx-auto flex min-h-screen max-w-lg flex-col overflow-hidden pt-9 pb-(--padding-bottom)"
+		class="relative mx-auto scrollbar-hidden flex min-h-screen max-w-lg flex-col overflow-x-hidden pt-9 pb-(--padding-bottom)"
 	>
 		<Header />
 		{@render children()}

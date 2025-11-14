@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Image from '$lib/components/image.svelte';
 	import Separator from '$lib/components/separator.svelte';
 	import { ArrowDownTray, Play } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -10,11 +11,11 @@
 </script>
 
 <div class="absolute top-0 left-1/2 w-132 -translate-x-1/2">
-	<img
+	<Image
 		style="mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0))"
 		class="aspect-video h-auto w-full"
 		src={backdrop}
-		alt=""
+		loadingGlow
 	/>
 	<div class="absolute top-29.5 left-1/2 -translate-x-1/2">
 		<div

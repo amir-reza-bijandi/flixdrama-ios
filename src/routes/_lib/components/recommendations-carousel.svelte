@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import Image from '$lib/components/image.svelte';
 	import Separator from '$lib/components/separator.svelte';
 	import { DATA } from '$lib/constants/data';
 	import { Star } from '@steeze-ui/heroicons';
@@ -102,12 +103,14 @@
 						id: String(id)
 					})}
 				>
-					<img
-						style="mask-image: radial-gradient(100% 110% at center top, hsla(0, 0%, 0%, 1) 0%, hsla(0, 0%, 0%, 0) 100%);"
-						class="w-full duration-5000 ease-linear group-[&.active]:scale-110"
-						src={backdrop}
-						alt=""
-					/>
+					<div class="size-fit duration-5000 ease-linear group-[&.active]:scale-110">
+						<Image
+							style="mask-image: radial-gradient(100% 110% at center top, hsla(0, 0%, 0%, 1) 0%, hsla(0, 0%, 0%, 0) 100%);"
+							class="aspect-video h-auto w-full"
+							src={backdrop}
+							loadingGlow
+						/>
+					</div>
 					<div
 						style="transform-origin: left bottom;"
 						class="absolute right-4 bottom-4 left-4 flex scale-75 items-center gap-2 font-bold opacity-0 transition-[opacity,scale] ease-overshoot-light group-[&.active]:scale-100 group-[&.active]:opacity-100"

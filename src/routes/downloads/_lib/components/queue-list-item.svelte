@@ -9,6 +9,7 @@
 </script>
 
 <script lang="ts">
+	import Image from '$lib/components/image.svelte';
 	import type { HeroIcon } from '$lib/types/icon';
 	import { Pause, Play } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -35,12 +36,7 @@
 
 <ListItem {id} {onDelete}>
 	<div class="flex items-center gap-2">
-		<img
-			class="aspect-video h-auto w-24 shrink-0 rounded-lg outline -outline-offset-1 outline-stroke-secondary"
-			src={image}
-			alt=""
-			draggable="false"
-		/>
+		<Image class="aspect-video h-auto w-24 shrink-0 rounded-lg" src={image} outline loadingGlow />
 		<div class="flex-1">
 			<span class="mb-1.5 inline-block text-sm leading-none font-bold">{title}</span>
 			<div>

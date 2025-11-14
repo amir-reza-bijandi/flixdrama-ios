@@ -10,6 +10,7 @@
 <script lang="ts">
 	import { Icon } from '@steeze-ui/svelte-icon';
 
+	import Image from '$lib/components/image.svelte';
 	import { Clock } from '@steeze-ui/heroicons';
 	import { formatDuration } from '../utilities/format-duration';
 	import type { ListItemDeleteHandler } from './list-item.svelte';
@@ -25,12 +26,7 @@
 
 <ListItem {id} {onDelete}>
 	<div class="flex items-center gap-2">
-		<img
-			class="aspect-video h-auto w-24 shrink-0 rounded-lg outline -outline-offset-1 outline-stroke-secondary"
-			src={image}
-			alt=""
-			draggable="false"
-		/>
+		<Image class="aspect-video h-auto w-24 shrink-0 rounded-lg" src={image} outline loadingGlow />
 		<div>
 			<span class="mb-1 inline-block text-sm leading-none font-bold">{title}</span>
 			<div class="flex items-center gap-1 text-xs leading-none">

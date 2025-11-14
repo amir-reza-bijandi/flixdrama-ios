@@ -2,6 +2,7 @@
 	import { resolve } from '$app/paths';
 	import { Star } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import Image from './image.svelte';
 
 	type Props = {
 		id: number;
@@ -21,10 +22,15 @@
 	draggable="false"
 >
 	<div class="relative mb-1.5">
-		<div
-			class="relative overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-secondary transition-colors"
-		>
-			<img class="aspect-2/3 h-auto" src={image} alt="" draggable={false} />
+		<div class="relative overflow-hidden transition-colors">
+			<Image
+				class="aspect-2/3 h-auto rounded-2xl"
+				src={image}
+				width={128}
+				height={192}
+				outline
+				loadingGlow
+			/>
 			<div
 				class="absolute top-2 left-2 flex items-center gap-0.5 rounded-full bg-accent-secondary p-1 pr-1.5 text-foreground-accent outline -outline-offset-1 outline-stroke-secondary"
 			>
@@ -32,12 +38,7 @@
 				<span class="translate-y-px text-xs leading-none font-bold">{score.toFixed(1)}</span>
 			</div>
 		</div>
-		<img
-			class="absolute -bottom-3 left-6 -z-10 h-16 w-20 opacity-75 blur-xl"
-			src={image}
-			alt=""
-			draggable={false}
-		/>
+		<Image class="absolute -bottom-3 left-6 -z-10 h-16 w-20 opacity-75 blur-xl" src={image} />
 	</div>
 	<div class="relative z-10 px-2 text-center">
 		<div class="mb-0.5 line-clamp-2 text-sm leading-snug">{title}</div>

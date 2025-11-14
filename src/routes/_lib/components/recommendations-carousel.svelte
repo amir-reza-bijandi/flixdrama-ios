@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import Separator from '$lib/components/separator.svelte';
 	import { DATA } from '$lib/constants/data';
 	import { Star } from '@steeze-ui/heroicons';
@@ -90,12 +91,17 @@
 
 <div class="swiper relative isolate mt-6.5 mb-8 w-full overflow-visible!" bind:this={swiperElm}>
 	<div class="swiper-wrapper overflow-visible!">
-		{#each DATA as { backdrop, score, title }, index}
+		{#each DATA as { backdrop, score, title, id }, index}
 			<div
 				class="swiper-slide group aspect-video h-auto! w-90! overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-primary transition-colors [&.active]:shadow-[0px_0px_6rem_--alpha(var(--color-foreground-primary)/10%)]"
 				bind:this={slideElms[index]}
 			>
-				<a class="relative block" href="/">
+				<a
+					class="relative block"
+					href={resolve('/media/[id]', {
+						id: String(id)
+					})}
+				>
 					<img
 						style="mask-image: radial-gradient(100% 110% at center top, hsla(0, 0%, 0%, 1) 0%, hsla(0, 0%, 0%, 0) 100%);"
 						class="w-full duration-5000 ease-linear group-[&.active]:scale-110"

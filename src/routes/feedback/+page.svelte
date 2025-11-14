@@ -17,7 +17,7 @@
 		placeholder="Write your feedback here..."
 	></textarea>
 	<button
-		class="w-full rounded-full bg-background-tertiary p-3 text-sm outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg transition-colors duration-150 active:bg-background-secondary"
+		class="w-full rounded-full bg-accent-secondary p-3 text-sm outline -outline-offset-1 outline-stroke-secondary transition-colors duration-150 active:bg-accent-secondary-tint"
 	>
 		Submit
 	</button>

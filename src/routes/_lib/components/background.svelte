@@ -6,7 +6,7 @@
 
 	const image = $derived(
 		page.url.pathname.includes('/media')
-			? DATA[Number(page.params.id)].backdrop
+			? (DATA.find(({ id }) => id === Number(page.params.id))?.backdrop ?? '')
 			: DATA[recommendationsCarouselStore.currentIndex].backdrop
 	);
 </script>

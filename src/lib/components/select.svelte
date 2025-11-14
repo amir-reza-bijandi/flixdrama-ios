@@ -4,7 +4,10 @@
 		value: T;
 	}>;
 	type Options = ReadonlyArray<Option>;
-	export type SelectEventHandler<T extends Options> = (value: T[number]['value']) => void;
+	export type SelectEventHandler<T extends Options> = (
+		value: T[number]['value'],
+		index: number
+	) => void;
 </script>
 
 <script lang="ts" generics="T extends Options">
@@ -18,7 +21,7 @@
 		onSelect?: SelectEventHandler<T>;
 		maxOptionWidth?: number;
 	};
-	let { options, maxOptionWidth = 92 }: Props = $props();
+	let { options, maxOptionWidth = 92, onSelect }: Props = $props();
 
 	type IndicatorRect = {
 		x: number;
@@ -57,7 +60,10 @@
 				'inline-block cursor-pointer p-2 text-sm leading-none transition-colors duration-300',
 				index === selectedIndex && 'text-foreground-accent'
 			]}
-			onclick={() => (selectedIndex = index)}
+			onclick={() => {
+				selectedIndex = index;
+				onSelect?.(value, index);
+			}}
 			bind:this={optionElms[index]}
 			{...{
 				[`data-${DATASET_KEY}`]: selectedIndex === index

@@ -69,7 +69,7 @@
 				[`data-${DATASET_KEY}`]: selectedIndex === index
 			}}
 		>
-			{name}
+			<span class="inline-block translate-y-px">{name}</span>
 		</button>
 	{/each}
 	<span

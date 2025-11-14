@@ -34,7 +34,7 @@
 >
 	<div
 		style:--height={toRem(height)}
-		class={['relative isolate h-(--height) transition-[height,flex] duration-150 ease-out']}
+		class={['transition-height relative isolate h-(--height) duration-150 ease-out']}
 	>
 		<div class="absolute inset-0 overflow-hidden rounded-2xl">
 			<div

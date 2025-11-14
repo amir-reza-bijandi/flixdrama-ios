@@ -79,7 +79,7 @@
 					? listContentHeight + navigationStore.requiredSpace
 					: listContainerHeight
 			)}
-			class="absolute h-(--height) w-full"
+			class="transition-height absolute h-(--height) w-full duration-150"
 		>
 			{#if currentTab === 'queue'}
 				<List

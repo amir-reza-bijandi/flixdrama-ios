@@ -7,11 +7,9 @@
 	import { cubicOut } from 'svelte/easing';
 	import { scale } from 'svelte/transition';
 	import { navigationStore } from '../_lib/stores/navigation-store.svelte';
-	import type {
-		DownloadItemData,
-		DownloadItemDeleteHandler
-	} from './_lib/components/download-item.svelte';
-	import DownloadItem from './_lib/components/download-item.svelte';
+	import type { ListItemDeleteHandler } from './_lib/components/list-item.svelte';
+	import type { QueueListItemData } from './_lib/components/queue-list-item.svelte';
+	import QueueListItem from './_lib/components/queue-list-item.svelte';
 
 	const OPTIONS = [
 		{
@@ -24,8 +22,8 @@
 		}
 	] as const satisfies Option[];
 
-	let downloads = $state<DownloadItemData[]>(
-		DATA.map<DownloadItemData>(({ title, backdrop }, index) => ({
+	let queueItems = $state<QueueListItemData[]>(
+		DATA.map<QueueListItemData>(({ title, backdrop }, index) => ({
 			id: index + 1,
 			title,
 			image: backdrop,
@@ -34,10 +32,10 @@
 		}))
 	);
 	let downloadListHeight = $state(0);
-	const isDownloadsEmpty = $derived(!downloads.length);
+	const isDownloadsEmpty = $derived(!queueItems.length);
 
-	const handleDelete: DownloadItemDeleteHandler = (deletedId) =>
-		(downloads = downloads.filter(({ id }) => id !== deletedId));
+	const handleDelete: ListItemDeleteHandler = (deletedId) =>
+		(queueItems = queueItems.filter(({ id }) => id !== deletedId));
 </script>
 
 <div
@@ -69,14 +67,14 @@
 			</div>
 		{/if}
 		<div class="divide-y divide-stroke-primary" bind:clientHeight={downloadListHeight}>
-			{#each downloads as data (data.id)}
+			{#each queueItems as data (data.id)}
 				<div
 					animate:flip={{
 						duration: 150,
 						easing: cubicOut
 					}}
 				>
-					<DownloadItem {data} onDelete={handleDelete} />
+					<QueueListItem {data} onDelete={handleDelete} />
 				</div>
 			{/each}
 		</div>

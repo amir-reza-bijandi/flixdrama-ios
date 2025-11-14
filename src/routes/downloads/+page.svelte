@@ -126,7 +126,7 @@
 	{#if isListEmpty}
 		<div
 			class="absolute top-1/2 left-1/2 -translate-1/2 text-center text-xl leading-tight font-bold"
-			transition:scale|global={{
+			in:scale|global={{
 				delay: 300,
 				duration: 300,
 				start: 0.75

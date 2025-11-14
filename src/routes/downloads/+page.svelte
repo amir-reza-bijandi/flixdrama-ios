@@ -59,8 +59,6 @@
 	);
 	const isListEmpty = $derived(currentTab === 'queue' ? !queueItems.length : !fileItems.length);
 
-	$inspect(listContainerHeight, listContentHeight + navigationStore.requiredSpace);
-
 	const handleQueueItemDelete: ListItemDeleteHandler = (deletedId) =>
 		(queueItems = queueItems.filter(({ id }) => id !== deletedId));
 	const handleFileItemDelete: ListItemDeleteHandler = (deletedId) =>

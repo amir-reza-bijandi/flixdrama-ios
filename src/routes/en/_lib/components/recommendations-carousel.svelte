@@ -99,7 +99,7 @@
 			>
 				<a
 					class="relative block"
-					href={resolve('/media/[id]', {
+					href={resolve('/en/media/[id]', {
 						id: String(id)
 					})}
 				>

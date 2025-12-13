@@ -20,19 +20,19 @@
 		{
 			icon: Home,
 			label: 'Home',
-			pathname: '/'
+			pathname: '/en'
 		},
 		{
 			icon: FolderArrowDown,
 			label: 'Downloads',
-			pathname: '/downloads'
+			pathname: '/en/downloads'
 		}
 	] as const satisfies Route[];
 
 	let labelWidth = $state(0);
 	let mainButtonWidth = $state(0);
 	let mainButtonHeight = $state(0);
-	const isFeedbackRoute = $derived(page.url.pathname === resolve('/feedback'));
+	const isFeedbackRoute = $derived(page.url.pathname === resolve('/en/feedback'));
 
 	$effect(() => {
 		if (isFeedbackRoute) {
@@ -52,7 +52,7 @@
 				style:--width={toRem(mainButtonWidth)}
 				style:--height={toRem(mainButtonHeight)}
 				class="flex h-(--height) w-(--width) items-center justify-center rounded-full bg-accent-primary text-foreground-accent outline -outline-offset-1 outline-stroke-primary transition-[width,height] ease-overshoot-medium"
-				href={resolve('/feedback')}
+				href={resolve('/en/feedback')}
 			>
 				{#key isFeedbackRoute}
 					<span

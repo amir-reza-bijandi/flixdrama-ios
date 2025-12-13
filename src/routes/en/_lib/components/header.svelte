@@ -7,7 +7,7 @@
 	import Branding from './branding.svelte';
 	import ModeToggle from './mode-toggle.svelte';
 
-	const isMediaRoute = $derived(page.url.pathname.includes(resolve('/media')));
+	const isMediaRoute = $derived(page.url.pathname.includes(resolve('/en/media')));
 	const handleBack = () => window.history.back();
 </script>
 

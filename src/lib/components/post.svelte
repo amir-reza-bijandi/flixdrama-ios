@@ -16,7 +16,7 @@
 
 <a
 	class="block w-32 shrink-0"
-	href={resolve('/media/[id]', {
+	href={resolve('/en/media/[id]', {
 		id: String(id)
 	})}
 	draggable="false"

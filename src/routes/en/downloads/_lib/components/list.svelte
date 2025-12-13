@@ -3,14 +3,13 @@
 	import type { Snippet } from 'svelte';
 	import { backOut } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
-	import type { DirectionFactor } from '../types/list';
 
 	const TRANSITION_DURATION = 500;
 
 	type Props = {
 		children: Snippet;
 		message: Snippet;
-		directionFactor: DirectionFactor;
+		directionFactor: 1 | -1;
 		height: number;
 		readonly contentHeight: number;
 	};

@@ -3,7 +3,7 @@
 	import Image from '$lib/components/image.svelte';
 	import { DATA } from '$lib/constants/data';
 	import { fade } from 'svelte/transition';
-	import { recommendationsCarouselStore } from '../stores/recommendations-carousel-store.svelte';
+	import { recommendationsCarouselStore } from '../../en/_lib/stores/recommendations-carousel-store.svelte';
 
 	const image = $derived(
 		page.url.pathname.includes('/media')

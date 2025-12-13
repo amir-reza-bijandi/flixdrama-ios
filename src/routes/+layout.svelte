@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { ASSETS } from '$lib/assets';
+	import { asset } from '$app/paths';
 	import { ModeWatcher } from 'mode-watcher';
 	import '../app.css';
 	import Background from './_lib/components/background.svelte';
@@ -11,7 +11,7 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={ASSETS.FAV_ICON} />
+	<link rel="icon" href={asset('/favicon.svg')} />
 </svelte:head>
 
 <div

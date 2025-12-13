@@ -24,7 +24,7 @@
 	/>
 	<Background />
 	<div
-		class="relative mx-auto scrollbar-hidden flex min-h-screen max-w-lg flex-col overflow-x-hidden pt-9"
+		class="relative mx-auto scrollbar-hidden flex min-h-screen max-w-lg flex-col overflow-x-hidden"
 	>
 		{@render children()}
 	</div>

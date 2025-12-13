@@ -5,6 +5,8 @@
 	let { children } = $props();
 </script>
 
-<Navigation />
-<Header />
+<div class="pt-9">
+	<Navigation />
+	<Header />
+</div>
 {@render children()}

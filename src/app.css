@@ -32,6 +32,7 @@
 	--color-foreground-accent: var(--color-gray-100);
 	--color-stroke-primary: --alpha(var(--color-foreground-primary) / 5%);
 	--color-stroke-secondary: --alpha(var(--color-foreground-primary) / 15%);
+	--color-stroke-tertiary: --alpha(var(--color-foreground-primary) / 25%);
 
 	--default-transition-duration: 500ms;
 
@@ -103,4 +104,8 @@
 	& {
 		scrollbar-width: none;
 	}
+}
+
+@utility box-container {
+	@apply relative isolate;
 }

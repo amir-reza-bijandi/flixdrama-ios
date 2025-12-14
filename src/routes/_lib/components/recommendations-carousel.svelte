@@ -2,7 +2,7 @@
 	import { resolve } from '$app/paths';
 	import Image from '$lib/components/image.svelte';
 	import Separator from '$lib/components/separator.svelte';
-	import { DATA } from '$lib/constants/data';
+	import type { SliderItem } from '$lib/types/api';
 	import { Star } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { Swiper } from 'swiper';
@@ -10,6 +10,12 @@
 	import 'swiper/css/effect-coverflow';
 	import { Autoplay, EffectCoverflow } from 'swiper/modules';
 	import { recommendationsCarouselStore } from '../stores/recommendations-carousel-store.svelte';
+
+	type Props = {
+		sliderItems: SliderItem[];
+	};
+
+	const { sliderItems }: Props = $props();
 
 	const AUTOPLAY_DELAY = 5000;
 
@@ -92,7 +98,7 @@
 
 <div class="swiper relative isolate mt-6.5 mb-8 w-full overflow-visible!" bind:this={swiperElm}>
 	<div class="swiper-wrapper overflow-visible!">
-		{#each DATA as { backdrop, score, title, id }, index}
+		{#each sliderItems as { poster, vote, name, id }, index}
 			<div
 				class="swiper-slide group aspect-video h-auto! w-90! overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-primary transition-colors [&.active]:shadow-[0px_0px_6rem_--alpha(var(--color-foreground-primary)/10%)]"
 				bind:this={slideElms[index]}
@@ -107,7 +113,7 @@
 						<Image
 							style="mask-image: radial-gradient(100% 110% at center top, hsla(0, 0%, 0%, 1) 0%, hsla(0, 0%, 0%, 0) 100%);"
 							class="aspect-video h-auto w-full"
-							src={backdrop}
+							src={poster}
 							loadingGlow
 						/>
 					</div>
@@ -115,13 +121,13 @@
 						style="transform-origin: left bottom;"
 						class="absolute right-4 bottom-4 left-4 flex scale-75 items-center gap-2 font-bold opacity-0 transition-[opacity,scale] ease-overshoot-light group-[&.active]:scale-100 group-[&.active]:opacity-100"
 					>
-						<span class="line-clamp-1">{title}</span>
+						<span class="line-clamp-1">{name}</span>
 						<Separator variant="secondary" size={10} />
 						<div
 							class="flex items-center gap-1 text-accent-secondary dark:text-accent-secondary-tint"
 						>
 							<Icon src={Star} theme="solid" class="w-4" />
-							<span class="translate-y-px text-sm leading-none">{score}</span>
+							<span class="translate-y-px text-sm leading-none">{vote}</span>
 						</div>
 					</div>
 				</a>

@@ -8,11 +8,13 @@
 	import ModeToggle from './mode-toggle.svelte';
 
 	const isMediaRoute = $derived(page.url.pathname.includes(resolve('/media')));
+	const isArchiveRoute = $derived(page.url.pathname.includes(resolve('/archive')));
+	const showBackButton = $derived(isMediaRoute || isArchiveRoute);
 	const handleBack = () => window.history.back();
 </script>
 
 <div class="relative z-10 flex items-center justify-between px-7">
-	{#if !isMediaRoute}
+	{#if !showBackButton}
 		<Branding />
 	{:else}
 		<IconButton onclick={handleBack}>

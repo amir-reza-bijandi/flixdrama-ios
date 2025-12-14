@@ -60,6 +60,12 @@ export type ApiError = {
 	status?: number;
 };
 
+// Trailer info
+export type TrailerInfo = {
+	link: string;
+	subtitle: string;
+};
+
 // Media details response
 export type MediaDetails = {
 	id: number;
@@ -86,6 +92,7 @@ export type SimilarMedia = {
 export type MediaResponse = {
 	details: MediaDetails;
 	similars: SimilarMedia[];
+	trailer?: TrailerInfo;
 };
 
 // Archive API response

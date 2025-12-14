@@ -80,7 +80,7 @@
 	</div>
 {:else if mediaData}
 	<div class="flex flex-1 flex-col">
-		<TrailerBackdrop backdrop={mediaData.details.banner} />
+		<TrailerBackdrop backdrop={mediaData.details.banner} trailer={mediaData.trailer} />
 		<div
 			style:--bottom-padding={toRem(navigationStore.requiredSpace)}
 			class="relative mt-49 flex-1 p-6 pb-(--bottom-padding)"

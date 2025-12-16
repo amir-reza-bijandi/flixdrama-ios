@@ -4,10 +4,14 @@
 	import { TRANSITION } from '$lib/constants/transition';
 	import type { HeroIcon } from '$lib/types/icon';
 	import { toRem } from '$lib/utilities/general';
+	import { PopcornIcon } from '@lucide/svelte';
 	import { ArchiveBox, FolderArrowDown, Home, User } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { backOut } from 'svelte/easing';
-	import { scale } from 'svelte/transition';
+	import { fade, scale } from 'svelte/transition';
+
+	const LABEL_TRANSITION_DURATION = 300;
+	const DEFAULT_CENTER_BUTTON_SIZE = 48;
 
 	type Route = {
 		label: string;
@@ -51,18 +55,18 @@
 			}
 		}
 	] as const satisfies Route[];
-	const DEFAULT_CENTER_BUTTON_SIZE = 48;
 
 	const currentPathname = $derived(navigating.to ? navigating.to.url.pathname : page.url.pathname);
 	const isCenterButtonActive = $derived(currentPathname === '/fa/feed');
-	let centerButtonWidthContent = $state(0);
+	let centerButtonContentWidth = $state(0);
 	let centerButtonWidth = $derived(
-		isCenterButtonActive ? centerButtonWidthContent : DEFAULT_CENTER_BUTTON_SIZE
+		isCenterButtonActive ? centerButtonContentWidth : DEFAULT_CENTER_BUTTON_SIZE
 	);
+	let labelHeight = $state(0);
 </script>
 
 <div
-	class="fixed bottom-0 left-0 z-50 flex w-full items-center justify-between border-t border-stroke-primary bg-background-primary/50 p-3 backdrop-blur-xl"
+	class="fixed bottom-0 left-0 z-50 flex w-full items-center justify-between border-t border-stroke-primary bg-background-primary/50 p-3 backdrop-blur-xl transition-[background-color]"
 >
 	<!-- Border -->
 	<div class="absolute top-0 left-0 h-px w-full bg-stroke-primary"></div>
@@ -70,7 +74,10 @@
 	{#each ROUTES as { label, pathname, icon }, index}
 		{@const isActive = pathname === currentPathname}
 		<a
-			class="flex w-12 flex-col items-center gap-1.5 py-2"
+			class={[
+				'flex w-12 flex-col items-center gap-1.5 py-2 transition-[filter]',
+				isActive && 'brightness-75 saturate-200 dark:brightness-100 dark:saturate-100'
+			]}
 			href={resolve(pathname)}
 			draggable={false}
 		>
@@ -99,16 +106,39 @@
 					</div>
 				{/if}
 			</div>
-			<span class={['text-xs transition-colors', isActive && 'text-accent-primary-tint-extra']}
-				>{label}</span
+			<span
+				style:--height={toRem(labelHeight)}
+				class={['relative grid h-(--height) place-items-center text-xs', isActive && '']}
 			>
+				{#if isActive}
+					<span
+						class="absolute text-accent-primary-tint-extra"
+						bind:clientHeight={labelHeight}
+						transition:fade={{
+							duration: LABEL_TRANSITION_DURATION
+						}}
+					>
+						{label}
+					</span>
+				{:else}
+					<span
+						class="absolute"
+						bind:clientHeight={labelHeight}
+						transition:fade={{
+							duration: LABEL_TRANSITION_DURATION
+						}}
+					>
+						{label}
+					</span>
+				{/if}
+			</span>
 		</a>
 		{#if index === ROUTES.length / 2 - 1}
 			<a
 				style:--width={toRem(centerButtonWidth)}
 				style:--height={toRem(DEFAULT_CENTER_BUTTON_SIZE)}
 				class={[
-					'gradient-border grid h-12 w-(--width) min-w-(--height) place-items-center rounded-full bg-gradient-primary transition-[width] ease-overshoot-heavy',
+					'gradient-border grid h-12 w-(--width) min-w-(--height) place-items-center rounded-full bg-gradient-primary text-foreground-accent transition-[width] ease-overshoot-heavy',
 					!isCenterButtonActive && 'duration-750'
 				]}
 				href={resolve('/fa/feed')}
@@ -117,7 +147,7 @@
 				{#if isCenterButtonActive}
 					<span
 						class="absolute inline-block translate-y-px p-4.5 text-sm leading-none font-bold"
-						bind:clientWidth={centerButtonWidthContent}
+						bind:clientWidth={centerButtonContentWidth}
 						in:scale={{
 							duration: TRANSITION.DURATION,
 							easing: backOut
@@ -129,18 +159,15 @@
 						پشت صحنه
 					</span>
 				{:else}
-					<img
+					<div
 						class="absolute"
-						src={asset('/image/icon/navigation/clapperboard.svg')}
-						alt=""
 						transition:scale={{
 							duration: TRANSITION.DURATION
 						}}
-						bind:clientWidth={centerButtonWidthContent}
-					/>
-					<!-- <div class="absolute" bind:clientWidth={centerButtonWidthContent}>
-						<ApertureIcon class="size-6" />
-					</div> -->
+						bind:clientWidth={centerButtonContentWidth}
+					>
+						<PopcornIcon />
+					</div>
 				{/if}
 			</a>
 		{/if}

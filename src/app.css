@@ -28,6 +28,9 @@
 	--color-accent-secondary-shade: var(--color-yellow-700);
 	--color-accent-tertiary: var(--color-blue-600);
 	--color-accent-tertiary-tint: var(--color-blue-500);
+	--color-danger: var(--color-red-600);
+	--color-danger-tint: var(--color-red-500);
+	--color-danger-shade: var(--color-red-700);
 	--color-background-primary: var(--base-color-background-primary);
 	--color-background-secondary: --alpha(var(--base-color-background-secondary) / 10%);
 	--color-background-tertiary: --alpha(var(--base-color-background-secondary) / 5%);

@@ -53,7 +53,7 @@
 	});
 </script>
 
-<div class="relative isolate mt-2 mb-4 flex gap-2" bind:this={selectElm}>
+<div class="relative isolate mt-3 mb-4 flex gap-2" bind:this={selectElm}>
 	{#each options as { name, value }, index (value)}
 		<button
 			class={[

@@ -11,7 +11,7 @@
 <span
 	style:--height={toRem(size)}
 	class={[
-		'h-(--height) w-px shrink-0 grow-0',
+		'h-(--height) w-px shrink-0 grow-0 transition-colors',
 		variant === 'primary' ? 'bg-stroke-primary' : 'bg-stroke-secondary'
 	]}
 ></span>

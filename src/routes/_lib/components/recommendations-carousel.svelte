@@ -135,7 +135,7 @@
 						<span class="line-clamp-1">{title}</span>
 						<Separator variant="secondary" size={10} />
 						<div
-							class="flex items-center gap-1 text-accent-secondary dark:text-accent-secondary-tint"
+							class="flex items-center gap-1 text-accent-secondary transition-colors dark:text-accent-secondary-tint"
 						>
 							<Icon src={Star} theme="solid" class="w-4" />
 							<span class="translate-y-px text-sm leading-none">

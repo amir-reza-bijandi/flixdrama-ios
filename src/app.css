@@ -1,6 +1,8 @@
 @import 'tailwindcss';
 @import './font.css';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
 	--base-color-background-primary: var(--color-gray-100);
 	--base-color-background-secondary: var(--color-gray-950);
@@ -39,7 +41,7 @@
 	--color-foreground-accent: var(--color-gray-100);
 	--color-stroke-primary: --alpha(var(--color-foreground-primary) / 5%);
 	--color-stroke-secondary: --alpha(var(--color-foreground-primary) / 15%);
-	--color-stroke-tertiary: --alpha(var(--color-foreground-primary) / 25%);
+	--color-stroke-tertiary: --alpha(var(--color-gray-100) / 25%);
 
 	--spacing-app-padding: --spacing(5);
 

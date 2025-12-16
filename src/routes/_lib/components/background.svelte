@@ -18,7 +18,7 @@
 		<div
 			class="absolute size-full"
 			transition:fade={{
-				duration: 500
+				duration: 1000
 			}}
 		>
 			<Image class="h-full w-full scale-125 blur-[128px]" src={image} />

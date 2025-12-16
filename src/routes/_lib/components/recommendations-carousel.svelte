@@ -2,6 +2,7 @@
 	import { resolve } from '$app/paths';
 	import Image from '$lib/components/image.svelte';
 	import Separator from '$lib/components/separator.svelte';
+	import { COUNTRY_LABEL_MAP_EN, COUNTRY_LABEL_MAP_FA } from '$lib/constants/data';
 	import type { Media } from '$lib/types/data';
 	import type { Lang } from '$lib/types/general';
 	import { Star } from '@steeze-ui/heroicons';
@@ -118,6 +119,12 @@
 							src={backdrop}
 							loadingGlow
 						/>
+					</div>
+					<div
+						style="transform-origin: {lang === 'en' ? 'right' : 'left'} top;"
+						class="absolute end-3 top-3 scale-75 rounded-full bg-accent-primary p-1.5 text-xs leading-none text-foreground-accent opacity-0 outline -outline-offset-1 outline-stroke-tertiary transition-[opacity,scale] ease-overshoot-light group-[&.active]:scale-100 group-[&.active]:opacity-100"
+					>
+						{(lang === 'en' ? COUNTRY_LABEL_MAP_EN : COUNTRY_LABEL_MAP_FA)[country]}
 					</div>
 					<div
 						style="transform-origin: {lang === 'en' ? 'left' : 'right'} bottom;"

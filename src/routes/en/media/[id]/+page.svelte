@@ -2,7 +2,7 @@
 	import { page } from '$app/state';
 	import Post from '$lib/components/post.svelte';
 	import Swiper from '$lib/components/swiper.svelte';
-	import { COUNTRY_LABEL_MAP, DATA, TYPE_LABEL_MAP } from '$lib/constants/data';
+	import { COUNTRY_LABEL_MAP_EN, DATA_EN, TYPE_LABEL_MAP_EN } from '$lib/constants/data';
 	import { toRem } from '$lib/utilities/general';
 	import { CalendarIcon, GlobeIcon, TvIcon } from '@lucide/svelte';
 	import { navigationStore } from '../../_lib/stores/navigation-store.svelte';
@@ -15,16 +15,16 @@
 	import TrailerBackdrop from './_lib/components/trailer-backdrop.svelte';
 
 	const { backdrop, title, type, country, year, genres, synopsis, score } = $derived(
-		DATA.find(({ id }) => id === Number(page.params.id)) ?? DATA[0]
+		DATA_EN.find(({ id }) => id === Number(page.params.id)) ?? DATA_EN[0]
 	);
 	const shortInfoData = $derived<ShortInfoData>([
 		{
 			icon: TvIcon,
-			label: TYPE_LABEL_MAP[type]
+			label: TYPE_LABEL_MAP_EN[type]
 		},
 		{
 			icon: GlobeIcon,
-			label: COUNTRY_LABEL_MAP[country]
+			label: COUNTRY_LABEL_MAP_EN[country]
 		},
 		{
 			icon: CalendarIcon,
@@ -55,7 +55,7 @@
 				</Synopsis>
 				<PostSection heading="Recommendations">
 					<Swiper gap={8} padding={24}>
-						{#each DATA as { id, poster, title, score }}
+						{#each DATA_EN as { id, poster, title, score }}
 							<Post {id} image={poster} {title} {score} />
 						{/each}
 					</Swiper>

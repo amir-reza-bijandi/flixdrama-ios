@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Option, SelectEventHandler } from '$lib/components/select.svelte';
 	import Select from '$lib/components/select.svelte';
-	import { DATA } from '$lib/constants/data';
+	import { DATA_EN } from '$lib/constants/data';
 	import { toRem } from '$lib/utilities/general';
 	import { flip } from 'svelte/animate';
 	import { cubicOut } from 'svelte/easing';
@@ -34,7 +34,7 @@
 	let currentTab = $state<Tab>('queue');
 	let directionFactor = $state<1 | -1>(1);
 	let queueItems = $state<QueueListItemData[]>(
-		DATA.map<QueueListItemData>(({ title, backdrop }, index) => ({
+		DATA_EN.map<QueueListItemData>(({ title, backdrop }, index) => ({
 			id: index + 1,
 			title,
 			image: backdrop,
@@ -43,7 +43,7 @@
 		}))
 	);
 	let fileItems = $state<FileListItemData[]>(
-		DATA.map<FileListItemData>(({ id, backdrop, title }) => ({
+		DATA_EN.map<FileListItemData>(({ id, backdrop, title }) => ({
 			id,
 			title,
 			image: backdrop,

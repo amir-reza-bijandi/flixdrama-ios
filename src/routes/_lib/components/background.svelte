@@ -1,14 +1,14 @@
 <script lang="ts">
 	import { page } from '$app/state';
 	import Image from '$lib/components/image.svelte';
-	import { DATA } from '$lib/constants/data';
+	import { DATA_EN } from '$lib/constants/data';
 	import { fade } from 'svelte/transition';
-	import { recommendationsCarouselStore } from '../../en/_lib/stores/recommendations-carousel-store.svelte';
+	import { recommendationsCarouselStore } from '../store/recommendations-carousel-store.svelte';
 
 	const image = $derived(
 		page.url.pathname.includes('/media')
-			? (DATA.find(({ id }) => id === Number(page.params.id))?.backdrop ?? '')
-			: DATA[recommendationsCarouselStore.currentIndex].backdrop
+			? (DATA_EN.find(({ id }) => id === Number(page.params.id))?.backdrop ?? '')
+			: DATA_EN[recommendationsCarouselStore.currentIndex].backdrop
 	);
 </script>
 

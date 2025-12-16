@@ -76,7 +76,7 @@
 		style:--width={toRem(indicatorRect.width)}
 		style:--x="{indicatorRect.x}px"
 		class={[
-			'absolute left-(--x) -z-10 h-full w-(--width) rounded-full border border-stroke-secondary bg-accent-primary ease-overshoot-light',
+			'absolute left-(--x) -z-10 h-full w-(--width) rounded-full bg-gradient-primary outline -outline-offset-1 outline-stroke-tertiary ease-overshoot-light',
 			hasTransition && 'transition-[width,left]'
 		]}
 	></span>

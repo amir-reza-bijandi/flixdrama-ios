@@ -25,6 +25,7 @@
 	--color-accent-primary-shade: var(--color-purple-700);
 	--color-accent-secondary: var(--color-yellow-600);
 	--color-accent-secondary-tint: var(--color-yellow-500);
+	--color-accent-secondary-shade: var(--color-yellow-700);
 	--color-accent-tertiary: var(--color-blue-600);
 	--color-accent-tertiary-tint: var(--color-blue-500);
 	--color-background-primary: var(--base-color-background-primary);
@@ -111,4 +112,12 @@
 
 @utility box-container {
 	@apply relative isolate;
+}
+
+@utility bg-gradient-primary {
+	@apply bg-linear-to-b from-accent-primary-tint to-accent-primary-shade bg-size-[calc(100%,110%)] bg-center;
+}
+
+@utility bg-gradient-secondary {
+	@apply bg-linear-to-b from-accent-secondary-tint to-accent-secondary-shade bg-size-[calc(100%,110%)] bg-center;
 }

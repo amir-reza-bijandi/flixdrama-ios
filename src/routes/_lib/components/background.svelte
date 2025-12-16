@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { asset } from '$app/paths';
 	import { page } from '$app/state';
 	import Image from '$lib/components/image.svelte';
 	import { DATA_EN } from '$lib/constants/data';
@@ -24,6 +25,7 @@
 		</div>
 	{/key}
 	<div
-		class="absolute inset-0 bg-background-primary/70 bg-[url(/image/noise.png)] transition-colors"
+		style="background-image: url({asset('/image/noise.png')});"
+		class="absolute inset-0 bg-background-primary/70 transition-colors"
 	></div>
 </div>

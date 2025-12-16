@@ -17,6 +17,7 @@
 
 @theme {
 	--default-font-family: OmnesArabic;
+	--default-transition-duration: 500ms;
 
 	--color-accent-primary: var(--color-purple-600);
 	--color-accent-primary-tint: var(--color-purple-500);
@@ -36,7 +37,7 @@
 	--color-stroke-secondary: --alpha(var(--color-foreground-primary) / 15%);
 	--color-stroke-tertiary: --alpha(var(--color-foreground-primary) / 25%);
 
-	--default-transition-duration: 500ms;
+	--spacing-app-padding: --spacing(5);
 
 	--shadow-absolute-content: 0px 0px 2.25rem --alpha(var(--color-background-primary) / 33%);
 

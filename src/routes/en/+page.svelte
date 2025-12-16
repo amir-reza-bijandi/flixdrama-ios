@@ -23,6 +23,7 @@
 			{#each DATA_EN as { id, poster, title, score }}
 				<Post
 					{id}
+					lang="en"
 					image={poster}
 					subtitle="Episode {Math.floor(Math.random() * 16)}"
 					{title}
@@ -35,7 +36,7 @@
 		<Select {options} />
 		<Swiper gap={8} padding={20}>
 			{#each DATA_EN as { id, poster, title, score }}
-				<Post {id} image={poster} {title} {score} />
+				<Post {id} lang="en" image={poster} {title} {score} />
 			{/each}
 		</Swiper>
 	</Section>

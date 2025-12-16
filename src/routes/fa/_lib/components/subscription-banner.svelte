@@ -3,7 +3,7 @@
 </script>
 
 <a
-	class="relative isolate block overflow-hidden rounded-2xl p-5 outline -outline-offset-1 outline-stroke-primary"
+	class="relative isolate m-app-padding block overflow-hidden rounded-2xl p-5 outline -outline-offset-1 outline-stroke-primary"
 	href={resolve('/fa')}
 >
 	<div class="absolute inset-0 -z-10">

@@ -12,9 +12,9 @@
 	const { children, actions }: Props = $props();
 </script>
 
-<div class="p-5">
+<div class="overflow-hidden pb-[calc(var(--spacing-app-padding)+--spacing(22))]">
 	<!-- Header -->
-	<div class="flex items-center justify-between">
+	<div class="flex items-center justify-between px-app-padding pt-app-padding">
 		{#if actions}
 			{@render actions()}
 		{:else}

@@ -62,7 +62,7 @@
 </script>
 
 <div
-	class="fixed bottom-0 left-0 flex w-full items-center justify-between border-t border-stroke-primary bg-background-primary/50 p-3 backdrop-blur-xl"
+	class="fixed bottom-0 left-0 z-50 flex w-full items-center justify-between border-t border-stroke-primary bg-background-primary/50 p-3 backdrop-blur-xl"
 >
 	<!-- Border -->
 	<div class="absolute top-0 left-0 h-px w-full bg-stroke-primary"></div>

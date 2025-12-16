@@ -107,7 +107,7 @@
 			>
 				<a
 					class="relative block"
-					href={resolve('/en/media/[id]', {
+					href={resolve(`/${lang}/media/[id]`, {
 						id: String(id)
 					})}
 				>

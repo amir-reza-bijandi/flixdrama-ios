@@ -6,13 +6,13 @@
 	import type { Snippet } from 'svelte';
 
 	type Props = {
-		children: Snippet;
+		children?: Snippet;
 		actions?: Snippet;
 	};
 	const { children, actions }: Props = $props();
 </script>
 
-<div style="direction: rtl;" class="p-5">
+<div class="p-5">
 	<!-- Header -->
 	<div class="flex items-center justify-between">
 		{#if actions}
@@ -39,5 +39,5 @@
 			</div>
 		</div>
 	</div>
-	{@render children()}
+	{@render children?.()}
 </div>

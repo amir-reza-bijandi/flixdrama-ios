@@ -56,7 +56,7 @@
 				<PostSection heading="Recommendations">
 					<Swiper gap={8} padding={24}>
 						{#each DATA_EN as { id, poster, title, score }}
-							<Post {id} image={poster} {title} {score} />
+							<Post lang="en" {id} image={poster} {title} {score} />
 						{/each}
 					</Swiper>
 				</PostSection>

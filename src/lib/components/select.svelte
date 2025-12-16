@@ -19,9 +19,8 @@
 	type Props = {
 		options: T;
 		onSelect?: SelectEventHandler<T>;
-		maxOptionWidth?: number;
 	};
-	let { options, maxOptionWidth = 92, onSelect }: Props = $props();
+	let { options, onSelect }: Props = $props();
 
 	type IndicatorRect = {
 		x: number;
@@ -29,33 +28,34 @@
 	};
 
 	let selectElm = $state<HTMLElement | null>(null);
+	const optionElms = $state<HTMLElement[]>([]);
 	let selectedIndex = $state(DEFAULT_SELECTED_INDEX);
-	const optionElms = $state<HTMLButtonElement[]>([]);
-	const indicatorRect = $derived.by<IndicatorRect>(() => {
-		const selectedOptionElm = optionElms[selectedIndex];
-		if (selectElm && selectedOptionElm) return calculateIndicatorRect(selectElm, selectedOptionElm);
-		else
-			return {
-				x: 0,
-				width: maxOptionWidth
-			};
+	let hasTransition = $state(false);
+	const indicatorRect = $state<IndicatorRect>({
+		x: 0,
+		width: 0
 	});
 
-	function calculateIndicatorRect(parent: HTMLElement, child: HTMLElement): IndicatorRect {
-		const parentRect = parent.getBoundingClientRect();
-		const childRect = child.getBoundingClientRect();
-
-		return {
-			x: childRect.x - parentRect.x,
-			width: childRect.width
-		};
-	}
+	$effect(() => {
+		void selectedIndex;
+		requestAnimationFrame(() => {
+			const selectedOptionElm = optionElms[selectedIndex];
+			if (selectElm && selectedOptionElm) {
+				const parentRect = selectElm.getBoundingClientRect();
+				const childRect = selectedOptionElm.getBoundingClientRect();
+				indicatorRect.x = childRect.x - parentRect.x;
+				indicatorRect.width = childRect.width;
+				requestAnimationFrame(() => {
+					hasTransition = true;
+				});
+			}
+		});
+	});
 </script>
 
 <div class="relative isolate mt-2 mb-4 flex gap-2" bind:this={selectElm}>
 	{#each options as { name, value }, index (value)}
 		<button
-			style="max-width: {toRem(maxOptionWidth)};"
 			class={[
 				'inline-block cursor-pointer p-2 text-sm leading-none transition-colors duration-300',
 				index === selectedIndex && 'text-foreground-accent'
@@ -75,6 +75,9 @@
 	<span
 		style:--width={toRem(indicatorRect.width)}
 		style:--x="{indicatorRect.x}px"
-		class="absolute left-(--x) -z-10 h-full w-(--width) rounded-full border border-stroke-secondary bg-accent-primary transition-[width,left] ease-overshoot-light"
+		class={[
+			'absolute left-(--x) -z-10 h-full w-(--width) rounded-full border border-stroke-secondary bg-accent-primary ease-overshoot-light',
+			hasTransition && 'transition-[width,left]'
+		]}
 	></span>
 </div>

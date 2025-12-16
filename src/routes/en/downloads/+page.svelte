@@ -71,7 +71,7 @@
 
 <div class="relative z-10 flex flex-1 flex-col px-5 pt-6">
 	<div class="text-2xl leading-none font-bold">Downloads</div>
-	<Select options={TABS} maxOptionWidth={57} onSelect={handleSelect} />
+	<Select options={TABS} onSelect={handleSelect} />
 	<div class="relative flex-1" bind:clientHeight={listContainerHeight}>
 		<div
 			style:--height={toRem(

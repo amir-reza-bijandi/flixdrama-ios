@@ -20,8 +20,9 @@
 		options: T;
 		onSelect?: SelectEventHandler<T>;
 		maxOptionWidth?: number;
+		defaultIndex?: number;
 	};
-	let { options, maxOptionWidth = 92, onSelect }: Props = $props();
+	let { options, maxOptionWidth = 92, onSelect, defaultIndex = DEFAULT_SELECTED_INDEX }: Props = $props();
 
 	type IndicatorRect = {
 		x: number;
@@ -29,7 +30,12 @@
 	};
 
 	let selectElm = $state<HTMLElement | null>(null);
-	let selectedIndex = $state(DEFAULT_SELECTED_INDEX);
+	let selectedIndex = $state(defaultIndex);
+	
+	// Update selectedIndex when defaultIndex changes externally
+	$effect(() => {
+		selectedIndex = defaultIndex;
+	});
 	const optionElms = $state<HTMLButtonElement[]>([]);
 	const indicatorRect = $derived.by<IndicatorRect>(() => {
 		const selectedOptionElm = optionElms[selectedIndex];

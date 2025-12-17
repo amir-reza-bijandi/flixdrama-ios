@@ -32,6 +32,7 @@
 	};
 
 	let currentTab = $state<Tab>('queue');
+	let selectedTabIndex = $state(0);
 	let directionFactor = $state<1 | -1>(1);
 	let listContentHeight = $state(0);
 	let listContainerHeight = $state(0);
@@ -48,7 +49,29 @@
 	// Derived state from store
 	const queueItems = $derived(downloadStore.activeDownloads);
 	const fileItems = $derived(downloadStore.downloadedFiles);
-	const totalSize = $derived(downloadStore.totalDownloadedSize);
+	
+	// Calculate total size by summing individually displayed file sizes
+	// This ensures the displayed total matches the sum of displayed file sizes
+	const totalSize = $derived(() => {
+		const totalBytes = fileItems.reduce((sum, file) => sum + (file.fileSize || 0), 0);
+		return {
+			totalSize: totalBytes,
+			formattedSize: formatBytesToString(totalBytes)
+		};
+	});
+	
+	// Helper function to format bytes
+	function formatBytesToString(bytes: number): string {
+		if (bytes === 0) return '0 B';
+		const units = ['B', 'KB', 'MB', 'GB'];
+		let unitIndex = 0;
+		let size = bytes;
+		while (size >= 1024 && unitIndex < units.length - 1) {
+			size /= 1024;
+			unitIndex++;
+		}
+		return `${size.toFixed(1)} ${units[unitIndex]}`;
+	}
 	
 	const listHeight = $derived(
 		listContentHeight + navigationStore.requiredSpace > listContainerHeight
@@ -64,6 +87,8 @@
 		// Auto-select Files tab if Queue is empty but Files has items
 		if (downloadStore.activeDownloads.length === 0 && downloadStore.downloadedFiles.length > 0) {
 			currentTab = 'files';
+			selectedTabIndex = 1;
+			directionFactor = 1;
 		}
 		
 		// Check if user has seen the swipe hint before
@@ -80,6 +105,7 @@
 	// Handlers
 	const handleSelect: SelectEventHandler<typeof TABS> = (tab, index) => {
 		currentTab = tab;
+		selectedTabIndex = index;
 		directionFactor = index === 1 ? 1 : -1;
 	};
 
@@ -176,15 +202,15 @@
 	</div>
 	
 	<!-- Total Size Badge -->
-	{#if currentTab === 'files' && totalSize.totalSize > 0}
+	{#if currentTab === 'files' && totalSize().totalSize > 0}
 		<div class="mt-3 flex items-center gap-2">
 			<div class="rounded-full bg-accent-primary/20 px-3 py-1 text-xs font-medium text-accent-primary">
-				Total: {totalSize.formattedSize}
+				Total: {totalSize().formattedSize}
 			</div>
 		</div>
 	{/if}
 	
-	<Select options={TABS} maxOptionWidth={57} onSelect={handleSelect} />
+	<Select options={TABS} maxOptionWidth={57} onSelect={handleSelect} defaultIndex={selectedTabIndex} />
 	
 	<!-- Swipe Hint Alert -->
 	{#if showSwipeHint && ((currentTab === 'files' && fileItems.length > 0) || (currentTab === 'queue' && queueItems.length > 0))}
@@ -345,7 +371,7 @@
 				</div>
 				<div>
 					<div class="text-base font-bold text-foreground-primary">Delete All Files?</div>
-					<p class="text-xs text-foreground-tertiary">This will remove {totalSize.formattedSize}</p>
+					<p class="text-xs text-foreground-tertiary">This will remove {totalSize().formattedSize}</p>
 				</div>
 			</div>
 			

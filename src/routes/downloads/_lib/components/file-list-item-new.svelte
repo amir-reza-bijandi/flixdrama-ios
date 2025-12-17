@@ -66,22 +66,22 @@
 		document.body.removeEventListener('pointerleave', handlePointerUpOrLeave);
 	};
 
-	// Get image source - prefer remote poster for thumbnails (more reliable in WebView)
-	// Local paths with file:// may have issues in Capacitor WebView
+	// Get image source - prefer local poster for offline support
+	// Use capacitor:// protocol for local files which works in WebView
 	const imageSrc = $derived(() => {
-		// Always prefer remote poster URL for thumbnails (works better in WebView)
-		if (data.episodePoster) {
-			return data.episodePoster;
-		}
-		if (data.poster) {
-			return data.poster;
-		}
-		// Fallback to local paths if remote not available
+		// Prefer local paths first for offline support
 		if (data.localEpisodePosterPath) {
 			return `capacitor://localhost/_capacitor_file_${data.localEpisodePosterPath}`;
 		}
 		if (data.localPosterPath) {
 			return `capacitor://localhost/_capacitor_file_${data.localPosterPath}`;
+		}
+		// Fallback to remote URLs if local paths not available
+		if (data.episodePoster) {
+			return data.episodePoster;
+		}
+		if (data.poster) {
+			return data.poster;
 		}
 		return '';
 	});

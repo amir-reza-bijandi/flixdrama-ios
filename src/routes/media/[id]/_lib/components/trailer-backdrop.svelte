@@ -2,7 +2,7 @@
 	import Image from '$lib/components/image.svelte';
 	import Separator from '$lib/components/separator.svelte';
 	import type { TrailerInfo, MediaDetails } from '$lib/types/api';
-	import { ArrowDownTray, Play, Check, QueueList } from '@steeze-ui/heroicons';
+	import { ArrowDownTray, Play, Check, QueueList, ArrowPath } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import VideoPlayer from '$lib/plugins/video-player';
 	import { downloadStore } from '$lib/stores/download-store.svelte';
@@ -18,6 +18,7 @@
 	const { backdrop, trailer, details }: Props = $props();
 
 	let showToast = $state(false);
+	let isAddingToQueue = $state(false);
 	let downloadStatus = $derived(
 		details
 			? downloadStore.getDownloadStatus(details.id, details.id, true)
@@ -50,11 +51,14 @@
 		}
 
 		// Check if already downloading or downloaded
-		if (downloadStatus !== 'none') {
+		if (downloadStatus !== 'none' || isAddingToQueue) {
 			return;
 		}
 
 		try {
+			// Show loading state immediately
+			isAddingToQueue = true;
+			
 			// Prepare download options
 			const downloadOptions = await prepareTrailerDownload({
 				id: details.id,
@@ -67,6 +71,9 @@
 			// Start the download
 			await downloadStore.startDownload(downloadOptions);
 			
+			// Hide loading state
+			isAddingToQueue = false;
+			
 			// Show toast notification
 			showToast = true;
 			setTimeout(() => {
@@ -74,6 +81,7 @@
 			}, 3000);
 		} catch (error) {
 			console.error('Failed to start trailer download:', error);
+			isAddingToQueue = false;
 		}
 	}
 
@@ -89,16 +97,18 @@
 	 * Get the appropriate icon based on download status
 	 */
 	const downloadIcon = $derived(() => {
+		if (isAddingToQueue) return ArrowPath;
 		if (downloadStatus === 'downloading' || downloadStatus === 'paused') return QueueList;
 		if (downloadStatus === 'completed') return Check;
 		return ArrowDownTray;
 	});
 
 	const isDownloadDisabled = $derived(
-		!trailer?.link || downloadStatus === 'downloading' || downloadStatus === 'paused' || downloadStatus === 'completed'
+		!trailer?.link || isAddingToQueue || downloadStatus === 'downloading' || downloadStatus === 'paused' || downloadStatus === 'completed'
 	);
 	
 	const downloadButtonTitle = $derived(() => {
+		if (isAddingToQueue) return 'Adding to queue...';
 		if (downloadStatus === 'downloading') return 'Downloading...';
 		if (downloadStatus === 'paused') return 'Download paused';
 		if (downloadStatus === 'completed') return 'Downloaded';
@@ -126,9 +136,9 @@
 				disabled={isDownloadDisabled}
 				title={downloadButtonTitle()}
 				class:text-green-500={downloadStatus === 'completed'}
-				class:text-accent-primary={downloadStatus === 'downloading' || downloadStatus === 'paused'}
+				class:text-accent-primary={downloadStatus === 'downloading' || downloadStatus === 'paused' || isAddingToQueue}
 			>
-				<Icon class="size-5" src={downloadIcon()} theme="micro" />
+				<Icon class={['size-5', isAddingToQueue && 'animate-spin']} src={downloadIcon()} theme="micro" />
 			</button>
 		</div>
 		<div class="mt-2 text-center text-sm leading-none font-bold">Trailer</div>

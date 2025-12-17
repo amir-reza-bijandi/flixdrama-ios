@@ -5,7 +5,6 @@
 	import Swiper from '$lib/components/swiper.svelte';
 	import { COUNTRY_LABEL_MAP_FA, DATA_FA } from '$lib/constants/data';
 	import type { Country } from '$lib/types/data';
-	import { Lang } from '$lib/types/general';
 	import { toRem } from '$lib/utilities/general';
 	import RecommendationsCarousel from '../_lib/components/recommendations-carousel.svelte';
 	import PageWrapper from './_lib/components/page-wrapper.svelte';
@@ -39,7 +38,7 @@
 
 <PageWrapper>
 	<div style:--padding-bottom={toRem(sizeStore.navigationHeight)} class="pb-(--padding-bottom)">
-		<RecommendationsCarousel data={DATA_FA} lang={Lang.Fa} />
+		<RecommendationsCarousel data={DATA_FA} />
 		<SubscriptionBanner />
 		<Section heading="فیلم و سریال‌های من">
 			<Select options={LIST_OPTIONS} />
@@ -47,7 +46,6 @@
 				{#each DATA_FA as { id, poster, titleFa, score, country }}
 					<Post
 						{id}
-						lang={Lang.Fa}
 						image={poster}
 						subtitle={COUNTRY_LABEL_MAP_FA[country]}
 						title={titleFa}
@@ -62,7 +60,6 @@
 				{#each DATA_FA as { id, poster, titleFa, score }}
 					<Post
 						{id}
-						lang={Lang.Fa}
 						image={poster}
 						subtitle="قسمت {toFarsi(Math.floor(Math.random() * 16) + 1)}"
 						title={titleFa}
@@ -77,7 +74,6 @@
 				{#each DATA_FA as { id, poster, titleFa, score }}
 					<Post
 						{id}
-						lang={Lang.Fa}
 						image={poster}
 						subtitle="قسمت {toFarsi(Math.floor(Math.random() * 16) + 1)}"
 						title={titleFa}

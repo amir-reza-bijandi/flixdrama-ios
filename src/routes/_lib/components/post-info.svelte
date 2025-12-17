@@ -1,4 +1,5 @@
 <script module>
+	import { langStore } from '$lib/store/lang-store.svelte';
 	import { Lang } from '$lib/types/general';
 	import type { LucideIcon } from '$lib/types/icon';
 	import { toRem } from '$lib/utilities/general';
@@ -11,10 +12,9 @@
 <script lang="ts">
 	type Props = {
 		data: PostInfoData;
-		lang: Lang;
 		margin?: number;
 	};
-	const { data, lang, margin = 0 }: Props = $props();
+	const { data, margin = 0 }: Props = $props();
 </script>
 
 <div
@@ -24,7 +24,9 @@
 	{#each data as { icon: Icon, label }, index}
 		<div class="flex items-center gap-1 text-sm text-foreground-secondary transition-colors">
 			<Icon class="size-3.5 stroke-2" />
-			<div class={lang === Lang.En ? 'translate-y-0.5' : 'translate-y-px'}>{label}</div>
+			<div class={langStore.current === Lang.En ? 'translate-y-0.5' : 'translate-y-px'}>
+				{label}
+			</div>
 		</div>
 		{#if index < data.length - 1}
 			<span class="size-0.5 rounded-full bg-foreground-secondary transition-colors"></span>

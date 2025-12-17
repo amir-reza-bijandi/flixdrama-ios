@@ -3,7 +3,6 @@
 	import Post from '$lib/components/post.svelte';
 	import Swiper from '$lib/components/swiper.svelte';
 	import { COUNTRY_LABEL_MAP_EN, DATA_EN, TYPE_LABEL_MAP_EN } from '$lib/constants/data';
-	import { Lang } from '$lib/types/general';
 	import { toRem } from '$lib/utilities/general';
 	import { CalendarIcon, GlobeIcon, TvIcon } from '@lucide/svelte';
 	import Genres from '../../../_lib/components/genres.svelte';
@@ -48,7 +47,7 @@
 			<Score>
 				{score}
 			</Score>
-			<PostInfo lang={Lang.En} data={shortInfoData} margin={4} />
+			<PostInfo data={shortInfoData} margin={4} />
 			<Genres data={genres} />
 			<div class="flex flex-col gap-4">
 				<Synopsis>
@@ -57,7 +56,7 @@
 				<PostSection heading="Recommendations">
 					<Swiper gap={8} padding={24}>
 						{#each DATA_EN as { id, poster, title, score }}
-							<Post lang={Lang.En} {id} image={poster} {title} {score} />
+							<Post {id} image={poster} {title} {score} />
 						{/each}
 					</Swiper>
 				</PostSection>

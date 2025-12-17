@@ -4,7 +4,5 @@
 	const { children } = $props();
 </script>
 
-<div style="direction: rtl;">
-	<Navigation />
-	{@render children()}
-</div>
+<Navigation />
+{@render children()}

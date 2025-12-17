@@ -1,14 +1,14 @@
 <script lang="ts">
+	import { langStore } from '$lib/store/lang-store.svelte';
 	import { Lang } from '$lib/types/general';
 	import { Star } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { toFarsi } from '../../fa/_lib/utilities/to-farsi';
 
 	type Props = {
-		lang: Lang;
 		value: number;
 	};
-	const { value, lang }: Props = $props();
+	const { value }: Props = $props();
 </script>
 
 <div
@@ -16,6 +16,6 @@
 >
 	<Icon class="size-4" src={Star} theme="micro" />
 	<span class="translate-y-px text-sm leading-none font-bold">
-		{lang === Lang.En ? value : toFarsi(value)}
+		{langStore.current === Lang.En ? value : toFarsi(value)}
 	</span>
 </div>

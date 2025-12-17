@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { asset } from '$app/paths';
+	import { langStore } from '$lib/store/lang-store.svelte';
+	import { Lang } from '$lib/types/general';
 	import { ModeWatcher } from 'mode-watcher';
 	import '../app.css';
 	import Background from './_lib/components/background.svelte';
@@ -15,6 +17,7 @@
 </svelte:head>
 
 <div
+	style="direction: {langStore.current === Lang.En ? 'ltr' : 'rtl'};"
 	class="relative isolate min-h-screen leading-none font-semibold text-foreground-primary select-none"
 >
 	<ModeWatcher

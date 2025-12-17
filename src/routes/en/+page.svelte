@@ -5,7 +5,6 @@
 	import Swiper from '$lib/components/swiper.svelte';
 	import { COUNTRY_LABEL_MAP_EN, DATA_EN } from '$lib/constants/data';
 	import type { Country } from '$lib/types/data';
-	import { Lang } from '$lib/types/general';
 	import { toRem } from '$lib/utilities/general';
 	import RecommendationsCarousel from '../_lib/components/recommendations-carousel.svelte';
 	import { navigationStore } from './_lib/stores/navigation-store.svelte';
@@ -17,14 +16,13 @@
 </script>
 
 <div style:--bottom-padding={toRem(navigationStore.requiredSpace)} class="pb-(--bottom-padding)">
-	<RecommendationsCarousel data={DATA_EN} lang={Lang.En} />
+	<RecommendationsCarousel data={DATA_EN} />
 	<Section heading="TV Releases">
 		<Select {options} />
 		<Swiper gap={8} padding={20}>
 			{#each DATA_EN as { id, poster, title, score }}
 				<Post
 					{id}
-					lang={Lang.En}
 					image={poster}
 					subtitle="Episode {Math.floor(Math.random() * 16)}"
 					{title}
@@ -37,7 +35,7 @@
 		<Select {options} />
 		<Swiper gap={8} padding={20}>
 			{#each DATA_EN as { id, poster, title, score }}
-				<Post {id} lang={Lang.En} image={poster} {title} {score} />
+				<Post {id} image={poster} {title} {score} />
 			{/each}
 		</Swiper>
 	</Section>

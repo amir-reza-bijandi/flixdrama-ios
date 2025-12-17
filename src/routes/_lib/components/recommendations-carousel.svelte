@@ -3,8 +3,8 @@
 	import Image from '$lib/components/image.svelte';
 	import Separator from '$lib/components/separator.svelte';
 	import { COUNTRY_LABEL_MAP_EN, COUNTRY_LABEL_MAP_FA } from '$lib/constants/data';
+	import { langStore } from '$lib/store/lang-store.svelte';
 	import type { MediaEn, MediaFa } from '$lib/types/data';
-	import { Lang } from '$lib/types/general';
 	import { Swiper } from 'swiper';
 	import 'swiper/css';
 	import 'swiper/css/effect-coverflow';
@@ -14,14 +14,12 @@
 
 	type enProps = {
 		data: MediaEn[];
-		lang: Lang.En;
 	};
 	type faProps = {
 		data: MediaFa[];
-		lang: Lang.Fa;
 	};
 	type Props = enProps | faProps;
-	const { data, lang }: Props = $props();
+	const { data }: Props = $props();
 
 	const AUTOPLAY_DELAY = 5000;
 
@@ -114,7 +112,7 @@
 			>
 				<a
 					class="relative block"
-					href={resolve(`/${lang}/media/[id]`, {
+					href={resolve(`/${langStore.current}/media/[id]`, {
 						id: String(id)
 					})}
 				>
@@ -127,13 +125,13 @@
 						/>
 					</div>
 					<div
-						style="transform-origin: {lang === 'en' ? 'right' : 'left'} top;"
+						style="transform-origin: {langStore.current === 'en' ? 'right' : 'left'} top;"
 						class="absolute end-3 top-3 scale-75 rounded-full bg-gradient-primary p-1.5 text-xs leading-none text-foreground-accent opacity-0 outline -outline-offset-1 outline-stroke-tertiary transition-[opacity,scale] ease-overshoot-light group-[&.active]:scale-100 group-[&.active]:opacity-100"
 					>
-						{(lang === 'en' ? COUNTRY_LABEL_MAP_EN : COUNTRY_LABEL_MAP_FA)[country]}
+						{(langStore.current === 'en' ? COUNTRY_LABEL_MAP_EN : COUNTRY_LABEL_MAP_FA)[country]}
 					</div>
 					<div
-						style="transform-origin: {lang === 'en' ? 'left' : 'right'} bottom;"
+						style="transform-origin: {langStore.current === 'en' ? 'left' : 'right'} bottom;"
 						class={[
 							'absolute start-4 bottom-4 flex scale-75 items-center gap-2 font-bold opacity-0 transition-[opacity,scale] ease-overshoot-light group-[&.active]:scale-100 group-[&.active]:opacity-100'
 						]}
@@ -142,7 +140,7 @@
 							>{'title' in restOfMedia ? restOfMedia.title : restOfMedia.titleFa}</span
 						>
 						<Separator variant="secondary" size={10} />
-						<Score {lang} value={score} />
+						<Score value={score} />
 					</div>
 				</a>
 			</div>

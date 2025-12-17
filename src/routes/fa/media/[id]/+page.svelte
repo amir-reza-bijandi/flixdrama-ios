@@ -8,7 +8,6 @@
 		TYPE_ICON_MAP,
 		TYPE_LABEL_MAP_FA
 	} from '$lib/constants/data';
-	import { Lang } from '$lib/types/general';
 	import { toRem } from '$lib/utilities/general';
 	import { CalendarIcon, GlobeIcon } from '@lucide/svelte';
 	import { VideoCamera } from '@steeze-ui/heroicons';
@@ -70,9 +69,9 @@
 			<Post.Heading>{titleFa}</Post.Heading>
 			<Post.Subheading>{titleEn}</Post.Subheading>
 			<div class="my-3 flex items-center gap-2">
-				<Post.Info lang={Lang.Fa} data={postInfoData} />
+				<Post.Info data={postInfoData} />
 				<Separator size={10} variant="primary" />
-				<Post.Score lang={Lang.Fa} value={score} />
+				<Post.Score value={score} />
 			</div>
 			<Post.Genres data={genres} />
 		</Post.Root>

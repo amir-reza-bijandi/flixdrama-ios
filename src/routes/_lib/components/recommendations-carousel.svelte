@@ -22,6 +22,13 @@
 	let swiperElm = $state<HTMLElement | null>(null);
 	const slideElms = $state<HTMLElement[]>([]);
 
+	// Set initial backdrop immediately when slider items are available
+	$effect(() => {
+		if (sliderItems.length > 0 && !recommendationsCarouselStore.currentBackdrop) {
+			recommendationsCarouselStore.currentBackdrop = sliderItems[0].poster;
+		}
+	});
+
 	$effect(() => {
 		if (swiperElm && slideElms.length) {
 			const SCALE = 0.83333;
@@ -54,6 +61,10 @@
 						);
 						showGlow(swiper);
 						recommendationsCarouselStore.currentIndex = swiper.realIndex;
+						// Set initial backdrop image from slider data
+						if (sliderItems[swiper.realIndex]) {
+							recommendationsCarouselStore.currentBackdrop = sliderItems[swiper.realIndex].poster;
+						}
 					},
 					touchEnd: () => {
 						enableTransition();
@@ -68,8 +79,13 @@
 						disableTransition();
 						showGlow(swiper);
 					},
-					activeIndexChange: (swiper) =>
-						(recommendationsCarouselStore.currentIndex = swiper.realIndex)
+					activeIndexChange: (swiper) => {
+						recommendationsCarouselStore.currentIndex = swiper.realIndex;
+						// Update backdrop image when slide changes
+						if (sliderItems[swiper.realIndex]) {
+							recommendationsCarouselStore.currentBackdrop = sliderItems[swiper.realIndex].poster;
+						}
+					}
 				}
 			});
 

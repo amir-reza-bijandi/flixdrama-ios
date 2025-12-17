@@ -4,6 +4,7 @@
 	import type { TrailerInfo } from '$lib/types/api';
 	import { ArrowDownTray, Play } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import VideoPlayer from '$lib/plugins/video-player';
 
 	type Props = {
 		backdrop: string;
@@ -12,11 +13,19 @@
 	const { backdrop, trailer }: Props = $props();
 
 	/**
-	 * Opens the trailer link for streaming in a new tab
+	 * Opens the trailer in the native KSPlayer for streaming
 	 */
-	function handleStreamTrailer() {
+	async function handleStreamTrailer() {
 		if (trailer?.link) {
-			window.open(trailer.link, '_blank');
+			try {
+				await VideoPlayer.playVideo({
+					url: trailer.link,
+					subtitleUrl: trailer.subtitle,
+					title: 'Trailer'
+				});
+			} catch (error) {
+				console.error('Failed to play video:', error);
+			}
 		}
 	}
 

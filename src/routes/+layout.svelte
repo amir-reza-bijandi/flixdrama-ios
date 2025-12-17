@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { ASSETS } from '$lib/assets';
+	import OfflineIndicator from '$lib/components/offline-indicator.svelte';
+	import { networkStore } from '$lib/stores/network-store.svelte';
 	import { ModeWatcher } from 'mode-watcher';
+	import { onMount } from 'svelte';
 	import '../app.css';
 	import Background from './_lib/components/background.svelte';
 	import Header from './_lib/components/header.svelte';
@@ -10,6 +13,10 @@
 	const THEME_STORAGE_KEY = 'flixdrama-theme';
 
 	let { children } = $props();
+
+	onMount(() => {
+		networkStore.init();
+	});
 </script>
 
 <svelte:head>
@@ -25,6 +32,7 @@
 		disableTransitions={false}
 	/>
 	<Background />
+	<OfflineIndicator />
 	<Navigation />
 	<div
 		class="relative mx-auto scrollbar-hidden flex min-h-screen max-w-lg flex-col overflow-x-hidden pt-9 pb-(--padding-bottom)"

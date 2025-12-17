@@ -8,11 +8,14 @@
 		height?: number;
 		outline?: boolean;
 		loadingGlow?: boolean;
+		/** When true, keeps the previous image visible while loading a new one (useful for background images) */
+		keepVisibleOnLoad?: boolean;
 		src: string;
 	};
 	const {
 		outline = false,
 		loadingGlow = false,
+		keepVisibleOnLoad = false,
 		style,
 		class: classValue,
 		width,
@@ -21,6 +24,15 @@
 	}: Props = $props();
 
 	let isLoading = $state(true);
+
+	// Reset loading state when src changes (only if not keeping visible)
+	$effect(() => {
+		src; // track src dependency
+		if (!keepVisibleOnLoad) {
+			isLoading = true;
+		}
+	});
+
 	const handleLoad: EventHandler<Event, Element> = () => {
 		isLoading = false;
 	};
@@ -40,7 +52,10 @@
 	]}
 >
 	<img
-		class={['size-full object-cover transition-opacity duration-500', isLoading && 'opacity-0']}
+		class={[
+			'size-full object-cover transition-opacity duration-500',
+			isLoading && !keepVisibleOnLoad && 'opacity-0'
+		]}
 		{src}
 		alt=""
 		onload={handleLoad}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { networkStore } from '$lib/stores/network-store.svelte';
 	import { toRem } from '$lib/utilities/general';
 	import { navigationStore } from '../_lib/stores/navigation-store.svelte';
 	import { feedbackApi } from '$lib/utilities/api';
@@ -9,9 +10,16 @@
 	let alertMessage = $state('');
 	let alertType: 'success' | 'error' = $state('success');
 
+	const isOffline = $derived(!networkStore.isOnline);
+
 	async function handleSubmit() {
 		if (!feedbackText.trim()) {
 			showAlertMessage('Please write some feedback before submitting.', 'error');
+			return;
+		}
+
+		if (isOffline) {
+			showAlertMessage('You are offline. Please check your internet connection.', 'error');
 			return;
 		}
 
@@ -20,7 +28,7 @@
 			await feedbackApi.sendFeedback(feedbackText);
 			showAlertMessage('Thank you! Your feedback has been submitted.', 'success');
 			feedbackText = '';
-		} catch (error) {
+		} catch {
 			showAlertMessage('Failed to submit feedback. Please try again.', 'error');
 		} finally {
 			isSubmitting = false;
@@ -109,8 +117,8 @@
 
 	<button
 		onclick={handleSubmit}
-		disabled={isSubmitting}
-		class="flex w-full items-center justify-center gap-2 rounded-full bg-accent-secondary p-3 text-sm outline -outline-offset-1 outline-stroke-secondary transition-colors duration-150 active:bg-accent-secondary-tint disabled:opacity-50"
+		disabled={isSubmitting || isOffline}
+		class="flex w-full items-center justify-center gap-2 rounded-full bg-accent-secondary p-3 text-sm outline -outline-offset-1 outline-stroke-secondary transition-colors duration-150 active:bg-accent-secondary-tint disabled:opacity-50 disabled:cursor-not-allowed"
 	>
 		{#if isSubmitting}
 			<svg class="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
@@ -123,6 +131,16 @@
 				></path>
 			</svg>
 			Submitting...
+		{:else if isOffline}
+			<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M18.364 5.636a9 9 0 010 12.728m-3.536-3.536a4 4 0 010-5.656M6 18L18 6"
+				/>
+			</svg>
+			Offline - Submit Disabled
 		{:else}
 			Submit
 		{/if}

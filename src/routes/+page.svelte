@@ -11,8 +11,9 @@
 	import RecommendationsCarousel from './_lib/components/recommendations-carousel.svelte';
 	import { navigationStore } from './_lib/stores/navigation-store.svelte';
 	import { onMount } from 'svelte';
-	import { ChevronRight } from '@steeze-ui/heroicons';
+	import { ChevronRight, ExclamationTriangle, ArrowPath } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { networkStore } from '$lib/stores/network-store.svelte';
 
 	// State for API data
 	let homeData = $state<HomeResponse | null>(null);
@@ -22,8 +23,10 @@
 	// Selected country index for each section
 	let selectedCountryIndexes = $state<Record<string, number>>({});
 
-	// Fetch home data on mount
-	onMount(async () => {
+	// Fetch function for retry capability
+	async function fetchHomeData() {
+		isLoading = true;
+		error = null;
 		try {
 			homeData = await api.home.getHome();
 			// Initialize selected country indexes
@@ -36,6 +39,11 @@
 		} finally {
 			isLoading = false;
 		}
+	}
+
+	// Fetch home data on mount
+	onMount(() => {
+		fetchHomeData();
 	});
 
 	// Filter countries that have posts
@@ -73,16 +81,66 @@
 	{#if isLoading}
 		<HomeSkeleton />
 	{:else if error}
-		<div class="flex items-center justify-center p-10">
-			<div class="text-center">
-				<p class="mb-4 text-foreground-secondary">{error}</p>
-				<button
-					class="rounded-full bg-accent-primary px-4 py-2 text-foreground-accent"
-					onclick={() => window.location.reload()}
-				>
-					Retry
-				</button>
+		<div class="flex min-h-[60vh] flex-col items-center justify-center px-6">
+			<div class="error-container">
+				<div class="error-icon-container">
+					{#if !networkStore.isOnline}
+						<!-- Offline icon -->
+						<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="error-icon">
+							<path d="M1 1L23 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+							<path
+								d="M16.72 11.06C18.24 11.18 19.67 11.65 20.92 12.4M5 12.55C6.88 11.19 9.35 10.5 12 10.5C12.34 10.5 12.68 10.52 13.02 10.54"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+							<path
+								d="M8.53 16.11C9.56 15.4 10.74 15 12 15C13.26 15 14.44 15.4 15.47 16.11"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+							<path d="M12 20H12.01" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+							<path
+								d="M2.34 6.61C4.68 4.95 8.09 4 12 4C15.91 4 19.32 4.95 21.66 6.61"
+								stroke="currentColor"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+						</svg>
+					{:else}
+						<!-- Server error icon -->
+						<Icon src={ExclamationTriangle} class="error-icon" />
+					{/if}
+				</div>
+				<div class="error-pulse"></div>
 			</div>
+
+			<h2 class="mt-6 text-xl font-bold text-foreground-primary">
+				{#if !networkStore.isOnline}
+					You're Offline
+				{:else}
+					Unable to Connect
+				{/if}
+			</h2>
+			<p class="mt-2 text-center text-sm text-foreground-secondary">
+				{#if !networkStore.isOnline}
+					Please check your internet connection and try again
+				{:else}
+					We couldn't reach our servers. Please try again later.
+				{/if}
+			</p>
+
+			<button
+				class="retry-button mt-8"
+				onclick={fetchHomeData}
+			>
+				<Icon src={ArrowPath} class="size-5" />
+				<span>Try Again</span>
+			</button>
 		</div>
 	{:else if homeData}
 		<RecommendationsCarousel sliderItems={homeData.slider} />
@@ -125,3 +183,82 @@
 		{/each}
 	{/if}
 </div>
+
+<style>
+	.error-container {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.error-icon-container {
+		position: relative;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 5rem;
+		height: 5rem;
+		background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(185, 28, 28, 0.15) 100%);
+		border-radius: 50%;
+		box-shadow:
+			0 0 0 1px rgba(239, 68, 68, 0.2),
+			0 8px 32px -8px rgba(239, 68, 68, 0.3);
+	}
+
+	:global(.error-icon) {
+		width: 2.5rem;
+		height: 2.5rem;
+		color: rgb(239, 68, 68);
+	}
+
+	.error-pulse {
+		position: absolute;
+		width: 5rem;
+		height: 5rem;
+		border-radius: 50%;
+		background: rgba(239, 68, 68, 0.2);
+		animation: error-pulse 2s ease-out infinite;
+	}
+
+	@keyframes error-pulse {
+		0% {
+			transform: scale(1);
+			opacity: 0.6;
+		}
+		100% {
+			transform: scale(1.8);
+			opacity: 0;
+		}
+	}
+
+	.retry-button {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.875rem 1.5rem;
+		background: linear-gradient(135deg, var(--color-accent-primary) 0%, var(--color-accent-primary) 100%);
+		color: var(--color-foreground-accent);
+		border: none;
+		border-radius: 9999px;
+		font-weight: 600;
+		font-size: 0.9375rem;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		box-shadow:
+			0 4px 16px -4px rgba(var(--color-accent-primary-rgb, 139, 92, 246), 0.4),
+			0 2px 8px -2px rgba(0, 0, 0, 0.2);
+	}
+
+	.retry-button:hover {
+		transform: translateY(-1px);
+		box-shadow:
+			0 6px 20px -4px rgba(var(--color-accent-primary-rgb, 139, 92, 246), 0.5),
+			0 4px 12px -2px rgba(0, 0, 0, 0.25);
+	}
+
+	.retry-button:active {
+		transform: translateY(0);
+	}
+</style>

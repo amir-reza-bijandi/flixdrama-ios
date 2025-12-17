@@ -20,7 +20,7 @@
 	import { toFarsi } from '../../_lib/utilities/to-farsi';
 
 	const { titleFa, titleEn, backdrop, type, country, year, genres, score } =
-		DATA_FA[Number(page.params.id)] ?? DATA_FA[0];
+		DATA_FA.find(({ id }) => Number(page.params.id) === id) ?? DATA_FA[0];
 	const postInfoData = $derived<Post.InfoData>([
 		{
 			icon: TYPE_ICON_MAP[type],

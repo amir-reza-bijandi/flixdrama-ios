@@ -42,7 +42,7 @@
 <PageWrapper>
 	<Backdrop image={backdrop}>
 		<button
-			class="flex h-full w-full flex-col items-center justify-center gap-1.5 transition-transform duration-750 ease-overshoot-heavy active:scale-90"
+			class="flex h-full w-full flex-col items-center justify-center gap-1.5 transition-[color,scale] duration-750 ease-overshoot-heavy active:scale-90"
 		>
 			<Icon class="size-9" src={VideoCamera} theme="solid" />
 			<div class="font-bold">پیش‌نمایش</div>

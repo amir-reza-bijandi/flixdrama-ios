@@ -7,6 +7,6 @@
 	const { children }: Props = $props();
 </script>
 
-<div class="text-xl leading-none font-bold">
+<div class="text-xl leading-none font-bold transition-colors">
 	{@render children()}
 </div>

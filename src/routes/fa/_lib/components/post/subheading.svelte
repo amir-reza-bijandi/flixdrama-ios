@@ -7,6 +7,6 @@
 	const { children }: Props = $props();
 </script>
 
-<div class="mt-2 text-xs leading-none text-foreground-secondary">
+<div class="mt-2 text-xs leading-none text-foreground-secondary transition-colors">
 	{@render children()}
 </div>

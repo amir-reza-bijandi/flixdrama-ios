@@ -25,7 +25,9 @@
 
 <div class="overflow-hidden">
 	<!-- Header -->
-	<div class="relative z-50 flex items-center justify-between px-app-padding pt-app-padding">
+	<div
+		class="relative z-50 flex items-center justify-between px-app-padding pt-app-padding transition-colors"
+	>
 		{#if actions}
 			{@render actions()}
 		{:else}

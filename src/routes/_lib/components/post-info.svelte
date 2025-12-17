@@ -22,12 +22,12 @@
 	class="my-(--margin) flex h-(--height) w-(--width) items-center gap-1.5"
 >
 	{#each data as { icon: Icon, label }, index}
-		<div class="flex items-center gap-1 text-sm text-foreground-secondary">
+		<div class="flex items-center gap-1 text-sm text-foreground-secondary transition-colors">
 			<Icon class="size-3.5 stroke-2" />
 			<div class={lang === Lang.En ? 'translate-y-0.5' : 'translate-y-px'}>{label}</div>
 		</div>
 		{#if index < data.length - 1}
-			<span class="size-0.5 rounded-full bg-foreground-secondary"></span>
+			<span class="size-0.5 rounded-full bg-foreground-secondary transition-colors"></span>
 		{/if}
 	{/each}
 </div>

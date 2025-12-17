@@ -74,7 +74,7 @@
 		{@const isActive = pathname === currentPathname}
 		<a
 			class={[
-				'flex w-12 flex-col items-center gap-1.5 py-2 transition-[filter]',
+				'flex w-12 flex-col items-center gap-1.5 py-2 transition-[filter,color]',
 				isActive && 'brightness-75 saturate-200 dark:brightness-100 dark:saturate-100'
 			]}
 			href={resolve(pathname)}

@@ -23,7 +23,7 @@
 		(isNotificationsActive = isActive);
 </script>
 
-<div class="overflow-hidden pb-[calc(var(--spacing-app-padding)+--spacing(22))]">
+<div class="overflow-hidden">
 	<!-- Header -->
 	<div class="relative z-50 flex items-center justify-between px-app-padding pt-app-padding">
 		{#if actions}

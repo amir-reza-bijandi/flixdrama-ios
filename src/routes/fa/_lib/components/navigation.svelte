@@ -9,6 +9,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { backOut } from 'svelte/easing';
 	import { fade, scale } from 'svelte/transition';
+	import { sizeStore } from '../store/size-store.svelte';
 
 	const LABEL_TRANSITION_DURATION = 300;
 	const DEFAULT_CENTER_BUTTON_SIZE = 48;
@@ -66,11 +67,9 @@
 </script>
 
 <div
-	class="fixed bottom-0 left-0 z-50 flex w-full items-center justify-between border-t border-stroke-primary bg-background-primary/50 p-3 backdrop-blur-xl transition-[background-color]"
+	class="fixed bottom-0 left-0 z-50 flex w-full items-center justify-between bg-background-primary/50 p-3 backdrop-blur-xl transition-[background-color] before:absolute before:top-0 before:left-0 before:block before:h-px before:w-full before:bg-stroke-primary"
+	bind:clientHeight={sizeStore.navigationHeight}
 >
-	<!-- Border -->
-	<div class="absolute top-0 left-0 h-px w-full bg-stroke-primary"></div>
-
 	{#each ROUTES as { label, pathname, icon }, index}
 		{@const isActive = pathname === currentPathname}
 		<a

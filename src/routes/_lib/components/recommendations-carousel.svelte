@@ -3,21 +3,24 @@
 	import Image from '$lib/components/image.svelte';
 	import Separator from '$lib/components/separator.svelte';
 	import { COUNTRY_LABEL_MAP_EN, COUNTRY_LABEL_MAP_FA } from '$lib/constants/data';
-	import type { Media } from '$lib/types/data';
-	import type { Lang } from '$lib/types/general';
-	import { Star } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
+	import type { MediaEn, MediaFa } from '$lib/types/data';
+	import { Lang } from '$lib/types/general';
 	import { Swiper } from 'swiper';
 	import 'swiper/css';
 	import 'swiper/css/effect-coverflow';
 	import { Autoplay, EffectCoverflow } from 'swiper/modules';
-	import { toFarsi } from '../../fa/_lib/utilities/to-farsi';
 	import { recommendationsCarouselStore } from '../store/recommendations-carousel-store.svelte';
+	import Score from './score.svelte';
 
-	type Props = {
-		data: Media[];
-		lang: Lang;
+	type enProps = {
+		data: MediaEn[];
+		lang: Lang.En;
 	};
+	type faProps = {
+		data: MediaFa[];
+		lang: Lang.Fa;
+	};
+	type Props = enProps | faProps;
 	const { data, lang }: Props = $props();
 
 	const AUTOPLAY_DELAY = 5000;
@@ -101,7 +104,7 @@
 
 <div class="swiper relative isolate mt-6.5 mb-6 w-full overflow-visible!" bind:this={swiperElm}>
 	<div class="swiper-wrapper overflow-visible!">
-		{#each data as { backdrop, score, title, id, country }, index}
+		{#each data as { backdrop, score, id, country, ...restOfMedia }, index}
 			<div
 				class="swiper-slide group aspect-video h-auto! w-90! overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-primary transition-colors [&.active]:shadow-[0px_0px_6rem_--alpha(var(--color-foreground-primary)/10%)]"
 				bind:this={slideElms[index]}
@@ -132,16 +135,11 @@
 							'absolute start-4 bottom-4 flex scale-75 items-center gap-2 font-bold opacity-0 transition-[opacity,scale] ease-overshoot-light group-[&.active]:scale-100 group-[&.active]:opacity-100'
 						]}
 					>
-						<span class="line-clamp-1">{title}</span>
-						<Separator variant="secondary" size={10} />
-						<div
-							class="flex items-center gap-1 text-accent-secondary transition-colors dark:text-accent-secondary-tint"
+						<span class="line-clamp-1"
+							>{'title' in restOfMedia ? restOfMedia.title : restOfMedia.titleFa}</span
 						>
-							<Icon src={Star} theme="solid" class="w-4" />
-							<span class="translate-y-px text-sm leading-none">
-								{lang === 'en' ? score : toFarsi(score)}
-							</span>
-						</div>
+						<Separator variant="secondary" size={10} />
+						<Score {lang} value={score} />
 					</div>
 				</a>
 			</div>

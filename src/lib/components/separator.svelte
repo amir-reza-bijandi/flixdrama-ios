@@ -3,9 +3,9 @@
 
 	type Props = {
 		size: number;
-		variant: 'primary' | 'secondary';
+		variant?: 'primary' | 'secondary';
 	};
-	const { size, variant }: Props = $props();
+	const { size, variant = 'primary' }: Props = $props();
 </script>
 
 <span

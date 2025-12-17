@@ -3,21 +3,22 @@
 	import Post from '$lib/components/post.svelte';
 	import Swiper from '$lib/components/swiper.svelte';
 	import { COUNTRY_LABEL_MAP_EN, DATA_EN, TYPE_LABEL_MAP_EN } from '$lib/constants/data';
+	import { Lang } from '$lib/types/general';
 	import { toRem } from '$lib/utilities/general';
 	import { CalendarIcon, GlobeIcon, TvIcon } from '@lucide/svelte';
+	import Genres from '../../../_lib/components/genres.svelte';
+	import type { PostInfoData } from '../../../_lib/components/post-info.svelte';
+	import PostInfo from '../../../_lib/components/post-info.svelte';
 	import { navigationStore } from '../../_lib/stores/navigation-store.svelte';
-	import Genres from './_lib/components/genres.svelte';
 	import PostSection from './_lib/components/post-section.svelte';
 	import Score from './_lib/components/score.svelte';
-	import type { ShortInfoData } from './_lib/components/short-info.svelte';
-	import ShortInfo from './_lib/components/short-info.svelte';
 	import Synopsis from './_lib/components/synopsis.svelte';
 	import TrailerBackdrop from './_lib/components/trailer-backdrop.svelte';
 
 	const { backdrop, title, type, country, year, genres, synopsis, score } = $derived(
 		DATA_EN.find(({ id }) => id === Number(page.params.id)) ?? DATA_EN[0]
 	);
-	const shortInfoData = $derived<ShortInfoData>([
+	const shortInfoData = $derived<PostInfoData>([
 		{
 			icon: TvIcon,
 			label: TYPE_LABEL_MAP_EN[type]
@@ -47,7 +48,7 @@
 			<Score>
 				{score}
 			</Score>
-			<ShortInfo data={shortInfoData} />
+			<PostInfo lang={Lang.En} data={shortInfoData} margin={4} />
 			<Genres data={genres} />
 			<div class="flex flex-col gap-4">
 				<Synopsis>
@@ -56,7 +57,7 @@
 				<PostSection heading="Recommendations">
 					<Swiper gap={8} padding={24}>
 						{#each DATA_EN as { id, poster, title, score }}
-							<Post lang="en" {id} image={poster} {title} {score} />
+							<Post lang={Lang.En} {id} image={poster} {title} {score} />
 						{/each}
 					</Swiper>
 				</PostSection>

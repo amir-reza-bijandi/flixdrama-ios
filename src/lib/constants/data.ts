@@ -1,4 +1,6 @@
-import type { Country, Media, Type } from '../types/data';
+import type { LucideIcon } from '$lib/types/icon';
+import { FilmIcon, TvIcon } from '@lucide/svelte';
+import type { Country, MediaEn, MediaFa, Type } from '../types/data';
 
 export const DATA_EN = [
 	{
@@ -131,7 +133,7 @@ export const DATA_EN = [
 		synopsis:
 			"The series centers on a group of high school students who have inherited various superhuman abilities—such as flight, high-speed regeneration, and enhanced senses—from their parents, who were elite secret agents working for the South Korean government's National Intelligence Service (NIS). After their special unit was suddenly disbanded, the parents went into hiding, forcing their children to suppress their powers to live ordinary lives and avoid detection. However, when a mysterious and ruthless assassin begins systematically targeting people with powers, both the students and their parents are forced to step out of the shadows. They must use their formidable abilities to protect themselves and expose the dark secrets of the NIS program that created them."
 	}
-] as const satisfies Media[];
+] as const satisfies MediaEn[];
 
 export const COUNTRY_LABEL_MAP_EN = {
 	korea: 'South Korea',
@@ -151,7 +153,8 @@ export const DATA_FA = [
 		poster: '/image/poster/1.jpg',
 		backdrop: '/image/backdrop/1.jpg',
 		type: 'tv',
-		title: 'بازی مرکب',
+		titleEn: 'Squid Game',
+		titleFa: 'بازی مرکب',
 		year: 2021,
 		genres: ['هیجانی', 'درام', 'بقا'],
 		score: 8.0,
@@ -164,7 +167,8 @@ export const DATA_FA = [
 		poster: '/image/poster/2.jpg',
 		backdrop: '/image/backdrop/2.jpg',
 		type: 'tv',
-		title: 'سقوط بر روی تو',
+		titleEn: 'Crash Landing on You',
+		titleFa: 'سقوط بر روی تو',
 		year: 2019,
 		genres: ['عاشقانه', 'کمدی', 'درام'],
 		score: 8.7,
@@ -177,7 +181,8 @@ export const DATA_FA = [
 		poster: '/image/poster/3.jpg',
 		backdrop: '/image/backdrop/3.jpg',
 		type: 'movie',
-		title: 'انگل',
+		titleEn: 'Parasite',
+		titleFa: 'انگل',
 		year: 2019,
 		genres: ['کمدی سیاه', 'هیجانی', 'درام'],
 		score: 8.5,
@@ -190,7 +195,8 @@ export const DATA_FA = [
 		poster: '/image/poster/4.jpg',
 		backdrop: '/image/backdrop/4.jpg',
 		type: 'tv',
-		title: 'وکیل ووی خارق‌العاده',
+		titleEn: 'Extraordinary Attorney Woo',
+		titleFa: 'وکیل ووی خارق‌العاده',
 		year: 2022,
 		genres: ['حقوقی', 'درام', 'عاشقانه'],
 		score: 8.7,
@@ -203,7 +209,8 @@ export const DATA_FA = [
 		poster: '/image/poster/5.jpg',
 		backdrop: '/image/backdrop/5.jpg',
 		type: 'movie',
-		title: 'قطار بوسان',
+		titleEn: 'Train to Busan',
+		titleFa: 'قطار بوسان',
 		year: 2016,
 		genres: ['اکشن', 'ترسناک', 'هیجانی'],
 		score: 7.6,
@@ -216,7 +223,8 @@ export const DATA_FA = [
 		poster: '/image/poster/6.jpg',
 		backdrop: '/image/backdrop/6.jpg',
 		type: 'tv',
-		title: 'وینچنزو',
+		titleEn: 'Vincenzo',
+		titleFa: 'وینچنزو',
 		year: 2021,
 		genres: ['جنایی', 'کمدی', 'درام'],
 		score: 8.4,
@@ -229,7 +237,8 @@ export const DATA_FA = [
 		poster: '/image/poster/7.jpg',
 		backdrop: '/image/backdrop/7.jpg',
 		type: 'tv',
-		title: 'پاسخ به ۱۹۸۸',
+		titleEn: 'Reply 1988',
+		titleFa: 'پاسخ به ۱۹۸۸',
 		year: 2015,
 		genres: ['کمدی', 'برشی از زندگی', 'خانوادگی'],
 		score: 9.1,
@@ -242,7 +251,8 @@ export const DATA_FA = [
 		poster: '/image/poster/8.jpg',
 		backdrop: '/image/backdrop/8.jpg',
 		type: 'movie',
-		title: 'میزبان',
+		titleEn: 'The Host',
+		titleFa: 'میزبان',
 		year: 2006,
 		genres: ['هیولا', 'اکشن', 'علمی-تخیلی'],
 		score: 7.1,
@@ -255,7 +265,8 @@ export const DATA_FA = [
 		poster: '/image/poster/9.jpg',
 		backdrop: '/image/backdrop/9.jpg',
 		type: 'tv',
-		title: 'گابلین',
+		titleEn: 'Guardian: The Lonely and Great God (Goblin)',
+		titleFa: 'گابلین',
 		year: 2016,
 		genres: ['فانتزی', 'عاشقانه', 'درام'],
 		score: 8.6,
@@ -268,7 +279,8 @@ export const DATA_FA = [
 		poster: '/image/poster/10.jpg',
 		backdrop: '/image/backdrop/10.jpg',
 		type: 'tv',
-		title: 'متحرک',
+		titleEn: 'Moving',
+		titleFa: 'متحرک',
 		year: 2023,
 		genres: ['اکشن', 'ماوراء طبیعی', 'هیجانی'],
 		score: 8.5,
@@ -276,7 +288,7 @@ export const DATA_FA = [
 		synopsis:
 			'این سریال بر گروهی از دانش‌آموزان دبیرستانی تمرکز دارد که توانایی‌های مافوق بشری مختلفی—مانند پرواز، بازسازی با سرعت بالا و حواس تقویت‌شده—را از والدین خود به ارث برده‌اند، والدینی که ماموران مخفی نخبه بودند و برای سرویس اطلاعات ملی (NIS) دولت کره جنوبی کار می‌کردند. پس از انحلال ناگهانی واحد ویژه آنها، والدین پنهان شدند و فرزندان خود را مجبور کردند تا قدرت‌های خود را برای زندگی عادی سرکوب کنند و از شناسایی شدن دوری کنند. با این حال، هنگامی که یک قاتل مرموز و بی‌رحم شروع به هدف قرار دادن سیستماتیک افراد دارای قدرت می‌کند، هم دانش‌آموزان و هم والدین آنها مجبور می‌شوند از سایه‌ها بیرون بیایند. آنها باید از توانایی‌های فوق‌العاده خود برای محافظت از خود و افشای اسرار تاریک برنامه NIS که آنها را ایجاد کرده است، استفاده کنند.'
 	}
-] as const satisfies Media[];
+] as const satisfies MediaFa[];
 
 export const COUNTRY_LABEL_MAP_FA = {
 	korea: 'کرهٔ جنوبی',
@@ -289,3 +301,8 @@ export const TYPE_LABEL_MAP_FA = {
 	movie: 'فیلم',
 	tv: 'سریال'
 } as const satisfies Record<Type, string>;
+
+export const TYPE_ICON_MAP = {
+	movie: FilmIcon,
+	tv: TvIcon
+} as const satisfies Record<Type, LucideIcon>;

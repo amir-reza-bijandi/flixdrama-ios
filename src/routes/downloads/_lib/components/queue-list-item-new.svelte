@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Image from '$lib/components/image.svelte';
-	import { Pause, Play, Trash } from '@steeze-ui/heroicons';
+	import { Pause, Play, Trash, QueueList, Clock } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import type { DownloadInfo } from '$lib/plugins/download-manager';
 	import { toRem } from '$lib/utilities/general';
@@ -31,9 +31,20 @@
 
 	// Derived status
 	const isPaused = $derived(data.status === 'paused');
-	const isDownloading = $derived(data.status === 'downloading' || data.status === 'waiting');
+	const isQueued = $derived(data.status === 'queued' || data.status === 'waiting');
+	const isDownloading = $derived(data.status === 'downloading');
 	const progressPercent = $derived(Math.round((data.progress ?? 0) * 100));
-	const progressStatus = $derived<'downloading' | 'paused'>(isPaused ? 'paused' : 'downloading');
+	const progressStatus = $derived<'downloading' | 'paused' | 'queued'>(
+		isPaused ? 'paused' : isQueued ? 'queued' : 'downloading'
+	);
+
+	// Get status label and icon
+	const statusLabel = $derived(
+		isPaused ? 'Paused' : isQueued ? 'In Queue' : 'Downloading'
+	);
+	const statusIcon = $derived(
+		isPaused ? Pause : isQueued ? Clock : Play
+	);
 
 	// Swipe to delete functionality
 	let itemWidth = $state(0);
@@ -136,27 +147,42 @@
 				<div class="mb-1.5 truncate text-sm font-bold leading-tight">{data.name}</div>
 				<div class="mb-2">
 					<div class="mb-1 flex items-center gap-2 text-xs leading-none text-foreground-secondary">
-						<div class="flex items-center gap-1">
-							<Icon class="size-3" src={isPaused ? Pause : Play} theme="micro" />
-							<span>{isPaused ? 'Paused' : 'Downloading'}</span>
+						<div class={[
+							'flex items-center gap-1',
+							isQueued && 'text-amber-400'
+						]}>
+							<Icon class="size-3" src={statusIcon} theme="micro" />
+							<span>{statusLabel}</span>
 						</div>
-						<span>-</span>
-						<span>{progressPercent}%</span>
+						{#if !isQueued}
+							<span>-</span>
+							<span>{progressPercent}%</span>
+						{/if}
 						{#if data.speed && isDownloading}
 							<span class="text-accent-primary">({formatSpeed(data.speed)})</span>
 						{/if}
 					</div>
-					<Progress value={progressPercent} status={progressStatus} />
+					{#if !isQueued}
+						<Progress value={progressPercent} status={progressStatus} />
+					{:else}
+						<div class="h-1.5 rounded-full bg-amber-500/20"></div>
+					{/if}
 				</div>
 			</div>
 
-			<!-- Pause/Resume button -->
-			<button
-				class="shrink-0 rounded-full bg-background-primary p-2 transition-colors hover:bg-background-secondary active:bg-accent-primary/20"
-				onclick={handleTogglePauseResume}
-			>
-				<Icon class="size-5" src={isPaused ? Play : Pause} theme="solid" />
-			</button>
+			<!-- Pause/Resume button - only show for non-queued items -->
+			{#if !isQueued}
+				<button
+					class="shrink-0 rounded-full bg-background-primary p-2 transition-colors hover:bg-background-secondary active:bg-accent-primary/20"
+					onclick={handleTogglePauseResume}
+				>
+					<Icon class="size-5" src={isPaused ? Play : Pause} theme="solid" />
+				</button>
+			{:else}
+				<div class="shrink-0 rounded-full bg-amber-500/20 p-2">
+					<Icon class="size-5 text-amber-400" src={Clock} theme="solid" />
+				</div>
+			{/if}
 		</div>
 	</div>
 </div>

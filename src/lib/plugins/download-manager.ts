@@ -54,6 +54,7 @@ export interface DownloadCompleteEvent {
 
 export type DownloadStatus =
 	| 'waiting'
+	| 'queued'
 	| 'downloading'
 	| 'paused'
 	| 'cancelled'
@@ -64,6 +65,14 @@ export type DownloadStatus =
 	| 'cancelling'
 	| 'removing'
 	| 'unknown';
+
+export interface QueueStatus {
+	isQueuePaused: boolean;
+	totalInQueue: number;
+	queuedCount: number;
+	downloadingCount: number;
+	pausedCount: number;
+}
 
 export interface DownloadManagerPlugin {
 	/**
@@ -150,6 +159,21 @@ export interface DownloadManagerPlugin {
 		saveDir: string;
 		fileName: string;
 	}): Promise<{ localPath: string; status: string }>;
+
+	/**
+	 * Pause all downloads in the queue
+	 */
+	pauseAllDownloads(): Promise<{ status: string; isQueuePaused: boolean }>;
+
+	/**
+	 * Resume all downloads in the queue
+	 */
+	resumeAllDownloads(): Promise<{ status: string; isQueuePaused: boolean }>;
+
+	/**
+	 * Get the current queue status
+	 */
+	getQueueStatus(): Promise<QueueStatus>;
 
 	/**
 	 * Add a listener for download progress events
@@ -256,6 +280,27 @@ class DownloadManagerWeb implements DownloadManagerPlugin {
 	}): Promise<{ localPath: string; status: string }> {
 		console.log('DownloadManager web fallback - downloadImage', options);
 		return { localPath: '', status: 'web_not_supported' };
+	}
+
+	async pauseAllDownloads(): Promise<{ status: string; isQueuePaused: boolean }> {
+		console.log('DownloadManager web fallback - pauseAllDownloads');
+		return { status: 'web_not_supported', isQueuePaused: false };
+	}
+
+	async resumeAllDownloads(): Promise<{ status: string; isQueuePaused: boolean }> {
+		console.log('DownloadManager web fallback - resumeAllDownloads');
+		return { status: 'web_not_supported', isQueuePaused: false };
+	}
+
+	async getQueueStatus(): Promise<QueueStatus> {
+		console.log('DownloadManager web fallback - getQueueStatus');
+		return {
+			isQueuePaused: false,
+			totalInQueue: 0,
+			queuedCount: 0,
+			downloadingCount: 0,
+			pausedCount: 0
+		};
 	}
 
 	async addListener(

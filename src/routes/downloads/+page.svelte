@@ -8,7 +8,7 @@
 	import { navigationStore } from '../_lib/stores/navigation-store.svelte';
 	import { downloadStore } from '$lib/stores/download-store.svelte';
 	import { onMount, onDestroy } from 'svelte';
-	import { Trash, InformationCircle, XMark } from '@steeze-ui/heroicons';
+	import { Trash, InformationCircle, XMark, PauseCircle, PlayCircle } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import FileListItemNew from './_lib/components/file-list-item-new.svelte';
 	import QueueListItemNew from './_lib/components/queue-list-item-new.svelte';
@@ -184,21 +184,45 @@
 	async function handleResumeDownload(id: string) {
 		await downloadStore.resumeDownload(id);
 	}
+
+	async function handleToggleQueuePauseResume() {
+		if (downloadStore.isQueuePaused) {
+			await downloadStore.resumeAllDownloads();
+		} else {
+			await downloadStore.pauseAllDownloads();
+		}
+	}
 </script>
 
 <div class="relative z-10 flex flex-1 flex-col px-5 pt-6">
 	<!-- Header -->
 	<div class="flex items-center justify-between">
 		<div class="text-2xl leading-none font-bold">Downloads</div>
-		{#if currentTab === 'files' && fileItems.length > 0}
-			<button 
-				onclick={handleDeleteAll}
-				class="flex items-center gap-1.5 rounded-full bg-red-500/20 px-3 py-1.5 text-xs font-medium text-red-400 transition-colors hover:bg-red-500/30"
-			>
-				<Icon class="size-3.5" src={Trash} theme="micro" />
-				Delete All
-			</button>
-		{/if}
+		<div class="flex items-center gap-2">
+			{#if currentTab === 'queue' && queueItems.length > 0}
+				<button
+					onclick={handleToggleQueuePauseResume}
+					class={[
+						'flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium transition-colors',
+						downloadStore.isQueuePaused
+							? 'bg-green-500/20 text-green-400 hover:bg-green-500/30'
+							: 'bg-amber-500/20 text-amber-400 hover:bg-amber-500/30'
+					]}
+				>
+					<Icon class="size-4" src={downloadStore.isQueuePaused ? PlayCircle : PauseCircle} theme="solid" />
+					{downloadStore.isQueuePaused ? 'Resume All' : 'Pause All'}
+				</button>
+			{/if}
+			{#if currentTab === 'files' && fileItems.length > 0}
+				<button
+					onclick={handleDeleteAll}
+					class="flex items-center gap-1.5 rounded-full bg-red-500/20 px-3 py-1.5 text-xs font-medium text-red-400 transition-colors hover:bg-red-500/30"
+				>
+					<Icon class="size-3.5" src={Trash} theme="micro" />
+					Delete All
+				</button>
+			{/if}
+		</div>
 	</div>
 	
 	<!-- Total Size Badge -->

@@ -3,7 +3,8 @@ import DownloadManager, {
 	type DownloadedFile,
 	type DownloadProgressEvent,
 	type DownloadCompleteEvent,
-	type DownloadOptions
+	type DownloadOptions,
+	type QueueStatus
 } from '$lib/plugins/download-manager';
 
 /**
@@ -20,6 +21,13 @@ let totalDownloadedSize = $state<{ totalSize: number; formattedSize: string }>({
 });
 let isLoading = $state(false);
 let error = $state<string | null>(null);
+let queueStatus = $state<QueueStatus>({
+	isQueuePaused: false,
+	totalInQueue: 0,
+	queuedCount: 0,
+	downloadingCount: 0,
+	pausedCount: 0
+});
 
 // Listeners
 let progressListenerRemove: (() => void) | null = null;
@@ -56,6 +64,7 @@ async function initialize() {
 		await refreshDownloads();
 		await refreshDownloadedFiles();
 		await refreshTotalSize();
+		await refreshQueueStatus();
 	} catch (err) {
 		error = err instanceof Error ? err.message : 'Failed to initialize download store';
 		console.error('Download store initialization error:', err);
@@ -110,6 +119,17 @@ async function refreshTotalSize() {
 		totalDownloadedSize = await DownloadManager.getTotalDownloadedSize();
 	} catch (err) {
 		console.error('Failed to get total size:', err);
+	}
+}
+
+/**
+ * Refresh queue status
+ */
+async function refreshQueueStatus() {
+	try {
+		queueStatus = await DownloadManager.getQueueStatus();
+	} catch (err) {
+		console.error('Failed to get queue status:', err);
 	}
 }
 
@@ -249,6 +269,37 @@ async function deleteAllFiles() {
 }
 
 /**
+ * Pause all downloads in the queue
+ */
+async function pauseAllDownloads() {
+	try {
+		const result = await DownloadManager.pauseAllDownloads();
+		queueStatus = { ...queueStatus, isQueuePaused: result.isQueuePaused };
+		// Update all active downloads status to paused
+		activeDownloads = activeDownloads.map((d) => ({
+			...d,
+			status: d.status === 'downloading' ? 'paused' : d.status
+		}));
+	} catch (err) {
+		console.error('Failed to pause all downloads:', err);
+	}
+}
+
+/**
+ * Resume all downloads in the queue
+ */
+async function resumeAllDownloads() {
+	try {
+		const result = await DownloadManager.resumeAllDownloads();
+		queueStatus = { ...queueStatus, isQueuePaused: result.isQueuePaused };
+		// Refresh to get accurate status
+		await refreshDownloads();
+	} catch (err) {
+		console.error('Failed to resume all downloads:', err);
+	}
+}
+
+/**
  * Check if a download with given linkId and postId already exists
  */
 function isAlreadyDownloading(linkId: number, postId: number, isTrailer: boolean): boolean {
@@ -329,6 +380,12 @@ export const downloadStore = {
 	get error() {
 		return error;
 	},
+	get queueStatus() {
+		return queueStatus;
+	},
+	get isQueuePaused() {
+		return queueStatus.isQueuePaused;
+	},
 
 	// Actions
 	initialize,
@@ -336,12 +393,15 @@ export const downloadStore = {
 	refreshDownloads,
 	refreshDownloadedFiles,
 	refreshTotalSize,
+	refreshQueueStatus,
 	startDownload,
 	pauseDownload,
 	resumeDownload,
 	cancelDownload,
 	deleteFile,
 	deleteAllFiles,
+	pauseAllDownloads,
+	resumeAllDownloads,
 	isAlreadyDownloading,
 	isAlreadyDownloaded,
 	getDownloadStatus,

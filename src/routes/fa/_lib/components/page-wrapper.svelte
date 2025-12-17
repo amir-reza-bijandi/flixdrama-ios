@@ -32,7 +32,7 @@
 			{@render actions()}
 		{:else}
 			<div class="relative isolate">
-				<img src={asset('/image/brand-name-fa.svg')} alt="" />
+				<img class="brightness-125 saturate-150" src={asset('/image/brand-name-fa.svg')} alt="" />
 				<img
 					class="absolute top-1/2 left-1/2 -z-10 -translate-1/2 blur-xl"
 					src={asset('/image/brand-name-fa.svg')}

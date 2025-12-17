@@ -66,8 +66,25 @@
 		document.body.removeEventListener('pointerleave', handlePointerUpOrLeave);
 	};
 
-	// Get image source - prefer local if available
-	const imageSrc = $derived(data.localPosterPath ? `file://${data.localPosterPath}` : data.poster);
+	// Get image source - prefer remote poster for thumbnails (more reliable in WebView)
+	// Local paths with file:// may have issues in Capacitor WebView
+	const imageSrc = $derived(() => {
+		// Always prefer remote poster URL for thumbnails (works better in WebView)
+		if (data.episodePoster) {
+			return data.episodePoster;
+		}
+		if (data.poster) {
+			return data.poster;
+		}
+		// Fallback to local paths if remote not available
+		if (data.localEpisodePosterPath) {
+			return `capacitor://localhost/_capacitor_file_${data.localEpisodePosterPath}`;
+		}
+		if (data.localPosterPath) {
+			return `capacitor://localhost/_capacitor_file_${data.localPosterPath}`;
+		}
+		return '';
+	});
 </script>
 
 <div
@@ -105,15 +122,15 @@
 	>
 		<div class="flex items-center gap-3">
 			<!-- Thumbnail with play overlay -->
-			<button 
+			<button
 				class="relative shrink-0 overflow-hidden rounded-lg"
 				onclick={() => onPlay(data.id ?? '')}
 			>
-				<Image 
-					class="aspect-video h-auto w-24 object-cover" 
-					src={imageSrc} 
-					outline 
-					loadingGlow 
+				<Image
+					class="aspect-video h-auto w-24 object-cover"
+					src={imageSrc()}
+					outline
+					loadingGlow
 				/>
 				<div class="absolute inset-0 flex items-center justify-center bg-black/30 transition-colors hover:bg-black/50">
 					<Icon class="size-8 text-white drop-shadow-lg" src={PlayCircle} theme="solid" />

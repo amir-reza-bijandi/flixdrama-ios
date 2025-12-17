@@ -2,11 +2,13 @@
 	import Image from '$lib/components/image.svelte';
 	import Separator from '$lib/components/separator.svelte';
 	import type { TrailerInfo, MediaDetails } from '$lib/types/api';
-	import { ArrowDownTray, Play, Check, ArrowPath } from '@steeze-ui/heroicons';
+	import { ArrowDownTray, Play, Check, QueueList } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import VideoPlayer from '$lib/plugins/video-player';
 	import { downloadStore } from '$lib/stores/download-store.svelte';
 	import { prepareTrailerDownload } from '$lib/plugins/download-manager';
+	import { goto } from '$app/navigation';
+	import { fly } from 'svelte/transition';
 
 	type Props = {
 		backdrop: string;
@@ -15,7 +17,7 @@
 	};
 	const { backdrop, trailer, details }: Props = $props();
 
-	let isDownloading = $state(false);
+	let showToast = $state(false);
 	let downloadStatus = $derived(
 		details
 			? downloadStore.getDownloadStatus(details.id, details.id, true)
@@ -53,8 +55,6 @@
 		}
 
 		try {
-			isDownloading = true;
-
 			// Prepare download options
 			const downloadOptions = await prepareTrailerDownload({
 				id: details.id,
@@ -66,25 +66,44 @@
 
 			// Start the download
 			await downloadStore.startDownload(downloadOptions);
+			
+			// Show toast notification
+			showToast = true;
+			setTimeout(() => {
+				showToast = false;
+			}, 3000);
 		} catch (error) {
 			console.error('Failed to start trailer download:', error);
-		} finally {
-			isDownloading = false;
 		}
+	}
+
+	/**
+	 * Navigate to downloads page
+	 */
+	function goToDownloads() {
+		showToast = false;
+		goto('/downloads');
 	}
 
 	/**
 	 * Get the appropriate icon based on download status
 	 */
 	const downloadIcon = $derived(() => {
-		if (isDownloading || downloadStatus === 'downloading') return ArrowPath;
+		if (downloadStatus === 'downloading' || downloadStatus === 'paused') return QueueList;
 		if (downloadStatus === 'completed') return Check;
 		return ArrowDownTray;
 	});
 
 	const isDownloadDisabled = $derived(
-		!trailer?.link || isDownloading || downloadStatus === 'downloading' || downloadStatus === 'completed'
+		!trailer?.link || downloadStatus === 'downloading' || downloadStatus === 'paused' || downloadStatus === 'completed'
 	);
+	
+	const downloadButtonTitle = $derived(() => {
+		if (downloadStatus === 'downloading') return 'Downloading...';
+		if (downloadStatus === 'paused') return 'Download paused';
+		if (downloadStatus === 'completed') return 'Downloaded';
+		return 'Download trailer';
+	});
 </script>
 
 <div class="absolute top-0 left-1/2 w-132 -translate-x-1/2">
@@ -105,8 +124,9 @@
 			<button
 				onclick={handleDownloadTrailer}
 				disabled={isDownloadDisabled}
-				class:animate-spin={isDownloading || downloadStatus === 'downloading'}
+				title={downloadButtonTitle()}
 				class:text-green-500={downloadStatus === 'completed'}
+				class:text-accent-primary={downloadStatus === 'downloading' || downloadStatus === 'paused'}
 			>
 				<Icon class="size-5" src={downloadIcon()} theme="micro" />
 			</button>
@@ -114,3 +134,19 @@
 		<div class="mt-2 text-center text-sm leading-none font-bold">Trailer</div>
 	</div>
 </div>
+
+<!-- Toast Notification -->
+{#if showToast}
+	<div
+		class="fixed bottom-24 left-1/2 z-50 -translate-x-1/2"
+		transition:fly={{ y: 20, duration: 200 }}
+	>
+		<button
+			onclick={goToDownloads}
+			class="flex items-center gap-2 whitespace-nowrap rounded-full bg-background-primary px-5 py-3.5 shadow-2xl ring-1 ring-stroke-primary"
+		>
+			<span class="text-sm font-medium text-foreground-primary">Download added to</span>
+			<span class="text-sm font-bold text-accent-primary underline underline-offset-2">Downloads</span>
+		</button>
+	</div>
+{/if}

@@ -31,7 +31,7 @@
 		files: 'No files have been downloaded.'
 	};
 
-	let currentTab = $state<Tab>('files');
+	let currentTab = $state<Tab>('queue');
 	let directionFactor = $state<1 | -1>(1);
 	let listContentHeight = $state(0);
 	let listContainerHeight = $state(0);
@@ -41,6 +41,9 @@
 	let deleteItemId = $state<string | null>(null);
 	let showDeleteAllConfirm = $state(false);
 	let showSwipeHint = $state(true);
+	
+	// Key to force re-render of list items (for resetting swipe state)
+	let listResetKey = $state(0);
 	
 	// Derived state from store
 	const queueItems = $derived(downloadStore.activeDownloads);
@@ -57,6 +60,12 @@
 	// Initialize store on mount
 	onMount(async () => {
 		await downloadStore.initialize();
+		
+		// Auto-select Files tab if Queue is empty but Files has items
+		if (downloadStore.activeDownloads.length === 0 && downloadStore.downloadedFiles.length > 0) {
+			currentTab = 'files';
+		}
+		
 		// Check if user has seen the swipe hint before
 		const hintSeen = localStorage.getItem('swipeHintSeen');
 		if (hintSeen) {
@@ -98,6 +107,8 @@
 	function closeDeleteConfirm() {
 		showDeleteConfirm = false;
 		deleteItemId = null;
+		// Increment key to reset swipe states
+		listResetKey++;
 	}
 
 	function handleDeleteAll() {
@@ -176,19 +187,19 @@
 	<Select options={TABS} maxOptionWidth={57} onSelect={handleSelect} />
 	
 	<!-- Swipe Hint Alert -->
-	{#if showSwipeHint && currentTab === 'files' && fileItems.length > 0}
-		<div 
-			class="mb-3 flex items-center gap-3 rounded-xl bg-blue-500/10 p-3 text-sm"
+	{#if showSwipeHint && ((currentTab === 'files' && fileItems.length > 0) || (currentTab === 'queue' && queueItems.length > 0))}
+		<div
+			class="mb-3 flex items-center gap-3 rounded-xl border border-accent-primary/30 bg-accent-primary/10 p-3 text-sm backdrop-blur-sm"
 			in:fly={{ y: -10, duration: 200 }}
 			out:fly={{ y: -10, duration: 150 }}
 		>
-			<Icon class="size-5 shrink-0 text-blue-400" src={InformationCircle} theme="solid" />
-			<span class="flex-1 text-blue-300">Swipe right on any item to delete it</span>
-			<button 
+			<Icon class="size-5 shrink-0 text-accent-primary" src={InformationCircle} theme="solid" />
+			<span class="flex-1 font-medium text-foreground-primary">Swipe right on any item to delete it</span>
+			<button
 				onclick={dismissSwipeHint}
-				class="shrink-0 rounded-full p-1 hover:bg-white/10"
+				class="shrink-0 rounded-full p-1.5 transition-colors hover:bg-foreground-primary/10"
 			>
-				<Icon class="size-4 text-blue-400" src={XMark} theme="micro" />
+				<Icon class="size-4 text-foreground-secondary" src={XMark} theme="micro" />
 			</button>
 		</div>
 	{/if}
@@ -207,15 +218,15 @@
 					{#if queueItems.length === 0}
 						{@render message()}
 					{:else}
-						{#each queueItems as data (data.id)}
+						{#each queueItems as data (`${data.id}-${listResetKey}`)}
 							<div
 								animate:flip={{
 									duration: 150,
 									easing: cubicOut
 								}}
 							>
-								<QueueListItemNew 
-									{data} 
+								<QueueListItemNew
+									{data}
 									onDelete={handleQueueItemDelete}
 									onPause={handlePauseDownload}
 									onResume={handleResumeDownload}
@@ -229,15 +240,15 @@
 					{#if fileItems.length === 0}
 						{@render message()}
 					{:else}
-						{#each fileItems as data (data.id)}
+						{#each fileItems as data (`${data.id}-${listResetKey}`)}
 							<div
 								animate:flip={{
 									duration: 150,
 									easing: cubicOut
 								}}
 							>
-								<FileListItemNew 
-									{data} 
+								<FileListItemNew
+									{data}
 									onDelete={handleFileItemDelete}
 									onPlay={handlePlayFile}
 								/>
@@ -252,33 +263,54 @@
 
 <!-- Delete Confirmation Modal -->
 {#if showDeleteConfirm}
-	<div 
-		class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
-		onclick={closeDeleteConfirm}
+	<div
+		class="fixed inset-0 z-50 flex items-end justify-center sm:items-center"
 		role="dialog"
 		aria-modal="true"
-		transition:scale={{ duration: 150, start: 0.95 }}
+		transition:scale={{ duration: 200, start: 0.95 }}
 	>
-		<div 
-			class="mx-6 w-full max-w-sm rounded-2xl bg-background-secondary p-6 shadow-2xl"
+		<!-- Backdrop -->
+		<div
+			class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+			onclick={closeDeleteConfirm}
+		></div>
+		
+		<!-- Modal Content -->
+		<div
+			class="relative mx-4 mb-4 w-full max-w-sm overflow-hidden rounded-2xl border border-stroke-secondary bg-background-primary shadow-2xl sm:mb-0"
 			onclick={(e) => e.stopPropagation()}
 		>
-			<div class="mb-2 text-lg font-bold">Delete {currentTab === 'queue' ? 'Download' : 'File'}?</div>
-			<p class="mb-6 text-sm text-foreground-secondary">
-				{currentTab === 'queue' 
-					? 'This will cancel the download and remove it from the queue.'
-					: 'This will permanently delete the downloaded file from your device.'}
-			</p>
-			<div class="flex gap-3">
-				<button 
+			<!-- Header with icon -->
+			<div class="flex items-center gap-3 border-b border-stroke-secondary bg-background-secondary/50 px-5 py-4">
+				<div class="flex size-10 items-center justify-center rounded-full bg-red-500/15">
+					<Icon class="size-5 text-red-500" src={Trash} theme="solid" />
+				</div>
+				<div>
+					<div class="text-base font-bold text-foreground-primary">Delete {currentTab === 'queue' ? 'Download' : 'File'}?</div>
+					<p class="text-xs text-foreground-tertiary">This action cannot be undone</p>
+				</div>
+			</div>
+			
+			<!-- Body -->
+			<div class="px-5 py-4">
+				<p class="text-sm leading-relaxed text-foreground-secondary">
+					{currentTab === 'queue'
+						? 'This will cancel the download and remove it from the queue.'
+						: 'This will permanently delete the downloaded file from your device.'}
+				</p>
+			</div>
+			
+			<!-- Actions -->
+			<div class="flex gap-3 border-t border-stroke-secondary bg-background-secondary/30 p-4">
+				<button
 					onclick={closeDeleteConfirm}
-					class="flex-1 rounded-xl bg-background-tertiary py-3 font-medium transition-colors hover:bg-background-primary"
+					class="flex-1 rounded-xl border border-stroke-secondary bg-background-secondary py-3 text-sm font-semibold text-foreground-primary transition-colors hover:bg-background-tertiary active:scale-[0.98]"
 				>
 					Cancel
 				</button>
-				<button 
+				<button
 					onclick={confirmDelete}
-					class="flex-1 rounded-xl bg-red-500 py-3 font-medium text-white transition-colors hover:bg-red-600"
+					class="flex-1 rounded-xl bg-red-500 py-3 text-sm font-semibold text-white shadow-lg shadow-red-500/25 transition-all hover:bg-red-600 hover:shadow-red-500/40 active:scale-[0.98]"
 				>
 					Delete
 				</button>
@@ -289,34 +321,57 @@
 
 <!-- Delete All Confirmation Modal -->
 {#if showDeleteAllConfirm}
-	<div 
-		class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
-		onclick={closeDeleteAllConfirm}
+	<div
+		class="fixed inset-0 z-50 flex items-end justify-center sm:items-center"
 		role="dialog"
 		aria-modal="true"
-		transition:scale={{ duration: 150, start: 0.95 }}
+		transition:scale={{ duration: 200, start: 0.95 }}
 	>
-		<div 
-			class="mx-6 w-full max-w-sm rounded-2xl bg-background-secondary p-6 shadow-2xl"
+		<!-- Backdrop -->
+		<div
+			class="absolute inset-0 bg-black/50 backdrop-blur-sm"
+			onclick={closeDeleteAllConfirm}
+		></div>
+		
+		<!-- Modal Content -->
+		<div
+			class="relative mx-4 mb-4 w-full max-w-sm overflow-hidden rounded-2xl border border-stroke-secondary bg-background-primary shadow-2xl sm:mb-0"
 			onclick={(e) => e.stopPropagation()}
 		>
-			<div class="mb-2 text-lg font-bold text-red-400">Delete All Files?</div>
-			<p class="mb-2 text-sm text-foreground-secondary">
-				This will permanently delete all downloaded files ({totalSize.formattedSize}) from your device.
-			</p>
-			<p class="mb-6 text-sm font-medium text-red-400">
-				This action cannot be undone.
-			</p>
-			<div class="flex gap-3">
-				<button 
+			<!-- Header with icon -->
+			<div class="flex items-center gap-3 border-b border-stroke-secondary bg-background-secondary/50 px-5 py-4">
+				<div class="flex size-10 items-center justify-center rounded-full bg-red-500/15">
+					<Icon class="size-5 text-red-500" src={Trash} theme="solid" />
+				</div>
+				<div>
+					<div class="text-base font-bold text-foreground-primary">Delete All Files?</div>
+					<p class="text-xs text-foreground-tertiary">This will remove {totalSize.formattedSize}</p>
+				</div>
+			</div>
+			
+			<!-- Body -->
+			<div class="px-5 py-4">
+				<p class="text-sm leading-relaxed text-foreground-secondary">
+					This will permanently delete all downloaded files from your device.
+				</p>
+				<div class="mt-3 rounded-lg border border-red-500/20 bg-red-500/10 p-3">
+					<p class="text-xs font-medium text-red-400">
+						⚠️ This action cannot be undone
+					</p>
+				</div>
+			</div>
+			
+			<!-- Actions -->
+			<div class="flex gap-3 border-t border-stroke-secondary bg-background-secondary/30 p-4">
+				<button
 					onclick={closeDeleteAllConfirm}
-					class="flex-1 rounded-xl bg-background-tertiary py-3 font-medium transition-colors hover:bg-background-primary"
+					class="flex-1 rounded-xl border border-stroke-secondary bg-background-secondary py-3 text-sm font-semibold text-foreground-primary transition-colors hover:bg-background-tertiary active:scale-[0.98]"
 				>
 					Cancel
 				</button>
-				<button 
+				<button
 					onclick={confirmDeleteAll}
-					class="flex-1 rounded-xl bg-red-500 py-3 font-medium text-white transition-colors hover:bg-red-600"
+					class="flex-1 rounded-xl bg-red-500 py-3 text-sm font-semibold text-white shadow-lg shadow-red-500/25 transition-all hover:bg-red-600 hover:shadow-red-500/40 active:scale-[0.98]"
 				>
 					Delete All
 				</button>

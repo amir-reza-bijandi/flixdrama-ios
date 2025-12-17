@@ -118,11 +118,11 @@
 		<div class="flex items-center gap-3">
 			<!-- Thumbnail -->
 			<div class="relative shrink-0 overflow-hidden rounded-lg">
-				<Image 
-					class="aspect-video h-auto w-24 object-cover" 
-					src={data.poster} 
-					outline 
-					loadingGlow 
+				<Image
+					class="aspect-video h-auto w-24 object-cover"
+					src={data.episodePoster || data.poster}
+					outline
+					loadingGlow
 				/>
 				{#if data.isTrailer}
 					<div class="absolute top-1 left-1 rounded bg-accent-primary/90 px-1.5 py-0.5 text-[10px] font-bold uppercase text-white">

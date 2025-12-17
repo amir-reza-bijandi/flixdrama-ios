@@ -114,15 +114,15 @@
 		scrollbar-width: none;
 	}
 }
-
 @utility box-container {
 	@apply relative isolate;
 }
-
+@utility active-bounce {
+	@apply transition-transform duration-750 ease-overshoot-heavy active:scale-90;
+}
 @utility bg-gradient-primary {
 	@apply bg-linear-to-b from-accent-primary-tint to-accent-primary-shade bg-size-[calc(100%,110%)] bg-center;
 }
-
 @utility bg-gradient-secondary {
 	@apply bg-linear-to-b from-accent-secondary-tint to-accent-secondary-shade bg-size-[calc(100%,110%)] bg-center;
 }

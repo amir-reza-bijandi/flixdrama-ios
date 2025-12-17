@@ -1,0 +1,17 @@
+<script lang="ts">
+	import type { LucideIcon } from '$lib/types/icon';
+	import type { Snippet } from 'svelte';
+
+	type Props = {
+		icon: LucideIcon;
+		children: Snippet;
+	};
+	const { icon: Icon, children }: Props = $props();
+</script>
+
+<div
+	class="flex active-bounce items-center justify-center gap-1.5 rounded-full bg-gradient-primary p-3 text-sm leading-none text-foreground-accent outline -outline-offset-1 outline-stroke-tertiary"
+>
+	<Icon class="size-4" />
+	{@render children()}
+</div>

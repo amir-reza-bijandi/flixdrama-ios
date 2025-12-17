@@ -9,10 +9,11 @@
 		TYPE_LABEL_MAP_FA
 	} from '$lib/constants/data';
 	import { toRem } from '$lib/utilities/general';
-	import { CalendarIcon, GlobeIcon } from '@lucide/svelte';
+	import { CalendarIcon, GlobeIcon, ListVideoIcon } from '@lucide/svelte';
 	import { VideoCamera } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import Backdrop from '../../_lib/components/backdrop.svelte';
+	import Button from '../../_lib/components/button.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
 	import * as Post from '../../_lib/components/post/index';
 	import { sizeStore } from '../../_lib/store/size-store.svelte';
@@ -40,12 +41,12 @@
 
 <PageWrapper>
 	<Backdrop image={backdrop}>
-		<button
-			class="flex h-full w-full flex-col items-center justify-center gap-1.5 transition-[color,scale] duration-750 ease-overshoot-heavy active:scale-90"
-		>
-			<Icon class="size-9" src={VideoCamera} theme="solid" />
-			<div class="font-bold">پیش‌نمایش</div>
-		</button>
+		<div class="h-full w-full transition-colors">
+			<button class="flex h-full w-full active-bounce flex-col items-center justify-center gap-1.5">
+				<Icon class="size-9" src={VideoCamera} theme="solid" />
+				<div class="font-bold">پیش‌نمایش</div>
+			</button>
+		</div>
 	</Backdrop>
 	<div
 		style:--padding-bottom={toRem(sizeStore.navigationHeight)}
@@ -74,6 +75,7 @@
 				<Post.Score value={score} />
 			</div>
 			<Post.Genres data={genres} />
+			<Button icon={ListVideoIcon}>لیست قسمت‌ها</Button>
 		</Post.Root>
 	</div>
 </PageWrapper>

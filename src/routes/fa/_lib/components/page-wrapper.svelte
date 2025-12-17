@@ -25,7 +25,7 @@
 
 <div class="overflow-hidden pb-[calc(var(--spacing-app-padding)+--spacing(22))]">
 	<!-- Header -->
-	<div class="flex items-center justify-between px-app-padding pt-app-padding">
+	<div class="relative z-50 flex items-center justify-between px-app-padding pt-app-padding">
 		{#if actions}
 			{@render actions()}
 		{:else}

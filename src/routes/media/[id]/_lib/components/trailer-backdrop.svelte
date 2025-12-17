@@ -1,16 +1,26 @@
 <script lang="ts">
 	import Image from '$lib/components/image.svelte';
 	import Separator from '$lib/components/separator.svelte';
-	import type { TrailerInfo } from '$lib/types/api';
-	import { ArrowDownTray, Play } from '@steeze-ui/heroicons';
+	import type { TrailerInfo, MediaDetails } from '$lib/types/api';
+	import { ArrowDownTray, Play, Check, ArrowPath } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import VideoPlayer from '$lib/plugins/video-player';
+	import { downloadStore } from '$lib/stores/download-store.svelte';
+	import { prepareTrailerDownload } from '$lib/plugins/download-manager';
 
 	type Props = {
 		backdrop: string;
 		trailer?: TrailerInfo;
+		details?: MediaDetails;
 	};
-	const { backdrop, trailer }: Props = $props();
+	const { backdrop, trailer, details }: Props = $props();
+
+	let isDownloading = $state(false);
+	let downloadStatus = $derived(
+		details
+			? downloadStore.getDownloadStatus(details.id, details.id, true)
+			: 'none'
+	);
 
 	/**
 	 * Opens the trailer in the native KSPlayer for streaming
@@ -30,13 +40,51 @@
 	}
 
 	/**
-	 * Opens the trailer link for downloading in a new tab
+	 * Downloads the trailer using the native download manager
 	 */
-	function handleDownloadTrailer() {
-		if (trailer?.link) {
-			window.open(trailer.link, '_blank');
+	async function handleDownloadTrailer() {
+		if (!trailer?.link || !details) {
+			return;
+		}
+
+		// Check if already downloading or downloaded
+		if (downloadStatus !== 'none') {
+			return;
+		}
+
+		try {
+			isDownloading = true;
+
+			// Prepare download options
+			const downloadOptions = await prepareTrailerDownload({
+				id: details.id,
+				name: details.name,
+				banner: details.banner,
+				trailerLink: trailer.link,
+				trailerSubtitle: trailer.subtitle || undefined
+			});
+
+			// Start the download
+			await downloadStore.startDownload(downloadOptions);
+		} catch (error) {
+			console.error('Failed to start trailer download:', error);
+		} finally {
+			isDownloading = false;
 		}
 	}
+
+	/**
+	 * Get the appropriate icon based on download status
+	 */
+	const downloadIcon = $derived(() => {
+		if (isDownloading || downloadStatus === 'downloading') return ArrowPath;
+		if (downloadStatus === 'completed') return Check;
+		return ArrowDownTray;
+	});
+
+	const isDownloadDisabled = $derived(
+		!trailer?.link || isDownloading || downloadStatus === 'downloading' || downloadStatus === 'completed'
+	);
 </script>
 
 <div class="absolute top-0 left-1/2 w-132 -translate-x-1/2">
@@ -54,8 +102,13 @@
 				<Icon class="size-5" src={Play} theme="solid" />
 			</button>
 			<Separator variant="primary" size={12} />
-			<button onclick={handleDownloadTrailer} disabled={!trailer?.link}>
-				<Icon class="size-5" src={ArrowDownTray} theme="micro" />
+			<button
+				onclick={handleDownloadTrailer}
+				disabled={isDownloadDisabled}
+				class:animate-spin={isDownloading || downloadStatus === 'downloading'}
+				class:text-green-500={downloadStatus === 'completed'}
+			>
+				<Icon class="size-5" src={downloadIcon()} theme="micro" />
 			</button>
 		</div>
 		<div class="mt-2 text-center text-sm leading-none font-bold">Trailer</div>

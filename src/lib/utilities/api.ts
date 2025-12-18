@@ -1,5 +1,6 @@
 import { PUBLIC_API_BASE_URL } from '$env/static/public';
 import type { HomeResponse, MediaResponse, ArchiveResponse } from '$lib/types/api';
+import { authStore } from '$lib/stores/auth-store.svelte';
 
 // API Configuration
 const API_BASE_URL = PUBLIC_API_BASE_URL;
@@ -9,6 +10,23 @@ const DEFAULT_HEADERS: HeadersInit = {
 	'Content-Type': 'application/json',
 	Accept: 'application/json'
 };
+
+/**
+ * Ensure auth store is initialized and get auth headers if token is available
+ */
+async function getAuthHeaders(): Promise<HeadersInit> {
+	// Ensure auth store is initialized before checking token
+	if (!authStore.isInitialized) {
+		await authStore.init();
+	}
+
+	if (authStore.token) {
+		return {
+			Authorization: `Bearer ${authStore.token}`
+		};
+	}
+	return {};
+}
 
 // Request options type
 type RequestOptions = {
@@ -45,10 +63,14 @@ export async function apiRequest<T>(endpoint: string, options: RequestOptions = 
 	const timeoutId = setTimeout(() => controller.abort(), timeout);
 
 	try {
+		// Get auth headers (this ensures auth store is initialized)
+		const authHeaders = await getAuthHeaders();
+
 		const response = await fetch(url, {
 			method,
 			headers: {
 				...DEFAULT_HEADERS,
+				...authHeaders,
 				...headers
 			},
 			body: body ? JSON.stringify(body) : undefined,

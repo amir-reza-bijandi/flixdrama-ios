@@ -14,6 +14,7 @@
 	import { ChevronRight, ExclamationTriangle, ArrowPath } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { networkStore } from '$lib/stores/network-store.svelte';
+	import { authStore } from '$lib/stores/auth-store.svelte';
 
 	// State for API data
 	let homeData = $state<HomeResponse | null>(null);
@@ -33,6 +34,11 @@
 			homeData.series.forEach((section) => {
 				selectedCountryIndexes[section.title] = 0;
 			});
+			
+			// Save auth token if need_refresh is true
+			if (homeData.auth?.need_refresh && homeData.auth.token) {
+				await authStore.setToken(homeData.auth.token);
+			}
 		} catch (err) {
 			error = err instanceof Error ? err.message : 'Failed to load data';
 			console.error('Failed to fetch home data:', err);

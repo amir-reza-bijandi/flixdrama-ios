@@ -2,6 +2,7 @@
 	import { ASSETS } from '$lib/assets';
 	import OfflineIndicator from '$lib/components/offline-indicator.svelte';
 	import { networkStore } from '$lib/stores/network-store.svelte';
+	import { authStore } from '$lib/stores/auth-store.svelte';
 	import { ModeWatcher } from 'mode-watcher';
 	import { onMount } from 'svelte';
 	import '../app.css';
@@ -15,7 +16,9 @@
 	let { children } = $props();
 
 	onMount(() => {
+		// Initialize stores
 		networkStore.init();
+		authStore.init();
 	});
 </script>
 

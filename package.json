@@ -39,6 +39,7 @@
 	"dependencies": {
 		"@capacitor/core": "latest",
 		"@capacitor/network": "^8.0.0",
+		"@capacitor/preferences": "^8.0.0",
 		"@lucide/svelte": "^0.553.0",
 		"@steeze-ui/heroicons": "^2.4.2",
 		"@steeze-ui/svelte-icon": "^1.6.2",

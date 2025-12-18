@@ -40,11 +40,18 @@ export type MovieItem = {
 	poster: string;
 };
 
+// Auth info from home API
+export type AuthInfo = {
+	token: string;
+	need_refresh: boolean;
+};
+
 // Home page API response
 export type HomeResponse = {
 	slider: SliderItem[];
 	series: SeriesSection[];
 	movies: MovieItem[];
+	auth?: AuthInfo;
 };
 
 // Generic API response wrapper for error handling

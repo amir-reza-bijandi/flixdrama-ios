@@ -10,12 +10,13 @@
 		title: string;
 		subtitle?: string;
 		score: number;
+		fixedWidth?: boolean;
 	};
-	const { id, image, score, title, subtitle }: Props = $props();
+	const { id, image, score, title, subtitle, fixedWidth = false }: Props = $props();
 </script>
 
 <a
-	class="block w-32 shrink-0"
+	class={['block shrink-0', fixedWidth ? 'w-32' : 'w-full']}
 	href={resolve('/media/[id]', {
 		id: String(id)
 	})}

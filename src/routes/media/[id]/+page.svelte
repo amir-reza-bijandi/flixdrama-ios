@@ -7,6 +7,7 @@
 	import type { MediaResponse } from '$lib/types/api';
 	import { CalendarIcon, GlobeIcon, TvIcon } from '@lucide/svelte';
 	import { navigationStore } from '../../_lib/stores/navigation-store.svelte';
+	import { mediaStore } from '../../_lib/stores/media-store.svelte';
 	import Genres from './_lib/components/genres.svelte';
 	import PostSection from './_lib/components/post-section.svelte';
 	import Score from './_lib/components/score.svelte';
@@ -15,6 +16,7 @@
 	import Synopsis from './_lib/components/synopsis.svelte';
 	import TrailerBackdrop from './_lib/components/trailer-backdrop.svelte';
 	import MediaSkeleton from './_lib/components/media-skeleton.svelte';
+	import { onDestroy } from 'svelte';
 
 	// State for API data
 	let mediaData = $state<MediaResponse | null>(null);
@@ -26,9 +28,13 @@
 		isLoading = true;
 		error = null;
 		mediaData = null;
+		mediaStore.clear();
 
 		try {
 			mediaData = await api.media.getMedia(id);
+			// Set initial liked state in store
+			const initialLiked = mediaData?.details?.is_liked ?? false;
+			mediaStore.setMedia(id, initialLiked);
 		} catch (err) {
 			error = err instanceof Error ? err.message : 'Failed to load media data';
 			console.error('Failed to fetch media data:', err);
@@ -41,6 +47,11 @@
 	$effect(() => {
 		const id = Number(page.params.id);
 		fetchMediaData(id);
+	});
+
+	// Clean up store when leaving the page
+	onDestroy(() => {
+		mediaStore.clear();
 	});
 
 	// Derived data from API response
@@ -80,7 +91,11 @@
 	</div>
 {:else if mediaData}
 	<div class="flex flex-1 flex-col">
-		<TrailerBackdrop backdrop={mediaData.details.banner} trailer={mediaData.trailer} details={mediaData.details} />
+		<TrailerBackdrop
+			backdrop={mediaData.details.banner}
+			trailer={mediaData.trailer}
+			details={mediaData.details}
+		/>
 		<div
 			style:--bottom-padding={toRem(navigationStore.requiredSpace)}
 			class="relative mt-49 flex-1 p-6 pb-(--bottom-padding)"
@@ -108,6 +123,7 @@
 									title={similar.name}
 									subtitle={similar.last_episode ? `${similar.last_episode} episodes` : undefined}
 									score={similar.vote}
+									fixedWidth
 								/>
 							{/each}
 						</Swiper>

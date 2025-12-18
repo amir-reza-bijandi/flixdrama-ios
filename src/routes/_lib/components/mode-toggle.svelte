@@ -5,7 +5,7 @@
 	import { mode, toggleMode } from 'mode-watcher';
 </script>
 
-<IconButton class="absolute top-1/2 right-7 z-50 -translate-y-1/2" onclick={toggleMode}>
+<IconButton class="relative" onclick={toggleMode}>
 	<Icon
 		src={SunIcon}
 		theme="solid"

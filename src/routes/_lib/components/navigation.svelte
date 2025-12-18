@@ -3,7 +3,7 @@
 	import { page } from '$app/state';
 	import type { HeroIcon } from '$lib/types/icon';
 	import { toRem } from '$lib/utilities/general';
-	import { FolderArrowDown, Home, Pencil } from '@steeze-ui/heroicons';
+	import { FolderArrowDown, Home, Heart, ChatBubbleOvalLeft } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { backOut } from 'svelte/easing';
 	import { fly, scale } from 'svelte/transition';
@@ -26,16 +26,21 @@
 			icon: FolderArrowDown,
 			label: 'Downloads',
 			pathname: '/downloads'
+		},
+		{
+			icon: ChatBubbleOvalLeft,
+			label: 'Feedback',
+			pathname: '/feedback'
 		}
 	] as const satisfies Route[];
 
 	let labelWidth = $state(0);
 	let mainButtonWidth = $state(0);
 	let mainButtonHeight = $state(0);
-	const isFeedbackRoute = $derived(page.url.pathname === resolve('/feedback'));
+	const isLikedRoute = $derived(page.url.pathname === resolve('/liked'));
 
 	$effect(() => {
-		if (isFeedbackRoute) {
+		if (isLikedRoute) {
 			labelWidth = MIN_ITEM_WIDTH;
 		}
 	});
@@ -47,14 +52,14 @@
 >
 	{#each ROUTES as route, index}
 		{@render item(route, route.pathname === page.url.pathname)}
-		{#if index === ROUTES.length / 2 - 1}
+		{#if index === 0}
 			<a
 				style:--width={toRem(mainButtonWidth)}
 				style:--height={toRem(mainButtonHeight)}
 				class="flex h-(--height) w-(--width) items-center justify-center rounded-full bg-accent-primary text-foreground-accent outline -outline-offset-1 outline-stroke-primary transition-[width,height] ease-overshoot-medium"
-				href={resolve('/feedback')}
+				href={resolve('/liked')}
 			>
-				{#key isFeedbackRoute}
+				{#key isLikedRoute}
 					<span
 						class="absolute"
 						in:scale={{
@@ -67,11 +72,11 @@
 						bind:clientWidth={mainButtonWidth}
 						bind:clientHeight={mainButtonHeight}
 					>
-						{#if isFeedbackRoute}
-							<span class="inline-block p-4 font-bold"> Feedback </span>
+						{#if isLikedRoute}
+							<span class="inline-block p-4 font-bold"> Liked </span>
 						{:else}
 							<span class="block p-3">
-								<Icon class="size-6" src={Pencil} theme="solid" />
+								<Icon class="size-6" src={Heart} theme="solid" />
 							</span>
 						{/if}
 					</span>

@@ -181,6 +181,7 @@
 								title={post.name}
 								subtitle={post.last_episode ? `${post.last_episode} episodes` : undefined}
 								score={post.vote}
+								fixedWidth
 							/>
 						{/each}
 					{/if}

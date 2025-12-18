@@ -1,5 +1,11 @@
 import { PUBLIC_API_BASE_URL } from '$env/static/public';
-import type { HomeResponse, MediaResponse, ArchiveResponse } from '$lib/types/api';
+import type {
+	HomeResponse,
+	MediaResponse,
+	ArchiveResponse,
+	LikedPostsResponse,
+	LikeActionResponse
+} from '$lib/types/api';
 import { authStore } from '$lib/stores/auth-store.svelte';
 
 // API Configuration
@@ -203,10 +209,34 @@ export const feedbackApi = {
 	sendFeedback: (text: string) => post<{ success: boolean }>('eu/send_feedback', { text })
 };
 
+/**
+ * Likes API - Manages user likes
+ */
+export const likesApi = {
+	/**
+	 * Get user's liked posts
+	 * @param page - Page number (optional)
+	 */
+	getLikedPosts: (page: number = 1) => get<LikedPostsResponse>(`eu/like_list?page=${page}`),
+
+	/**
+	 * Add a like to a post
+	 * @param postId - Post ID to like
+	 */
+	addLike: (postId: number) => get<LikeActionResponse>(`eu/post/like/add/${postId}`),
+
+	/**
+	 * Remove a like from a post
+	 * @param postId - Post ID to unlike
+	 */
+	removeLike: (postId: number) => get<LikeActionResponse>(`eu/post/like/remove/${postId}`)
+};
+
 // Export all API modules
 export const api = {
 	home: homeApi,
 	media: mediaApi,
 	archive: archiveApi,
-	feedback: feedbackApi
+	feedback: feedbackApi,
+	likes: likesApi
 };

@@ -84,6 +84,7 @@ export type MediaDetails = {
 	vote_mdl: number;
 	genres: string[];
 	country_name: string;
+	is_liked?: boolean;
 };
 
 // Similar media item
@@ -106,4 +107,24 @@ export type MediaResponse = {
 export type ArchiveResponse = {
 	posts: PostItem[];
 	total_posts: number;
+};
+
+// Liked post item
+export type LikedPostItem = {
+	id: number;
+	name: string;
+	poster: string;
+	vote: number;
+	last_episode?: number;
+};
+
+// Liked posts API response
+export type LikedPostsResponse = {
+	posts: LikedPostItem[];
+	total_posts: number;
+};
+
+// Like action response
+export type LikeActionResponse = {
+	message: string;
 };

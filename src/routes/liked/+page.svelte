@@ -1,20 +1,17 @@
 <script lang="ts">
-	import { page } from '$app/stores';
+	import { resolve } from '$app/paths';
 	import Post from '$lib/components/post.svelte';
 	import PostSkeleton from '$lib/components/post-skeleton.svelte';
-	import type { PostItem } from '$lib/types/api';
+	import type { LikedPostItem } from '$lib/types/api';
 	import { api } from '$lib/utilities/api';
 	import { toRem } from '$lib/utilities/general';
 	import { navigationStore } from '../_lib/stores/navigation-store.svelte';
 	import { onMount } from 'svelte';
-
-	// Get URL parameters
-	const typeId = Number($page.url.searchParams.get('type_id')) || 1;
-	const mediaType = $page.url.searchParams.get('media_type') || 'tv';
-	const title = $page.url.searchParams.get('title') || 'Archive';
+	import { Heart, Home } from '@steeze-ui/heroicons';
+	import { Icon } from '@steeze-ui/svelte-icon';
 
 	// State
-	let posts = $state<PostItem[]>([]);
+	let posts = $state<LikedPostItem[]>([]);
 	let currentPage = $state(1);
 	let lastPage = $state(1);
 	let isLoading = $state(false);
@@ -24,17 +21,17 @@
 
 	const ITEMS_PER_PAGE = 12;
 
-	// Fetch archive data
-	async function fetchArchive(pageNum: number) {
+	// Fetch liked posts data
+	async function fetchLikedPosts(pageNum: number) {
 		if (isLoading || (pageNum > lastPage && lastPage > 0)) return;
 
 		isLoading = true;
 		error = null;
 
 		try {
-			const response = await api.archive.getArchive(pageNum, mediaType, ITEMS_PER_PAGE, typeId);
+			const response = await api.likes.getLikedPosts(pageNum);
 
-			console.log('API Response:', response);
+			console.log('Liked Posts API Response:', response);
 
 			if (pageNum === 1) {
 				posts = response.posts;
@@ -56,7 +53,7 @@
 			);
 		} catch (err) {
 			error = err instanceof Error ? err.message : 'Failed to load data';
-			console.error('Failed to fetch archive data:', err);
+			console.error('Failed to fetch liked posts:', err);
 		} finally {
 			isLoading = false;
 			isInitialLoading = false;
@@ -65,8 +62,8 @@
 
 	// Initial load
 	onMount(async () => {
-		console.log('Archive page mounted');
-		await fetchArchive(1);
+		console.log('Liked page mounted');
+		await fetchLikedPosts(1);
 	});
 
 	// Setup infinite scroll after data loads and trigger element exists
@@ -105,7 +102,7 @@
 					);
 					if (entry.isIntersecting && !isLoading && currentPage < lastPage) {
 						console.log('Intersection triggered! Loading page:', currentPage + 1);
-						fetchArchive(currentPage + 1);
+						fetchLikedPosts(currentPage + 1);
 					}
 				});
 			},
@@ -129,7 +126,7 @@
 <div style:--bottom-padding={toRem(navigationStore.requiredSpace)} class="pb-(--bottom-padding)">
 	<!-- Header -->
 	<div class="mt-6 px-5">
-		<h1 class="text-2xl leading-none font-bold">{title}</h1>
+		<h1 class="text-2xl leading-none font-bold">Liked Posts</h1>
 	</div>
 
 	{#if isInitialLoading}
@@ -148,7 +145,7 @@
 				<p class="mb-4 text-foreground-secondary">{error}</p>
 				<button
 					class="rounded-full bg-accent-primary px-4 py-2 text-foreground-accent"
-					onclick={() => fetchArchive(1)}
+					onclick={() => fetchLikedPosts(1)}
 				>
 					Retry
 				</button>
@@ -188,8 +185,21 @@
 		</div>
 	{:else}
 		<!-- Empty state -->
-		<div class="flex items-center justify-center p-10">
-			<p class="text-foreground-secondary">No items found</p>
+		<div class="flex flex-1 flex-col items-center justify-center p-10">
+			<div class="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-background-tertiary">
+				<Icon class="size-10 text-foreground-secondary" src={Heart} theme="outline" />
+			</div>
+			<p class="mb-2 text-lg font-semibold text-foreground-primary">No liked posts yet</p>
+			<p class="mb-6 text-center text-sm text-foreground-secondary">
+				Start exploring and add your favorite dramas to see them here!
+			</p>
+			<a
+				href={resolve('/')}
+				class="flex items-center gap-2 rounded-full bg-accent-primary px-6 py-3 text-sm font-medium text-foreground-accent transition-colors active:bg-accent-primary/80"
+			>
+				<Icon class="size-4" src={Home} theme="solid" />
+				Explore
+			</a>
 		</div>
 	{/if}
 </div>

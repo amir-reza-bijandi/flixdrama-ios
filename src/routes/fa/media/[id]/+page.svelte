@@ -143,7 +143,7 @@
 				<Score value={score} />
 			</div>
 			<Post.Genres data={genres} />
-			<Button icon={ListVideoIcon}>لیست قسمت‌ها</Button>
+			<Button icon={ListVideoIcon} --margin-bottom={toRem(20)}>لیست قسمت‌ها</Button>
 			<Select options={SELECT_OPTIONS} alignment="center" />
 			<div>
 				<Post.Section heading="خلاصهٔ داستان">

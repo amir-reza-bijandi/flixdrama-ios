@@ -12,8 +12,7 @@
 
 	const isMediaRoute = $derived(page.url.pathname.includes(resolve('/media')));
 	const isArchiveRoute = $derived(page.url.pathname.includes(resolve('/archive')));
-	const isLikedRoute = $derived(page.url.pathname.includes(resolve('/liked')));
-	const showBackButton = $derived(isMediaRoute || isArchiveRoute || isLikedRoute);
+	const showBackButton = $derived(isMediaRoute || isArchiveRoute);
 	const handleBack = () => window.history.back();
 
 	async function handleToggleLike() {

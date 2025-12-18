@@ -38,7 +38,8 @@
 	<OfflineIndicator />
 	<Navigation />
 	<div
-		class="relative mx-auto scrollbar-hidden flex min-h-screen max-w-lg flex-col overflow-x-hidden pt-9 pb-(--padding-bottom)"
+		style:--safe-area-top="env(safe-area-inset-top, 0px)"
+		class="relative mx-auto scrollbar-hidden flex min-h-screen max-w-lg flex-col overflow-x-hidden pt-[calc(8px+var(--safe-area-top))] pb-(--padding-bottom)"
 	>
 		<Header />
 		{@render children()}

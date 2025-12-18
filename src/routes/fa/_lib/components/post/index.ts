@@ -4,7 +4,6 @@ export {
 	default as Info,
 	type PostInfoData as InfoData
 } from '../../../../_lib/components/post-info.svelte';
-export { default as Score } from '../../../../_lib/components/score.svelte';
 export { default as AdditionalInfo } from './additional-info.svelte';
 export { default as Countdown } from './countdown.svelte';
 export { default as Heading } from './heading.svelte';

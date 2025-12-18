@@ -17,6 +17,7 @@
 	import { CalendarIcon, GlobeIcon, ListVideoIcon } from '@lucide/svelte';
 	import { VideoCamera } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import Score from '../../../_lib/components/score.svelte';
 	import Backdrop from '../../_lib/components/backdrop.svelte';
 	import Button from '../../_lib/components/button.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
@@ -134,7 +135,7 @@
 			<div class="my-3 flex items-center gap-2">
 				<Post.Info data={postInfoData} />
 				<Separator size={10} variant="primary" />
-				<Post.Score value={score} />
+				<Score value={score} />
 			</div>
 			<Post.Genres data={genres} />
 			<Button icon={ListVideoIcon}>لیست قسمت‌ها</Button>

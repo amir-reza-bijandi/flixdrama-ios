@@ -126,3 +126,6 @@
 @utility bg-gradient-secondary {
 	@apply bg-linear-to-b from-accent-secondary-tint to-accent-secondary-shade bg-size-[calc(100%,110%)] bg-center;
 }
+@utility bg-gradient-danger {
+	@apply bg-linear-to-b from-danger-tint to-danger-shade bg-size-[calc(100%,110%)] bg-center;
+}

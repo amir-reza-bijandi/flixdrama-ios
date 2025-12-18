@@ -23,6 +23,7 @@
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
 	import type { AdditionalInfoData } from '../../_lib/components/post/additional-info.svelte';
 	import * as Post from '../../_lib/components/post/index';
+	import type { LikeToggleEventHandler } from '../../_lib/components/post/like.svelte';
 	import { sizeStore } from '../../_lib/store/size-store.svelte';
 	import { toFarsi } from '../../_lib/utilities/to-farsi';
 
@@ -84,6 +85,7 @@
 		}
 	] as const satisfies AdditionalInfoData;
 
+	let isLiked = $state(false);
 	const postInfoData = $derived<Post.InfoData>([
 		{
 			icon: TYPE_ICON_MAP[type],
@@ -100,6 +102,8 @@
 			})
 		}
 	]);
+
+	const handleLikeToggle: LikeToggleEventHandler = (isActive) => (isLiked = isActive);
 </script>
 
 <PageWrapper>
@@ -130,6 +134,7 @@
 			hasBlur
 		/>
 		<Post.Root padding={24}>
+			<Post.Like value={673} isActive={isLiked} onToggle={handleLikeToggle} />
 			<Post.Heading>{titleFa}</Post.Heading>
 			<Post.Subheading>{titleEn}</Post.Subheading>
 			<div class="my-3 flex items-center gap-2">

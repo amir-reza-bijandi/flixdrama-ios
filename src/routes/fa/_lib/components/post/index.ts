@@ -7,6 +7,7 @@ export {
 export { default as AdditionalInfo } from './additional-info.svelte';
 export { default as Countdown } from './countdown.svelte';
 export { default as Heading } from './heading.svelte';
+export { default as Like } from './like.svelte';
 export { default as Root } from './root.svelte';
 export { default as Section } from './section.svelte';
 export { default as Subheading } from './subheading.svelte';

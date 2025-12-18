@@ -1,17 +1,18 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import Post from '$lib/components/post.svelte';
+	import PostCard from '$lib/components/post-card.svelte';
 	import Swiper from '$lib/components/swiper.svelte';
 	import { COUNTRY_LABEL_MAP_EN, DATA_EN, TYPE_LABEL_MAP_EN } from '$lib/constants/data';
 	import { toRem } from '$lib/utilities/general';
 	import { CalendarIcon, GlobeIcon, TvIcon } from '@lucide/svelte';
 	import Genres from '../../../_lib/components/genres.svelte';
+	import PostExpandable from '../../../_lib/components/post-expandable.svelte';
 	import type { PostInfoData } from '../../../_lib/components/post-info.svelte';
 	import PostInfo from '../../../_lib/components/post-info.svelte';
 	import { navigationStore } from '../../_lib/stores/navigation-store.svelte';
 	import PostSection from './_lib/components/post-section.svelte';
 	import Score from './_lib/components/score.svelte';
-	import Synopsis from './_lib/components/synopsis.svelte';
 	import TrailerBackdrop from './_lib/components/trailer-backdrop.svelte';
 
 	const { backdrop, title, type, country, year, genres, synopsis, score } = $derived(
@@ -50,13 +51,22 @@
 			<PostInfo data={shortInfoData} margin={4} />
 			<Genres data={genres} />
 			<div class="flex flex-col gap-4">
-				<Synopsis>
-					{synopsis}
-				</Synopsis>
+				<PostSection heading="Synopsis">
+					<PostExpandable>
+						{synopsis}
+					</PostExpandable>
+				</PostSection>
 				<PostSection heading="Recommendations">
 					<Swiper gap={8} padding={24}>
 						{#each DATA_EN as { id, poster, title, score }}
-							<Post {id} image={poster} {title} {score} />
+							<PostCard
+								href={resolve('/en/media/[id]', {
+									id: String(id)
+								})}
+								image={poster}
+								{title}
+								{score}
+							/>
 						{/each}
 					</Swiper>
 				</PostSection>

@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Post from '$lib/components/post.svelte';
+	import { resolve } from '$app/paths';
+	import PostCard from '$lib/components/post-card.svelte';
 	import Section from '$lib/components/section.svelte';
 	import Select, { type Option } from '$lib/components/select.svelte';
 	import Swiper from '$lib/components/swiper.svelte';
@@ -21,8 +22,10 @@
 		<Select {options} />
 		<Swiper gap={8} padding={20}>
 			{#each DATA_EN as { id, poster, title, score }}
-				<Post
-					{id}
+				<PostCard
+					href={resolve('/en/media/[id]', {
+						id: String(id)
+					})}
 					image={poster}
 					subtitle="Episode {Math.floor(Math.random() * 16)}"
 					{title}
@@ -35,7 +38,14 @@
 		<Select {options} />
 		<Swiper gap={8} padding={20}>
 			{#each DATA_EN as { id, poster, title, score }}
-				<Post {id} image={poster} {title} {score} />
+				<PostCard
+					href={resolve('/en/media/[id]', {
+						id: String(id)
+					})}
+					image={poster}
+					{title}
+					{score}
+				/>
 			{/each}
 		</Swiper>
 	</Section>

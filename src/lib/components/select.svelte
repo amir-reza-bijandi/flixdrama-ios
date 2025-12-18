@@ -18,9 +18,10 @@
 
 	type Props = {
 		options: T;
+		alignment?: 'start' | 'center';
 		onSelect?: SelectEventHandler<T>;
 	};
-	let { options, onSelect }: Props = $props();
+	let { options, alignment = 'start', onSelect }: Props = $props();
 
 	type IndicatorRect = {
 		x: number;
@@ -53,11 +54,14 @@
 	});
 </script>
 
-<div class="relative isolate mt-3 mb-4 flex gap-2" bind:this={selectElm}>
+<div
+	class={['relative isolate mt-3 mb-4 flex gap-2', alignment === 'center' && 'justify-center']}
+	bind:this={selectElm}
+>
 	{#each options as { name, value }, index (value)}
 		<button
 			class={[
-				'inline-block cursor-pointer p-2 text-sm leading-none transition-colors duration-300',
+				'inline-block shrink-0 cursor-pointer p-2 text-sm leading-none transition-colors duration-300',
 				index === selectedIndex && 'text-foreground-accent'
 			]}
 			onclick={() => {

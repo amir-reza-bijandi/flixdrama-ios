@@ -1,5 +1,6 @@
 <script lang="ts">
-	import Post from '$lib/components/post.svelte';
+	import { resolve } from '$app/paths';
+	import PostCard from '$lib/components/post-card.svelte';
 	import Section from '$lib/components/section.svelte';
 	import Select, { type Option } from '$lib/components/select.svelte';
 	import Swiper from '$lib/components/swiper.svelte';
@@ -44,8 +45,10 @@
 			<Select options={LIST_OPTIONS} />
 			<Swiper gap={8} padding={20}>
 				{#each DATA_FA as { id, poster, titleFa, score, country }}
-					<Post
-						{id}
+					<PostCard
+						href={resolve('/fa/media/[id]', {
+							id: String(id)
+						})}
 						image={poster}
 						subtitle={COUNTRY_LABEL_MAP_FA[country]}
 						title={titleFa}
@@ -58,8 +61,10 @@
 			<Select options={countryOptions} />
 			<Swiper gap={8} padding={20}>
 				{#each DATA_FA as { id, poster, titleFa, score }}
-					<Post
-						{id}
+					<PostCard
+						href={resolve('/fa/media/[id]', {
+							id: String(id)
+						})}
 						image={poster}
 						subtitle="قسمت {toFarsi(Math.floor(Math.random() * 16) + 1)}"
 						title={titleFa}
@@ -72,8 +77,10 @@
 			<Select options={countryOptions} />
 			<Swiper gap={8} padding={20}>
 				{#each DATA_FA as { id, poster, titleFa, score }}
-					<Post
-						{id}
+					<PostCard
+						href={resolve('/fa/media/[id]', {
+							id: String(id)
+						})}
 						image={poster}
 						subtitle="قسمت {toFarsi(Math.floor(Math.random() * 16) + 1)}"
 						title={titleFa}

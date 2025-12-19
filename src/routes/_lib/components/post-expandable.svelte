@@ -20,7 +20,12 @@
 	let maxTextHeight = $state(0);
 	let expandIconWidth = $state(0);
 	let expandTextWidth = $state(0);
+	let hasTransition = $state(false);
 	const expandButtonWidth = $derived(expandIconWidth + expandTextWidth + EXPAND_BUTTON_GAP);
+
+	$effect(() => {
+		if (expandTextWidth && expandIconWidth) requestAnimationFrame(() => (hasTransition = true));
+	});
 
 	const handleToggleExpand = () => (isExpanded = !isExpanded);
 </script>
@@ -56,7 +61,12 @@
 			<div
 				style:--padding={toRem(EXPAND_BUTTON_PADDING)}
 				style:--width={toRem(expandButtonWidth)}
-				class="pointer-events-none flex h-8 w-(--width) items-center overflow-hidden rounded-full leading-none font-bold transition-[background-color,box-shadow,width] duration-[var(--default-transition-duration),var(--default-transition-duration),250ms]"
+				class={[
+					'pointer-events-none flex h-8 w-(--width) items-center overflow-hidden rounded-full leading-none font-bold transition-[background-color,box-shadow,width]',
+					hasTransition
+						? 'duration-[var(--default-transition-duration),var(--default-transition-duration),250ms]'
+						: 'duration-0'
+				]}
 			>
 				<div class="px-(--padding)" bind:clientWidth={expandIconWidth}>
 					<ChevronDown

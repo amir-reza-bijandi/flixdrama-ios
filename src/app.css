@@ -114,9 +114,7 @@
 		scrollbar-width: none;
 	}
 }
-@utility box-container {
-	@apply relative isolate;
-}
+
 @utility active-bounce {
 	@apply transition-transform duration-750 ease-overshoot-heavy active:scale-90;
 }

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Box from '$lib/components/box.svelte';
+	import * as Box from '$lib/components/box';
 
 	type Props = {
 		data: string[];
@@ -10,11 +10,11 @@
 <div class="my-3 flex items-center gap-1">
 	{#each data as genre}
 		<div class="transition-colors">
-			<button
-				class="box-container inline-block active-bounce rounded-full p-2 text-sm leading-none"
-			>
-				<Box />
-				<span class="inline-block translate-y-px">{genre}</span>
+			<button class="active-bounce text-sm leading-none">
+				<Box.Root class="inline-block p-2">
+					<Box.Visuals />
+					<span class="inline-block translate-y-px">{genre}</span>
+				</Box.Root>
 			</button>
 		</div>
 	{/each}

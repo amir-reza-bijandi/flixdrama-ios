@@ -6,7 +6,7 @@
 </script>
 
 <script lang="ts">
-	import Box from '$lib/components/box.svelte';
+	import * as Box from '$lib/components/box';
 
 	type Props = {
 		data: AdditionalInfoData;
@@ -14,8 +14,8 @@
 	const { data }: Props = $props();
 </script>
 
-<div class="box-container text-sm leading-none">
-	<Box class="rounded-2xl bg-background-tertiary" />
+<Box.Root class="text-sm leading-none">
+	<Box.Visuals class="rounded-2xl bg-background-tertiary" />
 	{#each data as { label, value }, index}
 		{#if value}
 			<div>
@@ -32,4 +32,4 @@
 	<div
 		class="absolute top-0 left-1/2 z-10 h-full w-px -translate-x-1/2 bg-linear-to-b from-transparent via-stroke-primary to-transparent"
 	></div>
-</div>
+</Box.Root>

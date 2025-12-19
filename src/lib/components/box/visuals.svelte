@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { TRANSITION } from '$lib/constants/transition';
-	import { fade } from 'svelte/transition';
+	import type { Snippet } from 'svelte';
 	import { cn, type ClassValue } from 'tailwind-variants';
 
 	type Props = {
-		blur?: boolean;
+		children?: Snippet;
 		class?: ClassValue;
+		blur?: boolean;
 	};
-	const { blur = true, class: extraClass }: Props = $props();
+	const { children, class: extraClass, blur = true }: Props = $props();
 </script>
 
 <div
@@ -16,12 +16,9 @@
 		extraClass
 	)}
 >
-	{#if blur}
-		<div
-			in:fade={{
-				duration: TRANSITION.DURATION
-			}}
-			class="absolute inset-0 -z-10 backdrop-blur-2xl"
-		></div>
-	{/if}
+	<div
+		class={['absolute inset-0 -z-10 backdrop-blur-2xl transition-opacity', !blur && 'opacity-0']}
+	>
+		{@render children?.()}
+	</div>
 </div>

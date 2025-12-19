@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { asset } from '$app/paths';
-	import Box from '$lib/components/box.svelte';
+	import * as Box from '$lib/components/box';
 	import { Bell, Moon, Sun, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { mode, setMode } from 'mode-watcher';
@@ -41,8 +41,8 @@
 			</div>
 		{/if}
 		<!-- Global Actions -->
-		<div class="box-container flex items-center justify-center gap-2 p-2.5">
-			<Box />
+		<Box.Root class="flex items-center justify-center gap-2 p-2.5">
+			<Box.Visuals />
 			<Toggle
 				isActive={isNotificationsActive}
 				onStateChange={handleToggleNotifications}
@@ -68,7 +68,7 @@
 					<Icon src={Moon} class="size-5 text-accent-primary-tint" theme="mini" />
 				{/snippet}
 			</Toggle>
-		</div>
+		</Box.Root>
 	</div>
 	{@render children?.()}
 </div>

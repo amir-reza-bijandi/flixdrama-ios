@@ -54,7 +54,7 @@
 		? roundnessValueToRem(roundness.bottomRight)
 		: roundnessValueToRem(roundness)}
 	class={[
-		'absolute inset-0 isolate -z-10 overflow-hidden rounded-tl-(--rounded-tl) rounded-tr-(--rounded-tr) rounded-br-(--rounded-br) rounded-bl-(--rounded-bl) transition-colors',
+		'pointer-events-none absolute inset-0 isolate -z-10 overflow-hidden rounded-tl-(--rounded-tl) rounded-tr-(--rounded-tr) rounded-br-(--rounded-br) rounded-bl-(--rounded-bl) transition-colors',
 		border.side === 'all'
 			? [
 					(

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Box from '$lib/components/box.svelte';
 	import { langStore } from '$lib/store/lang-store.svelte';
 	import { Lang } from '$lib/types/general';
 	import { toRem } from '$lib/utilities/general';
@@ -30,7 +31,7 @@
 	<div
 		style:--height={isExpanded ? toRem(maxTextHeight) : toRem(MIN_TEXT_HEIGHT)}
 		class={[
-			'relative h-(--height) overflow-hidden mask-linear-0 mask-linear-from-transparent mask-linear-from-10% mask-linear-to-black transition-[height,mask-size] duration-[500ms,300ms] ease-[var(--ease-overshoot-light),var(--ease-out)]',
+			'pointer-events-none relative h-(--height) overflow-hidden mask-linear-0 mask-linear-from-transparent mask-linear-from-10% mask-linear-to-black transition-[height,mask-size] duration-[500ms,300ms] ease-[var(--ease-overshoot-light),var(--ease-out)]',
 			isExpanded ? 'mask-size-[100%_500%]' : 'mask-size-[100%_100%]'
 		]}
 	>
@@ -40,23 +41,36 @@
 	</div>
 	{#if maxTextHeight > MIN_TEXT_HEIGHT}
 		<button
-			style:--padding={toRem(EXPAND_BUTTON_PADDING)}
-			style:--width={toRem(expandButtonWidth)}
-			class="absolute -bottom-4 left-1/2 flex h-8 w-(--width) -translate-x-1/2 items-center overflow-hidden rounded-full bg-background-secondary leading-none font-bold shadow-absolute-content outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg transition-[background-color,box-shadow]"
+			class="absolute -bottom-4 left-1/2 -translate-x-1/2 active-bounce overflow-hidden rounded-full p-px shadow-absolute-content transition-[scale,box-shadow] duration-[750ms,var(--default-transition-duration)]"
 			onclick={handleToggleExpand}
 		>
-			<div class="px-(--padding)" bind:clientWidth={expandIconWidth}>
-				<ChevronDown
-					class={[
-						'size-4 stroke-3 transition-transform duration-750 ease-overshoot-medium',
-						isExpanded && 'rotate-180'
-					]}
-				/>
-				{#if isExpanded}
-					{@render expandButtonText(langStore.current === Lang.En ? 'Hide' : 'بستن')}
-				{:else}
-					{@render expandButtonText(langStore.current === Lang.En ? 'Show More' : 'نمایش بیشتر')}
-				{/if}
+			<Box
+				background="secondary"
+				roundness="full"
+				border={{
+					color: 'primary',
+					side: 'all'
+				}}
+				hasBlur
+			/>
+			<div
+				style:--padding={toRem(EXPAND_BUTTON_PADDING)}
+				style:--width={toRem(expandButtonWidth)}
+				class="pointer-events-none flex h-8 w-(--width) items-center overflow-hidden rounded-full leading-none font-bold transition-[background-color,box-shadow,width] duration-[var(--default-transition-duration),var(--default-transition-duration),250ms]"
+			>
+				<div class="px-(--padding)" bind:clientWidth={expandIconWidth}>
+					<ChevronDown
+						class={[
+							'size-4 stroke-3 transition-transform duration-750 ease-overshoot-medium',
+							isExpanded && 'rotate-180'
+						]}
+					/>
+					{#if isExpanded}
+						{@render expandButtonText(langStore.current === Lang.En ? 'Hide' : 'بستن')}
+					{:else}
+						{@render expandButtonText(langStore.current === Lang.En ? 'Show More' : 'نمایش بیشتر')}
+					{/if}
+				</div>
 			</div>
 		</button>
 	{/if}

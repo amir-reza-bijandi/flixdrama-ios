@@ -115,9 +115,6 @@
 	}
 }
 
-@utility active-bounce {
-	@apply transition-transform duration-750 ease-overshoot-heavy active:scale-90;
-}
 @utility bg-gradient-primary {
 	@apply bg-linear-to-b from-accent-primary-tint to-accent-primary-shade bg-size-[calc(100%,110%)] bg-center;
 }

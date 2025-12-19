@@ -3,6 +3,7 @@
 	import { page } from '$app/state';
 	import * as Box from '$lib/components/box';
 	import PostCard from '$lib/components/post-card.svelte';
+	import * as Pressable from '$lib/components/pressable';
 	import Select, { type Option } from '$lib/components/select.svelte';
 	import Separator from '$lib/components/separator.svelte';
 	import Swiper from '$lib/components/swiper.svelte';
@@ -109,10 +110,12 @@
 <PageWrapper>
 	<Backdrop image={backdrop}>
 		<div class="h-full w-full transition-colors">
-			<button class="flex h-full w-full active-bounce flex-col items-center justify-center gap-1.5">
-				<Icon class="size-9" src={VideoCamera} theme="solid" />
-				<div class="font-bold">پیش‌نمایش</div>
-			</button>
+			<Pressable.Root class="h-full w-full">
+				<Pressable.Content class="flex flex-col items-center justify-center gap-1.5">
+					<Icon class="size-9" src={VideoCamera} theme="solid" />
+					<div class="font-bold">پیش‌نمایش</div>
+				</Pressable.Content>
+			</Pressable.Root>
 		</div>
 	</Backdrop>
 	<Box.Root
@@ -132,7 +135,7 @@
 				<Score value={score} />
 			</div>
 			<Post.Genres data={genres} />
-			<Button icon={ListVideoIcon} --margin-bottom={toRem(20)}>لیست قسمت‌ها</Button>
+			<Button icon={ListVideoIcon} --margin-bottom={toRem(8)}>لیست قسمت‌ها</Button>
 			<Select options={SELECT_OPTIONS} alignment="center" />
 			<div>
 				<Post.Section heading="خلاصهٔ داستان">

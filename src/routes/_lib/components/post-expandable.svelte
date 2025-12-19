@@ -1,5 +1,6 @@
 <script lang="ts">
 	import * as Box from '$lib/components/box';
+	import * as Pressable from '$lib/components/pressable';
 	import { langStore } from '$lib/store/lang-store.svelte';
 	import { Lang } from '$lib/types/general';
 	import { toRem } from '$lib/utilities/general';
@@ -44,40 +45,40 @@
 		</div>
 	</div>
 	{#if maxTextHeight > MIN_TEXT_HEIGHT}
-		<button
-			class="absolute -bottom-4 left-1/2 -translate-x-1/2 active-bounce"
-			onclick={handleToggleExpand}
+		<Pressable.Root
+			class="absolute -bottom-4 left-1/2 -translate-x-1/2"
+			onClick={handleToggleExpand}
 		>
-			<Box.Root class="shadow-absolute-content">
-				<Box.Visuals />
-				<div
-					style:--padding={toRem(EXPAND_BUTTON_PADDING)}
-					style:--width={toRem(expandButtonWidth)}
-					class={[
-						'pointer-events-none flex h-8 w-(--width) items-center overflow-hidden rounded-full leading-none font-bold transition-[background-color,box-shadow,width]',
-						hasTransition
-							? 'duration-[var(--default-transition-duration),var(--default-transition-duration),250ms]'
-							: 'duration-0'
-					]}
-				>
-					<div class="px-(--padding)" bind:clientWidth={expandIconWidth}>
-						<ChevronDown
-							class={[
-								'size-4 stroke-3 transition-transform duration-750 ease-overshoot-medium',
-								isExpanded && 'rotate-180'
-							]}
-						/>
-						{#if isExpanded}
-							{@render expandButtonText(langStore.current === Lang.En ? 'Hide' : 'بستن')}
-						{:else}
-							{@render expandButtonText(
-								langStore.current === Lang.En ? 'Show More' : 'نمایش بیشتر'
-							)}
-						{/if}
+			<Box.Root>
+				<Pressable.Content>
+					<Box.Visuals />
+					<div
+						style:--padding={toRem(EXPAND_BUTTON_PADDING)}
+						style:--width={toRem(expandButtonWidth)}
+						class={[
+							'pointer-events-none flex h-8 w-(--width) items-center overflow-hidden rounded-full leading-none font-bold shadow-absolute-content transition-[box-shadow,width]',
+							hasTransition ? 'duration-[var(--default-transition-duration),250ms]' : 'duration-0'
+						]}
+					>
+						<div class="px-(--padding)" bind:clientWidth={expandIconWidth}>
+							<ChevronDown
+								class={[
+									'size-4 stroke-3 transition-transform duration-750 ease-overshoot-medium',
+									isExpanded && 'rotate-180'
+								]}
+							/>
+							{#if isExpanded}
+								{@render expandButtonText(langStore.current === Lang.En ? 'Hide' : 'بستن')}
+							{:else}
+								{@render expandButtonText(
+									langStore.current === Lang.En ? 'Show More' : 'نمایش بیشتر'
+								)}
+							{/if}
+						</div>
 					</div>
-				</div>
+				</Pressable.Content>
 			</Box.Root>
-		</button>
+		</Pressable.Root>
 	{/if}
 </Box.Root>
 

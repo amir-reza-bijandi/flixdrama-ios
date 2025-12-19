@@ -11,6 +11,7 @@
 </script>
 
 <script lang="ts" generics="T extends Options">
+	import * as Pressable from '$lib/components/pressable';
 	import { toRem } from '$lib/utilities/general';
 
 	const DEFAULT_SELECTED_INDEX = 0;
@@ -59,26 +60,29 @@
 	bind:this={selectElm}
 >
 	{#each options as { name, value }, index (value)}
-		<button
-			class="inline-block shrink-0"
-			bind:this={optionElms[index]}
-			onclick={() => {
-				selectedIndex = index;
-				onSelect?.(value, index);
-			}}
-		>
-			<div
-				class={[
-					'active-bounce cursor-pointer p-2 text-sm leading-none transition-[scale,color] duration-[750ms,250ms]',
-					index === selectedIndex && 'text-foreground-accent'
-				]}
-				{...{
-					[`data-${DATASET_KEY}`]: selectedIndex === index
+		<div bind:this={optionElms[index]}>
+			<Pressable.Root
+				class="inline-block shrink-0"
+				onClick={() => {
+					selectedIndex = index;
+					onSelect?.(value, index);
 				}}
 			>
-				<span class="inline-block translate-y-px">{name}</span>
-			</div>
-		</button>
+				<Pressable.Content>
+					<div
+						class={[
+							'cursor-pointer p-2 text-sm leading-none transition-[scale,color] duration-[750ms,250ms]',
+							index === selectedIndex && 'text-foreground-accent'
+						]}
+						{...{
+							[`data-${DATASET_KEY}`]: selectedIndex === index
+						}}
+					>
+						<span class="inline-block translate-y-px">{name}</span>
+					</div>
+				</Pressable.Content>
+			</Pressable.Root>
+		</div>
 	{/each}
 	<span
 		style:--width={toRem(indicatorRect.width)}

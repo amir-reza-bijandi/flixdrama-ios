@@ -30,9 +30,8 @@
 	const handleToggleExpand = () => (isExpanded = !isExpanded);
 </script>
 
-<div
-	class="relative rounded-2xl bg-background-tertiary text-sm leading-normal outline -outline-offset-1 outline-stroke-primary transition-colors"
->
+<div class="box-container relative text-sm leading-normal transition-colors">
+	<Box class="rounded-2xl bg-background-tertiary" />
 	<div
 		style:--height={isExpanded ? toRem(maxTextHeight) : toRem(MIN_TEXT_HEIGHT)}
 		class={[

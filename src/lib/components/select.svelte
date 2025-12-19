@@ -60,20 +60,24 @@
 >
 	{#each options as { name, value }, index (value)}
 		<button
-			class={[
-				'inline-block shrink-0 cursor-pointer p-2 text-sm leading-none transition-colors duration-300',
-				index === selectedIndex && 'text-foreground-accent'
-			]}
+			class="inline-block shrink-0"
+			bind:this={optionElms[index]}
 			onclick={() => {
 				selectedIndex = index;
 				onSelect?.(value, index);
 			}}
-			bind:this={optionElms[index]}
-			{...{
-				[`data-${DATASET_KEY}`]: selectedIndex === index
-			}}
 		>
-			<span class="inline-block translate-y-px">{name}</span>
+			<div
+				class={[
+					'active-bounce cursor-pointer p-2 text-sm leading-none transition-[scale,color] duration-[750ms,250ms]',
+					index === selectedIndex && 'text-foreground-accent'
+				]}
+				{...{
+					[`data-${DATASET_KEY}`]: selectedIndex === index
+				}}
+			>
+				<span class="inline-block translate-y-px">{name}</span>
+			</div>
 		</button>
 	{/each}
 	<span

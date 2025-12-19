@@ -120,18 +120,7 @@
 		class="box-container relative z-20 mt-49 min-h-screen pb-(--padding-bottom)"
 	>
 		<Box
-			background="tertiary"
-			border={{
-				side: 'top',
-				color: 'primary'
-			}}
-			roundness={{
-				topLeft: 32,
-				topRight: 32,
-				bottomLeft: 0,
-				bottomRight: 0
-			}}
-			hasBlur
+			class="rounded-t-4xl rounded-b-none bg-background-tertiary outline-none before:absolute before:top-0 before:left-0 before:block before:h-8 before:w-full before:rounded-t-4xl before:mask-linear-180 before:mask-linear-from-black before:mask-linear-to-black/0 before:outline before:-outline-offset-1 before:outline-stroke-primary"
 		/>
 		<Post.Root padding={24}>
 			<Post.Like value={673} isActive={isLiked} onToggle={handleLikeToggle} />

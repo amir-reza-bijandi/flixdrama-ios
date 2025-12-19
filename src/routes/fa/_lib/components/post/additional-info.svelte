@@ -15,14 +15,7 @@
 </script>
 
 <div class="box-container text-sm leading-none">
-	<Box
-		background="tertiary"
-		roundness={16}
-		border={{
-			color: 'primary',
-			side: 'all'
-		}}
-	/>
+	<Box class="rounded-2xl bg-background-tertiary" />
 	{#each data as { label, value }, index}
 		{#if value}
 			<div>

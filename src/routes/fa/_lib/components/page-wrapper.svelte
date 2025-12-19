@@ -42,7 +42,7 @@
 		{/if}
 		<!-- Global Actions -->
 		<div class="box-container flex items-center justify-center gap-2 p-2.5">
-			<Box roundness="full" />
+			<Box />
 			<Toggle
 				isActive={isNotificationsActive}
 				onStateChange={handleToggleNotifications}

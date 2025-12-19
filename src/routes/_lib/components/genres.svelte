@@ -13,14 +13,7 @@
 			<button
 				class="box-container inline-block active-bounce rounded-full p-2 text-sm leading-none"
 			>
-				<Box
-					background="secondary"
-					roundness="full"
-					border={{
-						color: 'primary',
-						side: 'all'
-					}}
-				/>
+				<Box />
 				<span class="inline-block translate-y-px">{genre}</span>
 			</button>
 		</div>

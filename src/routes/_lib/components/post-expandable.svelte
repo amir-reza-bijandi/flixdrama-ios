@@ -49,15 +49,7 @@
 			class="absolute -bottom-4 left-1/2 -translate-x-1/2 active-bounce overflow-hidden rounded-full p-px shadow-absolute-content transition-[scale,box-shadow] duration-[750ms,var(--default-transition-duration)]"
 			onclick={handleToggleExpand}
 		>
-			<Box
-				background="secondary"
-				roundness="full"
-				border={{
-					color: 'primary',
-					side: 'all'
-				}}
-				hasBlur
-			/>
+			<Box />
 			<div
 				style:--padding={toRem(EXPAND_BUTTON_PADDING)}
 				style:--width={toRem(expandButtonWidth)}

@@ -112,7 +112,7 @@
 	const handleNotificationsToggle = () => (isNotificationsActive = !isNotificationsActive);
 </script>
 
-<PageWrapper>
+<PageWrapper showBackButton>
 	{#snippet actions()}
 		<IconButton
 			onClick={handleNotificationsToggle}

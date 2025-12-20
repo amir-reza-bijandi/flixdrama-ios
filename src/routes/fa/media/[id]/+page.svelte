@@ -119,7 +119,7 @@
 			variant="secondary"
 			isActive={isNotificationsActive}
 		>
-			<Toggle isActive={isNotificationsActive} transition="scale">
+			<Toggle isActive={isNotificationsActive}>
 				{#snippet active()}
 					<IconBellCheck class="size-5 stroke-[1.5]" />
 				{/snippet}

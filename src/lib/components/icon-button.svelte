@@ -1,16 +1,22 @@
 <script lang="ts">
-	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import * as Box from '$lib/components/box';
+	import * as Pressable from '$lib/components/pressable';
+	import type { Snippet } from 'svelte';
+	import type { ClassValue } from 'tailwind-variants';
 
-	type Props = HTMLButtonAttributes;
-	const { children, class: ClassValue, ...restOfProps }: Props = $props();
+	type Props = {
+		children: Snippet;
+		class?: ClassValue;
+		onClick?: () => void;
+	};
+	const { children, class: extraClass, onClick }: Props = $props();
 </script>
 
-<button
-	class={[
-		'flex size-10 items-center justify-center rounded-full bg-background-secondary outline -outline-offset-1 outline-stroke-primary backdrop-blur-lg transition-colors',
-		ClassValue
-	]}
-	{...restOfProps}
->
-	{@render children?.()}
-</button>
+<Pressable.Root class={extraClass} {onClick}>
+	<Pressable.Content>
+		<Box.Root class="flex size-10 items-center justify-center rounded-full">
+			<Box.Visuals />
+			{@render children?.()}
+		</Box.Root>
+	</Pressable.Content>
+</Pressable.Root>

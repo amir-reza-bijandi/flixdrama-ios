@@ -4,14 +4,13 @@
 
 <script lang="ts">
 	import { asset } from '$app/paths';
+	import * as Box from '$lib/components/box';
 	import * as Pressable from '$lib/components/pressable';
-	import type { LucideIcon } from '$lib/types/icon';
-	import { toRem } from '$lib/utilities/general';
 	import { CheckIcon, PlusIcon } from '@lucide/svelte';
 	import { Heart } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { scale } from 'svelte/transition';
 	import { toFarsi } from '../../utilities/to-farsi';
+	import Toggle from '../toggle.svelte';
 
 	type Props = {
 		value: number;
@@ -20,33 +19,27 @@
 	};
 	const { value, isActive, onToggle }: Props = $props();
 
-	let iconSize = $state(0);
-
 	const handleClick = () => {
 		onToggle(!isActive);
 	};
 </script>
 
-<Pressable.Root
-	class="absolute -top-6 left-6 isolate overflow-hidden rounded-full p-px"
-	onClick={handleClick}
->
+<Pressable.Root class="absolute -top-6 left-6 isolate" onClick={handleClick}>
 	<Pressable.Content>
-		<div
-			class={[
-				'pointer-events-none relative flex flex-col items-center gap-2 overflow-hidden rounded-full bg-background-tertiary p-1.5 pb-3 outline -outline-offset-1 backdrop-blur-2xl transition-colors duration-250 before:absolute before:inset-0 before:-z-10 before:bg-gradient before:bg-gradient-danger before:transition-opacity before:duration-250',
-				isActive
-					? 'outline-stroke-tertiary before:opacity-100'
-					: 'outline-stroke-primary before:opacity-0'
-			]}
-		>
+		<Box.Root class="flex flex-col items-center gap-2 p-1.5 pb-3">
+			<Box.Visuals
+				class={[
+					'overflow-hidden bg-transparent bg-gradient bg-gradient-neutral/25 duration-250 before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient before:bg-gradient-danger before:transition-opacity before:duration-250',
+					isActive
+						? 'outline-stroke-tertiary before:opacity-100'
+						: 'outline-stroke-primary before:opacity-0'
+				]}
+			/>
 			<div
 				style:--background-image="url({asset('/image/heart-pattern.svg')})"
 				class={[
-					'be relative isolate overflow-hidden rounded-full bg-danger p-2 duration-250 before:absolute before:inset-0 before:-z-10 before:bg-(image:--background-image) before:transition-[opacity,scale] before:duration-250 after:absolute after:inset-0 after:-z-20 after:rounded-full after:bg-foreground-accent after:transition-transform after:duration-250',
-					isActive
-						? 'before:scale-100 before:opacity-100 after:scale-100'
-						: 'before:scale-150 before:opacity-0 after:scale-0'
+					'relative isolate p-2 duration-250 before:absolute before:inset-0 before:-z-20 before:rounded-full before:bg-danger before:transition-[opacity,scale] before:duration-250 after:absolute after:inset-0 after:-z-10 after:rounded-full after:bg-foreground-accent after:bg-(image:--background-image) after:transition-transform after:duration-250',
+					isActive ? 'animate before:scale-150 before:opacity-0' : 'after:scale-0'
 				]}
 			>
 				<Icon
@@ -65,27 +58,30 @@
 				]}
 			>
 				<div class="text-xs font-bold">{toFarsi(value)}</div>
-				<div style:--size={toRem(iconSize)} class="grid size-(--size) place-items-center">
-					{#if isActive}
-						{@render icon(CheckIcon)}
-					{:else}
-						{@render icon(PlusIcon)}
-					{/if}
-				</div>
+
+				<Toggle {isActive} speed="fast">
+					{#snippet active()}
+						<CheckIcon class="size-3 stroke-2" />
+					{/snippet}
+					{#snippet inactive()}
+						<PlusIcon class="size-3 stroke-2" />
+					{/snippet}
+				</Toggle>
 			</div>
-		</div>
+		</Box.Root>
 	</Pressable.Content>
 </Pressable.Root>
 
-{#snippet icon(src: LucideIcon)}
-	{@const Src = src}
-	<div
-		class="absolute"
-		bind:clientWidth={iconSize}
-		transition:scale={{
-			duration: 250
-		}}
-	>
-		<Src class="size-3 stroke-2" />
-	</div>
-{/snippet}
+<style>
+	.animate::after {
+		animation: moving-pattern 50s infinite both linear;
+	}
+	@keyframes moving-pattern {
+		0% {
+			background-position: 0% 1000%;
+		}
+		100% {
+			background-position: 0% -1000%;
+		}
+	}
+</style>

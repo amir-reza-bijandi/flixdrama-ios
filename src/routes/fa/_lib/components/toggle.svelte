@@ -5,23 +5,38 @@
 	import type { VariantProps } from 'tailwind-variants';
 
 	const getClass = tv({
+		base: 'absolute top-1/2 left-1/2 -translate-1/2 transition-[opacity,scale] ease-overshoot-light',
 		variants: {
-			transition: {
-				rotate: 'scale-0 -rotate-360 opacity-0',
-				scale: 'scale-0 opacity-0'
+			isActive: {
+				false: 'scale-0 opacity-0'
+			},
+			mustRotate: {
+				true: 'transition-[opacity,scale,rotate]'
+			},
+			speed: {
+				slow: 'duration-1000',
+				fast: 'duration-250'
 			}
 		},
+		compoundVariants: [
+			{
+				isActive: false,
+				mustRotate: true,
+				class: '-rotate-360'
+			}
+		],
 		defaultVariants: {
-			transition: 'rotate'
+			mustRotate: false,
+			speed: 'slow'
 		}
 	});
 
-	type Props = VariantProps<typeof getClass> & {
+	type Props = Omit<VariantProps<typeof getClass>, 'isActive'> & {
+		isActive: NonNullable<VariantProps<typeof getClass>['isActive']>;
 		active: Snippet;
 		inactive: Snippet;
-		isActive: boolean;
 	};
-	const { active, inactive, isActive, transition }: Props = $props();
+	const { active, inactive, isActive, mustRotate, speed }: Props = $props();
 
 	let contentWidth = $state(0);
 	let contentHeight = $state(0);
@@ -33,20 +48,14 @@
 	class="relative h-(--height) w-(--width)"
 >
 	<div
-		class={[
-			'absolute top-1/2 left-1/2 -translate-1/2 transition-[opacity,scale,rotate] duration-1000 ease-overshoot-light',
-			isActive && getClass({ transition })
-		]}
+		class={getClass({ isActive: !isActive, mustRotate, speed })}
 		bind:clientWidth={contentWidth}
 		bind:clientHeight={contentHeight}
 	>
 		{@render inactive()}
 	</div>
 	<div
-		class={[
-			'absolute top-1/2 left-1/2 -translate-1/2 transition-[opacity,scale,rotate] duration-1000 ease-overshoot-light',
-			!isActive && getClass({ transition })
-		]}
+		class={getClass({ isActive, mustRotate, speed })}
 		bind:clientWidth={contentWidth}
 		bind:clientHeight={contentHeight}
 	>

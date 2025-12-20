@@ -15,7 +15,7 @@
 	{#if !isMediaRoute}
 		<Branding />
 	{:else}
-		<IconButton onclick={handleBack}>
+		<IconButton onClick={handleBack}>
 			<Icon class="size-6" src={ChevronLeft} theme="mini" />
 		</IconButton>
 	{/if}

@@ -4,8 +4,7 @@
 	import { TRANSITION } from '$lib/constants/transition';
 	import type { HeroIcon } from '$lib/types/icon';
 	import { toRem } from '$lib/utilities/general';
-	import { PopcornIcon } from '@lucide/svelte';
-	import { ArchiveBox, FolderArrowDown, Home, User } from '@steeze-ui/heroicons';
+	import { ArchiveBox, FolderArrowDown, Home, Sparkles, Star, User } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { backOut } from 'svelte/easing';
 	import { fade, scale } from 'svelte/transition';
@@ -64,6 +63,56 @@
 		isCenterButtonActive ? centerButtonContentWidth : DEFAULT_CENTER_BUTTON_SIZE
 	);
 	let labelHeight = $state(0);
+
+	const SPARK_INTERVAL = 250;
+	const SPARK_ANIMATION_DURATION = 4000;
+	const maxSparkCount = SPARK_ANIMATION_DURATION / SPARK_INTERVAL;
+	type Spark = {
+		id: symbol;
+		x: number;
+		y: number;
+		offset: number;
+		size: number;
+		opacity: number;
+	};
+	let sparks = $state<Spark[]>([]);
+	let timerId = 0;
+	$effect(() => {
+		timerId = window.setInterval(() => {
+			if (sparks.length < maxSparkCount) {
+				const id = Symbol();
+
+				const maxX = centerButtonWidth;
+				const maxY = DEFAULT_CENTER_BUTTON_SIZE;
+				const minSize = 2;
+				const maxSize = 8;
+				const maxOffset = centerButtonWidth / 4;
+				const maxOpacity = isCenterButtonActive ? 1 : 0.6;
+
+				const x = Math.floor(Math.random() * maxX) - maxX / 2;
+				const y = Math.floor(Math.random() * maxY) - maxY;
+				const offset =
+					Math.floor(Math.random() * maxOffset) *
+					(Math.floor(Math.random() * 10) % 2 === 0 ? 1 : -1);
+				const size = minSize + Math.floor(Math.random() * (maxSize - minSize));
+				const opacity = Math.random() * maxOpacity;
+				const newSpark: Spark = {
+					id,
+					x,
+					y,
+					offset,
+					size,
+					opacity
+				};
+				sparks.push(newSpark);
+				window.setTimeout(
+					() => (sparks = sparks.filter(({ id }) => newSpark.id !== id)),
+					SPARK_ANIMATION_DURATION
+				);
+			}
+		}, SPARK_INTERVAL);
+		return () => clearInterval(timerId);
+	});
 </script>
 
 <div
@@ -74,7 +123,7 @@
 		{@const isActive = pathname === currentPathname}
 		<a
 			class={[
-				'flex w-12 flex-col items-center gap-1.5 py-2 transition-[filter,color]',
+				' flex w-12 flex-col items-center gap-1.5 py-2 transition-[filter,color]',
 				isActive && 'brightness-75 saturate-200 dark:brightness-100 dark:saturate-100'
 			]}
 			href={resolve(pathname)}
@@ -137,15 +186,30 @@
 				style:--width={toRem(centerButtonWidth)}
 				style:--height={toRem(DEFAULT_CENTER_BUTTON_SIZE)}
 				class={[
-					'gradient-border grid h-12 w-(--width) min-w-(--height) place-items-center rounded-full bg-gradient bg-gradient-primary text-foreground-accent transition-[width] ease-overshoot-heavy',
+					'gradient-border relative grid h-12 w-(--width) min-w-(--height) place-items-center overflow-hidden rounded-full bg-gradient bg-gradient-primary text-foreground-accent transition-[width] ease-overshoot-heavy',
 					!isCenterButtonActive && 'duration-750'
 				]}
 				href={resolve('/fa/feed')}
 				draggable={false}
 			>
+				<div class="absolute top-full left-1/2 isolate grid place-items-center">
+					{#each sparks as { id, x, y, offset, opacity, size } (id)}
+						<Icon
+							--animation-duration={`${SPARK_ANIMATION_DURATION}ms`}
+							--x={toRem(x)}
+							--y={toRem(y)}
+							--offset={toRem(offset)}
+							--size={toRem(size)}
+							--opacity={opacity}
+							class="animate absolute left-(--offset) -z-10 size-(--size)"
+							src={Star}
+							theme="solid"
+						/>
+					{/each}
+				</div>
 				{#if isCenterButtonActive}
 					<span
-						class="absolute inline-block translate-y-px p-4.5 text-sm leading-none font-bold"
+						class="absolute inline-block translate-y-px p-4.5 text-sm leading-none font-bold wrap-normal whitespace-nowrap"
 						bind:clientWidth={centerButtonContentWidth}
 						in:scale={{
 							duration: TRANSITION.DURATION,
@@ -165,7 +229,7 @@
 						}}
 						bind:clientWidth={centerButtonContentWidth}
 					>
-						<PopcornIcon />
+						<Icon class="size-6" src={Sparkles} theme="solid" />
 					</div>
 				{/if}
 			</a>
@@ -177,5 +241,20 @@
 	.gradient-border {
 		border-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='none'%3e%3crect width='98' height='98' x='1' y='1' stroke='url(%23a)' stroke-width='2' rx='49'/%3e%3cdefs%3e%3clinearGradient id='a' x1='0' x2='100' y1='0' y2='100' gradientUnits='userSpaceOnUse'%3e%3cstop stop-color='white' stop-opacity='.25'/%3e%3cstop offset='1' stop-opacity='.25'/%3e%3c/linearGradient%3e%3c/defs%3e%3c/svg%3e")
 			48 / 1.5rem stretch;
+	}
+	:global(.animate) {
+		animation: moving-stars var(--animation-duration) both;
+	}
+	@keyframes moving-stars {
+		0% {
+			opacity: 0;
+		}
+		50% {
+			opacity: var(--opacity);
+		}
+		100% {
+			translate: var(--x) var(--y);
+			opacity: 0;
+		}
 	}
 </style>

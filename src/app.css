@@ -120,7 +120,7 @@
 }
 
 @utility bg-gradient {
-	@apply bg-linear-to-b bg-size-[calc(100%,110%)] bg-center;
+	@apply bg-linear-to-b bg-size-[100%,110%] bg-center;
 }
 @utility bg-gradient-neutral/25 {
 	@apply from-background-secondary to-background-tertiary;

@@ -2,6 +2,7 @@
 	import { resolve } from '$app/paths';
 	import Post from '$lib/components/post.svelte';
 	import PostSkeleton from '$lib/components/post-skeleton.svelte';
+	import ConnectionLost from '$lib/components/connection-lost.svelte';
 	import type { LikedPostItem } from '$lib/types/api';
 	import { api } from '$lib/utilities/api';
 	import { toRem } from '$lib/utilities/general';
@@ -140,16 +141,8 @@
 		</div>
 	{:else if error && posts.length === 0}
 		<!-- Error state -->
-		<div class="flex items-center justify-center p-10">
-			<div class="text-center">
-				<p class="mb-4 text-foreground-secondary">{error}</p>
-				<button
-					class="rounded-full bg-accent-primary px-4 py-2 text-foreground-accent"
-					onclick={() => fetchLikedPosts(1)}
-				>
-					Retry
-				</button>
-			</div>
+		<div class="flex min-h-[60vh] flex-col items-center justify-center px-6">
+			<ConnectionLost onRetry={() => fetchLikedPosts(1)} />
 		</div>
 	{:else if posts.length > 0}
 		<!-- Posts grid -->

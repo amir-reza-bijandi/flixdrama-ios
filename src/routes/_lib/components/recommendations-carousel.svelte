@@ -116,7 +116,7 @@
 	<div class="swiper-wrapper overflow-visible!">
 		{#each sliderItems as { poster, vote, name, id }, index}
 			<div
-				class="swiper-slide group aspect-video h-auto! w-90! overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-primary transition-colors [&.active]:shadow-[0px_0px_6rem_--alpha(var(--color-foreground-primary)/10%)]"
+				class="swiper-slide group aspect-video h-auto! w-90! overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-primary transition-colors [&.active]:shadow-[0px_3rem_6rem_-2rem_--alpha(var(--color-foreground-primary)/10%)]"
 				bind:this={slideElms[index]}
 			>
 				<a

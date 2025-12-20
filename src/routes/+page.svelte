@@ -5,15 +5,15 @@
 	import Select, { type Option } from '$lib/components/select.svelte';
 	import Swiper from '$lib/components/swiper.svelte';
 	import HomeSkeleton from '$lib/components/home-skeleton.svelte';
+	import ConnectionLost from '$lib/components/connection-lost.svelte';
 	import type { HomeResponse, SeriesSection, CountrySection } from '$lib/types/api';
 	import { api } from '$lib/utilities/api';
 	import { toRem } from '$lib/utilities/general';
 	import RecommendationsCarousel from './_lib/components/recommendations-carousel.svelte';
 	import { navigationStore } from './_lib/stores/navigation-store.svelte';
 	import { onMount } from 'svelte';
-	import { ChevronRight, ExclamationTriangle, ArrowPath } from '@steeze-ui/heroicons';
+	import { ChevronRight } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { networkStore } from '$lib/stores/network-store.svelte';
 	import { authStore } from '$lib/stores/auth-store.svelte';
 
 	// State for API data
@@ -24,9 +24,83 @@
 	// Selected country index for each section
 	let selectedCountryIndexes = $state<Record<string, number>>({});
 
+	// Pull to refresh state
+	let pullDistance = $state(0);
+	let isRefreshing = $state(false);
+	let touchStartY = 0;
+	let touchStartX = 0;
+	let canPull = false;
+	let isPulling = $state(false); // Track if user is actively pulling (to prevent accidental clicks)
+	const PULL_THRESHOLD = 80;
+
+	function handleTouchStart(e: TouchEvent) {
+		if (isLoading || isRefreshing) return;
+		
+		// Only allow pull when at top of page
+		if (window.scrollY > 5) {
+			canPull = false;
+			return;
+		}
+		
+		canPull = true;
+		touchStartY = e.touches[0].clientY;
+		touchStartX = e.touches[0].clientX;
+	}
+
+	function handleTouchMove(e: TouchEvent) {
+		if (!canPull || isLoading || isRefreshing) return;
+
+		const touchY = e.touches[0].clientY;
+		const touchX = e.touches[0].clientX;
+		const diffY = touchY - touchStartY;
+		const diffX = Math.abs(touchX - touchStartX);
+
+		// If horizontal movement is more than vertical, don't pull (let swiper handle it)
+		if (diffX > Math.abs(diffY) && !isPulling) {
+			canPull = false;
+			return;
+		}
+
+		if (diffY > 0) {
+			// Mark as pulling to prevent accidental clicks on release
+			if (diffY > 10) {
+				isPulling = true;
+			}
+			// Apply resistance to pull
+			const resistance = 0.4;
+			pullDistance = Math.min(diffY * resistance, PULL_THRESHOLD * 1.5);
+		}
+	}
+
+	async function handleTouchEnd() {
+		const wasPulling = isPulling;
+		isPulling = false;
+		
+		if (!canPull || isLoading) {
+			canPull = false;
+			return;
+		}
+
+		if (pullDistance >= PULL_THRESHOLD && !isRefreshing) {
+			isRefreshing = true;
+			pullDistance = PULL_THRESHOLD * 0.6; // Keep indicator visible during refresh
+			await fetchHomeData();
+			// Reset refresh state after fetch completes
+			isRefreshing = false;
+			pullDistance = 0;
+		} else {
+			pullDistance = 0;
+		}
+		
+		canPull = false;
+	}
+
 	// Fetch function for retry capability
 	async function fetchHomeData() {
-		isLoading = true;
+		const isInitialLoad = !homeData;
+		if (isInitialLoad) {
+			isLoading = true;
+		}
 		error = null;
 		try {
 			homeData = await api.home.getHome();
@@ -43,7 +117,9 @@
 			error = err instanceof Error ? err.message : 'Failed to load data';
 			console.error('Failed to fetch home data:', err);
 		} finally {
-			isLoading = false;
+			if (isInitialLoad) {
+				isLoading = false;
+			}
 		}
 	}
 
@@ -83,70 +159,59 @@
 	}
 </script>
 
-<div style:--bottom-padding={toRem(navigationStore.requiredSpace)} class="pb-(--bottom-padding)">
-	{#if isLoading}
+<div
+	style:--bottom-padding={toRem(navigationStore.requiredSpace)}
+	style:--pull-distance="{pullDistance}px"
+	class="home-container pb-(--bottom-padding)"
+	class:pulling={isPulling}
+	ontouchstart={handleTouchStart}
+	ontouchmove={handleTouchMove}
+	ontouchend={handleTouchEnd}
+	ontouchcancel={handleTouchEnd}
+>
+	<!-- Pull to refresh indicator -->
+	{#if (pullDistance > 0 || isRefreshing) && homeData}
+		<div class="pull-indicator" style:opacity={Math.min(pullDistance / PULL_THRESHOLD, 1)}>
+			<div class="pull-indicator-content" class:refreshing={isRefreshing}>
+				{#if isRefreshing}
+					<div class="pull-spinner">
+						<svg viewBox="0 0 24 24" fill="none">
+							<circle
+								cx="12"
+								cy="12"
+								r="10"
+								stroke="currentColor"
+								stroke-width="2.5"
+								stroke-linecap="round"
+								stroke-dasharray="32"
+								stroke-dashoffset="32"
+							/>
+						</svg>
+					</div>
+					<span class="pull-text">Refreshing...</span>
+				{:else}
+					<div
+						class="pull-arrow"
+						style:transform="rotate({pullDistance >= PULL_THRESHOLD ? 180 : 0}deg)"
+					>
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+							<path d="M12 19V5M5 12l7-7 7 7" />
+						</svg>
+					</div>
+					<span class="pull-text">
+						{pullDistance >= PULL_THRESHOLD ? 'Release to refresh' : 'Pull to refresh'}
+					</span>
+				{/if}
+			</div>
+		</div>
+	{/if}
+
+	<div class="home-content" style:transform="translateY({pullDistance}px)">
+	{#if isLoading && !isRefreshing}
 		<HomeSkeleton />
 	{:else if error}
 		<div class="flex min-h-[60vh] flex-col items-center justify-center px-6">
-			<div class="error-container">
-				<div class="error-icon-container">
-					{#if !networkStore.isOnline}
-						<!-- Offline icon -->
-						<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="error-icon">
-							<path d="M1 1L23 23" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-							<path
-								d="M16.72 11.06C18.24 11.18 19.67 11.65 20.92 12.4M5 12.55C6.88 11.19 9.35 10.5 12 10.5C12.34 10.5 12.68 10.52 13.02 10.54"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							/>
-							<path
-								d="M8.53 16.11C9.56 15.4 10.74 15 12 15C13.26 15 14.44 15.4 15.47 16.11"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							/>
-							<path d="M12 20H12.01" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-							<path
-								d="M2.34 6.61C4.68 4.95 8.09 4 12 4C15.91 4 19.32 4.95 21.66 6.61"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-							/>
-						</svg>
-					{:else}
-						<!-- Server error icon -->
-						<Icon src={ExclamationTriangle} class="error-icon" />
-					{/if}
-				</div>
-				<div class="error-pulse"></div>
-			</div>
-
-			<h2 class="mt-6 text-xl font-bold text-foreground-primary">
-				{#if !networkStore.isOnline}
-					You're Offline
-				{:else}
-					Unable to Connect
-				{/if}
-			</h2>
-			<p class="mt-2 text-center text-sm text-foreground-secondary">
-				{#if !networkStore.isOnline}
-					Please check your internet connection and try again
-				{:else}
-					We couldn't reach our servers. Please try again later.
-				{/if}
-			</p>
-
-			<button
-				class="retry-button mt-8"
-				onclick={fetchHomeData}
-			>
-				<Icon src={ArrowPath} class="size-5" />
-				<span>Try Again</span>
-			</button>
+			<ConnectionLost onRetry={fetchHomeData} />
 		</div>
 	{:else if homeData}
 		<RecommendationsCarousel sliderItems={homeData.slider} />
@@ -187,85 +252,97 @@
 					{/if}
 				</Swiper>
 			</div>
-		{/each}
-	{/if}
-</div>
+			{/each}
+		{/if}
+		</div>
+	</div>
 
 <style>
-	.error-container {
+	.home-container {
 		position: relative;
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		overflow: hidden;
 	}
 
-	.error-icon-container {
-		position: relative;
-		z-index: 1;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 5rem;
-		height: 5rem;
-		background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(185, 28, 28, 0.15) 100%);
-		border-radius: 50%;
-		box-shadow:
-			0 0 0 1px rgba(239, 68, 68, 0.2),
-			0 8px 32px -8px rgba(239, 68, 68, 0.3);
+	/* Prevent accidental clicks on links while pulling */
+	.home-container.pulling :global(a),
+	.home-container.pulling :global(button) {
+		pointer-events: none;
 	}
 
-	:global(.error-icon) {
-		width: 2.5rem;
-		height: 2.5rem;
-		color: rgb(239, 68, 68);
+	.home-content {
+		will-change: transform;
+		transition: transform 0.15s ease-out;
 	}
 
-	.error-pulse {
+	/* Pull to refresh styles */
+	.pull-indicator {
 		position: absolute;
-		width: 5rem;
-		height: 5rem;
-		border-radius: 50%;
-		background: rgba(239, 68, 68, 0.2);
-		animation: error-pulse 2s ease-out infinite;
+		top: 0;
+		left: 0;
+		right: 0;
+		display: flex;
+		justify-content: center;
+		padding-top: 0.5rem;
+		z-index: 10;
+		pointer-events: none;
 	}
 
-	@keyframes error-pulse {
-		0% {
-			transform: scale(1);
-			opacity: 0.6;
-		}
-		100% {
-			transform: scale(1.8);
-			opacity: 0;
-		}
-	}
-
-	.retry-button {
+	.pull-indicator-content {
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
-		padding: 0.875rem 1.5rem;
-		background: linear-gradient(135deg, var(--color-accent-primary) 0%, var(--color-accent-primary) 100%);
-		color: var(--color-foreground-accent);
-		border: none;
+		padding: 0.625rem 1rem;
+		background: linear-gradient(135deg, rgba(139, 92, 246, 0.95) 0%, rgba(109, 40, 217, 0.95) 100%);
 		border-radius: 9999px;
+		box-shadow: 0 4px 16px -4px rgba(139, 92, 246, 0.5), 0 2px 8px rgba(0, 0, 0, 0.2);
+		color: white;
+	}
+
+	.pull-indicator-content.refreshing {
+		background: linear-gradient(135deg, rgba(34, 197, 94, 0.95) 0%, rgba(22, 163, 74, 0.95) 100%);
+		box-shadow: 0 4px 16px -4px rgba(34, 197, 94, 0.5), 0 2px 8px rgba(0, 0, 0, 0.2);
+	}
+
+	.pull-arrow {
+		width: 1.125rem;
+		height: 1.125rem;
+		transition: transform 0.2s ease;
+	}
+
+	.pull-arrow svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	.pull-spinner {
+		width: 1.125rem;
+		height: 1.125rem;
+		animation: pull-spin 1s linear infinite;
+	}
+
+	.pull-spinner svg {
+		width: 100%;
+		height: 100%;
+	}
+
+	.pull-spinner circle {
+		animation: pull-dash 1.5s ease-in-out infinite;
+	}
+
+	@keyframes pull-spin {
+		from { transform: rotate(0deg); }
+		to { transform: rotate(360deg); }
+	}
+
+	@keyframes pull-dash {
+		0% { stroke-dashoffset: 32; }
+		50% { stroke-dashoffset: 0; }
+		100% { stroke-dashoffset: -32; }
+	}
+
+	.pull-text {
+		font-size: 0.75rem;
 		font-weight: 600;
-		font-size: 0.9375rem;
-		cursor: pointer;
-		transition: all 0.2s ease;
-		box-shadow:
-			0 4px 16px -4px rgba(var(--color-accent-primary-rgb, 139, 92, 246), 0.4),
-			0 2px 8px -2px rgba(0, 0, 0, 0.2);
-	}
-
-	.retry-button:hover {
-		transform: translateY(-1px);
-		box-shadow:
-			0 6px 20px -4px rgba(var(--color-accent-primary-rgb, 139, 92, 246), 0.5),
-			0 4px 12px -2px rgba(0, 0, 0, 0.25);
-	}
-
-	.retry-button:active {
-		transform: translateY(0);
+		white-space: nowrap;
 	}
 </style>

@@ -24,17 +24,23 @@
 	}: Props = $props();
 
 	let isLoading = $state(true);
+	// Track the last src that was set to loading state to avoid race conditions
+	let pendingSrc = $state('');
 
 	// Reset loading state when src changes (only if not keeping visible)
+	// Track pendingSrc to avoid race condition where cached images load before effect runs
 	$effect(() => {
-		src; // track src dependency
-		if (!keepVisibleOnLoad) {
+		if (src !== pendingSrc && !keepVisibleOnLoad) {
+			pendingSrc = src;
 			isLoading = true;
 		}
 	});
 
 	const handleLoad: EventHandler<Event, Element> = () => {
-		isLoading = false;
+		// Only clear loading if this is the image we're waiting for
+		if (src === pendingSrc || pendingSrc === '') {
+			isLoading = false;
+		}
 	};
 </script>
 

@@ -13,52 +13,42 @@
 		out:fade={{ duration: 200 }}
 	>
 		<div class="offline-content">
-			<div class="pulse-ring"></div>
 			<div class="icon-container">
+				<!-- Cloud with moon icon - K-drama night sky theme -->
 				<svg
 					class="offline-icon"
 					viewBox="0 0 24 24"
 					fill="none"
 					xmlns="http://www.w3.org/2000/svg"
 				>
+					<!-- Moon -->
 					<path
-						d="M1 1L23 23"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
+						d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+						fill="currentColor"
+						opacity="0.3"
 					/>
+					<!-- Cloud outline -->
 					<path
-						d="M16.72 11.06C18.24 11.18 19.67 11.65 20.92 12.4M5 12.55C6.88 11.19 9.35 10.5 12 10.5C12.34 10.5 12.68 10.52 13.02 10.54"
+						d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"
 						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-					/>
-					<path
-						d="M8.53 16.11C9.56 15.4 10.74 15 12 15C13.26 15 14.44 15.4 15.47 16.11"
-						stroke="currentColor"
-						stroke-width="2"
+						stroke-width="1.5"
 						stroke-linecap="round"
 						stroke-linejoin="round"
+						fill="none"
 					/>
+					<!-- Zzz (sleeping/waiting) -->
 					<path
-						d="M12 20H12.01"
+						d="M14 6l2-2h-2l2-2"
 						stroke="currentColor"
-						stroke-width="3"
-						stroke-linecap="round"
-					/>
-					<path
-						d="M2.34 6.61C4.68 4.95 8.09 4 12 4C15.91 4 19.32 4.95 21.66 6.61"
-						stroke="currentColor"
-						stroke-width="2"
+						stroke-width="1.5"
 						stroke-linecap="round"
 						stroke-linejoin="round"
 					/>
 				</svg>
 			</div>
 			<div class="text-container">
-				<span class="offline-title">You're Offline</span>
-				<span class="offline-subtitle">Check your internet connection</span>
+				<span class="offline-title">No Internet so Taking a Break...</span>
+				<span class="offline-subtitle">Why don't you look around your library 🌙</span>
 			</div>
 		</div>
 	</div>
@@ -81,10 +71,10 @@
 		align-items: center;
 		gap: 0.875rem;
 		padding: 1rem 1.25rem;
-		background: linear-gradient(135deg, rgba(239, 68, 68, 0.95) 0%, rgba(185, 28, 28, 0.95) 100%);
+		background: linear-gradient(135deg, rgba(139, 92, 246, 0.95) 0%, rgba(109, 40, 217, 0.95) 100%);
 		border-radius: 1rem;
 		box-shadow:
-			0 10px 40px -10px rgba(239, 68, 68, 0.5),
+			0 10px 40px -10px rgba(139, 92, 246, 0.5),
 			0 4px 20px -5px rgba(0, 0, 0, 0.4),
 			inset 0 1px 0 rgba(255, 255, 255, 0.15);
 		backdrop-filter: blur(12px);
@@ -101,10 +91,10 @@
 		background: linear-gradient(
 			90deg,
 			transparent 0%,
-			rgba(255, 255, 255, 0.1) 50%,
+			rgba(255, 255, 255, 0.08) 50%,
 			transparent 100%
 		);
-		animation: shimmer 3s infinite;
+		animation: shimmer 4s infinite;
 	}
 
 	@keyframes shimmer {
@@ -113,29 +103,6 @@
 		}
 		100% {
 			transform: translateX(100%);
-		}
-	}
-
-	.pulse-ring {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		border-radius: 1rem;
-		animation: pulse 2s ease-out infinite;
-		box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-	}
-
-	@keyframes pulse {
-		0% {
-			box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.6);
-		}
-		70% {
-			box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
-		}
-		100% {
-			box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
 		}
 	}
 
@@ -155,19 +122,15 @@
 		width: 1.5rem;
 		height: 1.5rem;
 		color: white;
-		animation: wiggle 0.5s ease-in-out;
+		animation: float 3s ease-in-out infinite;
 	}
 
-	@keyframes wiggle {
-		0%,
-		100% {
-			transform: rotate(0deg);
+	@keyframes float {
+		0%, 100% {
+			transform: translateY(0);
 		}
-		25% {
-			transform: rotate(-10deg);
-		}
-		75% {
-			transform: rotate(10deg);
+		50% {
+			transform: translateY(-2px);
 		}
 	}
 

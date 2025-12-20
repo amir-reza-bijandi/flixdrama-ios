@@ -17,6 +17,7 @@
 
 <a
 	class={['block shrink-0', fixedWidth ? 'w-32' : 'w-full']}
+	style="touch-action: pan-x pan-y pinch-zoom;"
 	href={resolve('/media/[id]', {
 		id: String(id)
 	})}

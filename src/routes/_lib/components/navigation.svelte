@@ -24,7 +24,7 @@
 		},
 		{
 			icon: FolderArrowDown,
-			label: 'Downloads',
+			label: 'Library',
 			pathname: '/downloads'
 		},
 		{

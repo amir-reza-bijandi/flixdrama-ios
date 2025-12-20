@@ -1,11 +1,14 @@
 <script lang="ts">
 	import { asset } from '$app/paths';
 	import * as Box from '$lib/components/box';
-	import { Bell, Moon, Sun, XMark } from '@steeze-ui/heroicons';
+	import * as Pressable from '$lib/components/pressable';
+	import Separator from '$lib/components/separator.svelte';
+	import { Moon, Sun, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { IconBell } from '@tabler/icons-svelte';
 	import { mode, setMode } from 'mode-watcher';
 	import type { Snippet } from 'svelte';
-	import Toggle, { type ToggleStateChangeEventHandler } from './toggle.svelte';
+	import Toggle from './toggle.svelte';
 
 	const TOGGLE_HITBOX_SIZE = 40;
 
@@ -17,10 +20,8 @@
 
 	let isNotificationsActive = $state(false);
 
-	const handleToggleDarkMode: ToggleStateChangeEventHandler = (isActive) =>
-		setMode(isActive ? 'dark' : 'light');
-	const handleToggleNotifications: ToggleStateChangeEventHandler = (isActive) =>
-		(isNotificationsActive = isActive);
+	const handleToggleDarkMode = () => setMode(mode.current === 'light' ? 'dark' : 'light');
+	const handleToggleNotifications = () => (isNotificationsActive = !isNotificationsActive);
 </script>
 
 <div class="overflow-hidden">
@@ -29,7 +30,9 @@
 		class="relative z-50 flex items-center justify-between px-app-padding pt-app-padding transition-colors"
 	>
 		{#if actions}
-			{@render actions()}
+			<div class="flex items-center gap-1.5">
+				{@render actions()}
+			</div>
 		{:else}
 			<div class="relative isolate">
 				<img class="brightness-125 saturate-150" src={asset('/image/brand-name-fa.svg')} alt="" />
@@ -41,33 +44,33 @@
 			</div>
 		{/if}
 		<!-- Global Actions -->
-		<Box.Root class="flex items-center justify-center gap-2 p-2.5">
+		<Box.Root class="flex items-center justify-center">
 			<Box.Visuals />
-			<Toggle
-				isActive={isNotificationsActive}
-				onStateChange={handleToggleNotifications}
-				hitboxSize={TOGGLE_HITBOX_SIZE}
-			>
-				{#snippet active()}
-					<Icon src={XMark} class="size-5 text-danger-tint" />
-				{/snippet}
-				{#snippet inactive()}
-					<Icon src={Bell} class="size-5" />
-				{/snippet}
-			</Toggle>
-			<span class="h-3 w-px rounded-full bg-stroke-primary"></span>
-			<Toggle
-				isActive={mode.current === 'dark'}
-				onStateChange={handleToggleDarkMode}
-				hitboxSize={TOGGLE_HITBOX_SIZE}
-			>
-				{#snippet active()}
-					<Icon src={Sun} class="size-5 text-accent-secondary-tint" theme="mini" />
-				{/snippet}
-				{#snippet inactive()}
-					<Icon src={Moon} class="size-5 text-accent-primary-tint" theme="mini" />
-				{/snippet}
-			</Toggle>
+			<Pressable.Root class="-ml-0.5 size-10" onClick={handleToggleNotifications}>
+				<Pressable.Content class="grid place-items-center">
+					<Toggle isActive={isNotificationsActive}>
+						{#snippet active()}
+							<Icon src={XMark} class="size-5 text-danger-tint" />
+						{/snippet}
+						{#snippet inactive()}
+							<IconBell class="size-5 stroke-[1.5]" />
+						{/snippet}
+					</Toggle>
+				</Pressable.Content>
+			</Pressable.Root>
+			<Separator size={12} />
+			<Pressable.Root class="-mr-0.5 size-10" onClick={handleToggleDarkMode}>
+				<Pressable.Content class="grid place-items-center">
+					<Toggle isActive={mode.current === 'dark'}>
+						{#snippet active()}
+							<Icon src={Sun} class="size-5 text-accent-secondary-tint" theme="mini" />
+						{/snippet}
+						{#snippet inactive()}
+							<Icon src={Moon} class="size-5 text-accent-primary-tint" theme="mini" />
+						{/snippet}
+					</Toggle>
+				</Pressable.Content>
+			</Pressable.Root>
 		</Box.Root>
 	</div>
 	{@render children?.()}

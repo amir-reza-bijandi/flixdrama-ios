@@ -30,9 +30,13 @@
 	--color-accent-secondary-shade: var(--color-yellow-700);
 	--color-accent-tertiary: var(--color-blue-600);
 	--color-accent-tertiary-tint: var(--color-blue-500);
+	--color-accent-tertiary-shade: var(--color-blue-700);
 	--color-danger: var(--color-red-600);
 	--color-danger-tint: var(--color-red-500);
 	--color-danger-shade: var(--color-red-700);
+	--color-success: var(--color-emerald-600);
+	--color-success-tint: var(--color-emerald-500);
+	--color-success-shade: var(--color-emerald-700);
 	--color-background-primary: var(--base-color-background-primary);
 	--color-background-secondary: --alpha(var(--base-color-background-secondary) / 10%);
 	--color-background-tertiary: --alpha(var(--base-color-background-secondary) / 5%);
@@ -115,12 +119,39 @@
 	}
 }
 
+@utility bg-gradient {
+	@apply bg-linear-to-b bg-size-[calc(100%,110%)] bg-center;
+}
+@utility bg-gradient-neutral/25 {
+	@apply from-background-secondary to-background-tertiary;
+}
 @utility bg-gradient-primary {
-	@apply bg-linear-to-b from-accent-primary-tint to-accent-primary-shade bg-size-[calc(100%,110%)] bg-center;
+	@apply from-accent-primary-tint to-accent-primary-shade;
+}
+@utility bg-gradient-primary/25 {
+	@apply from-accent-primary-tint/25 to-accent-primary-shade/25;
 }
 @utility bg-gradient-secondary {
-	@apply bg-linear-to-b from-accent-secondary-tint to-accent-secondary-shade bg-size-[calc(100%,110%)] bg-center;
+	@apply from-accent-secondary-tint to-accent-secondary-shade;
+}
+@utility bg-gradient-secondary/25 {
+	@apply from-accent-secondary-tint/25 to-accent-secondary-shade/25;
+}
+@utility bg-gradient-tertiary {
+	@apply from-accent-tertiary-tint to-accent-tertiary-shade;
+}
+@utility bg-gradient-tertiary/25 {
+	@apply from-accent-tertiary-tint/25 to-accent-tertiary-shade/25;
 }
 @utility bg-gradient-danger {
-	@apply bg-linear-to-b from-danger-tint to-danger-shade bg-size-[calc(100%,110%)] bg-center;
+	@apply from-danger-tint to-danger-shade;
+}
+@utility bg-gradient-danger/25 {
+	@apply from-danger-tint/25 to-danger-shade/25;
+}
+@utility bg-gradient-success {
+	@apply from-success-tint to-success-shade;
+}
+@utility bg-gradient-success/25 {
+	@apply from-success-tint/25 to-success-shade/25;
 }

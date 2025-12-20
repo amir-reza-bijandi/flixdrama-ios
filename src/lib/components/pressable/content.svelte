@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import { cn, type ClassValue } from 'tailwind-variants';
+	import { cnMerge, type ClassValue } from 'tailwind-variants';
 
 	type Props = {
 		children: Snippet;
@@ -10,10 +10,12 @@
 </script>
 
 <div
-	class={cn(
+	class={cnMerge(
 		'transition-transform duration-750 ease-overshoot-heavy group-active:scale-90',
 		extraClass
-	)}
+	)({
+		twMergeConfig: {}
+	})}
 >
 	{@render children()}
 </div>

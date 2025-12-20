@@ -34,7 +34,7 @@
 	<Pressable.Content>
 		<div
 			class={[
-				'pointer-events-none relative flex flex-col items-center gap-2 overflow-hidden rounded-full bg-background-tertiary p-1.5 pb-3 outline -outline-offset-1 backdrop-blur-2xl transition-colors duration-250 before:absolute before:inset-0 before:-z-10 before:bg-gradient-danger before:transition-opacity before:duration-250',
+				'pointer-events-none relative flex flex-col items-center gap-2 overflow-hidden rounded-full bg-background-tertiary p-1.5 pb-3 outline -outline-offset-1 backdrop-blur-2xl transition-colors duration-250 before:absolute before:inset-0 before:-z-10 before:bg-gradient before:bg-gradient-danger before:transition-opacity before:duration-250',
 				isActive
 					? 'outline-stroke-tertiary before:opacity-100'
 					: 'outline-stroke-primary before:opacity-0'

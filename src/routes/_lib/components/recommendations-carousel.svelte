@@ -126,7 +126,7 @@
 					</div>
 					<div
 						style="transform-origin: {langStore.current === 'en' ? 'right' : 'left'} top;"
-						class="absolute end-3 top-3 scale-75 rounded-full bg-gradient-primary p-1.5 text-xs leading-none text-foreground-accent opacity-0 outline -outline-offset-1 outline-stroke-tertiary transition-[opacity,scale] ease-overshoot-light group-[&.active]:scale-100 group-[&.active]:opacity-100"
+						class="absolute end-3 top-3 scale-75 rounded-full bg-gradient bg-gradient-primary p-1.5 text-xs leading-none text-foreground-accent opacity-0 outline -outline-offset-1 outline-stroke-tertiary transition-[opacity,scale] ease-overshoot-light group-[&.active]:scale-100 group-[&.active]:opacity-100"
 					>
 						{(langStore.current === 'en' ? COUNTRY_LABEL_MAP_EN : COUNTRY_LABEL_MAP_FA)[country]}
 					</div>

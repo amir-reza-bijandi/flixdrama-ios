@@ -28,7 +28,7 @@
 			/>
 			{#if score}
 				<div
-					class="absolute start-2 top-2 flex items-center gap-0.5 rounded-full bg-gradient-secondary p-1 pe-1.5 text-foreground-accent outline -outline-offset-1 outline-stroke-tertiary"
+					class="absolute start-2 top-2 flex items-center gap-0.5 rounded-full bg-gradient bg-gradient-secondary p-1 pe-1.5 text-foreground-accent outline -outline-offset-1 outline-stroke-tertiary"
 				>
 					<Icon class="size-3.5" src={Star} theme="solid" />
 					<span class="translate-y-px text-xs leading-none font-bold">

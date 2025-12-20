@@ -137,7 +137,7 @@
 				style:--width={toRem(centerButtonWidth)}
 				style:--height={toRem(DEFAULT_CENTER_BUTTON_SIZE)}
 				class={[
-					'gradient-border grid h-12 w-(--width) min-w-(--height) place-items-center rounded-full bg-gradient-primary text-foreground-accent transition-[width] ease-overshoot-heavy',
+					'gradient-border grid h-12 w-(--width) min-w-(--height) place-items-center rounded-full bg-gradient bg-gradient-primary text-foreground-accent transition-[width] ease-overshoot-heavy',
 					!isCenterButtonActive && 'duration-750'
 				]}
 				href={resolve('/fa/feed')}

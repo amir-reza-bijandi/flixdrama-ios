@@ -15,7 +15,7 @@
 			},
 			speed: {
 				slow: 'duration-1000',
-				fast: 'duration-250'
+				normal: 'duration-initial'
 			}
 		},
 		compoundVariants: [
@@ -27,7 +27,7 @@
 		],
 		defaultVariants: {
 			mustRotate: false,
-			speed: 'slow'
+			speed: 'normal'
 		}
 	});
 

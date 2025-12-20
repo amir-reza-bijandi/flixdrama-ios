@@ -59,7 +59,7 @@
 			>
 				<div class="text-xs font-bold">{toFarsi(value)}</div>
 
-				<Toggle {isActive} speed="fast">
+				<Toggle {isActive}>
 					{#snippet active()}
 						<CheckIcon class="size-3 stroke-2" />
 					{/snippet}

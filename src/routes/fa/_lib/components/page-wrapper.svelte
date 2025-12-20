@@ -48,7 +48,7 @@
 			<Box.Visuals />
 			<Pressable.Root class="-ml-0.5 size-10" onClick={handleToggleNotifications}>
 				<Pressable.Content class="grid place-items-center">
-					<Toggle isActive={isNotificationsActive} mustRotate>
+					<Toggle isActive={isNotificationsActive} speed="slow" mustRotate>
 						{#snippet active()}
 							<Icon src={XMark} class="size-5 text-danger-tint" />
 						{/snippet}
@@ -61,7 +61,7 @@
 			<Separator size={12} />
 			<Pressable.Root class="-mr-0.5 size-10" onClick={handleToggleDarkMode}>
 				<Pressable.Content class="grid place-items-center">
-					<Toggle isActive={mode.current === 'dark'} mustRotate>
+					<Toggle isActive={mode.current === 'dark'} speed="slow" mustRotate>
 						{#snippet active()}
 							<Icon src={Sun} class="size-5 text-accent-secondary-tint" theme="mini" />
 						{/snippet}

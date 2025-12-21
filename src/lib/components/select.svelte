@@ -45,8 +45,10 @@
 						>
 							<Pressable.Content
 								class={[
-									'p-2 before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient before:bg-gradient-primary before:outline before:-outline-offset-1 before:outline-stroke-tertiary before:transition-[scale,opacity] before:ease-overshoot-light',
-									index !== selectedIndex && 'before:scale-25 before:opacity-0'
+									'p-2 before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient before:bg-gradient-primary before:outline before:-outline-offset-1 before:outline-stroke-tertiary before:transition-[scale,opacity,rotate]',
+									index === selectedIndex
+										? 'before:ease-overshoot-heavy'
+										: 'before:scale-75 before:opacity-0 before:duration-250'
 								]}
 							>
 								<span

@@ -43,7 +43,7 @@
 	onTouchMove={handleTouchMove}
 	onTouchEnd={handleTouchEnd}
 >
-	<Swiper.Wrapper class={isSliderMoving && 'pointer-events-none'}>
+	<Swiper.Wrapper>
 		{#each options as { name, value }, index (value)}
 			<Swiper.Slide>
 				<div bind:this={optionElms[index]}>

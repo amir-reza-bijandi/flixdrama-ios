@@ -25,7 +25,7 @@
 				href: restOfProps.href
 			}
 		: {
-				onpointerup: restOfProps.onClick
+				onclick: restOfProps.onClick
 			}}
 >
 	{@render children()}

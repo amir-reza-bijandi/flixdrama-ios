@@ -12,84 +12,67 @@
 
 <script lang="ts" generics="T extends Options">
 	import * as Pressable from '$lib/components/pressable';
-	import { toRem } from '$lib/utilities/general';
+	import * as Swiper from '$lib/components/swiper';
+	import { langStore } from '$lib/store/lang-store.svelte';
+	import { Lang } from '$lib/types/general';
+	import type { SwiperRootProps } from './swiper/root.svelte';
 
 	const DEFAULT_SELECTED_INDEX = 0;
-	const DATASET_KEY = 'selected';
 
-	type Props = {
+	type Props = Pick<SwiperRootProps, 'offset'> & {
 		options: T;
 		alignment?: 'start' | 'center';
 		onSelect?: SelectEventHandler<T>;
 	};
-	let { options, alignment = 'start', onSelect }: Props = $props();
+	let { options, alignment = 'start', offset, onSelect }: Props = $props();
 
-	type IndicatorRect = {
-		x: number;
-		width: number;
-	};
-
-	let selectElm = $state<HTMLElement | null>(null);
 	const optionElms = $state<HTMLElement[]>([]);
 	let selectedIndex = $state(DEFAULT_SELECTED_INDEX);
-	let hasTransition = $state(false);
-	const indicatorRect = $state<IndicatorRect>({
-		x: 0,
-		width: 0
-	});
+	let isSliderMoving = $state(false);
 
-	$effect(() => {
-		void selectedIndex;
-		requestAnimationFrame(() => {
-			const selectedOptionElm = optionElms[selectedIndex];
-			if (selectElm && selectedOptionElm) {
-				const parentRect = selectElm.getBoundingClientRect();
-				const childRect = selectedOptionElm.getBoundingClientRect();
-				indicatorRect.x = childRect.x - parentRect.x;
-				indicatorRect.width = childRect.width;
-				requestAnimationFrame(() => {
-					hasTransition = true;
-				});
-			}
-		});
-	});
+	const handleTouchMove = () => {
+		isSliderMoving = true;
+	};
+	const handleTouchEnd = () => (isSliderMoving = false);
 </script>
 
-<div
-	class={['relative isolate mt-3 mb-4 flex gap-2', alignment === 'center' && 'justify-center']}
-	bind:this={selectElm}
+<Swiper.Root
+	class="mt-3 mb-4"
+	{offset}
+	spaceBetween={8}
+	onTouchMove={handleTouchMove}
+	onTouchEnd={handleTouchEnd}
 >
-	{#each options as { name, value }, index (value)}
-		<div bind:this={optionElms[index]}>
-			<Pressable.Root
-				class="inline-block shrink-0"
-				onClick={() => {
-					selectedIndex = index;
-					onSelect?.(value, index);
-				}}
-			>
-				<Pressable.Content>
-					<div
-						class={[
-							'cursor-pointer p-2 text-sm leading-none transition-[scale,color] duration-[750ms,250ms]',
-							index === selectedIndex && 'text-foreground-accent'
-						]}
-						{...{
-							[`data-${DATASET_KEY}`]: selectedIndex === index
+	<Swiper.Wrapper class={isSliderMoving && 'pointer-events-none'}>
+		{#each options as { name, value }, index (value)}
+			<Swiper.Slide>
+				<div bind:this={optionElms[index]}>
+					<Pressable.Root
+						class="inline-block"
+						onClick={() => {
+							selectedIndex = index;
+							onSelect?.(value, index);
 						}}
 					>
-						<span class="inline-block translate-y-px">{name}</span>
-					</div>
-				</Pressable.Content>
-			</Pressable.Root>
-		</div>
-	{/each}
-	<span
-		style:--width={toRem(indicatorRect.width)}
-		style:--x="{indicatorRect.x}px"
-		class={[
-			'absolute left-(--x) -z-10 h-full w-(--width) rounded-full bg-gradient bg-gradient-primary outline -outline-offset-1 outline-stroke-tertiary ease-overshoot-light',
-			hasTransition && 'transition-[width,left]'
-		]}
-	></span>
-</div>
+						<Pressable.Content
+							class={[
+								'p-2 before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient before:bg-gradient-primary before:outline before:-outline-offset-1 before:outline-stroke-tertiary before:transition-[scale,opacity] before:ease-overshoot-light',
+								index !== selectedIndex && 'before:scale-25 before:opacity-0'
+							]}
+						>
+							<span
+								class={[
+									'inline-block text-sm leading-none transition-colors duration-250',
+									langStore.current === Lang.En && 'translate-y-px',
+									index === selectedIndex && 'text-foreground-accent'
+								]}
+							>
+								{name}
+							</span>
+						</Pressable.Content>
+					</Pressable.Root>
+				</div>
+			</Swiper.Slide>
+		{/each}
+	</Swiper.Wrapper>
+</Swiper.Root>

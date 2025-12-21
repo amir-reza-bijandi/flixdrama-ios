@@ -3,6 +3,9 @@
 	import { langStore } from '$lib/store/lang-store.svelte';
 	import { Lang } from '$lib/types/general';
 	import { ModeWatcher } from 'mode-watcher';
+	import 'swiper/css';
+	import 'swiper/css/effect-coverflow';
+	import 'swiper/css/free-mode';
 	import '../app.css';
 	import Background from './_lib/components/background.svelte';
 

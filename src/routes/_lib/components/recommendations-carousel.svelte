@@ -6,8 +6,6 @@
 	import { langStore } from '$lib/store/lang-store.svelte';
 	import type { MediaEn, MediaFa } from '$lib/types/data';
 	import { Swiper } from 'swiper';
-	import 'swiper/css';
-	import 'swiper/css/effect-coverflow';
 	import { Autoplay, EffectCoverflow } from 'swiper/modules';
 	import { recommendationsCarouselStore } from '../store/recommendations-carousel-store.svelte';
 	import Score from './score.svelte';

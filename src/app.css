@@ -47,7 +47,7 @@
 	--color-stroke-secondary: --alpha(var(--color-foreground-primary) / 15%);
 	--color-stroke-tertiary: --alpha(var(--color-gray-100) / 25%);
 
-	--spacing-app-padding: --spacing(5);
+	--spacing-content-padding: --spacing(5);
 
 	--shadow-absolute-content: 0px 0px 2.25rem --alpha(var(--color-background-primary) / 33%);
 

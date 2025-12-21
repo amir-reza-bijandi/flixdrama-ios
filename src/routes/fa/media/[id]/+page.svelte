@@ -7,7 +7,7 @@
 	import * as Pressable from '$lib/components/pressable';
 	import Select, { type Option } from '$lib/components/select.svelte';
 	import Separator from '$lib/components/separator.svelte';
-	import Swiper from '$lib/components/swiper.svelte';
+	import * as Swiper from '$lib/components/swiper';
 	import {
 		COUNTRY_LABEL_MAP_FA,
 		DATA_FA,
@@ -31,6 +31,8 @@
 	import { sizeStore } from '../../_lib/store/size-store.svelte';
 	import { toFarsi } from '../../_lib/utilities/to-farsi';
 
+	const SWIPER_OFFSET = 24;
+	const SWIPER_SPACE_BETWEEN = 8;
 	const SELECT_OPTIONS = [
 		{
 			name: 'مشخصات',
@@ -168,18 +170,22 @@
 					</Post.Expandable>
 				</Post.Section>
 				<Post.Section heading="عوامل" --margin-top={toRem(24)}>
-					<Swiper gap={8} padding={24}>
-						{#each personnel as { id, name, image, role }}
-							<PostCard
-								href={resolve(`/fa/actor/[id]`, {
-									id: String(id)
-								})}
-								{image}
-								subtitle={role.map((role) => ROLE_LABEL_MAP[role]).join(' / ')}
-								title={name}
-							/>
-						{/each}
-					</Swiper>
+					<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+						<Swiper.Wrapper>
+							{#each personnel as { id, name, image, role }}
+								<Swiper.Slide>
+									<PostCard
+										href={resolve(`/fa/actor/[id]`, {
+											id: String(id)
+										})}
+										{image}
+										subtitle={role.map((role) => ROLE_LABEL_MAP[role]).join(' / ')}
+										title={name}
+									/>
+								</Swiper.Slide>
+							{/each}
+						</Swiper.Wrapper>
+					</Swiper.Root>
 				</Post.Section>
 				<Post.Section heading="اطلاعات تکمیلی" --margin-top={toRem(24)}>
 					<Post.AdditionalInfo data={additionalInfoData} />

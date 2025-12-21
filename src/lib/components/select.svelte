@@ -28,22 +28,10 @@
 
 	const optionElms = $state<HTMLElement[]>([]);
 	let selectedIndex = $state(DEFAULT_SELECTED_INDEX);
-	let isSliderMoving = $state(false);
-
-	const handleTouchMove = () => {
-		isSliderMoving = true;
-	};
-	const handleTouchEnd = () => (isSliderMoving = false);
 </script>
 
 <div class={[alignment === 'center' && 'flex justify-center']}>
-	<Swiper.Root
-		class="mt-3 mb-4"
-		{offset}
-		spaceBetween={8}
-		onTouchMove={handleTouchMove}
-		onTouchEnd={handleTouchEnd}
-	>
+	<Swiper.Root class="mt-3 mb-4" {offset} spaceBetween={8}>
 		<Swiper.Wrapper>
 			{#each options as { name, value }, index (value)}
 				<Swiper.Slide>

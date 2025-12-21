@@ -4,8 +4,6 @@
 		spaceBetween?: number;
 		offset?: number;
 		class?: ClassValue;
-		onTouchMove?: () => void;
-		onTouchEnd?: () => void;
 	};
 	export type { Props as SwiperRootProps };
 </script>
@@ -17,14 +15,7 @@
 	import { FreeMode } from 'swiper/modules';
 	import { cn, type ClassValue } from 'tailwind-variants';
 
-	const {
-		children,
-		spaceBetween = 0,
-		offset = 0,
-		class: extraClass,
-		onTouchMove,
-		onTouchEnd
-	}: Props = $props();
+	const { children, spaceBetween = 0, offset = 0, class: extraClass }: Props = $props();
 
 	let swiperElm = $state<HTMLElement | null>(null);
 
@@ -36,11 +27,7 @@
 					enabled: true
 				},
 				spaceBetween,
-				modules: [FreeMode],
-				on: {
-					touchMove: () => onTouchMove?.(),
-					touchEnd: () => onTouchEnd?.()
-				}
+				modules: [FreeMode]
 			});
 			return () => swiper.destroy();
 		}

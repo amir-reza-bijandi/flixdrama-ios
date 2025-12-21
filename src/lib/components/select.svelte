@@ -36,43 +36,45 @@
 	const handleTouchEnd = () => (isSliderMoving = false);
 </script>
 
-<Swiper.Root
-	class="mt-3 mb-4"
-	{offset}
-	spaceBetween={8}
-	onTouchMove={handleTouchMove}
-	onTouchEnd={handleTouchEnd}
->
-	<Swiper.Wrapper>
-		{#each options as { name, value }, index (value)}
-			<Swiper.Slide>
-				<div bind:this={optionElms[index]}>
-					<Pressable.Root
-						class="inline-block"
-						onClick={() => {
-							selectedIndex = index;
-							onSelect?.(value, index);
-						}}
-					>
-						<Pressable.Content
-							class={[
-								'p-2 before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient before:bg-gradient-primary before:outline before:-outline-offset-1 before:outline-stroke-tertiary before:transition-[scale,opacity] before:ease-overshoot-light',
-								index !== selectedIndex && 'before:scale-25 before:opacity-0'
-							]}
+<div class={[alignment === 'center' && 'flex justify-center']}>
+	<Swiper.Root
+		class="mt-3 mb-4"
+		{offset}
+		spaceBetween={8}
+		onTouchMove={handleTouchMove}
+		onTouchEnd={handleTouchEnd}
+	>
+		<Swiper.Wrapper>
+			{#each options as { name, value }, index (value)}
+				<Swiper.Slide>
+					<div bind:this={optionElms[index]}>
+						<Pressable.Root
+							class="inline-block"
+							onClick={() => {
+								selectedIndex = index;
+								onSelect?.(value, index);
+							}}
 						>
-							<span
+							<Pressable.Content
 								class={[
-									'inline-block text-sm leading-none transition-colors duration-250',
-									langStore.current === Lang.En && 'translate-y-px',
-									index === selectedIndex && 'text-foreground-accent'
+									'p-2 before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient before:bg-gradient-primary before:outline before:-outline-offset-1 before:outline-stroke-tertiary before:transition-[scale,opacity] before:ease-overshoot-light',
+									index !== selectedIndex && 'before:scale-25 before:opacity-0'
 								]}
 							>
-								{name}
-							</span>
-						</Pressable.Content>
-					</Pressable.Root>
-				</div>
-			</Swiper.Slide>
-		{/each}
-	</Swiper.Wrapper>
-</Swiper.Root>
+								<span
+									class={[
+										'inline-block text-sm leading-none transition-colors duration-250',
+										langStore.current === Lang.En && 'translate-y-px',
+										index === selectedIndex && 'text-foreground-accent'
+									]}
+								>
+									{name}
+								</span>
+							</Pressable.Content>
+						</Pressable.Root>
+					</div>
+				</Swiper.Slide>
+			{/each}
+		</Swiper.Wrapper>
+	</Swiper.Root>
+</div>

@@ -64,8 +64,8 @@
 	);
 	let labelHeight = $state(0);
 
-	const SPARK_INTERVAL = 250;
-	const SPARK_ANIMATION_DURATION = 4000;
+	const SPARK_INTERVAL = 200;
+	const SPARK_ANIMATION_DURATION = 6000;
 	const maxSparkCount = SPARK_ANIMATION_DURATION / SPARK_INTERVAL;
 	type Spark = {
 		id: symbol;
@@ -87,10 +87,10 @@
 				const minSize = 2;
 				const maxSize = 8;
 				const maxOffset = centerButtonWidth / 4;
-				const maxOpacity = isCenterButtonActive ? 1 : 0.6;
+				const maxOpacity = isCenterButtonActive ? 1 : 0.5;
 
 				const x = Math.floor(Math.random() * maxX) - maxX / 2;
-				const y = Math.floor(Math.random() * maxY) - maxY;
+				const y = Math.floor(Math.random() * maxY) - maxY / 2;
 				const offset =
 					Math.floor(Math.random() * maxOffset) *
 					(Math.floor(Math.random() * 10) % 2 === 0 ? 1 : -1);
@@ -192,7 +192,7 @@
 				href={resolve('/fa/feed')}
 				draggable={false}
 			>
-				<div class="absolute top-full left-1/2 isolate grid place-items-center">
+				<div class="absolute top-1/2 left-1/2 isolate grid place-items-center">
 					{#each sparks as { id, x, y, offset, opacity, size } (id)}
 						<Icon
 							--animation-duration={`${SPARK_ANIMATION_DURATION}ms`}
@@ -255,6 +255,8 @@
 		100% {
 			translate: var(--x) var(--y);
 			opacity: 0;
+			scale: 0.8;
+			rotate: 360deg;
 		}
 	}
 </style>

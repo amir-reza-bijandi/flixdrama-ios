@@ -47,41 +47,50 @@
 			</div>
 		{/if}
 		<!-- Global Actions -->
-		<div class="flex items-center gap-1.5">
-			<Box.Root class="flex items-center justify-center">
-				<Box.Visuals />
-				<Pressable.Root class="-ml-0.5 size-10" onClick={handleToggleNotifications}>
-					<Pressable.Content class="grid place-items-center">
-						<Toggle isActive={isNotificationsActive} speed="slow" mustRotate>
-							{#snippet active()}
-								<Icon src={XMark} class="size-5 text-danger-tint" />
-							{/snippet}
-							{#snippet inactive()}
-								<IconBell class="size-5 stroke-[1.5]" />
-							{/snippet}
-						</Toggle>
-					</Pressable.Content>
-				</Pressable.Root>
-				<Separator size={12} />
-				<Pressable.Root class="-mr-0.5 size-10" onClick={handleToggleDarkMode}>
-					<Pressable.Content class="grid place-items-center">
-						<Toggle isActive={mode.current === 'dark'} speed="slow" mustRotate>
-							{#snippet active()}
-								<Icon src={Sun} class="size-5 text-accent-secondary-tint" theme="mini" />
-							{/snippet}
-							{#snippet inactive()}
-								<Icon src={Moon} class="size-5 text-accent-primary-tint" theme="mini" />
-							{/snippet}
-						</Toggle>
-					</Pressable.Content>
-				</Pressable.Root>
-			</Box.Root>
-			{#if showBackButton}
-				<IconButton onClick={handleBack}>
-					<Icon class="size-6" src={ChevronLeft} theme="mini" />
-				</IconButton>
-			{/if}
-		</div>
+		<Box.Root
+			class={[
+				'absolute left-content-padding flex items-center justify-center transition-transform',
+				showBackButton ? 'translate-x-11.5 ease-overshoot-light' : 'duration-300'
+			]}
+		>
+			<Box.Visuals />
+			<Pressable.Root class="-ml-0.5 size-10" onClick={handleToggleNotifications}>
+				<Pressable.Content class="grid place-items-center">
+					<Toggle isActive={isNotificationsActive} speed="slow" mustRotate>
+						{#snippet active()}
+							<Icon src={XMark} class="size-5 text-danger-tint" />
+						{/snippet}
+						{#snippet inactive()}
+							<IconBell class="size-5 stroke-[1.5]" />
+						{/snippet}
+					</Toggle>
+				</Pressable.Content>
+			</Pressable.Root>
+			<Separator size={12} />
+			<Pressable.Root class="-mr-0.5 size-10" onClick={handleToggleDarkMode}>
+				<Pressable.Content class="grid place-items-center">
+					<Toggle isActive={mode.current === 'dark'} speed="slow" mustRotate>
+						{#snippet active()}
+							<Icon src={Sun} class="size-5 text-accent-secondary-tint" theme="mini" />
+						{/snippet}
+						{#snippet inactive()}
+							<Icon src={Moon} class="size-5 text-accent-primary-tint" theme="mini" />
+						{/snippet}
+					</Toggle>
+				</Pressable.Content>
+			</Pressable.Root>
+		</Box.Root>
+		<IconButton
+			class={[
+				'absolute left-content-padding transition-transform ease-overshoot-light',
+				showBackButton
+					? 'ease-overshoot-light'
+					: '-translate-x-[calc(100%+var(--spacing-content-padding))]'
+			]}
+			onClick={handleBack}
+		>
+			<Icon class="size-6" src={ChevronLeft} theme="mini" />
+		</IconButton>
 	</div>
 	{@render children?.()}
 </div>

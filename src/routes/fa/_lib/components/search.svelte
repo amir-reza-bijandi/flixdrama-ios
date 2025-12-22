@@ -48,8 +48,8 @@
 <svelte:window onhashchange={handleHashChange} />
 
 <div
-	style:--top={toRem(sizeStore.headerHeight)}
-	class="absolute top-(--top) left-1/2 z-40 w-full -translate-x-1/2"
+	style:--header-height={toRem(sizeStore.headerHeight)}
+	class="absolute top-[calc(var(--header-height)+var(--spacing-content-padding))] left-1/2 z-40 w-full -translate-x-1/2"
 >
 	<form class="leading-non mt-6 px-content-padding text-sm">
 		<Box.Root class="overflow-hidden">

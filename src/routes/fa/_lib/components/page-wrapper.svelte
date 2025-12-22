@@ -26,10 +26,10 @@
 	const handleBack = () => window.history.back();
 </script>
 
-<div class="overflow-hidden">
+<div class="overflow-hidden pt-content-padding">
 	<!-- Header -->
 	<div
-		class="relative z-50 flex items-center justify-between px-content-padding pt-content-padding transition-colors"
+		class="relative z-50 flex h-10 items-center justify-between px-content-padding transition-colors"
 		bind:clientHeight={sizeStore.headerHeight}
 	>
 		{#if actions}

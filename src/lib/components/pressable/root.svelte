@@ -1,12 +1,13 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import type { HTMLButtonAttributes } from 'svelte/elements';
 	import { cn, type ClassValue } from 'tailwind-variants';
 
 	type AnchorProps = {
 		as: 'a';
 		href?: string;
 	};
-	type ButtonProps = {
+	type ButtonProps = Pick<HTMLButtonAttributes, 'type'> & {
 		as?: 'button';
 		onClick?: () => void;
 	};
@@ -25,7 +26,8 @@
 				href: restOfProps.href
 			}
 		: {
-				onclick: restOfProps.onClick
+				onclick: restOfProps.onClick,
+				type: restOfProps.type ?? 'button'
 			}}
 >
 	{@render children()}

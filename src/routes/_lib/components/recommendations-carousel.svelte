@@ -5,8 +5,10 @@
 	import { COUNTRY_LABEL_MAP_EN, COUNTRY_LABEL_MAP_FA } from '$lib/constants/data';
 	import { langStore } from '$lib/store/lang-store.svelte';
 	import type { MediaEn, MediaFa } from '$lib/types/data';
+	import { toRem } from '$lib/utilities/general';
 	import { Swiper } from 'swiper';
 	import { Autoplay, EffectCoverflow } from 'swiper/modules';
+	import { sizeStore } from '../../fa/_lib/store/size-store.svelte';
 	import { recommendationsCarouselStore } from '../store/recommendations-carousel-store.svelte';
 	import Score from './score.svelte';
 
@@ -99,13 +101,14 @@
 </script>
 
 <div
-	class="swiper relative isolate mt-6.5 mb-6 w-full overflow-visible! transition-colors"
+	style:--search-input-height={toRem(sizeStore.SEARCH_INPUT_HEIGHT)}
+	class="swiper relative isolate mt-[calc(var(--search-input-height)+--spacing(10))] mb-6 w-full overflow-visible! transition-colors"
 	bind:this={swiperElm}
 >
 	<div class="swiper-wrapper overflow-visible!">
 		{#each data as { backdrop, score, id, country, ...restOfMedia }, index}
 			<div
-				class="swiper-slide group aspect-video h-auto! w-90! overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-primary transition-colors [&.active]:shadow-[0px_0px_6rem_--alpha(var(--color-foreground-primary)/10%)]"
+				class="swiper-slide group aspect-video h-auto! w-[calc(100%-var(--spacing-content-padding)*2)]! overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-primary transition-colors [&.active]:shadow-[0px_0px_6rem_--alpha(var(--color-foreground-primary)/10%)]"
 				bind:this={slideElms[index]}
 			>
 				<a

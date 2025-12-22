@@ -9,6 +9,7 @@
 	import { toRem } from '$lib/utilities/general';
 	import RecommendationsCarousel from '../_lib/components/recommendations-carousel.svelte';
 	import PageWrapper from './_lib/components/page-wrapper.svelte';
+	import Search, { type SearchStateChangeEventHandler } from './_lib/components/search.svelte';
 	import SubscriptionBanner from './_lib/components/subscription-banner.svelte';
 	import { sizeStore } from './_lib/store/size-store.svelte';
 	import { toFarsi } from './_lib/utilities/to-farsi';
@@ -38,74 +39,87 @@
 		name: COUNTRY_LABEL_MAP_FA[country as Country],
 		value: country as Country
 	}));
+
+	let isSearchActive = $state(false);
+
+	const handleSearchStateChange: SearchStateChangeEventHandler = (isActive) =>
+		(isSearchActive = isActive);
 </script>
 
-<PageWrapper>
+<PageWrapper showBackButton={isSearchActive}>
 	<div
 		style:--padding-bottom={toRem(sizeStore.navigationHeight)}
 		class="pb-[calc(var(--padding-bottom)+var(--spacing-content-padding))]"
 	>
-		<RecommendationsCarousel data={DATA_FA} />
-		<SubscriptionBanner />
-		<Section heading="فیلم و سریال‌های من">
-			<Select offset={SWIPER_OFFSET} options={LIST_OPTIONS} />
-			<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
-				<Swiper.Wrapper>
-					{#each DATA_FA as { id, poster, titleFa, score, country }}
-						<Swiper.Slide>
-							<PostCard
-								href={resolve('/fa/media/[id]', {
-									id: String(id)
-								})}
-								image={poster}
-								subtitle={COUNTRY_LABEL_MAP_FA[country]}
-								title={titleFa}
-								{score}
-							/>
-						</Swiper.Slide>
-					{/each}
-				</Swiper.Wrapper>
-			</Swiper.Root>
-		</Section>
-		<Section heading="جدیدترین سریال‌ها">
-			<Select offset={SWIPER_OFFSET} options={countryOptions} />
-			<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
-				<Swiper.Wrapper>
-					{#each DATA_FA as { id, poster, titleFa, score }}
-						<Swiper.Slide>
-							<PostCard
-								href={resolve('/fa/media/[id]', {
-									id: String(id)
-								})}
-								image={poster}
-								subtitle="قسمت {toFarsi(Math.floor(Math.random() * 16) + 1)}"
-								title={titleFa}
-								{score}
-							/>
-						</Swiper.Slide>
-					{/each}
-				</Swiper.Wrapper>
-			</Swiper.Root>
-		</Section>
-		<Section heading="جدیدترین فیلم‌ها">
-			<Select offset={SWIPER_OFFSET} options={countryOptions} />
-			<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
-				<Swiper.Wrapper>
-					{#each DATA_FA as { id, poster, titleFa, score }}
-						<Swiper.Slide>
-							<PostCard
-								href={resolve('/fa/media/[id]', {
-									id: String(id)
-								})}
-								image={poster}
-								subtitle="قسمت {toFarsi(Math.floor(Math.random() * 16) + 1)}"
-								title={titleFa}
-								{score}
-							/>
-						</Swiper.Slide>
-					{/each}
-				</Swiper.Wrapper>
-			</Swiper.Root>
-		</Section>
+		<Search onStateChange={handleSearchStateChange} />
+		<div
+			class={[
+				'transition-[opacity,scale] ease-overshoot-light',
+				isSearchActive && 'pointer-events-none scale-98 opacity-0'
+			]}
+		>
+			<RecommendationsCarousel data={DATA_FA} />
+			<SubscriptionBanner />
+			<Section heading="فیلم و سریال‌های من">
+				<Select offset={SWIPER_OFFSET} options={LIST_OPTIONS} />
+				<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+					<Swiper.Wrapper>
+						{#each DATA_FA as { id, poster, titleFa, score, country }}
+							<Swiper.Slide>
+								<PostCard
+									href={resolve('/fa/media/[id]', {
+										id: String(id)
+									})}
+									image={poster}
+									subtitle={COUNTRY_LABEL_MAP_FA[country]}
+									title={titleFa}
+									{score}
+								/>
+							</Swiper.Slide>
+						{/each}
+					</Swiper.Wrapper>
+				</Swiper.Root>
+			</Section>
+			<Section heading="جدیدترین سریال‌ها">
+				<Select offset={SWIPER_OFFSET} options={countryOptions} />
+				<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+					<Swiper.Wrapper>
+						{#each DATA_FA as { id, poster, titleFa, score }}
+							<Swiper.Slide>
+								<PostCard
+									href={resolve('/fa/media/[id]', {
+										id: String(id)
+									})}
+									image={poster}
+									subtitle="قسمت {toFarsi(Math.floor(Math.random() * 16) + 1)}"
+									title={titleFa}
+									{score}
+								/>
+							</Swiper.Slide>
+						{/each}
+					</Swiper.Wrapper>
+				</Swiper.Root>
+			</Section>
+			<Section heading="جدیدترین فیلم‌ها">
+				<Select offset={SWIPER_OFFSET} options={countryOptions} />
+				<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+					<Swiper.Wrapper>
+						{#each DATA_FA as { id, poster, titleFa, score }}
+							<Swiper.Slide>
+								<PostCard
+									href={resolve('/fa/media/[id]', {
+										id: String(id)
+									})}
+									image={poster}
+									subtitle="قسمت {toFarsi(Math.floor(Math.random() * 16) + 1)}"
+									title={titleFa}
+									{score}
+								/>
+							</Swiper.Slide>
+						{/each}
+					</Swiper.Wrapper>
+				</Swiper.Root>
+			</Section>
+		</div>
 	</div>
 </PageWrapper>

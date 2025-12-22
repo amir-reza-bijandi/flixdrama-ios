@@ -9,6 +9,7 @@
 	import { IconBell } from '@tabler/icons-svelte';
 	import { mode, setMode } from 'mode-watcher';
 	import type { Snippet } from 'svelte';
+	import { sizeStore } from '../store/size-store.svelte';
 	import Toggle from './toggle.svelte';
 
 	type Props = {
@@ -29,6 +30,7 @@
 	<!-- Header -->
 	<div
 		class="relative z-50 flex items-center justify-between px-content-padding pt-content-padding transition-colors"
+		bind:clientHeight={sizeStore.headerHeight}
 	>
 		{#if actions}
 			<div class="flex items-center gap-1.5">

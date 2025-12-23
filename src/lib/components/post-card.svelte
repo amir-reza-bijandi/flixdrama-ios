@@ -2,6 +2,7 @@
 	import { langStore } from '$lib/store/lang-store.svelte';
 	import { Star } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import { cn, type ClassValue } from 'tailwind-variants';
 	import { toFarsi } from '../../routes/fa/_lib/utilities/to-farsi';
 	import Image from './image.svelte';
 
@@ -11,21 +12,15 @@
 		title: string;
 		subtitle?: string;
 		score?: number;
+		class?: ClassValue;
 	};
-	const { image, score, title, subtitle, href }: Props = $props();
+	const { image, score, title, subtitle, href, class: extraClass }: Props = $props();
 </script>
 
-<a class="block w-32 shrink-0" {href} draggable="false">
+<a class={cn('block w-32 shrink-0', extraClass)} {href} draggable="false">
 	<div class="relative mb-1.5">
 		<div class="relative overflow-hidden">
-			<Image
-				class="aspect-2/3 h-auto rounded-2xl"
-				src={image}
-				width={128}
-				height={192}
-				outline
-				loadingGlow
-			/>
+			<Image class="aspect-2/3 h-auto w-full rounded-2xl" src={image} outline loadingGlow />
 			{#if score}
 				<div
 					class="absolute start-2 top-2 flex items-center gap-0.5 rounded-full bg-gradient bg-gradient-secondary p-1 pe-1.5 text-foreground-accent outline -outline-offset-1 outline-stroke-tertiary"

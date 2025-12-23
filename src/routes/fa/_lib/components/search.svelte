@@ -3,14 +3,19 @@
 </script>
 
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import * as Box from '$lib/components/box';
+	import PostCard from '$lib/components/post-card.svelte';
 	import * as Pressable from '$lib/components/pressable';
-	import { DATA_FA } from '$lib/constants/data';
+	import { COUNTRY_LABEL_MAP_FA, DATA_FA } from '$lib/constants/data';
+	import { TRANSITION } from '$lib/constants/transition';
 	import { toRem } from '$lib/utilities/general';
 	import { HistoryIcon, SearchIcon } from '@lucide/svelte';
 	import type { EventHandler } from 'svelte/elements';
+	import { fade } from 'svelte/transition';
 	import { HASH } from '../constants/hash';
 	import { sizeStore } from '../store/size-store.svelte';
+	import Grid from './grid.svelte';
 
 	const MAX_HISTORY = 4;
 
@@ -104,5 +109,21 @@
 			</div>
 		</Box.Root>
 	</form>
-	<div></div>
+	{#if isActive}
+		<div in:fade={{ duration: TRANSITION.DURATION }} out:fade={{ duration: 150 }}>
+			<Grid class="p-content-padding">
+				{#each DATA_FA as { id, poster, titleFa, country }}
+					<PostCard
+						class="w-full"
+						href={resolve('/fa/media/[id]', {
+							id: String(id)
+						})}
+						image={poster}
+						title={titleFa}
+						subtitle={COUNTRY_LABEL_MAP_FA[country]}
+					/>
+				{/each}
+			</Grid>
+		</div>
+	{/if}
 </div>

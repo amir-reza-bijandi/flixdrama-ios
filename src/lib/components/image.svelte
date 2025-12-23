@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { ClassValue, EventHandler } from 'svelte/elements';
+	import { cn } from 'tailwind-variants';
 
 	type Props = {
 		style?: string;
@@ -14,7 +15,7 @@
 		outline = false,
 		loadingGlow = false,
 		style,
-		class: classValue,
+		class: extraClass,
 		width,
 		height,
 		src
@@ -28,7 +29,7 @@
 
 <div
 	{style}
-	class={[
+	class={cn([
 		'overflow-hidden transition-colors',
 		loadingGlow &&
 			'bg-linear-110 from-background-tertiary from-20% via-background-secondary via-30% to-background-tertiary to-40% bg-size-[400%,200%]',
@@ -36,8 +37,8 @@
 		outline && 'outline -outline-offset-1',
 		isLoading && outline && 'outline-stroke-primary',
 		!isLoading && outline && 'outline-stroke-secondary',
-		classValue
-	]}
+		extraClass
+	])}
 >
 	<img
 		class={['size-full object-cover transition-opacity duration-500', isLoading && 'opacity-0']}

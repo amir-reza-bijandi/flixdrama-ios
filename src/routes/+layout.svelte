@@ -29,9 +29,7 @@
 		disableTransitions={false}
 	/>
 	<Background />
-	<div
-		class="relative mx-auto scrollbar-hidden flex min-h-screen max-w-lg flex-col overflow-x-hidden"
-	>
+	<div class="relative mx-auto flex min-h-screen max-w-lg flex-col overflow-hidden">
 		{@render children()}
 	</div>
 </div>

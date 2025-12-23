@@ -2,7 +2,7 @@
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import PostCard from '$lib/components/post-card.svelte';
-	import Swiper from '$lib/components/swiper.svelte';
+	import * as Swiper from '$lib/components/swiper';
 	import { COUNTRY_LABEL_MAP_EN, DATA_EN, TYPE_LABEL_MAP_EN } from '$lib/constants/data';
 	import { toRem } from '$lib/utilities/general';
 	import { CalendarIcon, GlobeIcon, TvIcon } from '@lucide/svelte';
@@ -14,6 +14,9 @@
 	import PostSection from './_lib/components/post-section.svelte';
 	import Score from './_lib/components/score.svelte';
 	import TrailerBackdrop from './_lib/components/trailer-backdrop.svelte';
+
+	const SWIPER_OFFSET = 24;
+	const SWIPER_SPACE_BETWEEN = 8;
 
 	const { backdrop, title, type, country, year, genres, synopsis, score } = $derived(
 		DATA_EN.find(({ id }) => id === Number(page.params.id)) ?? DATA_EN[0]
@@ -57,18 +60,22 @@
 					</PostExpandable>
 				</PostSection>
 				<PostSection heading="Recommendations">
-					<Swiper gap={8} padding={24}>
-						{#each DATA_EN as { id, poster, title, score }}
-							<PostCard
-								href={resolve('/en/media/[id]', {
-									id: String(id)
-								})}
-								image={poster}
-								{title}
-								{score}
-							/>
-						{/each}
-					</Swiper>
+					<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+						<Swiper.Wrapper>
+							{#each DATA_EN as { id, poster, title, score }}
+								<Swiper.Slide>
+									<PostCard
+										href={resolve('/en/media/[id]', {
+											id: String(id)
+										})}
+										image={poster}
+										{title}
+										{score}
+									/>
+								</Swiper.Slide>
+							{/each}
+						</Swiper.Wrapper>
+					</Swiper.Root>
 				</PostSection>
 			</div>
 		</div>

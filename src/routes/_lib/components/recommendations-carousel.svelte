@@ -5,6 +5,7 @@
 	import { COUNTRY_LABEL_MAP_EN, COUNTRY_LABEL_MAP_FA } from '$lib/constants/data';
 	import { langStore } from '$lib/store/lang-store.svelte';
 	import type { MediaEn, MediaFa } from '$lib/types/data';
+	import { Lang } from '$lib/types/general';
 	import { toRem } from '$lib/utilities/general';
 	import { Swiper } from 'swiper';
 	import { Autoplay, EffectCoverflow } from 'swiper/modules';
@@ -102,7 +103,10 @@
 
 <div
 	style:--search-input-height={toRem(sizeStore.SEARCH_INPUT_HEIGHT)}
-	class="swiper relative isolate mt-[calc(var(--search-input-height)+--spacing(10))] mb-6 w-full overflow-visible! transition-colors"
+	class={[
+		'swiper relative isolate mb-6 w-full overflow-visible! transition-colors',
+		langStore.current === Lang.En ? 'mt-6.5' : 'mt-[calc(var(--search-input-height)+--spacing(10))]'
+	]}
 	bind:this={swiperElm}
 >
 	<div class="swiper-wrapper overflow-visible!">

@@ -98,7 +98,10 @@
 					bind:clientHeight={historyHeight}
 				>
 					{#each reversedHistory as item}
-						<Pressable.Root class="block w-full text-foreground-secondary transition-colors">
+						<Pressable.Root
+							class="block w-full text-foreground-secondary transition-colors"
+							onClick={() => (query = item)}
+						>
 							<Pressable.Content class="flex origin-[center_right] items-center gap-1.5 p-3">
 								<HistoryIcon class="size-4" />
 								{item}

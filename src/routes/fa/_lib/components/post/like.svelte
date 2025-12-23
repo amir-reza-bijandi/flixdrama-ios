@@ -29,7 +29,7 @@
 		<Box.Root class="flex flex-col items-center gap-2 p-1.5 pb-3">
 			<Box.Visuals
 				class={[
-					'overflow-hidden bg-transparent bg-gradient bg-gradient-neutral/25 duration-250 before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient before:bg-gradient-danger before:transition-opacity before:duration-250',
+					'overflow-hidden bg-transparent bg-gradient bg-gradient-neutral/25 shadow-absolute-content transition-[outline-color,box-shadow] duration-250 before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient before:bg-gradient-danger before:transition-opacity before:duration-250',
 					isActive
 						? 'outline-stroke-tertiary before:opacity-100'
 						: 'outline-stroke-primary before:opacity-0'

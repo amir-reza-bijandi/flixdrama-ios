@@ -10,8 +10,10 @@
 	import RecommendationsCarousel from '../_lib/components/recommendations-carousel.svelte';
 	import PageWrapper from './_lib/components/page-wrapper.svelte';
 	import Profile from './_lib/components/profile.svelte';
-	import Search, { type SearchStateChangeEventHandler } from './_lib/components/search.svelte';
+	import Search from './_lib/components/search.svelte';
 	import SubscriptionBanner from './_lib/components/subscription-banner.svelte';
+	import { HASH } from './_lib/constants/hash';
+	import { hashStore } from './_lib/store/hash-store.svelte';
 	import { sizeStore } from './_lib/store/size-store.svelte';
 	import { toFarsi } from './_lib/utilities/to-farsi';
 
@@ -41,10 +43,7 @@
 		value: country as Country
 	}));
 
-	let isSearchActive = $state(false);
-
-	const handleSearchStateChange: SearchStateChangeEventHandler = (isActive) =>
-		(isSearchActive = isActive);
+	let isSearchActive = $derived(hashStore.current === HASH.SEARCH);
 </script>
 
 {#snippet profileButton()}
@@ -53,7 +52,8 @@
 
 <PageWrapper
 	--height={toRem(sizeStore.searchHeight)}
-	class={isSearchActive && 'h-(--height)'}
+	--min-height={toRem(window.innerHeight - sizeStore.headerHeight - sizeStore.navigationHeight)}
+	class={isSearchActive && 'h-(--height) min-h-(--min-height)'}
 	showBackButton={isSearchActive}
 	actions={!isSearchActive ? profileButton : undefined}
 	isTransitionReversed={isSearchActive}
@@ -62,7 +62,7 @@
 		style:--padding-bottom={toRem(sizeStore.navigationHeight)}
 		class="pb-[calc(var(--padding-bottom)+var(--spacing-content-padding))]"
 	>
-		<Search onStateChange={handleSearchStateChange} />
+		<Search isActive={isSearchActive} />
 		<div
 			class={[
 				'transition-[opacity,scale] ease-overshoot-light',

@@ -3,61 +3,34 @@
 </script>
 
 <script lang="ts">
-	import { resolve } from '$app/paths';
 	import * as Box from '$lib/components/box';
-	import PostCard from '$lib/components/post-card.svelte';
 	import * as Pressable from '$lib/components/pressable';
-	import { COUNTRY_LABEL_MAP_FA, DATA_FA } from '$lib/constants/data';
-	import { TRANSITION } from '$lib/constants/transition';
+	import { DATA_FA } from '$lib/constants/data';
 	import { toRem } from '$lib/utilities/general';
 	import { HistoryIcon, SearchIcon } from '@lucide/svelte';
-	import type { EventHandler } from 'svelte/elements';
-	import { fade } from 'svelte/transition';
-	import { HASH } from '../constants/hash';
 	import { sizeStore } from '../store/size-store.svelte';
-	import Grid from './grid.svelte';
 
 	const MAX_HISTORY = 4;
 
 	type Props = {
-		onStateChange: SearchStateChangeEventHandler;
+		isActive: boolean;
 	};
-	let { onStateChange }: Props = $props();
+	const { isActive }: Props = $props();
 
-	let isActive = $state(false);
 	let query = $state('');
 	let history = $state<string[]>(DATA_FA.map(({ titleFa }) => titleFa).slice(0, MAX_HISTORY));
 	let historyHeight = $state(0);
-	let inputElm = $state<HTMLInputElement | null>(null);
 	const showHistory = $derived(!query && isActive && history.length);
 	const reversedHistory = $derived([...history].reverse());
 	const SearchInputHeight = $derived(
 		sizeStore.SEARCH_INPUT_HEIGHT + (showHistory ? historyHeight : 0)
 	);
-
-	const handleHashChange: EventHandler<HashChangeEvent, Window> = (e) => {
-		const isNavigatingToSearch = e.newURL.includes(HASH.SEARCH);
-		const isNavigatingFromSearch = e.oldURL.includes(HASH.SEARCH);
-		if (isNavigatingToSearch || isNavigatingFromSearch) {
-			if (isNavigatingToSearch) {
-				isActive = true;
-				inputElm?.focus();
-			}
-			if (isNavigatingFromSearch) {
-				isActive = false;
-				inputElm?.blur();
-			}
-			onStateChange(isActive);
-		}
-	};
 </script>
-
-<svelte:window onhashchange={handleHashChange} />
 
 <div
 	style:--header-height={toRem(sizeStore.headerHeight)}
 	style:--padding-bottom={toRem(sizeStore.navigationHeight)}
-	class="absolute top-0 left-0 z-40 scrollbar-hidden w-full pt-[calc(var(--header-height)+var(--spacing-content-padding))] pb-(--padding-bottom)"
+	class="absolute top-0 left-0 z-40 scrollbar-hidden w-full pt-(--header-height) pb-(--padding-bottom)"
 	bind:clientHeight={sizeStore.searchHeight}
 >
 	<form class="leading-non mt-6 px-content-padding text-sm">
@@ -91,7 +64,6 @@
 						autocomplete="off"
 						placeholder="اسم فیلم یا سریال مورد نظرت رو وارد کن..."
 						bind:value={query}
-						bind:this={inputElm}
 					/>
 					<SearchIcon
 						class="absolute start-3 top-1/2 size-5 -translate-y-1/2 transition-colors peer-placeholder-shown:text-foreground-secondary"
@@ -116,27 +88,4 @@
 			</div>
 		</Box.Root>
 	</form>
-	{#if isActive}
-		<div
-			style:--padding-bottom={toRem(sizeStore.navigationHeight)}
-			class="p-content-padding pt-6"
-			in:fade={{ duration: TRANSITION.DURATION }}
-			out:fade={{ duration: 150 }}
-		>
-			<div class="mb-4 text-xl leading-none font-bold">جست‌وجو‌های پرطرف‌دار</div>
-			<Grid>
-				{#each DATA_FA as { id, poster, titleFa, country }}
-					<PostCard
-						class="w-full"
-						href={resolve('/fa/media/[id]', {
-							id: String(id)
-						})}
-						image={poster}
-						title={titleFa}
-						subtitle={COUNTRY_LABEL_MAP_FA[country]}
-					/>
-				{/each}
-			</Grid>
-		</div>
-	{/if}
 </div>

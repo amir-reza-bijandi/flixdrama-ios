@@ -9,6 +9,7 @@
 	import { toRem } from '$lib/utilities/general';
 	import RecommendationsCarousel from '../_lib/components/recommendations-carousel.svelte';
 	import PageWrapper from './_lib/components/page-wrapper.svelte';
+	import Profile from './_lib/components/profile.svelte';
 	import Search, { type SearchStateChangeEventHandler } from './_lib/components/search.svelte';
 	import SubscriptionBanner from './_lib/components/subscription-banner.svelte';
 	import { sizeStore } from './_lib/store/size-store.svelte';
@@ -46,10 +47,16 @@
 		(isSearchActive = isActive);
 </script>
 
+{#snippet profileButton()}
+	<Profile />
+{/snippet}
+
 <PageWrapper
 	--height={toRem(sizeStore.searchHeight)}
 	class={isSearchActive && 'h-(--height)'}
 	showBackButton={isSearchActive}
+	actions={!isSearchActive ? profileButton : undefined}
+	isTransitionReversed={isSearchActive}
 >
 	<div
 		style:--padding-bottom={toRem(sizeStore.navigationHeight)}

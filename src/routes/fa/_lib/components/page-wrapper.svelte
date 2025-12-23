@@ -9,15 +9,17 @@
 	import { IconBell } from '@tabler/icons-svelte';
 	import { mode, setMode } from 'mode-watcher';
 	import type { Snippet } from 'svelte';
+	import { cn, type ClassValue } from 'tailwind-variants';
 	import { sizeStore } from '../store/size-store.svelte';
 	import Toggle from './toggle.svelte';
 
 	type Props = {
 		children?: Snippet;
+		class?: ClassValue;
 		actions?: Snippet;
 		showBackButton?: boolean;
 	};
-	const { children, actions, showBackButton = false }: Props = $props();
+	const { children, class: extraClass, actions, showBackButton = false }: Props = $props();
 
 	let isNotificationsActive = $state(false);
 
@@ -26,7 +28,7 @@
 	const handleBack = () => window.history.back();
 </script>
 
-<div class="overflow-hidden pt-content-padding">
+<div class={cn('overflow-hidden pt-content-padding', extraClass)}>
 	<!-- Header -->
 	<div
 		class="relative z-50 flex h-10 items-center justify-between px-content-padding transition-colors"

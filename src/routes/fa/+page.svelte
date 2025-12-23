@@ -46,7 +46,11 @@
 		(isSearchActive = isActive);
 </script>
 
-<PageWrapper showBackButton={isSearchActive}>
+<PageWrapper
+	--height={toRem(sizeStore.searchHeight)}
+	class={isSearchActive && 'h-(--height)'}
+	showBackButton={isSearchActive}
+>
 	<div
 		style:--padding-bottom={toRem(sizeStore.navigationHeight)}
 		class="pb-[calc(var(--padding-bottom)+var(--spacing-content-padding))]"

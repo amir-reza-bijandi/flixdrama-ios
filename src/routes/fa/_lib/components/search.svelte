@@ -31,7 +31,9 @@
 	let inputElm = $state<HTMLInputElement | null>(null);
 	const showHistory = $derived(!query && isActive && history.length);
 	const reversedHistory = $derived([...history].reverse());
-	const height = $derived(sizeStore.SEARCH_INPUT_HEIGHT + (showHistory ? historyHeight : 0));
+	const SearchInputHeight = $derived(
+		sizeStore.SEARCH_INPUT_HEIGHT + (showHistory ? historyHeight : 0)
+	);
 
 	const handleHashChange: EventHandler<HashChangeEvent, Window> = (e) => {
 		const isNavigatingToSearch = e.newURL.includes(HASH.SEARCH);
@@ -54,7 +56,9 @@
 
 <div
 	style:--header-height={toRem(sizeStore.headerHeight)}
-	class="absolute top-[calc(var(--header-height)+var(--spacing-content-padding))] left-1/2 z-40 w-full -translate-x-1/2"
+	style:--padding-bottom={toRem(sizeStore.navigationHeight)}
+	class="absolute top-0 left-0 z-40 scrollbar-hidden w-full pt-[calc(var(--header-height)+var(--spacing-content-padding))] pb-(--padding-bottom)"
+	bind:clientHeight={sizeStore.searchHeight}
 >
 	<form class="leading-non mt-6 px-content-padding text-sm">
 		<Box.Root class="overflow-hidden">
@@ -66,7 +70,7 @@
 				]}
 			/>
 			<div
-				style:--height={toRem(height)}
+				style:--height={toRem(SearchInputHeight)}
 				class={[
 					'h-(--height) transition-[height]',
 					showHistory ? 'ease-overshoot-light' : 'duration-300'
@@ -113,8 +117,14 @@
 		</Box.Root>
 	</form>
 	{#if isActive}
-		<div in:fade={{ duration: TRANSITION.DURATION }} out:fade={{ duration: 150 }}>
-			<Grid class="p-content-padding">
+		<div
+			style:--padding-bottom={toRem(sizeStore.navigationHeight)}
+			class="p-content-padding pt-6"
+			in:fade={{ duration: TRANSITION.DURATION }}
+			out:fade={{ duration: 150 }}
+		>
+			<div class="mb-4 text-xl leading-none font-bold">جست‌وجو‌های پرطرف‌دار</div>
+			<Grid>
 				{#each DATA_FA as { id, poster, titleFa, country }}
 					<PostCard
 						class="w-full"

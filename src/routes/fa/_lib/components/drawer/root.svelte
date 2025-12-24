@@ -28,7 +28,7 @@
 ></button>
 <Box.Root
 	class={cn([
-		'fixed -bottom-32 left-0 z-50 w-full p-5 transition-transform duration-600 ease-overshoot-light',
+		'fixed -bottom-32 left-0 z-50 w-full p-5 transition-transform duration-600 ease-overshoot-extra-light',
 		!isActive && 'translate-y-full',
 		extraClass
 	])}

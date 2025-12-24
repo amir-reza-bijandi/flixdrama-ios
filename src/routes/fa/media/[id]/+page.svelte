@@ -150,7 +150,7 @@
 		--padding-bottom={toRem(sizeStore.navigationHeight)}
 		class="box-container relative z-20 mt-49 min-h-screen pb-(--padding-bottom)"
 	>
-		<Box.Visuals roundedSide="top" />
+		<Box.Visuals class="bg-background-tertiary" roundedSide="top" />
 		<Post.Root padding={24}>
 			<Post.Like value={673} isActive={isLiked} onToggle={handleLikeToggle} />
 			<Post.Heading>{titleFa}</Post.Heading>

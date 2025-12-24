@@ -2,8 +2,8 @@
 	import * as Box from '$lib/components/box';
 	import * as Pressable from '$lib/components/pressable';
 	import { tv } from '$lib/tv';
-	import type { Snippet } from 'svelte';
-	import { type ClassValue, type VariantProps } from 'tailwind-variants';
+	import { type VariantProps } from 'tailwind-variants';
+	import type { PressableProps } from './pressable/root.svelte';
 
 	const getClass = tv({
 		base: 'bg-transparent before:absolute before:inset-0 before:-z-20 before:bg-gradient after:absolute after:inset-0 after:-z-10 after:bg-gradient after:transition-opacity',
@@ -26,15 +26,11 @@
 		}
 	});
 
-	type Props = VariantProps<typeof getClass> & {
-		children: Snippet;
-		class?: ClassValue;
-		onClick?: () => void;
-	};
-	const { children, class: extraClass, variant, isActive, onClick }: Props = $props();
+	type Props = VariantProps<typeof getClass> & PressableProps;
+	const { children, class: extraClass, variant, isActive, ...restOfProps }: Props = $props();
 </script>
 
-<Pressable.Root class={extraClass} {onClick}>
+<Pressable.Root class={extraClass} {...restOfProps}>
 	<Pressable.Content>
 		<Box.Root class="flex size-10 items-center justify-center rounded-full">
 			<Box.Visuals class={getClass({ variant, isActive })} />

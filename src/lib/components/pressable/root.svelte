@@ -1,8 +1,4 @@
-<script lang="ts">
-	import type { Snippet } from 'svelte';
-	import type { HTMLButtonAttributes } from 'svelte/elements';
-	import { cn, type ClassValue } from 'tailwind-variants';
-
+<script module>
 	type AnchorProps = {
 		as: 'a';
 		href?: string;
@@ -15,6 +11,14 @@
 		children: Snippet;
 		class?: ClassValue;
 	};
+	export type { Props as PressableProps };
+</script>
+
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import { cn, type ClassValue } from 'tailwind-variants';
+
 	const { children, class: extraClass, ...restOfProps }: Props = $props();
 </script>
 

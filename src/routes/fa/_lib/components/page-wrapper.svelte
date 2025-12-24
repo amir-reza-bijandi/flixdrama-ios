@@ -41,7 +41,7 @@
 
 <div class={cn('overflow-hidden', extraClass)}>
 	<div class="pt-content-padding" bind:clientHeight={sizeStore.headerHeight}>
-		<div class="relative z-50 mx-content-padding h-10 items-center transition-colors">
+		<div class="relative z-40 mx-content-padding h-10 items-center transition-colors">
 			{#key actions}
 				<div
 					class="absolute top-1/2 right-0 -translate-y-1/2"

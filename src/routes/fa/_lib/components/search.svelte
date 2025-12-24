@@ -30,7 +30,7 @@
 <div
 	style:--header-height={toRem(sizeStore.headerHeight)}
 	style:--padding-bottom={toRem(sizeStore.navigationHeight)}
-	class="absolute top-0 left-0 z-40 scrollbar-hidden w-full pt-(--header-height) pb-(--padding-bottom)"
+	class="absolute top-0 left-0 z-30 scrollbar-hidden w-full pt-(--header-height) pb-(--padding-bottom)"
 	bind:clientHeight={sizeStore.searchHeight}
 >
 	<form class="leading-non mt-6 px-content-padding text-sm">

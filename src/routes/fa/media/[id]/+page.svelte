@@ -28,8 +28,10 @@
 	import * as Post from '../../_lib/components/post/index';
 	import type { LikeToggleEventHandler } from '../../_lib/components/post/like.svelte';
 	import Toggle from '../../_lib/components/toggle.svelte';
+	import { HASH } from '../../_lib/constants/hash';
 	import { sizeStore } from '../../_lib/store/size-store.svelte';
 	import { toFarsi } from '../../_lib/utilities/to-farsi';
+	import AddToListDrawer from './_lib/components/add-to-list-drawer.svelte';
 
 	const SWIPER_OFFSET = 24;
 	const SWIPER_SPACE_BETWEEN = 8;
@@ -130,7 +132,7 @@
 				{/snippet}
 			</Toggle>
 		</IconButton>
-		<IconButton variant="tertiary">
+		<IconButton as="a" href={HASH.ADD_TO_LIST} variant="tertiary">
 			<ListPlusIcon class="size-5 stroke-[1.5]" />
 		</IconButton>
 	{/snippet}
@@ -148,9 +150,7 @@
 		--padding-bottom={toRem(sizeStore.navigationHeight)}
 		class="box-container relative z-20 mt-49 min-h-screen pb-(--padding-bottom)"
 	>
-		<Box.Visuals
-			class="rounded-t-4xl rounded-b-none bg-background-tertiary outline-none before:absolute before:top-0 before:left-0 before:block before:h-8 before:w-full before:rounded-t-4xl before:mask-linear-180 before:mask-linear-from-black before:mask-linear-to-black/0 before:outline before:-outline-offset-1 before:outline-stroke-primary"
-		/>
+		<Box.Visuals roundedSide="top" />
 		<Post.Root padding={24}>
 			<Post.Like value={673} isActive={isLiked} onToggle={handleLikeToggle} />
 			<Post.Heading>{titleFa}</Post.Heading>
@@ -197,3 +197,4 @@
 		</Post.Root>
 	</Box.Root>
 </PageWrapper>
+<AddToListDrawer />

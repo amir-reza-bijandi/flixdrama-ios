@@ -116,7 +116,7 @@
 </script>
 
 <div
-	class="fixed bottom-0 left-0 z-50 flex w-full items-center justify-between bg-background-primary/50 p-3 backdrop-blur-xl transition-[background-color] before:absolute before:top-0 before:left-0 before:block before:h-px before:w-full before:bg-stroke-primary"
+	class="fixed bottom-0 left-0 z-40 flex w-full items-center justify-between bg-background-primary/50 p-3 backdrop-blur-xl transition-[background-color] before:absolute before:top-0 before:left-0 before:block before:h-px before:w-full before:bg-stroke-primary"
 	bind:clientHeight={sizeStore.navigationHeight}
 >
 	{#each ROUTES as { label, pathname, icon }, index}

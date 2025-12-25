@@ -86,7 +86,13 @@
 
 {#snippet watchingStatus()}
 	<Drawer.SingleSelect options={WATCHING_STATUS_OPTIONS} bind:value={currentWatchingStatus} />
-	<Drawer.Number bind:value={watchedEpisodes} max={EPISODE_COUNT}>قسمت‌های تماشا شده</Drawer.Number>
+	<Drawer.Number
+		bind:value={watchedEpisodes}
+		max={EPISODE_COUNT}
+		isDisabled={!(currentWatchingStatus === 'watching' || currentWatchingStatus === 'dropped')}
+	>
+		قسمت‌های تماشا شده
+	</Drawer.Number>
 {/snippet}
 {#snippet playlist()}
 	<Drawer.MultiSelect options={PLAYLIST_OPTIONS} bind:values={currentPlaylists} />

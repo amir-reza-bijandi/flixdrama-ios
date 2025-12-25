@@ -36,11 +36,11 @@
 		value: number | null;
 		max: number;
 		children: Snippet;
+		isDisabled?: boolean;
 	};
-	let { value: currentEnValue = $bindable(), max, children }: Props = $props();
+	let { value: currentEnValue = $bindable(), max, children, isDisabled = true }: Props = $props();
 
 	currentEnValue = validateValue(currentEnValue);
-	let contentWidth = $state(0);
 	let currentFaValue = $state(convertDigits(currentEnValue, 'fa'));
 
 	const handleInput: FormEventHandler<HTMLInputElement> = (e) => {
@@ -68,7 +68,12 @@
 	};
 </script>
 
-<Box.Root class="flex h-16 items-center justify-between ps-5 pe-3">
+<Box.Root
+	class={[
+		'flex h-16 items-center justify-between ps-5 pe-3 transition-opacity',
+		isDisabled && 'pointer-events-none opacity-50'
+	]}
+>
 	<Box.Visuals class="bg-background-tertiary" blur={false} />
 	{@render children()}
 	<div class="relative">

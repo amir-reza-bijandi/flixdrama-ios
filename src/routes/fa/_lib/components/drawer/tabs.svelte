@@ -70,7 +70,7 @@
 			style:--width={toRem(indicatorRect.width)}
 			style:--x={toRem(indicatorRect.x)}
 			class={[
-				'absolute top-0 left-0 -z-10 h-full w-(--width) translate-x-(--x) rounded-full bg-gradient bg-gradient-primary outline -outline-offset-1 outline-stroke-tertiary ease-overshoot-light',
+				'absolute top-0 left-0 -z-10 h-full w-(--width) translate-x-(--x) rounded-full bg-gradient bg-gradient-primary outline -outline-offset-1 outline-stroke-tertiary',
 				hasTransition && 'transition-transform'
 			]}
 		></div>

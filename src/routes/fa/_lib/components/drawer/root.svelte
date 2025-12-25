@@ -13,7 +13,6 @@
 	const { hash, children, class: extraClass }: Props = $props();
 
 	const isActive = $derived(hashStore.current === hash);
-	let height = $state(0);
 
 	const handleBack = () => window.history.back();
 </script>
@@ -28,13 +27,11 @@
 ></button>
 <Box.Root
 	class={cn([
-		'fixed -bottom-32 left-0 z-50 w-full p-5 transition-transform duration-600 ease-overshoot-extra-light',
+		'fixed -bottom-32 left-0 z-50 flex w-full flex-col gap-4 p-5 pb-37 transition-transform',
 		!isActive && 'translate-y-full',
 		extraClass
 	])}
 >
 	<Box.Visuals class="bg-background-tertiary" roundedSide="top" />
-	<div class="flex flex-col gap-4 pb-32" bind:clientHeight={height}>
-		{@render children()}
-	</div>
+	{@render children()}
 </Box.Root>

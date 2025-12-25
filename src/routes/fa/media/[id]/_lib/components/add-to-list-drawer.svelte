@@ -9,6 +9,7 @@
 	import type { TabsData, TabsDataValue } from '../../../../_lib/components/drawer/tabs.svelte';
 	import { HASH } from '../../../../_lib/constants/hash';
 
+	const EPISODE_COUNT = 1000;
 	const TABS_DATA = [
 		{
 			label: 'وضعیت تماشا',
@@ -45,12 +46,16 @@
 	let currentTab = $state<TabsDataValue<typeof TABS_DATA>>('watching-status');
 	let currentWatchingStatus =
 		$state<SingleSelectOptionsValue<typeof WATCHING_STATUS_OPTIONS>>('unwatched');
+	let watchedEpisodes = $state(0);
 </script>
 
 <Drawer.Root hash={HASH.ADD_TO_LIST}>
 	<Drawer.Tabs data={TABS_DATA} bind:value={currentTab} />
 	<Drawer.Body>
 		<Drawer.SingleSelect options={WATCHING_STATUS_OPTIONS} bind:value={currentWatchingStatus} />
+		<Drawer.Number bind:value={watchedEpisodes} max={EPISODE_COUNT}>
+			قسمت‌های تماشا شده
+		</Drawer.Number>
 	</Drawer.Body>
 	<Drawer.Footer>
 		<Button icon={CheckIcon}>تأیید</Button>

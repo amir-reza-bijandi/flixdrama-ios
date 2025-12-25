@@ -1,5 +1,6 @@
 import Body from './body.svelte';
 import Footer from './footer.svelte';
+import MultiSelect from './multi-select.svelte';
 import Number from './number.svelte';
 import Root from './root.svelte';
 import SingleSelect from './single-select.svelte';
@@ -10,5 +11,6 @@ export const Drawer = {
 	Footer,
 	Tabs,
 	SingleSelect,
+	MultiSelect,
 	Number
 };

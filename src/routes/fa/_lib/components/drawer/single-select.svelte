@@ -13,7 +13,7 @@
 
 	type Props = {
 		options: T;
-		value: T[number]['value'];
+		value: SingleSelectOptionsValue<T>;
 	};
 	let { options, value: currentValue = $bindable() }: Props = $props();
 

@@ -3,8 +3,6 @@
 	import type { DirectionFactor } from '$lib/types/transition';
 	import { toRem } from '$lib/utilities/general';
 	import type { Snippet } from 'svelte';
-	import { backOut } from 'svelte/easing';
-
 	import { cubicOut } from 'svelte/easing';
 	import type { EasingFunction, TransitionConfig } from 'svelte/transition';
 
@@ -47,14 +45,13 @@
 
 <div
 	style:--height={toRem(contentHeight)}
-	class={['relative h-(--height)', hasTransition && 'transition-[height] duration-250']}
+	class={['relative h-(--height)', hasTransition && 'transition-[height]']}
 >
 	{#key children}
 		<div
 			in:flyCustom={{
 				x: window.innerWidth * directionFactor,
-				duration: TRANSITION.DURATION,
-				easing: backOut
+				duration: TRANSITION.DURATION
 			}}
 			out:flyCustom={{
 				x: -window.innerWidth * directionFactor,

@@ -5,6 +5,10 @@
 	import Button from '../../../../_lib/components/button.svelte';
 	import { Drawer } from '../../../../_lib/components/drawer';
 	import type {
+		MultiSelectOptions,
+		MultiSelectOptionsValues
+	} from '../../../../_lib/components/drawer/multi-select.svelte';
+	import type {
 		SingleSelectOptions,
 		SingleSelectOptionsValue
 	} from '../../../../_lib/components/drawer/single-select.svelte';
@@ -45,6 +49,18 @@
 			value: 'finished'
 		}
 	] as const satisfies SingleSelectOptions;
+	const PLAYLIST_OPTIONS = [
+		{
+			label: 'بهترین‌های ۲۰۲۴',
+			isActive: false,
+			value: 'best-of-2024'
+		},
+		{
+			label: 'دورهمی خانوادگی',
+			isActive: false,
+			value: 'family-gathering'
+		}
+	] as const satisfies MultiSelectOptions;
 	const TAB_SNIPPET_MAP: Record<Tab, Snippet> = {
 		'watching-status': watchingStatus,
 		playlists: playlist
@@ -55,6 +71,9 @@
 		$state<SingleSelectOptionsValue<typeof WATCHING_STATUS_OPTIONS>>('unwatched');
 	let watchedEpisodes = $state(0);
 	let directionFactor = $state<DirectionFactor>(1);
+	let currentPlaylists = $state<MultiSelectOptionsValues<typeof PLAYLIST_OPTIONS>>(
+		PLAYLIST_OPTIONS.filter(({ isActive }) => isActive).map(({ value }) => value)
+	);
 </script>
 
 <Drawer.Root hash={HASH.ADD_TO_LIST}>
@@ -69,4 +88,6 @@
 	<Drawer.SingleSelect options={WATCHING_STATUS_OPTIONS} bind:value={currentWatchingStatus} />
 	<Drawer.Number bind:value={watchedEpisodes} max={EPISODE_COUNT}>قسمت‌های تماشا شده</Drawer.Number>
 {/snippet}
-{#snippet playlist()}{/snippet}
+{#snippet playlist()}
+	<Drawer.MultiSelect options={PLAYLIST_OPTIONS} bind:values={currentPlaylists} />
+{/snippet}

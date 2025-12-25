@@ -26,14 +26,14 @@
 		}
 	});
 
-	type Props = VariantProps<typeof getClass> & PressableProps;
-	const { children, class: extraClass, variant, isActive, ...restOfProps }: Props = $props();
+	type Props = VariantProps<typeof getClass> & PressableProps & Pick<Box.VisualProps, 'blur'>;
+	const { children, class: extraClass, variant, isActive, blur, ...restOfProps }: Props = $props();
 </script>
 
 <Pressable.Root class={extraClass} {...restOfProps}>
 	<Pressable.Content>
 		<Box.Root class="flex size-10 items-center justify-center rounded-full">
-			<Box.Visuals class={getClass({ variant, isActive })} />
+			<Box.Visuals class={getClass({ variant, isActive })} {blur} />
 			{@render children?.()}
 		</Box.Root>
 	</Pressable.Content>

@@ -9,6 +9,6 @@
 </script>
 
 <Box.Root class="divide-y divide-stroke-primary">
-	<Box.Visuals class="rounded-3xl bg-background-tertiary" />
+	<Box.Visuals class="rounded-3xl bg-background-tertiary" blur={false} />
 	{@render children()}
 </Box.Root>

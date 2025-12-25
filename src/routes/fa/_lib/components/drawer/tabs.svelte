@@ -47,7 +47,7 @@
 </script>
 
 <Box.Root class="p-1.5">
-	<Box.Visuals class="bg-background-tertiary" />
+	<Box.Visuals class="bg-background-tertiary" blur={false} />
 	<div class="relative isolate flex gap-1.5">
 		{#each data as { value, label }, index}
 			<div class="flex-1" bind:this={tabElms[index]}>
@@ -57,7 +57,7 @@
 						currentValue = value;
 						previousIndex = currentIndex;
 						currentIndex = index;
-						directionFactor = currentIndex - previousIndex > 0 ? 1 : -1;
+						directionFactor = currentIndex - previousIndex > 0 ? -1 : 1;
 					}}
 				>
 					<Pressable.Content>

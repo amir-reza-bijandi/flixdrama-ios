@@ -1,7 +1,5 @@
-<script lang="ts">
+<script module>
 	import { tv } from '$lib/tv';
-	import type { Snippet } from 'svelte';
-	import { type ClassValue, type VariantProps } from 'tailwind-variants';
 
 	const getClass = tv({
 		base: 'pointer-events-none absolute inset-0 isolate -z-10 overflow-hidden bg-background-secondary transition-colors',
@@ -21,6 +19,13 @@
 		class?: ClassValue;
 		blur?: boolean;
 	};
+	export type { Props as VisualProps };
+</script>
+
+<script lang="ts">
+	import type { Snippet } from 'svelte';
+	import { type ClassValue, type VariantProps } from 'tailwind-variants';
+
 	const { children, class: extraClass, blur = true, roundedSide }: Props = $props();
 </script>
 

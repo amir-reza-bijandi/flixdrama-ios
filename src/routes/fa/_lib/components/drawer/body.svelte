@@ -3,29 +3,7 @@
 	import type { DirectionFactor } from '$lib/types/transition';
 	import { toRem } from '$lib/utilities/general';
 	import type { Snippet } from 'svelte';
-	import { cubicOut } from 'svelte/easing';
-	import type { EasingFunction, TransitionConfig } from 'svelte/transition';
-
-	type FlyCustomParams = {
-		delay?: number;
-		duration?: number;
-		easing?: EasingFunction;
-		x?: number;
-	};
-	export function flyCustom(
-		node: HTMLElement,
-		{ delay = 0, duration = 400, easing = cubicOut, x = 0 }: FlyCustomParams = {}
-	): TransitionConfig {
-		const style = getComputedStyle(node);
-		const targetLeft = parseFloat(style.left) || 0;
-
-		return {
-			delay,
-			duration,
-			easing,
-			css: (t, u) => `left: ${targetLeft - u * x}px;`
-		};
-	}
+	import { fly } from 'svelte/transition';
 
 	type Props = {
 		children: Snippet;
@@ -49,11 +27,11 @@
 >
 	{#key children}
 		<div
-			in:flyCustom={{
+			in:fly={{
 				x: window.innerWidth * directionFactor,
 				duration: TRANSITION.DURATION
 			}}
-			out:flyCustom={{
+			out:fly={{
 				x: -window.innerWidth * directionFactor,
 				duration: TRANSITION.DURATION
 			}}

@@ -69,14 +69,14 @@
 </script>
 
 <Box.Root class="flex h-16 items-center justify-between ps-5 pe-3">
-	<Box.Visuals class="bg-background-tertiary" />
+	<Box.Visuals class="bg-background-tertiary" blur={false} />
 	{@render children()}
 	<div class="relative">
 		<div class="flex gap-1.5 ps-1.5">
-			<IconButton onClick={handleIncrement}>
+			<IconButton onClick={handleIncrement} blur={false}>
 				<PlusIcon class="size-4" />
 			</IconButton>
-			<IconButton onClick={handleDecrement}>
+			<IconButton onClick={handleDecrement} blur={false}>
 				<MinusIcon class="size-4" />
 			</IconButton>
 		</div>

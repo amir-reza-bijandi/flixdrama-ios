@@ -2,6 +2,7 @@
 	import type { Option, SelectEventHandler } from '$lib/components/select.svelte';
 	import Select from '$lib/components/select.svelte';
 	import { DATA_EN } from '$lib/constants/data';
+	import type { DirectionFactor } from '$lib/types/transition';
 	import { toRem } from '$lib/utilities/general';
 	import { flip } from 'svelte/animate';
 	import { cubicOut } from 'svelte/easing';
@@ -32,7 +33,7 @@
 	};
 
 	let currentTab = $state<Tab>('queue');
-	let directionFactor = $state<1 | -1>(1);
+	let directionFactor = $state<DirectionFactor>(1);
 	let queueItems = $state<QueueListItemData[]>(
 		DATA_EN.map<QueueListItemData>(({ title, backdrop }, index) => ({
 			id: index + 1,

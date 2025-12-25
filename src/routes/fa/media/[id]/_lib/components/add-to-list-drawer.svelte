@@ -1,5 +1,7 @@
 <script lang="ts">
+	import type { DirectionFactor } from '$lib/types/transition';
 	import { CheckIcon } from '@lucide/svelte';
+	import type { Snippet } from 'svelte';
 	import Button from '../../../../_lib/components/button.svelte';
 	import { Drawer } from '../../../../_lib/components/drawer';
 	import type {
@@ -9,6 +11,7 @@
 	import type { TabsData, TabsDataValue } from '../../../../_lib/components/drawer/tabs.svelte';
 	import { HASH } from '../../../../_lib/constants/hash';
 
+	type Tab = TabsDataValue<typeof TABS_DATA>;
 	const EPISODE_COUNT = 1000;
 	const TABS_DATA = [
 		{
@@ -42,22 +45,28 @@
 			value: 'finished'
 		}
 	] as const satisfies SingleSelectOptions;
+	const TAB_SNIPPET_MAP: Record<Tab, Snippet> = {
+		'watching-status': watchingStatus,
+		playlists: playlist
+	};
 
 	let currentTab = $state<TabsDataValue<typeof TABS_DATA>>('watching-status');
 	let currentWatchingStatus =
 		$state<SingleSelectOptionsValue<typeof WATCHING_STATUS_OPTIONS>>('unwatched');
 	let watchedEpisodes = $state(0);
+	let directionFactor = $state<DirectionFactor>(1);
 </script>
 
 <Drawer.Root hash={HASH.ADD_TO_LIST}>
-	<Drawer.Tabs data={TABS_DATA} bind:value={currentTab} />
-	<Drawer.Body>
-		<Drawer.SingleSelect options={WATCHING_STATUS_OPTIONS} bind:value={currentWatchingStatus} />
-		<Drawer.Number bind:value={watchedEpisodes} max={EPISODE_COUNT}>
-			قسمت‌های تماشا شده
-		</Drawer.Number>
-	</Drawer.Body>
+	<Drawer.Tabs data={TABS_DATA} bind:value={currentTab} bind:directionFactor />
+	<Drawer.Body children={TAB_SNIPPET_MAP[currentTab]} {directionFactor} />
 	<Drawer.Footer>
 		<Button icon={CheckIcon}>تأیید</Button>
 	</Drawer.Footer>
 </Drawer.Root>
+
+{#snippet watchingStatus()}
+	<Drawer.SingleSelect options={WATCHING_STATUS_OPTIONS} bind:value={currentWatchingStatus} />
+	<Drawer.Number bind:value={watchedEpisodes} max={EPISODE_COUNT}>قسمت‌های تماشا شده</Drawer.Number>
+{/snippet}
+{#snippet playlist()}{/snippet}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { DirectionFactor } from '$lib/types/transition';
 	import { toRem } from '$lib/utilities/general';
 	import type { Snippet } from 'svelte';
 	import { backOut } from 'svelte/easing';
@@ -9,7 +10,7 @@
 	type Props = {
 		children: Snippet;
 		message: Snippet;
-		directionFactor: 1 | -1;
+		directionFactor: DirectionFactor;
 		height: number;
 		readonly contentHeight: number;
 	};

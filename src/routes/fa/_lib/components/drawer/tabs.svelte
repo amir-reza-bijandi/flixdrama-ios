@@ -10,19 +10,24 @@
 <script lang="ts" generics="T extends Data">
 	import * as Box from '$lib/components/box';
 	import * as Pressable from '$lib/components/pressable';
+	import type { DirectionFactor } from '$lib/types/transition';
 	import { toRem } from '$lib/utilities/general';
+
+	function calcIndex() {
+		const index = data.findIndex(({ value }) => value === currentValue);
+		if (index < 0) throw new Error('Value does not exist on the provided data!');
+		return index;
+	}
 
 	type Props = {
 		data: T;
 		value: T[number]['value'];
+		directionFactor?: DirectionFactor;
 	};
-	let { data, value: currentValue = $bindable() }: Props = $props();
+	let { data, value: currentValue = $bindable(), directionFactor = $bindable() }: Props = $props();
 
-	const currentIndex = $derived.by(() => {
-		const index = data.findIndex(({ value }) => value === currentValue);
-		if (index < 0) throw new Error('Value does not exist on the provided data!');
-		return index;
-	});
+	let currentIndex = $state(calcIndex());
+	let previousIndex = $state(0);
 	const tabElms = $state<HTMLElement[]>([]);
 	const indicatorRect = $derived.by(() => {
 		const x = tabElms[currentIndex]?.offsetLeft;
@@ -46,7 +51,15 @@
 	<div class="relative isolate flex gap-1.5">
 		{#each data as { value, label }, index}
 			<div class="flex-1" bind:this={tabElms[index]}>
-				<Pressable.Root class="w-full" onClick={() => (currentValue = value)}>
+				<Pressable.Root
+					class="w-full"
+					onClick={() => {
+						currentValue = value;
+						previousIndex = currentIndex;
+						currentIndex = index;
+						directionFactor = currentIndex - previousIndex > 0 ? 1 : -1;
+					}}
+				>
 					<Pressable.Content>
 						<span class="grid place-items-center p-3.5 text-sm leading-none">{label}</span>
 					</Pressable.Content>

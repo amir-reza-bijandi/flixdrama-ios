@@ -8,7 +8,7 @@
 		onClick?: () => void;
 	};
 	type Props = (AnchorProps | ButtonProps) & {
-		children: Snippet;
+		children?: Snippet;
 		class?: ClassValue;
 	};
 	export type { Props as PressableProps };
@@ -34,5 +34,5 @@
 				type: restOfProps.type ?? 'button'
 			}}
 >
-	{@render children()}
+	{@render children?.()}
 </svelte:element>

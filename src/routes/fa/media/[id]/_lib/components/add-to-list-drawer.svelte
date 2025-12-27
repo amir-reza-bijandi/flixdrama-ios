@@ -1,9 +1,12 @@
 <script lang="ts">
 	import type { DirectionFactor } from '$lib/types/transition';
-	import { CheckIcon } from '@lucide/svelte';
+	import { CheckIcon, PlusIcon } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
-	import Button from '../../../../_lib/components/button.svelte';
 	import { Drawer } from '../../../../_lib/components/drawer';
+	import type {
+		FooterData,
+		FooterDataItem
+	} from '../../../../_lib/components/drawer/footer.svelte';
 	import type {
 		MultiSelectOptions,
 		MultiSelectOptionsValues
@@ -65,6 +68,30 @@
 		'watching-status': watchingStatus,
 		playlists: playlist
 	};
+	const SUBMIT_BUTTON: FooterDataItem = {
+		id: Symbol(),
+		as: 'button',
+		icon: CheckIcon,
+		label: 'تأیید'
+	};
+	const WATCHING_STATUS_FOOTER: FooterData = [
+		{
+			...SUBMIT_BUTTON,
+			onClick: () => window.history.back()
+		}
+	];
+	const PLAYLISTS_FOOTER: FooterData = [
+		{
+			id: Symbol(),
+			icon: PlusIcon,
+			label: 'لیست پخش جدید',
+			variant: 'tertiary'
+		},
+		{
+			...SUBMIT_BUTTON,
+			onClick: () => window.history.back()
+		}
+	];
 
 	let currentTab = $state<TabsDataValue<typeof TABS_DATA>>('watching-status');
 	let currentWatchingStatus =
@@ -74,14 +101,15 @@
 	let currentPlaylists = $state<MultiSelectOptionsValues<typeof PLAYLIST_OPTIONS>>(
 		PLAYLIST_OPTIONS.filter(({ isActive }) => isActive).map(({ value }) => value)
 	);
+	let footerData = $derived<FooterData>(
+		currentTab === 'watching-status' ? WATCHING_STATUS_FOOTER : PLAYLISTS_FOOTER
+	);
 </script>
 
 <Drawer.Root hash={HASH.ADD_TO_LIST}>
 	<Drawer.Tabs data={TABS_DATA} bind:value={currentTab} bind:directionFactor />
 	<Drawer.Body children={TAB_SNIPPET_MAP[currentTab]} {directionFactor} />
-	<Drawer.Footer>
-		<Button icon={CheckIcon}>تأیید</Button>
-	</Drawer.Footer>
+	<Drawer.Footer data={footerData} />
 </Drawer.Root>
 
 {#snippet watchingStatus()}

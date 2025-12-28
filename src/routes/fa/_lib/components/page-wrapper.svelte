@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { asset } from '$app/paths';
-	import * as Box from '$lib/components/box';
+	import { Box } from '$lib/components/box';
 	import IconButton from '$lib/components/icon-button.svelte';
-	import * as Pressable from '$lib/components/pressable';
+	import { Pressable } from '$lib/components/pressable';
 	import Separator from '$lib/components/separator.svelte';
 	import { TRANSITION } from '$lib/constants/transition';
 	import { ChevronLeft, Moon, Sun, XMark } from '@steeze-ui/heroicons';

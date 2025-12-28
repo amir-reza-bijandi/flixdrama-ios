@@ -8,8 +8,8 @@
 </script>
 
 <script lang="ts" generics="T extends Data">
-	import * as Box from '$lib/components/box';
-	import * as Pressable from '$lib/components/pressable';
+	import { Box } from '$lib/components/box';
+	import { Pressable } from '$lib/components/pressable';
 	import type { DirectionFactor } from '$lib/types/transition';
 	import { toRem } from '$lib/utilities/general';
 

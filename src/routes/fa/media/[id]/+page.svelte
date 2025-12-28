@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import * as Box from '$lib/components/box';
+	import { Box } from '$lib/components/box';
 	import IconButton from '$lib/components/icon-button.svelte';
 	import PostCard from '$lib/components/post-card.svelte';
-	import * as Pressable from '$lib/components/pressable';
+	import { Pressable } from '$lib/components/pressable';
 	import Select, { type Option } from '$lib/components/select.svelte';
 	import Separator from '$lib/components/separator.svelte';
-	import * as Swiper from '$lib/components/swiper';
+	import { Swiper } from '$lib/components/swiper';
 	import {
 		COUNTRY_LABEL_MAP_FA,
 		DATA_FA,

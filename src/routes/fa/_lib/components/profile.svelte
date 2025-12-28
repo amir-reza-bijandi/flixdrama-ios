@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { asset, resolve } from '$app/paths';
-	import * as Pressable from '$lib/components/pressable';
+	import { Pressable } from '$lib/components/pressable';
 </script>
 
 <Pressable.Root as="a" href={resolve('/fa')}>

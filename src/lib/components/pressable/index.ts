@@ -1,2 +1,7 @@
-export { default as Content } from './content.svelte';
-export { default as Root } from './root.svelte';
+import Content from './content.svelte';
+import Root from './root.svelte';
+
+export const Pressable = {
+	Root,
+	Content
+};

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import * as Box from '$lib/components/box';
+	import { Box } from '$lib/components/box';
 	import IconButton from '$lib/components/icon-button.svelte';
 	import { MinusIcon, PlusIcon } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';

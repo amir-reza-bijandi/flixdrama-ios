@@ -3,7 +3,7 @@
 	import PostCard from '$lib/components/post-card.svelte';
 	import Section from '$lib/components/section.svelte';
 	import Select, { type Option } from '$lib/components/select.svelte';
-	import * as Swiper from '$lib/components/swiper';
+	import { Swiper } from '$lib/components/swiper';
 	import { COUNTRY_LABEL_MAP_EN, DATA_EN } from '$lib/constants/data';
 	import type { Country } from '$lib/types/data';
 	import { toRem } from '$lib/utilities/general';

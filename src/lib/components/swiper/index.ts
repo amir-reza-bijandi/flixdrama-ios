@@ -1,3 +1,9 @@
-export { default as Root } from './root.svelte';
-export { default as Slide } from './slide.svelte';
-export { default as Wrapper } from './wrapper.svelte';
+import Root from './root.svelte';
+import Slide from './slide.svelte';
+import Wrapper from './wrapper.svelte';
+
+export const Swiper = {
+	Root,
+	Wrapper,
+	Slide
+};

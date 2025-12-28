@@ -6,7 +6,7 @@
 </script>
 
 <script lang="ts">
-	import * as Box from '$lib/components/box';
+	import { Box } from '$lib/components/box';
 
 	type Props = {
 		data: AdditionalInfoData;

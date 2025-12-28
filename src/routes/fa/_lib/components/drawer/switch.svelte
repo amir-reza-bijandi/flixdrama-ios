@@ -5,7 +5,7 @@
 </script>
 
 <script lang="ts" generics="T extends Data">
-	import * as Pressable from '$lib/components/pressable';
+	import { Pressable } from '$lib/components/pressable';
 	import type { Snippet } from 'svelte';
 
 	type Props = {

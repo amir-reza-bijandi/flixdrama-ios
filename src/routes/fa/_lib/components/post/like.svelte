@@ -4,8 +4,8 @@
 
 <script lang="ts">
 	import { asset } from '$app/paths';
-	import * as Box from '$lib/components/box';
-	import * as Pressable from '$lib/components/pressable';
+	import { Box } from '$lib/components/box';
+	import { Pressable } from '$lib/components/pressable';
 	import { CheckIcon, PlusIcon } from '@lucide/svelte';
 	import { Heart } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';

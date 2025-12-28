@@ -3,8 +3,8 @@
 </script>
 
 <script lang="ts">
-	import * as Box from '$lib/components/box';
-	import * as Pressable from '$lib/components/pressable';
+	import { Box } from '$lib/components/box';
+	import { Pressable } from '$lib/components/pressable';
 	import { DATA_FA } from '$lib/constants/data';
 	import { toRem } from '$lib/utilities/general';
 	import { HistoryIcon, SearchIcon } from '@lucide/svelte';

@@ -11,8 +11,8 @@
 </script>
 
 <script lang="ts" generics="T extends Options">
-	import * as Pressable from '$lib/components/pressable';
-	import * as Swiper from '$lib/components/swiper';
+	import { Pressable } from '$lib/components/pressable';
+	import { Swiper } from '$lib/components/swiper';
 	import { langStore } from '$lib/store/lang-store.svelte';
 	import { Lang } from '$lib/types/general';
 	import type { SwiperRootProps } from './swiper/root.svelte';

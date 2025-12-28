@@ -1,6 +1,6 @@
 <script lang="ts">
-	import * as Box from '$lib/components/box';
-	import * as Pressable from '$lib/components/pressable';
+	import { Box, type BoxVisualsProps } from '$lib/components/box';
+	import { Pressable } from '$lib/components/pressable';
 	import { tv } from '$lib/tv';
 	import { type VariantProps } from 'tailwind-variants';
 	import type { PressableProps } from './pressable/root.svelte';
@@ -26,7 +26,7 @@
 		}
 	});
 
-	type Props = VariantProps<typeof getClass> & PressableProps & Pick<Box.VisualProps, 'blur'>;
+	type Props = VariantProps<typeof getClass> & PressableProps & Pick<BoxVisualsProps, 'blur'>;
 	const { children, class: extraClass, variant, isActive, blur, ...restOfProps }: Props = $props();
 </script>
 

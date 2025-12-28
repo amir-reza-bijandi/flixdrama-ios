@@ -26,7 +26,7 @@
 </script>
 
 <script lang="ts">
-	import * as Pressable from '$lib/components/pressable';
+	import { Pressable } from '$lib/components/pressable';
 	import type { PressableProps } from '$lib/components/pressable/root.svelte';
 	import { tv } from '$lib/tv';
 	import type { LucideIcon } from '$lib/types/icon';

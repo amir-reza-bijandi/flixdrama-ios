@@ -1,6 +1,6 @@
 <script lang="ts">
-	import * as Box from '$lib/components/box';
-	import * as Pressable from '$lib/components/pressable';
+	import { Box } from '$lib/components/box';
+	import { Pressable } from '$lib/components/pressable';
 
 	type Props = {
 		data: string[];

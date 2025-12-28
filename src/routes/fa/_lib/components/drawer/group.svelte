@@ -1,5 +1,5 @@
 <script lang="ts">
-	import * as Box from '$lib/components/box';
+	import { Box } from '$lib/components/box';
 	import type { Snippet } from 'svelte';
 
 	type Props = {

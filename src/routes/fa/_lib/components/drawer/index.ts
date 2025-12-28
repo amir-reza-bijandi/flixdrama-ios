@@ -16,3 +16,19 @@ export const Drawer = {
 	Number,
 	Text
 };
+export type {
+	FooterData as DrawerFooterData,
+	FooterDataItem as DrawerFooterDataItem
+} from './footer.svelte';
+export type {
+	MultiSelectOptions as DrawerMultiSelectOptions,
+	MultiSelectOptionsValues as DrawerMultiSelectOptionsValues
+} from './multi-select.svelte';
+export type {
+	SingleSelectOptions as DrawerSingleSelectOptions,
+	SingleSelectOptionsValue as DrawerSingleSelectOptionsValue
+} from './single-select.svelte';
+export type {
+	TabsData as DrawerTabsData,
+	TabsDataValue as DrawerTabsDataValue
+} from './tabs.svelte';

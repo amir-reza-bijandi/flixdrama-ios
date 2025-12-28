@@ -5,6 +5,7 @@ import Number from './number.svelte';
 import Root from './root.svelte';
 import SingleSelect from './single-select.svelte';
 import Tabs from './tabs.svelte';
+import Text from './text.svelte';
 export const Drawer = {
 	Root,
 	Body,
@@ -12,5 +13,6 @@ export const Drawer = {
 	Tabs,
 	SingleSelect,
 	MultiSelect,
-	Number
+	Number,
+	Text
 };

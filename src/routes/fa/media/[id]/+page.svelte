@@ -32,6 +32,7 @@
 	import { sizeStore } from '../../_lib/store/size-store.svelte';
 	import { toFarsi } from '../../_lib/utilities/to-farsi';
 	import AddToListDrawer from './_lib/components/add-to-list-drawer.svelte';
+	import NewPlaylistDrawer from './_lib/components/new-playlist-drawer.svelte';
 
 	const SWIPER_OFFSET = 24;
 	const SWIPER_SPACE_BETWEEN = 8;
@@ -198,3 +199,4 @@
 	</Box.Root>
 </PageWrapper>
 <AddToListDrawer />
+<NewPlaylistDrawer />

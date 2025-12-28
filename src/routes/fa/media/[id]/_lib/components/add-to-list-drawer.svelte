@@ -73,7 +73,7 @@
 		as: 'button',
 		icon: CheckIcon,
 		label: 'تأیید'
-	};
+	} as const;
 	const WATCHING_STATUS_FOOTER: FooterData = [
 		{
 			...SUBMIT_BUTTON,
@@ -83,6 +83,8 @@
 	const PLAYLISTS_FOOTER: FooterData = [
 		{
 			id: Symbol(),
+			as: 'a',
+			href: HASH.NEW_PLAYLIST,
 			icon: PlusIcon,
 			label: 'لیست پخش جدید',
 			variant: 'tertiary'

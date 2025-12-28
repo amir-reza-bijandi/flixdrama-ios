@@ -13,18 +13,8 @@
 	const { hash, children, class: extraClass }: Props = $props();
 
 	const isActive = $derived(hashStore.current === hash);
-
-	const handleBack = () => window.history.back();
 </script>
 
-<!-- svelte-ignore a11y_consider_explicit_label -->
-<button
-	class={[
-		'fixed inset-0 z-40 bg-background-primary/75 backdrop-blur-lg transition-opacity duration-250',
-		!isActive && 'pointer-events-none opacity-0'
-	]}
-	onclick={handleBack}
-></button>
 <Box.Root
 	class={cn([
 		'fixed -bottom-32 left-0 z-50 flex w-full flex-col gap-4 p-5 pb-37 transition-transform',

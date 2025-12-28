@@ -1,14 +1,18 @@
 <script module>
 	const getClass = tv({
-		base: 'active:scale-scale-95 flex items-center justify-center gap-1.5 rounded-full bg-gradient bg-gradient-primary p-3 text-sm leading-none text-foreground-accent outline -outline-offset-1 outline-stroke-tertiary',
+		base: 'active:scale-scale-95 flex items-center justify-center gap-1.5 rounded-full bg-gradient p-3 text-sm leading-none text-foreground-accent outline -outline-offset-1 outline-stroke-tertiary',
 		variants: {
 			variant: {
 				neutral: 'bg-gradient-neutral/25',
+				primary: 'bg-gradient-primary',
 				secondary: 'bg-gradient-secondary',
 				tertiary: 'bg-gradient-tertiary',
 				success: 'bg-gradient-success',
 				danger: 'bg-gradient-danger'
 			}
+		},
+		defaultVariants: {
+			variant: 'primary'
 		}
 	});
 	type Props = VariantProps<typeof getClass> &

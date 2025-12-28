@@ -1,7 +1,6 @@
 <script module>
-	type AnchorProps = {
+	type AnchorProps = Pick<HTMLAnchorAttributes, 'href'> & {
 		as: 'a';
-		href?: string;
 	};
 	type ButtonProps = Pick<HTMLButtonAttributes, 'type'> & {
 		as?: 'button';
@@ -16,7 +15,7 @@
 
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import type { HTMLButtonAttributes } from 'svelte/elements';
+	import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 	import { cn, type ClassValue } from 'tailwind-variants';
 
 	const { children, class: extraClass, ...restOfProps }: Props = $props();

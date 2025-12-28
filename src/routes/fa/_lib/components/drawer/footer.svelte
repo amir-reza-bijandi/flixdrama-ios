@@ -10,14 +10,16 @@
 	import { flip } from 'svelte/animate';
 
 	import { TRANSITION } from '$lib/constants/transition';
+	import type { Snippet } from 'svelte';
 	import { scale } from 'svelte/transition';
 	import type { ButtonProps } from '../button.svelte';
 	import Button from '../button.svelte';
 
 	type Props = {
-		data: Data;
+		data?: Data;
+		children?: Snippet;
 	};
-	const { data }: Props = $props();
+	const { data, children }: Props = $props();
 </script>
 
 <div class="flex gap-2">
@@ -34,4 +36,5 @@
 			<Button {...buttonProps} />
 		</div>
 	{/each}
+	{@render children?.()}
 </div>

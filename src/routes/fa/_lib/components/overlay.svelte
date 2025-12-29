@@ -1,7 +1,8 @@
 <script lang="ts">
+	import { HASH } from '../constants/hash';
 	import { hashStore } from '../store/hash-store.svelte';
 
-	const isActive = $derived(Boolean(hashStore.current));
+	const isActive = $derived(hashStore.current !== HASH.SEARCH && Boolean(hashStore.current));
 </script>
 
 <!-- svelte-ignore a11y_consider_explicit_label -->

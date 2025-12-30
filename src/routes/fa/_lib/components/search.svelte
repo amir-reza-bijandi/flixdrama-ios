@@ -20,17 +20,25 @@
 	let query = $state('');
 	let history = $state<string[]>(DATA_FA.map(({ titleFa }) => titleFa).slice(0, MAX_HISTORY));
 	let historyHeight = $state(0);
+	let isOnTop = $state(false);
 	const showHistory = $derived(!query && isActive && history.length);
 	const reversedHistory = $derived([...history].reverse());
-	const SearchInputHeight = $derived(
-		sizeStore.SEARCH_INPUT_HEIGHT + (showHistory ? historyHeight : 0)
-	);
+	const height = $derived(sizeStore.SEARCH_INPUT_HEIGHT + (showHistory ? historyHeight : 0));
+	const handleTransitionEnd = () => {
+		if (!isActive) isOnTop = false;
+	};
+	const handleTransitionStart = () => {
+		if (isActive) isOnTop = true;
+	};
 </script>
 
 <div
 	style:--header-height={toRem(sizeStore.headerHeight)}
 	style:--padding-bottom={toRem(sizeStore.navigationHeight)}
-	class="absolute top-0 left-0 z-30 scrollbar-hidden w-full pt-(--header-height) pb-(--padding-bottom)"
+	class={[
+		'absolute top-0 left-0 scrollbar-hidden w-full pt-(--header-height) pb-(--padding-bottom)',
+		isOnTop && 'z-30'
+	]}
 	bind:clientHeight={sizeStore.searchHeight}
 >
 	<form class="leading-non mt-6 px-content-padding text-sm">
@@ -43,11 +51,13 @@
 				]}
 			/>
 			<div
-				style:--height={toRem(SearchInputHeight)}
+				style:--height={toRem(height)}
 				class={[
 					'h-(--height) transition-[height]',
 					showHistory ? 'ease-overshoot-light' : 'duration-300'
 				]}
+				ontransitionstart={handleTransitionStart}
+				ontransitionend={handleTransitionEnd}
 			>
 				<a
 					class={[

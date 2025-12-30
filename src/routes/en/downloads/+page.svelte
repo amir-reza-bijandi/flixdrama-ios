@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Option, SelectEventHandler } from '$lib/components/select.svelte';
+	import type { Option, OptionsValue } from '$lib/components/select.svelte';
 	import Select from '$lib/components/select.svelte';
 	import { DATA_EN } from '$lib/constants/data';
 	import type { DirectionFactor } from '$lib/types/transition';
@@ -15,7 +15,6 @@
 	import type { QueueListItemData } from './_lib/components/queue-list-item.svelte';
 	import QueueListItem from './_lib/components/queue-list-item.svelte';
 
-	type Tab = 'queue' | 'files';
 	const TABS = [
 		{
 			name: 'Queue',
@@ -25,7 +24,9 @@
 			name: 'Files',
 			value: 'files'
 		}
-	] as const satisfies Option<Tab>[];
+	] as const satisfies Option[];
+
+	type Tab = OptionsValue<typeof TABS>;
 
 	const TAB_MESSAGE_MAP: Record<Tab, string> = {
 		queue: 'Your queue is currently empty.',
@@ -33,7 +34,10 @@
 	};
 
 	let currentTab = $state<Tab>('queue');
-	let directionFactor = $state<DirectionFactor>(1);
+	const directionFactor = $derived.by<DirectionFactor>(() => {
+		const currentIndex = TABS.findIndex(({ value }) => currentTab === value);
+		return currentIndex === 1 ? 1 : -1;
+	});
 	let queueItems = $state<QueueListItemData[]>(
 		DATA_EN.map<QueueListItemData>(({ title, backdrop }, index) => ({
 			id: index + 1,
@@ -64,15 +68,11 @@
 		(queueItems = queueItems.filter(({ id }) => id !== deletedId));
 	const handleFileItemDelete: ListItemDeleteHandler = (deletedId) =>
 		(fileItems = fileItems.filter(({ id }) => id !== deletedId));
-	const handleSelect: SelectEventHandler<typeof TABS> = (tab, index) => {
-		currentTab = tab;
-		directionFactor = index === 1 ? 1 : -1;
-	};
 </script>
 
 <div class="relative z-10 flex flex-1 flex-col px-5 pt-6">
 	<div class="text-2xl leading-none font-bold">Downloads</div>
-	<Select options={TABS} onSelect={handleSelect} />
+	<Select options={TABS} />
 	<div class="relative flex-1" bind:clientHeight={listContainerHeight}>
 		<div
 			style:--height={toRem(

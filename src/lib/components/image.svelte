@@ -1,23 +1,32 @@
 <script lang="ts">
-	import type { ClassValue, EventHandler } from 'svelte/elements';
-	import { cn } from 'tailwind-variants';
+	import { tv } from '$lib/tv';
+	import type { EventHandler } from 'svelte/elements';
+	import { type ClassValue, type VariantProps } from 'tailwind-variants';
 
-	type Props = {
+	const getClass = tv({
+		base: 'overflow-hidden transition-colors',
+		variants: {
+			hasOutline: {
+				true: 'outline -outline-offset-1'
+			},
+			hasLoadingGlow: {
+				true: 'bg-linear-110 from-background-tertiary from-20% via-background-secondary via-30% to-background-tertiary to-40% bg-size-[400%,200%]'
+			}
+		}
+	});
+
+	type Props = VariantProps<typeof getClass> & {
 		style?: string;
 		class?: ClassValue;
-		width?: number;
-		height?: number;
-		outline?: boolean;
-		loadingGlow?: boolean;
 		src: string;
+		hasOutline?: boolean;
+		hasLoadingGlow?: boolean;
 	};
 	const {
-		outline = false,
-		loadingGlow = false,
+		hasOutline = false,
+		hasLoadingGlow = false,
 		style,
 		class: extraClass,
-		width,
-		height,
 		src
 	}: Props = $props();
 
@@ -29,24 +38,35 @@
 
 <div
 	{style}
-	class={cn([
-		'overflow-hidden transition-colors',
-		loadingGlow &&
-			'bg-linear-110 from-background-tertiary from-20% via-background-secondary via-30% to-background-tertiary to-40% bg-size-[400%,200%]',
-		isLoading && loadingGlow && 'animate-shine',
-		outline && 'outline -outline-offset-1',
-		isLoading && outline && 'outline-stroke-primary',
-		!isLoading && outline && 'outline-stroke-secondary',
-		extraClass
-	])}
+	class={getClass({
+		hasLoadingGlow,
+		hasOutline,
+		class: [
+			hasOutline && (isLoading ? 'outline-stroke-primary' : 'outline-stroke-secondary'),
+			isLoading && hasLoadingGlow && 'animate-shine',
+			extraClass
+		]
+	})}
 >
 	<img
-		class={['size-full object-cover transition-opacity duration-500', isLoading && 'opacity-0']}
+		class={[
+			'relative -z-10 size-full object-cover transition-opacity duration-500',
+			isLoading && 'opacity-0'
+		]}
 		{src}
 		alt=""
 		onload={handleLoad}
 		draggable="false"
-		{width}
-		{height}
 	/>
 </div>
+
+<style>
+	.animate-shine {
+		animation: shine 4s linear infinite;
+	}
+	@keyframes shine {
+		to {
+			background-position-x: -400%;
+		}
+	}
+</style>

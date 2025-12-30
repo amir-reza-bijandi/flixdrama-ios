@@ -1,13 +1,10 @@
 <script module>
-	export type Option<T = unknown> = Readonly<{
+	export type Option = Readonly<{
 		name: string;
-		value: T;
+		value: unknown;
 	}>;
 	type Options = ReadonlyArray<Option>;
-	export type SelectEventHandler<T extends Options> = (
-		value: T[number]['value'],
-		index: number
-	) => void;
+	export type OptionsValue<T extends Options> = T[number]['value'];
 </script>
 
 <script lang="ts" generics="T extends Options">
@@ -17,17 +14,19 @@
 	import { Lang } from '$lib/types/general';
 	import type { SwiperRootProps } from './swiper/root.svelte';
 
-	const DEFAULT_SELECTED_INDEX = 0;
-
 	type Props = Pick<SwiperRootProps, 'offset'> & {
 		options: T;
 		alignment?: 'start' | 'center';
-		onSelect?: SelectEventHandler<T>;
+		value?: OptionsValue<T>;
 	};
-	let { options, alignment = 'start', offset, onSelect }: Props = $props();
+	let {
+		options,
+		alignment = 'start',
+		offset,
+		value: currentValue = $bindable(options[0]?.value ?? '')
+	}: Props = $props();
 
 	const optionElms = $state<HTMLElement[]>([]);
-	let selectedIndex = $state(DEFAULT_SELECTED_INDEX);
 </script>
 
 <div class={[alignment === 'center' && 'flex justify-center']}>
@@ -36,17 +35,11 @@
 			{#each options as { name, value }, index (value)}
 				<Swiper.Slide>
 					<div bind:this={optionElms[index]}>
-						<Pressable.Root
-							class="inline-block"
-							onClick={() => {
-								selectedIndex = index;
-								onSelect?.(value, index);
-							}}
-						>
+						<Pressable.Root class="inline-block" onClick={() => (currentValue = value)}>
 							<Pressable.Content
 								class={[
 									'p-2 before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient before:bg-gradient-primary before:outline before:-outline-offset-1 before:outline-stroke-tertiary before:transition-[scale,opacity,rotate]',
-									index === selectedIndex
+									value === currentValue
 										? 'before:ease-overshoot-heavy'
 										: 'before:scale-75 before:opacity-0 before:duration-250'
 								]}
@@ -55,7 +48,7 @@
 									class={[
 										'inline-block text-sm leading-none transition-colors duration-250',
 										langStore.current === Lang.En && 'translate-y-px',
-										index === selectedIndex && 'text-foreground-accent'
+										value === currentValue && 'text-foreground-accent'
 									]}
 								>
 									{name}

@@ -126,7 +126,7 @@
 							style="mask-image: radial-gradient(100% 110% at center top, hsla(0, 0%, 0%, 1) 0%, hsla(0, 0%, 0%, 0) 100%);"
 							class="aspect-video h-auto w-full"
 							src={backdrop}
-							loadingGlow
+							hasLoadingGlow
 						/>
 					</div>
 					<div

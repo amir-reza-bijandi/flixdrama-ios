@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { asset } from '$app/paths';
 	import { Box } from '$lib/components/box';
-	import IconButton from '$lib/components/icon-button.svelte';
+	import Button from '$lib/components/button.svelte';
 	import { Pressable } from '$lib/components/pressable';
 	import Separator from '$lib/components/separator.svelte';
+	import Toggle from '$lib/components/toggle.svelte';
 	import { TRANSITION } from '$lib/constants/transition';
 	import { ChevronLeft, Moon, Sun, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
@@ -14,7 +15,6 @@
 	import { fly } from 'svelte/transition';
 	import { cn, type ClassValue } from 'tailwind-variants';
 	import { sizeStore } from '../store/size-store.svelte';
-	import Toggle from './toggle.svelte';
 
 	type Props = {
 		children?: Snippet;
@@ -86,7 +86,7 @@
 					showBackButton ? 'translate-x-11.5 ease-overshoot-light' : 'duration-300'
 				]}
 			>
-				<Box.Visuals />
+				<Box.Visuals class="bg-transparent bg-gradient bg-gradient-neutral/25" />
 				<Pressable.Root class="-ml-0.5 size-10" onClick={handleToggleNotifications}>
 					<Pressable.Content class="grid place-items-center">
 						<Toggle isActive={isNotificationsActive} speed="slow" mustRotate>
@@ -102,7 +102,7 @@
 				<Separator size={12} />
 				<Pressable.Root class="-mr-0.5 size-10" onClick={handleToggleDarkMode}>
 					<Pressable.Content class="grid place-items-center">
-						<Toggle isActive={mode.current === 'dark'} speed="slow" mustRotate>
+						<Toggle isActive={mode.current === 'dark'}>
 							{#snippet active()}
 								<Icon src={Sun} class="size-5 text-accent-secondary-tint" theme="mini" />
 							{/snippet}
@@ -113,7 +113,10 @@
 					</Pressable.Content>
 				</Pressable.Root>
 			</Box.Root>
-			<IconButton
+			<Button
+				isCircle
+				variant="neutral"
+				isActive={false}
 				class={[
 					'absolute left-0 transition-transform ease-overshoot-light',
 					showBackButton
@@ -123,7 +126,7 @@
 				onClick={handleBack}
 			>
 				<Icon class="size-6" src={ChevronLeft} theme="mini" />
-			</IconButton>
+			</Button>
 		</div>
 	</div>
 	{@render children?.()}

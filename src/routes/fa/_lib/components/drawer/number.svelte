@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Box } from '$lib/components/box';
-	import IconButton from '$lib/components/icon-button.svelte';
+	import Button from '$lib/components/button.svelte';
 	import { MinusIcon, PlusIcon } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 	import type { FormEventHandler } from 'svelte/elements';
@@ -74,16 +74,16 @@
 		isDisabled && 'pointer-events-none opacity-50'
 	]}
 >
-	<Box.Visuals class="bg-background-tertiary" blur={false} />
+	<Box.Visuals class="bg-background-tertiary" hasBlur={false} />
 	{@render children()}
 	<div class="relative">
 		<div class="flex gap-1.5 ps-1.5">
-			<IconButton onClick={handleIncrement} blur={false}>
+			<Button isCircle variant="neutral" isActive={false} onClick={handleIncrement} hasBlur={false}>
 				<PlusIcon class="size-4" />
-			</IconButton>
-			<IconButton onClick={handleDecrement} blur={false}>
+			</Button>
+			<Button isCircle variant="neutral" isActive={false} onClick={handleDecrement} hasBlur={false}>
 				<MinusIcon class="size-4" />
-			</IconButton>
+			</Button>
 		</div>
 		<div class="absolute top-1/2 right-0 translate-x-full -translate-y-1/2">
 			<input

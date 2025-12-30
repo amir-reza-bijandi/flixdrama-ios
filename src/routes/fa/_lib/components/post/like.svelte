@@ -6,11 +6,11 @@
 	import { asset } from '$app/paths';
 	import { Box } from '$lib/components/box';
 	import { Pressable } from '$lib/components/pressable';
+	import Toggle from '$lib/components/toggle.svelte';
 	import { CheckIcon, PlusIcon } from '@lucide/svelte';
 	import { Heart } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { toFarsi } from '../../utilities/to-farsi';
-	import Toggle from '../toggle.svelte';
 
 	type Props = {
 		value: number;

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { CheckIcon, MoveRightIcon } from '@lucide/svelte';
-	import Button from '../../../../_lib/components/button.svelte';
+	import Button from '../../../../../../lib/components/button.svelte';
 	import { Drawer } from '../../../../_lib/components/drawer';
 	import { HASH } from '../../../../_lib/constants/hash';
 

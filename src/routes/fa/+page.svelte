@@ -38,7 +38,7 @@
 			value: 'finished'
 		}
 	];
-	const countryOptions = Object.keys(COUNTRY_LABEL_MAP_FA).map<Option<Country>>((country) => ({
+	const countryOptions = Object.keys(COUNTRY_LABEL_MAP_FA).map<Option>((country) => ({
 		name: COUNTRY_LABEL_MAP_FA[country as Country],
 		value: country as Country
 	}));

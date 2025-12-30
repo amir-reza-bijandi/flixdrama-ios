@@ -47,7 +47,7 @@
 </script>
 
 <Box.Root class="p-1.5">
-	<Box.Visuals class="bg-background-tertiary" blur={false} />
+	<Box.Visuals class="bg-background-tertiary" hasBlur={false} />
 	<div class="relative isolate flex gap-1.5">
 		{#each data as { value, label }, index}
 			<div class="flex-1" bind:this={tabElms[index]}>

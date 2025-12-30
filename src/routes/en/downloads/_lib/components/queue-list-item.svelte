@@ -36,7 +36,12 @@
 
 <ListItem {id} {onDelete}>
 	<div class="flex items-center gap-2">
-		<Image class="aspect-video h-auto w-24 shrink-0 rounded-lg" src={image} outline loadingGlow />
+		<Image
+			class="aspect-video h-auto w-24 shrink-0 rounded-lg"
+			src={image}
+			hasOutline
+			hasLoadingGlow
+		/>
 		<div class="flex-1">
 			<span class="mb-1.5 inline-block text-sm leading-none font-bold">{title}</span>
 			<div>

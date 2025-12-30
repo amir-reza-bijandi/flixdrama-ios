@@ -17,7 +17,7 @@
 	type Props = VariantProps<typeof getClass> & {
 		children?: Snippet;
 		class?: ClassValue;
-		blur?: boolean;
+		hasBlur?: boolean;
 	};
 	export type { Props as VisualProps };
 </script>
@@ -26,12 +26,12 @@
 	import type { Snippet } from 'svelte';
 	import { type ClassValue, type VariantProps } from 'tailwind-variants';
 
-	const { children, class: extraClass, blur = true, roundedSide }: Props = $props();
+	const { children, class: extraClass, hasBlur = true, roundedSide }: Props = $props();
 </script>
 
 <div class={getClass({ roundedSide, class: extraClass })}>
 	<div
-		class={['absolute inset-0 -z-10 backdrop-blur-2xl transition-opacity', !blur && 'opacity-0']}
+		class={['absolute inset-0 -z-10 backdrop-blur-2xl transition-opacity', !hasBlur && 'opacity-0']}
 	>
 		{@render children?.()}
 	</div>

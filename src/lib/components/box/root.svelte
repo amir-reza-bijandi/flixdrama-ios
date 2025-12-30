@@ -3,12 +3,13 @@
 	import { cn, type ClassValue } from 'tailwind-variants';
 
 	type Props = {
-		children: Snippet;
+		children?: Snippet;
 		class?: ClassValue;
+		id?: string;
 	};
-	const { children, class: extraClass }: Props = $props();
+	const { children, class: extraClass, id }: Props = $props();
 </script>
 
-<div class={cn('relative', extraClass)}>
-	{@render children()}
+<div {id} class={cn('relative', extraClass)}>
+	{@render children?.()}
 </div>

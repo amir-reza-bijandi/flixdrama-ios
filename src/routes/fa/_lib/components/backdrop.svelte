@@ -13,10 +13,8 @@
 	<Image
 		style="mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0))"
 		class="aspect-video h-auto w-lg"
-		width={512}
-		height={288}
 		src={image}
-		loadingGlow
+		hasLoadingGlow
 	/>
 	<div class="absolute inset-0 flex items-center justify-center">
 		{@render children?.()}

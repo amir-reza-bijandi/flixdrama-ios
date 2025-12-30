@@ -177,12 +177,6 @@
 		1.002 95.4%,
 		1
 	);
-	--animate-shine: shine 4s linear infinite;
-	@keyframes shine {
-		to {
-			background-position-x: -400%;
-		}
-	}
 }
 
 @utility scrollbar-hidden {

@@ -1,0 +1,56 @@
+<script lang="ts">
+	import { asset } from '$app/paths';
+	import { PlusIcon } from '@lucide/svelte';
+	import Button from '../../../../../../../lib/components/button.svelte';
+	import type { FeedbackRecipientData } from '../../../../../_lib/components/feedback';
+	import type { Subscription } from '../../../../../_lib/types/feedback';
+	import type { CommentData } from './comment.svelte';
+	import Comment from './comment.svelte';
+
+	const SUBSCRIPTION_COUNT = 4;
+	const SUBSCRIPTIONS: Subscription[] = ['dragon', 'fox', 'panda', 'sakura'];
+	const AVATAR_COUNT = 10;
+	const AVATARS: string[] = Array.from({ length: AVATAR_COUNT }).map((_, index) =>
+		asset(`/image/avatar/${index + 1}.png`)
+	);
+
+	function generateRandomNumber(max: number) {
+		return Math.floor(Math.random() * max);
+	}
+	function generateMockComment(recipient?: FeedbackRecipientData): CommentData {
+		const DISPLAY_NAME = 'نام کاربر';
+		const id = generateRandomNumber(100_000);
+		return {
+			id,
+			date: new Date(),
+			isLiked: generateRandomNumber(10) % 2 === 0 ? true : false,
+			likeCount: generateRandomNumber(999),
+			recipient: recipient ?? null,
+			text: 'لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.',
+			user: {
+				displayName: DISPLAY_NAME,
+				avatar: AVATARS[generateRandomNumber(AVATAR_COUNT - 1)],
+				subscription: SUBSCRIPTIONS[generateRandomNumber(SUBSCRIPTION_COUNT - 1)],
+				userName: 'username'
+			},
+			replies: !recipient
+				? Array.from({ length: generateRandomNumber(10) }).map(() =>
+						generateMockComment({
+							feedbackId: id,
+							displayName: DISPLAY_NAME
+						})
+					)
+				: []
+		};
+	}
+	const comments = Array.from({ length: generateRandomNumber(20) }).map(() =>
+		generateMockComment()
+	);
+</script>
+
+<Button variant="tertiary" icon={PlusIcon}>دیدگاه جدید</Button>
+<div class="mt-3 space-y-3">
+	{#each comments as comment}
+		<Comment data={comment} />
+	{/each}
+</div>

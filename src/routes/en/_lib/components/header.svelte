@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import IconButton from '$lib/components/icon-button.svelte';
 	import { ChevronLeft } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import Button from '../../../../lib/components/button.svelte';
 	import Branding from './branding.svelte';
 	import ModeToggle from './mode-toggle.svelte';
 
@@ -15,9 +15,9 @@
 	{#if !isMediaRoute}
 		<Branding />
 	{:else}
-		<IconButton onClick={handleBack}>
+		<Button variant="neutral" isActive={false} isCircle onClick={handleBack}>
 			<Icon class="size-6" src={ChevronLeft} theme="mini" />
-		</IconButton>
+		</Button>
 	{/if}
 	<ModeToggle />
 </div>

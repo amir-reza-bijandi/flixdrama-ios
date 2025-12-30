@@ -12,8 +12,8 @@
 	import { TRANSITION } from '$lib/constants/transition';
 	import type { Snippet } from 'svelte';
 	import { scale } from 'svelte/transition';
-	import type { ButtonProps } from '../button.svelte';
-	import Button from '../button.svelte';
+	import type { ButtonProps } from '../../../../../lib/components/button.svelte';
+	import Button from '../../../../../lib/components/button.svelte';
 
 	type Props = {
 		data?: Data;

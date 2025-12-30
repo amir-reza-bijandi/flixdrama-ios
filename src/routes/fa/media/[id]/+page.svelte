@@ -1,17 +1,13 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { Box } from '$lib/components/box';
-	import IconButton from '$lib/components/icon-button.svelte';
-	import PostCard from '$lib/components/post-card.svelte';
 	import { Pressable } from '$lib/components/pressable';
-	import Select, { type Option } from '$lib/components/select.svelte';
+	import Select, { type Option, type OptionsValue } from '$lib/components/select.svelte';
 	import Separator from '$lib/components/separator.svelte';
-	import { Swiper } from '$lib/components/swiper';
+	import Toggle from '$lib/components/toggle.svelte';
 	import {
 		COUNTRY_LABEL_MAP_FA,
 		DATA_FA,
-		ROLE_LABEL_MAP,
 		TYPE_ICON_MAP,
 		TYPE_LABEL_MAP_FA
 	} from '$lib/constants/data';
@@ -20,22 +16,23 @@
 	import { VideoCamera } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { IconBellCheck, IconBellPlus } from '@tabler/icons-svelte';
+	import type { Component } from 'svelte';
+	import Button from '../../../../lib/components/button.svelte';
 	import Score from '../../../_lib/components/score.svelte';
 	import Backdrop from '../../_lib/components/backdrop.svelte';
-	import Button from '../../_lib/components/button.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
-	import type { AdditionalInfoData } from '../../_lib/components/post/additional-info.svelte';
-	import * as Post from '../../_lib/components/post/index';
+	import { Post, type PostInfoData } from '../../_lib/components/post';
 	import type { LikeToggleEventHandler } from '../../_lib/components/post/like.svelte';
-	import Toggle from '../../_lib/components/toggle.svelte';
 	import { HASH } from '../../_lib/constants/hash';
 	import { sizeStore } from '../../_lib/store/size-store.svelte';
 	import { toFarsi } from '../../_lib/utilities/to-farsi';
 	import AddToListDrawer from './_lib/components/add-to-list-drawer.svelte';
 	import NewPlaylistDrawer from './_lib/components/new-playlist-drawer.svelte';
+	import BackstageTab from './_lib/components/tabs/backstage-tab.svelte';
+	import CommentsTab from './_lib/components/tabs/comments-tab.svelte';
+	import InfoTab from './_lib/components/tabs/info-tab.svelte';
+	import ReviewsTab from './_lib/components/tabs/reviews-tab.svelte';
 
-	const SWIPER_OFFSET = 24;
-	const SWIPER_SPACE_BETWEEN = 8;
 	const SELECT_OPTIONS = [
 		{
 			name: 'مشخصات',
@@ -54,49 +51,19 @@
 			value: 'backstage'
 		}
 	] as const satisfies Option[];
-	const {
-		titleFa,
-		titleEn,
-		backdrop,
-		type,
-		country,
-		year,
-		genres,
-		score,
-		synopsis,
-		personnel,
-		releaseDate,
-		nextEpisodeDate,
-		episodeCount,
-		rating,
-		network
-	} = DATA_FA.find(({ id }) => Number(page.params.id) === id) ?? DATA_FA[0];
-	const additionalInfoData = [
-		{
-			label: 'تاریخ پخش / اکران',
-			value: releaseDate.toLocaleString('fa-IR', {
-				day: 'numeric',
-				month: 'long',
-				year: 'numeric'
-			})
-		},
-		{
-			label: 'شبکه',
-			value: network ?? ''
-		},
-		{
-			label: 'تعداد قسمت‌ها',
-			value: toFarsi(episodeCount)
-		},
-		{
-			label: 'ردهٔ سنی',
-			value: `${toFarsi(rating)}+`
-		}
-	] as const satisfies AdditionalInfoData;
+	const OPTION_TAB_MAP: Record<OptionsValue<typeof SELECT_OPTIONS>, Component> = {
+		info: InfoTab,
+		comments: CommentsTab,
+		reviews: ReviewsTab,
+		backstage: BackstageTab
+	};
+	const { titleFa, titleEn, backdrop, type, country, year, genres, score } =
+		DATA_FA.find(({ id }) => Number(page.params.id) === id) ?? DATA_FA[0];
 
+	let currentTab = $state<OptionsValue<typeof SELECT_OPTIONS>>('info');
 	let isLiked = $state(false);
 	let isNotificationsActive = $state(false);
-	const postInfoData = $derived<Post.InfoData>([
+	const postInfoData = $derived<PostInfoData>([
 		{
 			icon: TYPE_ICON_MAP[type],
 			label: TYPE_LABEL_MAP_FA[type]
@@ -112,6 +79,7 @@
 			})
 		}
 	]);
+	const Tab = $derived(OPTION_TAB_MAP[currentTab]);
 
 	const handleLikeToggle: LikeToggleEventHandler = (isActive) => (isLiked = isActive);
 	const handleNotificationsToggle = () => (isNotificationsActive = !isNotificationsActive);
@@ -119,7 +87,8 @@
 
 <PageWrapper showBackButton>
 	{#snippet actions()}
-		<IconButton
+		<Button
+			isCircle
 			onClick={handleNotificationsToggle}
 			variant="secondary"
 			isActive={isNotificationsActive}
@@ -132,10 +101,10 @@
 					<IconBellPlus class="size-5 stroke-[1.5]" />
 				{/snippet}
 			</Toggle>
-		</IconButton>
-		<IconButton as="a" href={HASH.ADD_TO_LIST} variant="tertiary">
+		</Button>
+		<Button isCircle as="a" href={HASH.ADD_TO_LIST} variant="tertiary" isActive={false}>
 			<ListPlusIcon class="size-5 stroke-[1.5]" />
-		</IconButton>
+		</Button>
 	{/snippet}
 	<Backdrop image={backdrop}>
 		<div class="h-full w-full transition-colors">
@@ -162,38 +131,10 @@
 				<Score value={score} />
 			</div>
 			<Post.Genres data={genres} />
-			<Button icon={ListVideoIcon} --margin-bottom={toRem(8)}>لیست قسمت‌ها</Button>
-			<Select options={SELECT_OPTIONS} alignment="center" />
+			<Button icon={ListVideoIcon}>لیست قسمت‌ها</Button>
+			<Select options={SELECT_OPTIONS} alignment="center" bind:value={currentTab} />
 			<div>
-				<Post.Section heading="خلاصهٔ داستان">
-					<Post.Expandable>
-						{synopsis}
-					</Post.Expandable>
-				</Post.Section>
-				<Post.Section heading="عوامل" --margin-top={toRem(24)}>
-					<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
-						<Swiper.Wrapper>
-							{#each personnel as { id, name, image, role }}
-								<Swiper.Slide>
-									<PostCard
-										href={resolve(`/fa/actor/[id]`, {
-											id: String(id)
-										})}
-										{image}
-										subtitle={role.map((role) => ROLE_LABEL_MAP[role]).join(' / ')}
-										title={name}
-									/>
-								</Swiper.Slide>
-							{/each}
-						</Swiper.Wrapper>
-					</Swiper.Root>
-				</Post.Section>
-				<Post.Section heading="اطلاعات تکمیلی" --margin-top={toRem(24)}>
-					<Post.AdditionalInfo data={additionalInfoData} />
-				</Post.Section>
-				{#if nextEpisodeDate}
-					<Post.Countdown date={nextEpisodeDate} />
-				{/if}
+				<Tab />
 			</div>
 		</Post.Root>
 	</Box.Root>

@@ -4,11 +4,11 @@
 	};
 	type ButtonProps = Pick<HTMLButtonAttributes, 'type'> & {
 		as?: 'button';
-		onClick?: () => void;
 	};
 	type Props = (AnchorProps | ButtonProps) & {
 		children?: Snippet;
 		class?: ClassValue;
+		onClick?: () => void;
 	};
 	export type { Props as PressableProps };
 </script>
@@ -18,7 +18,7 @@
 	import type { HTMLAnchorAttributes, HTMLButtonAttributes } from 'svelte/elements';
 	import { cn, type ClassValue } from 'tailwind-variants';
 
-	const { children, class: extraClass, ...restOfProps }: Props = $props();
+	const { children, class: extraClass, onClick, ...restOfProps }: Props = $props();
 </script>
 
 <svelte:element
@@ -29,9 +29,9 @@
 				href: restOfProps.href
 			}
 		: {
-				onclick: restOfProps.onClick,
 				type: restOfProps.type ?? 'button'
 			}}
+	onclick={onClick}
 >
 	{@render children?.()}
 </svelte:element>

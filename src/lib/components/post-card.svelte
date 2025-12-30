@@ -19,7 +19,7 @@
 
 <a class={cn('block w-32 shrink-0', extraClass)} {href} draggable="false">
 	<div class="relative mb-1.5">
-		<div class="relative overflow-hidden">
+		<div class="relative z-10 overflow-hidden">
 			<Image class="aspect-2/3 h-auto w-full rounded-2xl" src={image} hasOutline hasLoadingGlow />
 			{#if score}
 				<div

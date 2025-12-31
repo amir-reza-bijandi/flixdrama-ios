@@ -43,8 +43,6 @@
 		if (page.url.hash) goto(page.url.toString().split('#')[0]);
 		else goto(historyStore.current.at(-2) ?? resolve('/fa/'));
 	};
-
-	$inspect(historyStore.current);
 </script>
 
 <div class={cn('overflow-hidden', extraClass)}>

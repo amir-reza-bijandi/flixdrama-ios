@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { TRANSITION } from '$lib/constants/transition';
+	import { toRem } from '$lib/utilities/general';
 	import type { Snippet } from 'svelte';
 	import { cn, type ClassValue } from 'tailwind-variants';
 
@@ -8,24 +10,45 @@
 		isActive: boolean;
 	};
 	const { children, class: extraClass, isActive }: Props = $props();
+
+	let contentHeight = $state(0);
+	let isTransitioning = $state(false);
+
+	let timeoutId: number;
+	$effect(() => {
+		void isActive;
+
+		const startScroll = window.scrollY;
+		isTransitioning = true;
+
+		const frame = () => {
+			if (!isTransitioning) return;
+			window.scrollTo(0, startScroll);
+			requestAnimationFrame(frame);
+		};
+		requestAnimationFrame(frame);
+
+		timeoutId = window.setTimeout(() => {
+			isTransitioning = false;
+		}, TRANSITION.DURATION);
+
+		return () => {
+			clearTimeout(timeoutId);
+			isTransitioning = false;
+		};
+	});
 </script>
 
 <div
+	style:--height={toRem(isActive ? contentHeight : 0)}
+	style:--duration={`${TRANSITION.DURATION}ms`}
 	class={cn(
-		'relative grid overflow-hidden rounded-b-3xl bg-background-tertiary transition-[grid-template-rows,border-color] before:absolute before:top-0 before:h-px before:w-full before:transition-colors',
-		isActive ? 'grid-rows-[1fr] before:bg-stroke-primary' : 'grid-rows-[0fr]',
+		'relative h-(--height) overflow-hidden rounded-b-3xl bg-background-tertiary transition-[height,border-color] duration-(--duration) before:absolute before:top-0 before:h-px before:w-full before:transition-colors',
+		!isActive && 'before:bg-stroke-primary',
 		extraClass
 	)}
 >
-	<div
-		class={[
-			'absolute top-0 left-0 w-full bg-stroke-primary transition-opacity',
-			!isActive && 'opacity-0'
-		]}
-	></div>
-	<div class="min-h-0 overflow-hidden">
-		<div class="divide-y divide-stroke-primary">
-			{@render children?.()}
-		</div>
+	<div class="divide-y divide-stroke-primary" bind:clientHeight={contentHeight}>
+		{@render children?.()}
 	</div>
 </div>

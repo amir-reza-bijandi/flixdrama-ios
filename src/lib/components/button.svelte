@@ -61,7 +61,7 @@
 
 	let labelWidth = $state(0);
 	let labelHeight = $state(0);
-	let directionFactor = $state<DirectionFactor>(1);
+	let directionFactor = $state<DirectionFactor>(-1);
 
 	const handleClick = () => {
 		directionFactor = directionFactor === 1 ? -1 : 1;

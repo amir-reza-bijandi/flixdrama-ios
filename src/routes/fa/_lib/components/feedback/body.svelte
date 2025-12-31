@@ -42,7 +42,7 @@
 					<div class="flex flex-col items-center justify-center text-accent-secondary-tint">
 						<TriangleAlert class="mb-4 size-12 stroke-[1.25]" />
 						<div class="mb-2 font-bold">خطر لو رفتن داستان!</div>
-						<div class="text-xs leading-none">اگه مطمئنی که می‌خوای بخونیش، اینجا کلیک کن...</div>
+						<div class="text-xs leading-none">برای خوندن متن اینجا کلیک کن...</div>
 					</div>
 				</Box.Root>
 			</Pressable.Content>

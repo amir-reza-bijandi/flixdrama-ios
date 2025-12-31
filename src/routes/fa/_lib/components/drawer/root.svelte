@@ -8,7 +8,7 @@
 	type Props = {
 		hash: (typeof HASH)[keyof typeof HASH];
 		class?: ClassValue;
-		children: Snippet;
+		children?: Snippet;
 	};
 	const { hash, children, class: extraClass }: Props = $props();
 
@@ -23,5 +23,5 @@
 	])}
 >
 	<Box.Visuals class="bg-background-tertiary" roundedSide="top" />
-	{@render children()}
+	{@render children?.()}
 </Box.Root>

@@ -71,7 +71,7 @@
 
 <Pressable.Root
 	class={cn(
-		'h-10 text-sm leading-none',
+		'block h-10 text-sm leading-none',
 		isCircle ? 'w-10 shrink-0' : 'w-full',
 		isActive && 'text-foreground-accent',
 		isDisabled && 'pointer-events-none opacity-50',

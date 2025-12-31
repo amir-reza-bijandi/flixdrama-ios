@@ -19,7 +19,7 @@
 </script>
 
 <Pressable.Root class="relative block w-full" onClick={handleClick}>
-	<Pressable.Content class="flex h-16 items-center ps-4 active:scale-95">
+	<Pressable.Content class="flex h-16 items-center ps-4 text-sm leading-none active:scale-95">
 		{@render children()}
 		<div
 			class={[

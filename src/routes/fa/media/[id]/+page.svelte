@@ -27,6 +27,7 @@
 	import { sizeStore } from '../../_lib/store/size-store.svelte';
 	import { toFarsi } from '../../_lib/utilities/to-farsi';
 	import AddToListDrawer from './_lib/components/add-to-list-drawer.svelte';
+	import NewCommentDrawer from './_lib/components/new-comment-drawer.svelte';
 	import NewPlaylistDrawer from './_lib/components/new-playlist-drawer.svelte';
 	import BackstageTab from './_lib/components/tabs/backstage-tab.svelte';
 	import CommentsTab from './_lib/components/tabs/comments-tab.svelte';
@@ -141,3 +142,4 @@
 </PageWrapper>
 <AddToListDrawer />
 <NewPlaylistDrawer />
+<NewCommentDrawer />

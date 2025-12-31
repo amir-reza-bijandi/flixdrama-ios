@@ -1,10 +1,13 @@
 import Body from './body.svelte';
 import Footer from './footer.svelte';
+import Group from './group.svelte';
 import MultiSelect from './multi-select.svelte';
 import Number from './number.svelte';
 import Root from './root.svelte';
 import SingleSelect from './single-select.svelte';
+import Switch from './switch.svelte';
 import Tabs from './tabs.svelte';
+import TextArea from './text-area.svelte';
 import Text from './text.svelte';
 export const Drawer = {
 	Root,
@@ -13,8 +16,11 @@ export const Drawer = {
 	Tabs,
 	SingleSelect,
 	MultiSelect,
+	Switch,
 	Number,
-	Text
+	Text,
+	TextArea,
+	Group
 };
 export type {
 	FooterData as DrawerFooterData,
@@ -28,6 +34,7 @@ export type {
 	SingleSelectOptions as DrawerSingleSelectOptions,
 	SingleSelectOptionsValue as DrawerSingleSelectOptionsValue
 } from './single-select.svelte';
+export type { SwitchSelectEventHandler as DrawerSwitchSelectEventHandler } from './switch.svelte';
 export type {
 	TabsData as DrawerTabsData,
 	TabsDataValue as DrawerTabsDataValue

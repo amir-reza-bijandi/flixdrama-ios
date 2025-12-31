@@ -12,8 +12,8 @@
 
 <div
 	class={cn(
-		'grid overflow-hidden rounded-b-3xl border-t bg-background-tertiary transition-[grid-template-rows,border-color]',
-		isActive ? 'grid-rows-[1fr] border-stroke-primary' : 'grid-rows-[0fr] border-transparent',
+		'relative grid overflow-hidden rounded-b-3xl bg-background-tertiary transition-[grid-template-rows,border-color] before:absolute before:top-0 before:h-px before:w-full before:transition-colors',
+		isActive ? 'grid-rows-[1fr] before:bg-stroke-primary' : 'grid-rows-[0fr]',
 		extraClass
 	)}
 >

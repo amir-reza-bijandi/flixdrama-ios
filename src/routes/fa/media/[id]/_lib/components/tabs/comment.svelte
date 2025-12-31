@@ -4,7 +4,8 @@
 		isLiked: boolean;
 		likeCount: number;
 		user: User;
-		text: string;
+		body: string;
+		isSpoiler: boolean;
 		replies: Data[];
 		date: Date;
 		recipient: FeedbackRecipientData | null;
@@ -49,11 +50,11 @@
 <Feedback.Root id={data.id} hasVisuals={!isReply}>
 	<Feedback.Container>
 		<Feedback.UserHeader {...data.user} date={data.date} />
-		<Feedback.Body>
+		<Feedback.Body isSpoiler={data.isSpoiler}>
 			{#if data.recipient}
 				<Feedback.Recipient data={data.recipient} />
 			{/if}
-			{data.text}
+			{data.body}
 		</Feedback.Body>
 		<Feedback.Footer>
 			<Button

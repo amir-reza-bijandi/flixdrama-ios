@@ -3,7 +3,8 @@
 	import Image from '$lib/components/image.svelte';
 	import { Pressable } from '$lib/components/pressable';
 	import { toLocaleDateString, toLocaleTimeString } from '$lib/utilities/date';
-	import type { Subscription, User } from '../../types/feedback';
+	import type { User } from '../../types/feedback';
+	import type { Subscription } from '../../types/user';
 	import Avatar from '../avatar.svelte';
 
 	export const SUBSCRIPTION_IMAGE_MAP: Record<Subscription, string> = {

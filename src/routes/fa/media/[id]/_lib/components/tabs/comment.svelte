@@ -1,49 +1,20 @@
-<script module>
-	type Data = {
-		id: number;
-		isLiked: boolean;
-		likeCount: number;
-		user: User;
-		body: string;
-		isSpoiler: boolean;
-		replies: Data[];
-		date: Date;
-		recipient: FeedbackRecipientData | null;
-	};
-	export type { Data as CommentData };
-</script>
-
 <script lang="ts">
 	import Button from '$lib/components/button.svelte';
-	import { Heart } from '@steeze-ui/heroicons';
 
-	import Toggle from '$lib/components/toggle.svelte';
 	import { ReplyIcon, TextQuoteIcon } from '@lucide/svelte';
-	import { Icon } from '@steeze-ui/svelte-icon';
-	import { Feedback, type FeedbackRecipientData } from '../../../../../_lib/components/feedback';
-	import type { User } from '../../../../../_lib/types/feedback';
-	import { toFarsi } from '../../../../../_lib/utilities/to-farsi';
+	import { Feedback } from '../../../../../_lib/components/feedback';
+	import type { CommentData } from '../../../../../_lib/types/feedback';
+	import { formatCount } from '../../../../../_lib/utilities/format-count';
 	import Comment from './comment.svelte';
 
-	function formatCount(count: number) {
-		return count === 0 ? '-' : toFarsi(count);
-	}
-
 	type Props = {
-		data: Data;
+		data: CommentData;
 		isReply?: boolean;
 	};
 	const { data, isReply = false }: Props = $props();
 
-	let isLiked = $state(data.isLiked);
-	let likes = $state(data.likeCount);
 	let areReplysVisible = $state(false);
 
-	const handleToggleLike = () => {
-		isLiked = !isLiked;
-		if (isLiked) likes++;
-		else likes--;
-	};
 	const handleToggleReplys = () => (areReplysVisible = !areReplysVisible);
 </script>
 
@@ -57,23 +28,7 @@
 			{data.body}
 		</Feedback.Body>
 		<Feedback.Footer>
-			<Button
-				class="w-fit"
-				label={formatCount(likes)}
-				isActive={isLiked}
-				variant="danger"
-				onClick={handleToggleLike}
-				hasBlur={false}
-			>
-				<Toggle isActive={isLiked} speed="normal" mustRotate={false}>
-					{#snippet active()}
-						<Icon class="size-5" src={Heart} theme="mini" />
-					{/snippet}
-					{#snippet inactive()}
-						<Icon class="size-5" src={Heart} />
-					{/snippet}
-				</Toggle>
-			</Button>
+			<Feedback.Like isLiked={data.isLiked} likeCount={data.likeCount} />
 			<Feedback.Group>
 				<Button
 					isCircle={!isReply}

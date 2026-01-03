@@ -13,6 +13,7 @@
 	} from '../../../../_lib/components/drawer';
 	import type { TabsData, TabsDataValue } from '../../../../_lib/components/drawer/tabs.svelte';
 	import { HASH } from '../../../../_lib/constants/hash';
+	import type { WatchingStatus } from '../../../../_lib/types/media';
 
 	type Tab = TabsDataValue<typeof TABS_DATA>;
 	const EPISODE_COUNT = 1000;
@@ -47,7 +48,7 @@
 			label: 'تا آخر دیدم',
 			value: 'finished'
 		}
-	] as const satisfies DrawerSingleSelectOptions;
+	] as const satisfies DrawerSingleSelectOptions<WatchingStatus>;
 	const PLAYLIST_OPTIONS = [
 		{
 			label: 'بهترین‌های ۲۰۲۴',

@@ -1,7 +1,7 @@
 <script module>
-	type Options = ReadonlyArray<{
+	type Options<T = unknown> = ReadonlyArray<{
 		label: string;
-		value: unknown;
+		value: T;
 	}>;
 	type SingleSelectOptionsValue<T extends Options> = T[number]['value'];
 	export type { Options as SingleSelectOptions, SingleSelectOptionsValue };

@@ -21,7 +21,7 @@
 				duration: 1000
 			}}
 		>
-			<Image class="h-full w-full scale-125 blur-[128px]" src={image} />
+			<Image class="h-screen w-screen scale-125 blur-[128px]" src={image} />
 		</div>
 	{/key}
 	<div

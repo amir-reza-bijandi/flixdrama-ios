@@ -3,6 +3,7 @@ import PostExpandable from '../../../../_lib/components/post-expandable.svelte';
 import PostInfo from '../../../../_lib/components/post-info.svelte';
 import AdditionalInfo from './additional-info.svelte';
 import Countdown from './countdown.svelte';
+import Group from './group.svelte';
 import Heading from './heading.svelte';
 import Like from './like.svelte';
 import Root from './root.svelte';
@@ -19,7 +20,8 @@ export const Post = {
 	Info: PostInfo,
 	AdditionalInfo,
 	Like,
-	Countdown
+	Countdown,
+	Group
 };
 export type { PostInfoData } from '../../../../_lib/components/post-info.svelte';
 export type { AdditionalInfoData as PostAdditionalInfoData } from './additional-info.svelte';

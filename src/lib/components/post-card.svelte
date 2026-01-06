@@ -13,14 +13,31 @@
 		subtitle?: string;
 		score?: number;
 		class?: ClassValue;
+		isCircle?: boolean;
 	};
-	const { image, score, title, subtitle, href, class: extraClass }: Props = $props();
+	const {
+		image,
+		score,
+		title,
+		subtitle,
+		href,
+		class: extraClass,
+		isCircle = false
+	}: Props = $props();
 </script>
 
 <a class={cn('block w-32 shrink-0', extraClass)} {href} draggable="false">
 	<div class="relative mb-1.5">
 		<div class="relative z-10 overflow-hidden">
-			<Image class="aspect-2/3 h-auto w-full rounded-2xl" src={image} hasOutline hasLoadingGlow />
+			<Image
+				class={[
+					'w-full',
+					isCircle ? 'aspect-square rounded-full' : 'aspect-2/3 h-auto rounded-2xl'
+				]}
+				src={image}
+				hasOutline
+				hasLoadingGlow
+			/>
 			{#if score}
 				<div
 					class="absolute start-2 top-2 flex items-center gap-0.5 rounded-full bg-gradient bg-gradient-secondary p-1 pe-1.5 text-foreground-accent outline -outline-offset-1 outline-stroke-tertiary"

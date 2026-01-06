@@ -4,7 +4,6 @@
 	import PostCard from '$lib/components/post-card.svelte';
 	import { Swiper } from '$lib/components/swiper';
 	import { DATA_FA, ROLE_LABEL_MAP } from '$lib/constants/data';
-	import { toRem } from '$lib/utilities/general';
 	import { Post, type PostAdditionalInfoData } from '../../../../../_lib/components/post';
 	import { toFarsi } from '../../../../../_lib/utilities/to-farsi';
 
@@ -38,32 +37,53 @@
 	] as const satisfies PostAdditionalInfoData;
 </script>
 
-<Post.Section heading="خلاصهٔ داستان">
-	<Post.Expandable>
-		{synopsis}
-	</Post.Expandable>
-</Post.Section>
-<Post.Section heading="عوامل" --margin-top={toRem(24)}>
-	<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
-		<Swiper.Wrapper>
-			{#each personnel as { id, name, image, role }}
-				<Swiper.Slide>
-					<PostCard
-						href={resolve(`/fa/actor/[id]`, {
-							id: String(id)
-						})}
-						{image}
-						subtitle={role.map((role) => ROLE_LABEL_MAP[role]).join(' / ')}
-						title={name}
-					/>
-				</Swiper.Slide>
-			{/each}
-		</Swiper.Wrapper>
-	</Swiper.Root>
-</Post.Section>
-<Post.Section heading="اطلاعات تکمیلی" --margin-top={toRem(24)}>
-	<Post.AdditionalInfo data={additionalInfoData} />
-</Post.Section>
-{#if nextEpisodeDate}
-	<Post.Countdown date={nextEpisodeDate} />
-{/if}
+<Post.Group>
+	<Post.Section heading="خلاصهٔ داستان">
+		<Post.Expandable>
+			{synopsis}
+		</Post.Expandable>
+	</Post.Section>
+	<Post.Section heading="عوامل">
+		<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+			<Swiper.Wrapper>
+				{#each personnel as { id, name, image, role }}
+					<Swiper.Slide>
+						<PostCard
+							href={resolve(`/fa/actor/[id]`, {
+								id: String(id)
+							})}
+							{image}
+							subtitle={role.map((role) => ROLE_LABEL_MAP[role]).join(' / ')}
+							title={name}
+							isCircle
+						/>
+					</Swiper.Slide>
+				{/each}
+			</Swiper.Wrapper>
+		</Swiper.Root>
+	</Post.Section>
+	<Post.Section heading="پیشنهادی‌ها">
+		<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+			<Swiper.Wrapper>
+				{#each DATA_FA as { id, poster, titleFa, score, country }}
+					<Swiper.Slide>
+						<PostCard
+							href={resolve('/fa/media/[id]', {
+								id: String(id)
+							})}
+							image={poster}
+							title={titleFa}
+							{score}
+						/>
+					</Swiper.Slide>
+				{/each}
+			</Swiper.Wrapper>
+		</Swiper.Root>
+	</Post.Section>
+	<Post.Section heading="اطلاعات تکمیلی">
+		<Post.AdditionalInfo data={additionalInfoData} />
+		{#if nextEpisodeDate}
+			<Post.Countdown date={nextEpisodeDate} />
+		{/if}
+	</Post.Section>
+</Post.Group>

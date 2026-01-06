@@ -5,13 +5,15 @@
 	type Props = {
 		children: Snippet;
 		class?: ClassValue;
+		mustBounceOnClick?: boolean;
 	};
-	const { children, class: extraClass }: Props = $props();
+	const { children, class: extraClass, mustBounceOnClick = true }: Props = $props();
 </script>
 
 <div
 	class={cn(
-		'transition-transform duration-750 ease-overshoot-heavy group-active:scale-90',
+		mustBounceOnClick &&
+			'transition-transform duration-750 ease-overshoot-heavy group-active:scale-90',
 		extraClass
 	)}
 >

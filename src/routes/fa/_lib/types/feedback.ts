@@ -1,4 +1,4 @@
-import type { SCORES } from '../constants/feedback';
+import type { RATING_OPTIONS } from '../constants/feedback';
 import type { WatchingStatus } from './media';
 import type { Subscription } from './user';
 
@@ -24,11 +24,11 @@ type Comment = {
 	recipient: Recipient | null;
 };
 export type { Comment as CommentData };
-export type Score = (typeof SCORES)[number];
-export type Scores = Record<Score, number>;
+export type RatingOption = (typeof RATING_OPTIONS)[number];
+export type Ratings = Record<RatingOption, number>;
 
 export type ReviewData = Omit<Comment, 'recipient'> & {
 	heading: string;
 	watchingStatus: WatchingStatus;
-	scores: Scores;
+	ratings: Ratings;
 };

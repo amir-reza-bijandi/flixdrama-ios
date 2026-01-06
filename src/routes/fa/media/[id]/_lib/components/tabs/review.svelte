@@ -27,7 +27,7 @@
 			<Feedback.Heading>{data.heading}</Feedback.Heading>
 			{data.body}
 		</Feedback.Body>
-		<Feedback.Scores data={data.scores} />
+		<Feedback.Ratings data={data.ratings} layout="compact" />
 		<Feedback.Footer>
 			<Feedback.Like isLiked={data.isLiked} likeCount={data.likeCount} />
 			<Feedback.Group>

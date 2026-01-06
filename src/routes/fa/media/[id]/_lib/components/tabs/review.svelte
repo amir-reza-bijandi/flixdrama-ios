@@ -2,6 +2,7 @@
 	import Button from '$lib/components/button.svelte';
 	import { ReplyIcon, TextQuoteIcon } from '@lucide/svelte';
 	import { Feedback } from '../../../../../_lib/components/feedback';
+	import Ratings from '../../../../../_lib/components/ratings.svelte';
 	import type { ReviewData } from '../../../../../_lib/types/feedback';
 	import { toFarsi } from '../../../../../_lib/utilities/to-farsi';
 	import Comment from './comment.svelte';
@@ -27,7 +28,7 @@
 			<Feedback.Heading>{data.heading}</Feedback.Heading>
 			{data.body}
 		</Feedback.Body>
-		<Feedback.Ratings data={data.ratings} layout="compact" />
+		<Ratings value={data.ratings} layout="compact" />
 		<Feedback.Footer>
 			<Feedback.Like isLiked={data.isLiked} likeCount={data.likeCount} />
 			<Feedback.Group>

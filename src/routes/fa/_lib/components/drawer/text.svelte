@@ -8,5 +8,10 @@
 
 <Box.Root>
 	<Box.Visuals class="bg-background-tertiary" />
-	<input class="h-11.5 w-full px-4 outline-none" type="text" bind:value {placeholder} />
+	<input
+		class="h-11.5 w-full px-4 text-sm outline-none placeholder:text-foreground-primary/50"
+		type="text"
+		bind:value
+		{placeholder}
+	/>
 </Box.Root>

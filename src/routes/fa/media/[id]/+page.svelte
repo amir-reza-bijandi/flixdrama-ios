@@ -29,6 +29,7 @@
 	import AddToListDrawer from './_lib/components/add-to-list-drawer.svelte';
 	import NewCommentDrawer from './_lib/components/new-comment-drawer.svelte';
 	import NewPlaylistDrawer from './_lib/components/new-playlist-drawer.svelte';
+	import NewReviewDrawer from './_lib/components/new-review-drawer.svelte';
 	import BackstageTab from './_lib/components/tabs/backstage-tab.svelte';
 	import CommentsTab from './_lib/components/tabs/comments-tab.svelte';
 	import InfoTab from './_lib/components/tabs/info-tab.svelte';
@@ -143,3 +144,4 @@
 <AddToListDrawer />
 <NewPlaylistDrawer />
 <NewCommentDrawer />
+<NewReviewDrawer />

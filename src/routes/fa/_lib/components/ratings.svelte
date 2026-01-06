@@ -1,15 +1,11 @@
-<script module>
-	export type RatingsChangeEventHandler = (value: Ratings) => void;
-</script>
-
 <script lang="ts">
 	import { Box } from '$lib/components/box';
 	import { Pressable } from '$lib/components/pressable';
 	import Toggle from '$lib/components/toggle.svelte';
 	import { Star } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import { RATING_OPTIONS } from '../../constants/feedback';
-	import type { RatingOption, Ratings } from '../../types/feedback';
+	import { RATING_OPTIONS } from '../constants/feedback';
+	import type { RatingOption, RatingsValue } from '../types/ratings';
 
 	const SCORE_LABEL_MAP: Record<RatingOption, string> = {
 		storyline: 'خط داستانی',
@@ -18,21 +14,12 @@
 		soundtracks: 'موسیقی متن'
 	} as const;
 
-	type InteractableProps = {
-		isInteractable: true;
-		onChange: RatingsChangeEventHandler;
-	};
-	type NonInteractableProps = {
-		isInteractable?: false;
-	};
-	type Props = (InteractableProps | NonInteractableProps) & {
-		data: Ratings;
-		onChange?: RatingsChangeEventHandler;
+	type Props = {
+		value: RatingsValue;
+		isInteractable?: boolean;
 		layout: 'compact' | 'loose';
 	};
-	const { data, isInteractable = false, layout }: Props = $props();
-
-	const value = $state<Ratings>(data);
+	const { value = $bindable(), isInteractable = false, layout }: Props = $props();
 </script>
 
 <Box.Root

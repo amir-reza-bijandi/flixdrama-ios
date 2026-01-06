@@ -3,12 +3,12 @@
 	import { page } from '$app/state';
 	import PostCard from '$lib/components/post-card.svelte';
 	import { Swiper } from '$lib/components/swiper';
-	import { DATA_FA, ROLE_LABEL_MAP } from '$lib/constants/data';
+	import { MEDIA_FA, ROLE_LABEL_MAP } from '$lib/constants/data';
 	import { Post, type PostAdditionalInfoData } from '../../../../../_lib/components/post';
 	import { toFarsi } from '../../../../../_lib/utilities/to-farsi';
 
 	const { synopsis, personnel, nextEpisodeDate, releaseDate, network, episodeCount, rating } =
-		DATA_FA.find(({ id }) => Number(page.params.id) === id) ?? DATA_FA[0];
+		MEDIA_FA.find(({ id }) => Number(page.params.id) === id) ?? MEDIA_FA[0];
 
 	const additionalInfoData = [
 		{
@@ -63,7 +63,7 @@
 	<Post.Section heading="پیشنهادی‌ها">
 		<Swiper.Root>
 			<Swiper.Wrapper>
-				{#each DATA_FA as { id, poster, titleFa, score }}
+				{#each MEDIA_FA as { id, poster, titleFa, score }}
 					<Swiper.Slide>
 						<PostCard
 							href={resolve('/fa/media/[id]', {

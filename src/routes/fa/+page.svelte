@@ -4,7 +4,7 @@
 	import Section from '$lib/components/section.svelte';
 	import Select, { type Option } from '$lib/components/select.svelte';
 	import { Swiper } from '$lib/components/swiper';
-	import { COUNTRY_LABEL_MAP_FA, DATA_FA } from '$lib/constants/data';
+	import { COUNTRY_LABEL_MAP_FA, MEDIA_FA } from '$lib/constants/data';
 	import type { Country } from '$lib/types/data';
 	import { toRem } from '$lib/utilities/general';
 	import RecommendationsCarousel from '../_lib/components/recommendations-carousel.svelte';
@@ -68,13 +68,13 @@
 				isSearchActive && 'pointer-events-none scale-98 opacity-0'
 			]}
 		>
-			<RecommendationsCarousel data={DATA_FA} />
+			<RecommendationsCarousel data={MEDIA_FA} />
 			<SubscriptionBanner />
 			<Section heading="فیلم و سریال‌های من">
 				<Select offset={SWIPER_OFFSET} options={LIST_OPTIONS} />
 				<Swiper.Root offset={SWIPER_OFFSET}>
 					<Swiper.Wrapper>
-						{#each DATA_FA as { id, poster, titleFa, score, country }}
+						{#each MEDIA_FA as { id, poster, titleFa, score, country }}
 							<Swiper.Slide>
 								<PostCard
 									href={resolve('/fa/media/[id]', {
@@ -94,7 +94,7 @@
 				<Select offset={SWIPER_OFFSET} options={countryOptions} />
 				<Swiper.Root offset={SWIPER_OFFSET}>
 					<Swiper.Wrapper>
-						{#each DATA_FA as { id, poster, titleFa, score }}
+						{#each MEDIA_FA as { id, poster, titleFa, score }}
 							<Swiper.Slide>
 								<PostCard
 									href={resolve('/fa/media/[id]', {
@@ -114,7 +114,7 @@
 				<Select offset={SWIPER_OFFSET} options={countryOptions} />
 				<Swiper.Root offset={SWIPER_OFFSET}>
 					<Swiper.Wrapper>
-						{#each DATA_FA as { id, poster, titleFa, score }}
+						{#each MEDIA_FA as { id, poster, titleFa, score }}
 							<Swiper.Slide>
 								<PostCard
 									href={resolve('/fa/media/[id]', {

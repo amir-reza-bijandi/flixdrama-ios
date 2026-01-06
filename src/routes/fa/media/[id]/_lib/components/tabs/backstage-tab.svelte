@@ -2,7 +2,7 @@
 	import { asset, resolve } from '$app/paths';
 	import PostCard from '$lib/components/post-card.svelte';
 	import { Swiper } from '$lib/components/swiper';
-	import { DATA_FA } from '$lib/constants/data';
+	import { MEDIA_FA } from '$lib/constants/data';
 	import PlaylistCard from '../../../../../_lib/components/playlist-card.svelte';
 	import { Post } from '../../../../../_lib/components/post';
 	import { toFarsi } from '../../../../../_lib/utilities/to-farsi';
@@ -81,7 +81,7 @@
 					title="عنوان لیست پخش"
 					subtitle="نام کاربری"
 					images={Array.from({ length: 4 }).map(
-						() => DATA_FA[generateRandomNumber(DATA_FA.length)].poster
+						() => MEDIA_FA[generateRandomNumber(MEDIA_FA.length)].poster
 					)}
 				/>
 			{/each}

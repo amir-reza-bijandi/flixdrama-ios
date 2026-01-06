@@ -2,7 +2,7 @@ import type { LucideIcon } from '$lib/types/icon';
 import { FilmIcon, TvIcon } from '@lucide/svelte';
 import type { Country, MediaEn, MediaFa, Role, Type } from '../types/data';
 
-export const DATA_EN = [
+export const MEDIA_EN = [
 	{
 		id: 1,
 		poster: '/image/poster/1.jpg',
@@ -147,7 +147,7 @@ export const TYPE_LABEL_MAP_EN = {
 	tv: 'TV'
 } as const satisfies Record<Type, string>;
 
-export const DATA_FA = [
+export const MEDIA_FA = [
 	{
 		id: 1,
 		poster: '/image/poster/1.jpg',

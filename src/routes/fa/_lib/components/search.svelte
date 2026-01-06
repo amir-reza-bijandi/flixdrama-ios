@@ -5,7 +5,7 @@
 <script lang="ts">
 	import { Box } from '$lib/components/box';
 	import { Pressable } from '$lib/components/pressable';
-	import { DATA_FA } from '$lib/constants/data';
+	import { MEDIA_FA } from '$lib/constants/data';
 	import { toRem } from '$lib/utilities/general';
 	import { HistoryIcon, SearchIcon } from '@lucide/svelte';
 	import { sizeStore } from '../store/size-store.svelte';
@@ -18,7 +18,7 @@
 	const { isActive }: Props = $props();
 
 	let query = $state('');
-	let history = $state<string[]>(DATA_FA.map(({ titleFa }) => titleFa).slice(0, MAX_HISTORY));
+	let history = $state<string[]>(MEDIA_FA.map(({ titleFa }) => titleFa).slice(0, MAX_HISTORY));
 	let historyHeight = $state(0);
 	let isOnTop = $state(false);
 	const showHistory = $derived(!query && isActive && history.length);

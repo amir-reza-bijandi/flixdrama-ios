@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Option, OptionsValue } from '$lib/components/select.svelte';
 	import Select from '$lib/components/select.svelte';
-	import { DATA_EN } from '$lib/constants/data';
+	import { MEDIA_EN } from '$lib/constants/data';
 	import type { DirectionFactor } from '$lib/types/transition';
 	import { toRem } from '$lib/utilities/general';
 	import { flip } from 'svelte/animate';
@@ -39,7 +39,7 @@
 		return currentIndex === 1 ? 1 : -1;
 	});
 	let queueItems = $state<QueueListItemData[]>(
-		DATA_EN.map<QueueListItemData>(({ title, backdrop }, index) => ({
+		MEDIA_EN.map<QueueListItemData>(({ title, backdrop }, index) => ({
 			id: index + 1,
 			title,
 			image: backdrop,
@@ -48,7 +48,7 @@
 		}))
 	);
 	let fileItems = $state<FileListItemData[]>(
-		DATA_EN.map<FileListItemData>(({ id, backdrop, title }) => ({
+		MEDIA_EN.map<FileListItemData>(({ id, backdrop, title }) => ({
 			id,
 			title,
 			image: backdrop,

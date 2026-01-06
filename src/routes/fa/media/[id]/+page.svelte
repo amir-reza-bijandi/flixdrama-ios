@@ -7,7 +7,7 @@
 	import Toggle from '$lib/components/toggle.svelte';
 	import {
 		COUNTRY_LABEL_MAP_FA,
-		DATA_FA,
+		MEDIA_FA,
 		TYPE_ICON_MAP,
 		TYPE_LABEL_MAP_FA
 	} from '$lib/constants/data';
@@ -19,6 +19,7 @@
 	import type { Component } from 'svelte';
 	import Button from '../../../../lib/components/button.svelte';
 	import Score from '../../../_lib/components/score.svelte';
+	import { backgroundStore } from '../../../_lib/store/background-store.svelte';
 	import Backdrop from '../../_lib/components/backdrop.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
 	import { Post, type PostInfoData } from '../../_lib/components/post';
@@ -60,7 +61,7 @@
 		backstage: BackstageTab
 	};
 	const { titleFa, titleEn, backdrop, type, country, year, genres, score } =
-		DATA_FA.find(({ id }) => Number(page.params.id) === id) ?? DATA_FA[0];
+		MEDIA_FA.find(({ id }) => Number(page.params.id) === id) ?? MEDIA_FA[0];
 
 	let currentTab = $state<OptionsValue<typeof SELECT_OPTIONS>>('info');
 	let isLiked = $state(false);
@@ -82,6 +83,10 @@
 		}
 	]);
 	const Tab = $derived(OPTION_TAB_MAP[currentTab]);
+
+	$effect(() => {
+		backgroundStore.image = backdrop;
+	});
 
 	const handleLikeToggle: LikeToggleEventHandler = (isActive) => (isLiked = isActive);
 	const handleNotificationsToggle = () => (isNotificationsActive = !isNotificationsActive);

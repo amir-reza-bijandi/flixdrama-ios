@@ -3,7 +3,7 @@
 	import { page } from '$app/state';
 	import PostCard from '$lib/components/post-card.svelte';
 	import { Swiper } from '$lib/components/swiper';
-	import { COUNTRY_LABEL_MAP_EN, DATA_EN, TYPE_LABEL_MAP_EN } from '$lib/constants/data';
+	import { COUNTRY_LABEL_MAP_EN, MEDIA_EN, TYPE_LABEL_MAP_EN } from '$lib/constants/data';
 	import { toRem } from '$lib/utilities/general';
 	import { CalendarIcon, GlobeIcon, TvIcon } from '@lucide/svelte';
 	import Genres from '../../../_lib/components/genres.svelte';
@@ -19,7 +19,7 @@
 	const SWIPER_SPACE_BETWEEN = 8;
 
 	const { backdrop, title, type, country, year, genres, synopsis, score } = $derived(
-		DATA_EN.find(({ id }) => id === Number(page.params.id)) ?? DATA_EN[0]
+		MEDIA_EN.find(({ id }) => id === Number(page.params.id)) ?? MEDIA_EN[0]
 	);
 	const shortInfoData = $derived<PostInfoData>([
 		{
@@ -62,7 +62,7 @@
 				<PostSection heading="Recommendations">
 					<Swiper.Root>
 						<Swiper.Wrapper>
-							{#each DATA_EN as { id, poster, title, score }}
+							{#each MEDIA_EN as { id, poster, title, score }}
 								<Swiper.Slide>
 									<PostCard
 										href={resolve('/en/media/[id]', {

@@ -108,7 +108,7 @@
 				<Separator size={12} />
 				<Pressable.Root class="-mr-0.5 size-10" onClick={handleToggleDarkMode}>
 					<Pressable.Content class="grid place-items-center">
-						<Toggle isActive={mode.current === 'dark'}>
+						<Toggle isActive={mode.current === 'dark'} mustRotate speed="slow">
 							{#snippet active()}
 								<Icon src={Sun} class="size-5 text-accent-secondary-tint" theme="mini" />
 							{/snippet}

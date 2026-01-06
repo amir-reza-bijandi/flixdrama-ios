@@ -8,7 +8,7 @@
 	const { children }: Props = $props();
 </script>
 
-<Box.Root class="divide-y divide-stroke-primary">
+<Box.Root class="flex flex-col divide-y divide-stroke-primary">
 	<Box.Visuals class="rounded-3xl bg-background-tertiary" hasBlur={false} />
 	{@render children()}
 </Box.Root>

@@ -20,14 +20,16 @@
 </script>
 
 <Drawer.Root hash={HASH.NEW_REVIEW}>
-	<Drawer.Text bind:value={heading} placeholder="عنوان نقد رو اینجا وارد کن..." />
-	<Drawer.Group>
-		<Drawer.TextArea bind:value={body} placeholder="متن نقد رو اینجا بنویس..." />
-		<Drawer.Switch value="" isActive={isSpoiler} onSelect={handleToggleSpoiler}>
-			متن نقد داستان رو لو می‌ده؟
-		</Drawer.Switch>
-	</Drawer.Group>
-	<Ratings bind:value={ratings} layout="loose" isInteractable />
+	<Drawer.Body>
+		<Drawer.Text bind:value={heading} placeholder="عنوان نقد رو اینجا وارد کن..." />
+		<Drawer.Group>
+			<Drawer.TextArea bind:value={body} placeholder="متن نقد رو اینجا بنویس..." />
+			<Drawer.Switch value="" isActive={isSpoiler} onSelect={handleToggleSpoiler}>
+				متن نقد داستان رو لو می‌ده؟
+			</Drawer.Switch>
+		</Drawer.Group>
+		<Ratings bind:value={ratings} layout="loose" isInteractable />
+	</Drawer.Body>
 	<Drawer.Footer>
 		<Button onClick={handleSubmit}>ثبت</Button>
 	</Drawer.Footer>

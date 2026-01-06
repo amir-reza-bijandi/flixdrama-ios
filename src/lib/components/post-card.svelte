@@ -1,3 +1,7 @@
+<script module>
+	TimeAgo.addDefaultLocale(fa);
+</script>
+
 <script lang="ts">
 	import { langStore } from '$lib/store/lang-store.svelte';
 	import type { HeroIcon } from '$lib/types/icon';
@@ -9,8 +13,6 @@
 	import { formatCount } from '../../routes/fa/_lib/utilities/format-count';
 	import { toFarsi } from '../../routes/fa/_lib/utilities/to-farsi';
 	import Image from './image.svelte';
-
-	TimeAgo.addDefaultLocale(fa);
 
 	const getPostCardClass = tv({
 		base: 'h-auto w-full',

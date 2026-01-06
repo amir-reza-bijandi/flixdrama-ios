@@ -3,11 +3,13 @@
 </script>
 
 <script lang="ts">
+	import { asset } from '$app/paths';
 	import { Box } from '$lib/components/box';
 	import { Pressable } from '$lib/components/pressable';
 	import { MEDIA_FA } from '$lib/constants/data';
 	import { toRem } from '$lib/utilities/general';
 	import { HistoryIcon, SearchIcon } from '@lucide/svelte';
+	import { pageIconStore } from '../../../_lib/store/page-icon-store.svelte';
 	import { sizeStore } from '../store/size-store.svelte';
 
 	const MAX_HISTORY = 4;
@@ -16,6 +18,11 @@
 		isActive: boolean;
 	};
 	const { isActive }: Props = $props();
+
+	$effect(() => {
+		if (isActive) pageIconStore.current = asset('/image/icon/page/search.svg');
+		else pageIconStore.current = '';
+	});
 
 	let query = $state('');
 	let history = $state<string[]>(MEDIA_FA.map(({ titleFa }) => titleFa).slice(0, MAX_HISTORY));

@@ -2,7 +2,7 @@
 	import type { Snippet } from 'svelte';
 
 	type Props = {
-		children: Snippet;
+		children?: Snippet;
 		heading: string;
 	};
 	const { children, heading }: Props = $props();
@@ -10,5 +10,5 @@
 
 <div>
 	<div class="mb-3 font-bold transition-colors">{heading}</div>
-	{@render children()}
+	{@render children?.()}
 </div>

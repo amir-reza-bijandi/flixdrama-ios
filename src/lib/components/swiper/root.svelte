@@ -15,7 +15,15 @@
 	import { FreeMode } from 'swiper/modules';
 	import { cn, type ClassValue } from 'tailwind-variants';
 
-	const { children, spaceBetween = 0, offset = 0, class: extraClass }: Props = $props();
+	const DEFAULT_SWIPER_OFFSET = 24;
+	const DEFAULT_SWIPER_SPACE_BETWEEN = 8;
+
+	const {
+		children,
+		spaceBetween = DEFAULT_SWIPER_SPACE_BETWEEN,
+		offset = DEFAULT_SWIPER_OFFSET,
+		class: extraClass
+	}: Props = $props();
 
 	let swiperElm = $state<HTMLElement | null>(null);
 

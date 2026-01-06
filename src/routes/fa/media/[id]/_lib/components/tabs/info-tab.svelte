@@ -7,9 +7,6 @@
 	import { Post, type PostAdditionalInfoData } from '../../../../../_lib/components/post';
 	import { toFarsi } from '../../../../../_lib/utilities/to-farsi';
 
-	const SWIPER_OFFSET = 24;
-	const SWIPER_SPACE_BETWEEN = 8;
-
 	const { synopsis, personnel, nextEpisodeDate, releaseDate, network, episodeCount, rating } =
 		DATA_FA.find(({ id }) => Number(page.params.id) === id) ?? DATA_FA[0];
 
@@ -44,7 +41,7 @@
 		</Post.Expandable>
 	</Post.Section>
 	<Post.Section heading="عوامل">
-		<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+		<Swiper.Root>
 			<Swiper.Wrapper>
 				{#each personnel as { id, name, image, role }}
 					<Swiper.Slide>
@@ -55,7 +52,8 @@
 							{image}
 							subtitle={role.map((role) => ROLE_LABEL_MAP[role]).join(' / ')}
 							title={name}
-							isCircle
+							aspectRatio="square"
+							isFullyRounded
 						/>
 					</Swiper.Slide>
 				{/each}
@@ -63,9 +61,9 @@
 		</Swiper.Root>
 	</Post.Section>
 	<Post.Section heading="پیشنهادی‌ها">
-		<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+		<Swiper.Root>
 			<Swiper.Wrapper>
-				{#each DATA_FA as { id, poster, titleFa, score, country }}
+				{#each DATA_FA as { id, poster, titleFa, score }}
 					<Swiper.Slide>
 						<PostCard
 							href={resolve('/fa/media/[id]', {

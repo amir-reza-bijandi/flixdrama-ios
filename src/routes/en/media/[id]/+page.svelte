@@ -60,7 +60,7 @@
 					</PostExpandable>
 				</PostSection>
 				<PostSection heading="Recommendations">
-					<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+					<Swiper.Root>
 						<Swiper.Wrapper>
 							{#each DATA_EN as { id, poster, title, score }}
 								<Swiper.Slide>

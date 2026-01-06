@@ -11,7 +11,6 @@
 	import { navigationStore } from './_lib/stores/navigation-store.svelte';
 
 	const SWIPER_OFFSET = 20;
-	const SWIPER_SPACE_BETWEEN = 8;
 
 	const options = Object.keys(COUNTRY_LABEL_MAP_EN).map<Option>((country) => ({
 		name: COUNTRY_LABEL_MAP_EN[country as Country],
@@ -23,7 +22,7 @@
 	<RecommendationsCarousel data={DATA_EN} />
 	<Section heading="TV Releases">
 		<Select {options} />
-		<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+		<Swiper.Root offset={SWIPER_OFFSET}>
 			<Swiper.Wrapper>
 				{#each DATA_EN as { id, poster, title, score }}
 					<Swiper.Slide>
@@ -43,7 +42,7 @@
 	</Section>
 	<Section heading="Movie Releases">
 		<Select {options} />
-		<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+		<Swiper.Root offset={SWIPER_OFFSET}>
 			<Swiper.Wrapper>
 				{#each DATA_EN as { id, poster, title, score }}
 					<Swiper.Slide>

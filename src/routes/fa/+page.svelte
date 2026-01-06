@@ -18,7 +18,6 @@
 	import { toFarsi } from './_lib/utilities/to-farsi';
 
 	const SWIPER_OFFSET = 20;
-	const SWIPER_SPACE_BETWEEN = 8;
 
 	const LIST_OPTIONS: Option[] = [
 		{
@@ -73,7 +72,7 @@
 			<SubscriptionBanner />
 			<Section heading="فیلم و سریال‌های من">
 				<Select offset={SWIPER_OFFSET} options={LIST_OPTIONS} />
-				<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+				<Swiper.Root offset={SWIPER_OFFSET}>
 					<Swiper.Wrapper>
 						{#each DATA_FA as { id, poster, titleFa, score, country }}
 							<Swiper.Slide>
@@ -93,7 +92,7 @@
 			</Section>
 			<Section heading="جدیدترین سریال‌ها">
 				<Select offset={SWIPER_OFFSET} options={countryOptions} />
-				<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+				<Swiper.Root offset={SWIPER_OFFSET}>
 					<Swiper.Wrapper>
 						{#each DATA_FA as { id, poster, titleFa, score }}
 							<Swiper.Slide>
@@ -113,7 +112,7 @@
 			</Section>
 			<Section heading="جدیدترین فیلم‌ها">
 				<Select offset={SWIPER_OFFSET} options={countryOptions} />
-				<Swiper.Root offset={SWIPER_OFFSET} spaceBetween={SWIPER_SPACE_BETWEEN}>
+				<Swiper.Root offset={SWIPER_OFFSET}>
 					<Swiper.Wrapper>
 						{#each DATA_FA as { id, poster, titleFa, score }}
 							<Swiper.Slide>

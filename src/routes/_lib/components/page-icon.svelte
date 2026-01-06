@@ -3,9 +3,11 @@
 	import { TRANSITION } from '$lib/constants/transition';
 	import { toRem } from '$lib/utilities/general';
 	import { mode } from 'mode-watcher';
-	import { backOut } from 'svelte/easing';
-	import { fade, type TransitionConfig } from 'svelte/transition';
+	import { backOut, cubicOut } from 'svelte/easing';
+	import { fade, fly, type TransitionConfig } from 'svelte/transition';
 	import { pageIconStore } from '../store/page-icon-store.svelte';
+
+	const ROTATION = 360;
 
 	interface SpinScaleOptions {
 		delay?: number;
@@ -18,10 +20,10 @@
 		node: HTMLElement,
 		{
 			delay = 0,
-			duration = TRANSITION.DURATION,
-			easing = backOut,
-			startScale = 0.75,
-			startRotation = 360
+			duration = TRANSITION.DURATION * 2,
+			easing = cubicOut,
+			startScale = 0,
+			startRotation = ROTATION
 		}: SpinScaleOptions = {}
 	): TransitionConfig {
 		const opacity = +getComputedStyle(node).opacity;
@@ -49,8 +51,16 @@
 	<div
 		style:--width={toRem(width)}
 		style:--height={toRem(height)}
-		class="fixed top-content-padding left-content-padding -z-10 h-(--height) w-(--width) mix-blend-overlay"
-		transition:spinScale
+		class="absolute top-content-padding left-content-padding -z-10 h-(--height) w-(--width) mix-blend-overlay"
+		in:fly={{
+			easing: backOut,
+			y: height,
+			duration: 750
+		}}
+		out:fly={{
+			y: -height,
+			duration: 500
+		}}
 	>
 		{#key mode.current === 'dark'}
 			<div

@@ -1,6 +1,6 @@
 <script module>
 	export type Option = Readonly<{
-		name: string;
+		label: string;
 		value: unknown;
 	}>;
 	type Options = ReadonlyArray<Option>;
@@ -32,7 +32,7 @@
 <div class={[alignment === 'center' && 'flex justify-center']}>
 	<Swiper.Root class="mt-3 mb-4" {offset} spaceBetween={8}>
 		<Swiper.Wrapper>
-			{#each options as { name, value }, index (value)}
+			{#each options as { label: name, value }, index (value)}
 				<Swiper.Slide>
 					<div bind:this={optionElms[index]}>
 						<Pressable.Root class="inline-block" onClick={() => (currentValue = value)}>

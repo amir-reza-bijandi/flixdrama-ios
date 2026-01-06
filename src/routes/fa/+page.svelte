@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
+	import { asset, resolve } from '$app/paths';
 	import PostCard from '$lib/components/post-card.svelte';
 	import Section from '$lib/components/section.svelte';
 	import Select, { type Option } from '$lib/components/select.svelte';
@@ -21,24 +21,24 @@
 
 	const LIST_OPTIONS: Option[] = [
 		{
-			name: 'در حال تماشا',
+			label: 'در حال تماشا',
 			value: 'watching'
 		},
 		{
-			name: 'بعداً می‌بینم',
+			label: 'بعداً می‌بینم',
 			value: 'plan-to-watch'
 		},
 		{
-			name: 'خوشم نیومد',
+			label: 'خوشم نیومد',
 			value: 'dropped'
 		},
 		{
-			name: 'تا آخر دیدم',
+			label: 'تا آخر دیدم',
 			value: 'finished'
 		}
 	];
 	const countryOptions = Object.keys(COUNTRY_LABEL_MAP_FA).map<Option>((country) => ({
-		name: COUNTRY_LABEL_MAP_FA[country as Country],
+		label: COUNTRY_LABEL_MAP_FA[country as Country],
 		value: country as Country
 	}));
 
@@ -56,6 +56,7 @@
 	showBackButton={isSearchActive}
 	actions={!isSearchActive ? profileButton : undefined}
 	isTransitionReversed={isSearchActive}
+	icon={asset('/image/icon/page/home.svg')}
 >
 	<div
 		style:--padding-bottom={toRem(sizeStore.navigationHeight)}

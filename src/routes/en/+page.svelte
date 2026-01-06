@@ -13,7 +13,7 @@
 	const SWIPER_OFFSET = 20;
 
 	const options = Object.keys(COUNTRY_LABEL_MAP_EN).map<Option>((country) => ({
-		name: COUNTRY_LABEL_MAP_EN[country as Country],
+		label: COUNTRY_LABEL_MAP_EN[country as Country],
 		value: country as Country
 	}));
 </script>

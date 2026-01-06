@@ -38,19 +38,19 @@
 
 	const SELECT_OPTIONS = [
 		{
-			name: 'مشخصات',
+			label: 'مشخصات',
 			value: 'info'
 		},
 		{
-			name: 'دیدگاه‌ها',
+			label: 'دیدگاه‌ها',
 			value: 'comments'
 		},
 		{
-			name: 'نقدها',
+			label: 'نقدها',
 			value: 'reviews'
 		},
 		{
-			name: 'پشت صحنه',
+			label: 'پشت صحنه',
 			value: 'backstage'
 		}
 	] as const satisfies Option[];

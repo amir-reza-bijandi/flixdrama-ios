@@ -16,6 +16,7 @@
 	import { backOut } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
 	import { cn, type ClassValue } from 'tailwind-variants';
+	import { pageIconStore } from '../../../_lib/store/page-icon-store.svelte';
 	import { historyStore } from '../store/history-store.svelte';
 	import { sizeStore } from '../store/size-store.svelte';
 
@@ -25,17 +26,25 @@
 		actions?: Snippet;
 		isTransitionReversed?: boolean;
 		showBackButton?: boolean;
+		icon?: string;
 	};
 	const {
 		children,
 		class: extraClass,
 		actions,
 		isTransitionReversed,
-		showBackButton = false
+		showBackButton = false,
+		icon
 	}: Props = $props();
 
 	let isNotificationsActive = $state(false);
 	let actionWidth = $state(0);
+
+	$effect(() => {
+		if (icon) {
+			pageIconStore.current = icon;
+		}
+	});
 
 	const handleToggleDarkMode = () => setMode(mode.current === 'light' ? 'dark' : 'light');
 	const handleToggleNotifications = () => (isNotificationsActive = !isNotificationsActive);

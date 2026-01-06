@@ -57,7 +57,7 @@
 	] as const satisfies Route[];
 
 	const currentPathname = $derived(navigating.to ? navigating.to.url.pathname : page.url.pathname);
-	const isCenterButtonActive = $derived(currentPathname === '/fa/feed');
+	const isCenterButtonActive = $derived(currentPathname.includes(resolve('/fa/backstage')));
 	let centerButtonContentWidth = $state(0);
 	let centerButtonWidth = $derived(
 		isCenterButtonActive ? centerButtonContentWidth : DEFAULT_CENTER_BUTTON_SIZE
@@ -189,7 +189,7 @@
 					'gradient-border relative grid h-12 w-(--width) min-w-(--height) place-items-center overflow-hidden rounded-full bg-gradient bg-gradient-primary text-foreground-accent transition-[width] ease-overshoot-heavy',
 					!isCenterButtonActive && 'duration-750'
 				]}
-				href={resolve('/fa/feed')}
+				href={resolve('/fa/backstage/')}
 				draggable={false}
 			>
 				<div class="absolute top-1/2 left-1/2 isolate grid place-items-center">

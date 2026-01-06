@@ -21,7 +21,7 @@
 
 	$effect(() => {
 		if (isActive) pageIconStore.current = asset('/image/icon/page/search.svg');
-		else pageIconStore.current = '';
+		else pageIconStore.current = asset('/image/icon/page/home.svg');
 	});
 
 	let query = $state('');

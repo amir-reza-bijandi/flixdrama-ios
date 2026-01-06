@@ -1,5 +1,6 @@
 <script lang="ts">
+	import { asset } from '$app/paths';
 	import PageWrapper from '../_lib/components/page-wrapper.svelte';
 </script>
 
-<PageWrapper />
+<PageWrapper icon={asset('/image/icon/page/downloads.svg')} />

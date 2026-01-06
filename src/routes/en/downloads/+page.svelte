@@ -17,11 +17,11 @@
 
 	const TABS = [
 		{
-			name: 'Queue',
+			label: 'Queue',
 			value: 'queue'
 		},
 		{
-			name: 'Files',
+			label: 'Files',
 			value: 'files'
 		}
 	] as const satisfies Option[];

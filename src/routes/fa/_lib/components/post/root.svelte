@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { toRem } from '$lib/utilities/general';
 	import type { Snippet } from 'svelte';
+	import { cn, type ClassValue } from 'tailwind-variants';
 
 	type Props = {
-		children: Snippet;
-		padding?: number;
+		children?: Snippet;
+		class?: ClassValue;
 	};
-	const { children, padding = 20 }: Props = $props();
+	const { children, class: extraClass }: Props = $props();
 </script>
 
-<div style:--padding={toRem(padding)} class="p-(--padding)">
-	{@render children()}
+<div class={cn('p-5', extraClass)}>
+	{@render children?.()}
 </div>

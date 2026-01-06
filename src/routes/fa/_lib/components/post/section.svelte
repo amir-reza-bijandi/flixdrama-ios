@@ -1,14 +1,16 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import { cn, type ClassValue } from 'tailwind-variants';
 
 	type Props = {
 		children?: Snippet;
 		heading: string;
+		class?: ClassValue;
 	};
-	const { children, heading }: Props = $props();
+	const { children, heading, class: extraClass }: Props = $props();
 </script>
 
 <div>
-	<div class="mb-3 font-bold transition-colors">{heading}</div>
+	<div class={cn('mb-3 font-bold transition-colors', extraClass)}>{heading}</div>
 	{@render children?.()}
 </div>

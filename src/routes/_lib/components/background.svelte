@@ -6,14 +6,14 @@
 </script>
 
 <div class="absolute inset-0 -z-10 overflow-hidden bg-background-primary">
-	{#key backgroundStore.image}
+	{#key backgroundStore.current}
 		<div
 			class="absolute size-full"
 			transition:fade={{
 				duration: 1000
 			}}
 		>
-			<Image class="h-screen w-screen scale-125 blur-[128px]" src={backgroundStore.image} />
+			<Image class="h-screen w-screen scale-125 blur-[128px]" src={backgroundStore.current} />
 		</div>
 	{/key}
 	<div

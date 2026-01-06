@@ -1,6 +1,6 @@
-import { SUBSCRIPTIONS } from '../../../../_lib/constants/user';
-import type { CommentData, Recipient } from '../../../../_lib/types/feedback';
-import { AVATAR_COUNT, AVATARS } from '../constants/comment';
+import { AVATAR_COUNT, AVATARS } from '../../media/[id]/_lib/constants/comment';
+import { SUBSCRIPTIONS } from '../constants/user';
+import type { CommentData, Recipient } from '../types/feedback';
 
 export function generateRandomNumber(max: number) {
 	return Math.floor(Math.random() * max);

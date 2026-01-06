@@ -85,7 +85,7 @@
 	const Tab = $derived(OPTION_TAB_MAP[currentTab]);
 
 	$effect(() => {
-		backgroundStore.image = backdrop;
+		backgroundStore.current = backdrop;
 	});
 
 	const handleLikeToggle: LikeToggleEventHandler = (isActive) => (isLiked = isActive);
@@ -128,7 +128,7 @@
 		class="box-container relative z-20 mt-49 min-h-screen pb-(--padding-bottom)"
 	>
 		<Box.Visuals class="bg-background-tertiary" roundedSide="top" />
-		<Post.Root padding={24}>
+		<Post.Root class="p-6">
 			<Post.Like value={673} isActive={isLiked} onToggle={handleLikeToggle} />
 			<Post.Heading>{titleFa}</Post.Heading>
 			<Post.Subheading>{titleEn}</Post.Subheading>

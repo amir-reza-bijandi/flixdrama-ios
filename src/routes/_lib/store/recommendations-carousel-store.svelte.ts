@@ -7,7 +7,7 @@ class RecommendationsCarouselStore {
 	constructor() {
 		$effect.root(() => {
 			$effect(() => {
-				backgroundStore.image = MEDIA_FA[recommendationsCarouselStore.currentIndex].backdrop;
+				backgroundStore.current = MEDIA_FA[recommendationsCarouselStore.currentIndex].backdrop;
 			});
 		});
 	}

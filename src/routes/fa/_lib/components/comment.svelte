@@ -2,10 +2,10 @@
 	import Button from '$lib/components/button.svelte';
 
 	import { ReplyIcon, TextQuoteIcon } from '@lucide/svelte';
-	import { Feedback } from '../../../../../_lib/components/feedback';
-	import type { CommentData } from '../../../../../_lib/types/feedback';
-	import { formatCount } from '../../../../../_lib/utilities/format-count';
+	import type { CommentData } from '../types/feedback';
+	import { formatCount } from '../utilities/format-count';
 	import Comment from './comment.svelte';
+	import { Feedback } from './feedback';
 
 	type Props = {
 		data: CommentData;

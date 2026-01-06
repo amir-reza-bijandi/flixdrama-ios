@@ -2,7 +2,6 @@
 	import { langStore } from '$lib/store/lang-store.svelte';
 	import { Lang } from '$lib/types/general';
 	import type { LucideIcon } from '$lib/types/icon';
-	import { toRem } from '$lib/utilities/general';
 	export type PostInfoData = {
 		label: string;
 		icon: LucideIcon;
@@ -12,15 +11,11 @@
 <script lang="ts">
 	type Props = {
 		data: PostInfoData;
-		margin?: number;
 	};
-	const { data, margin = 0 }: Props = $props();
+	const { data }: Props = $props();
 </script>
 
-<div
-	style:--margin={toRem(margin)}
-	class="my-(--margin) flex h-(--height) w-(--width) items-center gap-1.5"
->
+<div class="flex h-(--height) w-(--width) items-center gap-1.5">
 	{#each data as { icon: Icon, label }, index}
 		<div class="flex items-center gap-1 text-sm text-foreground-secondary transition-colors">
 			<Icon class="size-3.5 stroke-2" />

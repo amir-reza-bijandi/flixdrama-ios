@@ -9,7 +9,7 @@
 	import { scale } from 'svelte/transition';
 
 	type Props = {
-		children: Snippet;
+		children?: Snippet;
 	};
 	const { children }: Props = $props();
 
@@ -41,7 +41,7 @@
 		]}
 	>
 		<div class="absolute inset-0 h-fit px-4 pt-3 pb-6" bind:clientHeight={maxTextHeight}>
-			{@render children()}
+			{@render children?.()}
 		</div>
 	</div>
 	{#if maxTextHeight > MIN_TEXT_HEIGHT}

@@ -5,8 +5,8 @@
 	import { WATCHING_STATUS } from '../../../../../_lib/constants/media';
 	import { SUBSCRIPTIONS } from '../../../../../_lib/constants/user';
 	import type { ReviewData } from '../../../../../_lib/types/feedback';
+	import { generateMockComment, generateRandomNumber } from '../../../../../_lib/utilities/comment';
 	import { AVATAR_COUNT, AVATARS } from '../../constants/comment';
-	import { generateMockComment, generateRandomNumber } from '../../utilities/comment';
 	import Review from './review.svelte';
 
 	function generateMockReview(): ReviewData {

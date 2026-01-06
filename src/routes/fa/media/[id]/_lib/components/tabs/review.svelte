@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Button from '$lib/components/button.svelte';
 	import { ReplyIcon, TextQuoteIcon } from '@lucide/svelte';
+	import Comment from '../../../../../_lib/components/comment.svelte';
 	import { Feedback } from '../../../../../_lib/components/feedback';
 	import Ratings from '../../../../../_lib/components/ratings.svelte';
 	import type { ReviewData } from '../../../../../_lib/types/feedback';
 	import { toFarsi } from '../../../../../_lib/utilities/to-farsi';
-	import Comment from './comment.svelte';
 
 	function formatCount(count: number) {
 		return count === 0 ? '-' : toFarsi(count);

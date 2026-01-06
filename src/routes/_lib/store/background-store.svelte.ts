@@ -1,4 +1,4 @@
 class BackgroundStore {
-	image = $state('');
+	current = $state('');
 }
 export const backgroundStore = new BackgroundStore();

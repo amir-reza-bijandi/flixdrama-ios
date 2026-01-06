@@ -51,7 +51,7 @@
 			<Score>
 				{score}
 			</Score>
-			<PostInfo data={shortInfoData} margin={4} />
+			<PostInfo data={shortInfoData} />
 			<Genres data={genres} />
 			<div class="flex flex-col gap-4">
 				<PostSection heading="Synopsis">

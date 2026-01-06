@@ -5,8 +5,8 @@
 	import { MEDIA_FA } from '$lib/constants/data';
 	import PlaylistCard from '../../../../../_lib/components/playlist-card.svelte';
 	import { Post } from '../../../../../_lib/components/post';
+	import { generateRandomNumber } from '../../../../../_lib/utilities/comment';
 	import { toFarsi } from '../../../../../_lib/utilities/to-farsi';
-	import { generateRandomNumber } from '../../utilities/comment';
 </script>
 
 <Post.Group spacing={16}>

@@ -46,7 +46,7 @@
 				{#each personnel as { id, name, image, role }}
 					<Swiper.Slide>
 						<PostCard
-							href={resolve(`/fa/actor/[id]`, {
+							href={resolve(`/fa/personnel/[id]`, {
 								id: String(id)
 							})}
 							{image}

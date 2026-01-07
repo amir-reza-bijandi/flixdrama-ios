@@ -111,7 +111,6 @@
 {/snippet}
 {#snippet playlist()}
 	<PlaylistCategory
-		variant="primary"
 		href={resolve('/fa/backstage/media-playlist')}
 		image={{
 			small: asset('/image/collage/media@1x.png'),
@@ -123,7 +122,6 @@
 		icon={asset('/image/icon/fade/film.svg')}
 	/>
 	<PlaylistCategory
-		variant="secondary"
 		href={resolve('/fa/backstage/soundtrack-playlist')}
 		image={{
 			small: asset('/image/collage/soundtrack@1x.png'),

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Box } from '$lib/components/box';
 	import Image, { type ImageSrcSet } from '$lib/components/image.svelte';
+	import FadingIcon from '../../../../_lib/components/fading-icon.svelte';
 
 	type Props = {
 		href: string;
@@ -8,9 +9,8 @@
 		body: string;
 		icon: string;
 		image: ImageSrcSet;
-		variant: 'primary' | 'secondary';
 	};
-	const { href, title, body, icon, image, variant }: Props = $props();
+	const { href, title, body, icon, image }: Props = $props();
 </script>
 
 <a {href}>
@@ -22,13 +22,10 @@
 				hasLoadingGlow
 			/>
 		</Box.Visuals>
-		<div class="relative z-10">
+		<div class="relative z-10 max-w-66">
 			<div class="mb-1 text-sm leading-none font-bold">{title}</div>
 			<div class="text-xs leading-normal text-foreground-secondary">{body}</div>
 		</div>
-		<Image
-			class="absolute top-1/2 left-5 size-10 -translate-y-1/2 mask-linear-180 mask-linear-from-black/25 mask-linear-to-transparent mix-blend-overlay"
-			src={icon}
-		/>
+		<FadingIcon class="top-1/2 left-5 -translate-y-1/2 mix-blend-overlay" src={icon} size={40} />
 	</Box.Root>
 </a>

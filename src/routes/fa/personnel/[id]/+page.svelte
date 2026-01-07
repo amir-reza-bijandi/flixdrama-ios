@@ -6,14 +6,12 @@
 	import { Swiper } from '$lib/components/swiper';
 	import { MEDIA_FA } from '$lib/constants/data';
 	import { toLocaleDateString } from '$lib/utilities/date';
-	import { toRem } from '$lib/utilities/general';
 	import { CakeIcon, CalendarIcon, FilmIcon, PlusIcon } from '@lucide/svelte';
 	import { backgroundStore } from '../../../_lib/store/background-store.svelte';
 	import Comment from '../../_lib/components/comment.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
 	import { Post, type PostInfoData } from '../../_lib/components/post';
 	import { HASH } from '../../_lib/constants/hash';
-	import { sizeStore } from '../../_lib/store/size-store.svelte';
 	import { generateMockComment, generateRandomNumber } from '../../_lib/utilities/comment';
 	import { toFarsi } from '../../_lib/utilities/to-farsi';
 
@@ -41,7 +39,7 @@
 	});
 </script>
 
-<PageWrapper --padding-bottom={toRem(sizeStore.navigationHeight)} class="pb-(--padding-bottom)">
+<PageWrapper hasBottomPadding>
 	<Post.Root>
 		<div class="mb-4 flex flex-col items-center">
 			<Image

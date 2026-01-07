@@ -8,6 +8,7 @@
 	import Separator from '$lib/components/separator.svelte';
 	import Toggle from '$lib/components/toggle.svelte';
 	import { TRANSITION } from '$lib/constants/transition';
+	import { toRem } from '$lib/utilities/general';
 	import { ChevronLeft, Moon, Sun, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { IconBell } from '@tabler/icons-svelte';
@@ -27,6 +28,7 @@
 		isTransitionReversed?: boolean;
 		showBackButton?: boolean;
 		icon?: string;
+		hasBottomPadding?: boolean;
 	};
 	const {
 		children,
@@ -34,7 +36,8 @@
 		actions,
 		isTransitionReversed,
 		showBackButton = false,
-		icon
+		icon,
+		hasBottomPadding
 	}: Props = $props();
 
 	let isNotificationsActive = $state(false);
@@ -54,7 +57,10 @@
 	};
 </script>
 
-<div class={cn('overflow-hidden', extraClass)}>
+<div
+	style:--padding-bottom={toRem(sizeStore.navigationHeight)}
+	class={cn('overflow-hidden', hasBottomPadding && 'pb-(--padding-bottom)', extraClass)}
+>
 	<div class="pt-content-padding" bind:clientHeight={sizeStore.headerHeight}>
 		<div class="relative z-40 mx-content-padding h-10 items-center transition-colors">
 			{#key actions}

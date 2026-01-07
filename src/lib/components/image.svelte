@@ -1,3 +1,12 @@
+<script module>
+	type SrcSet = {
+		small: string;
+		medium: string;
+		large: string;
+	};
+	export type { SrcSet as ImageSrcSet };
+</script>
+
 <script lang="ts">
 	import { tv } from '$lib/tv';
 	import type { EventHandler } from 'svelte/elements';
@@ -15,19 +24,25 @@
 		}
 	});
 
-	type Props = VariantProps<typeof getClass> & {
-		style?: string;
-		class?: ClassValue;
+	type SrcProps = {
 		src: string;
-		hasOutline?: boolean;
-		hasLoadingGlow?: boolean;
 	};
+	type SrcSetProps = {
+		srcSet: SrcSet;
+	};
+	type Props = VariantProps<typeof getClass> &
+		(SrcProps | SrcSetProps) & {
+			style?: string;
+			class?: ClassValue;
+			hasOutline?: boolean;
+			hasLoadingGlow?: boolean;
+		};
 	const {
 		hasOutline = false,
 		hasLoadingGlow = false,
 		style,
 		class: extraClass,
-		src
+		...restOfProps
 	}: Props = $props();
 
 	let isLoading = $state(true);
@@ -53,7 +68,14 @@
 			'relative -z-10 size-full object-cover transition-opacity duration-500',
 			isLoading && 'opacity-0'
 		]}
-		{src}
+		{...'src' in restOfProps
+			? {
+					src: restOfProps.src
+				}
+			: {
+					src: restOfProps.srcSet.small,
+					srcset: `${restOfProps.srcSet.small} 1x, ${restOfProps.srcSet.medium} 1.5x, ${restOfProps.srcSet.large} 2x`
+				}}
 		alt=""
 		onload={handleLoad}
 		draggable="false"

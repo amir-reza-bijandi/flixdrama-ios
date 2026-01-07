@@ -3,4 +3,4 @@
 	import PageWrapper from '../_lib/components/page-wrapper.svelte';
 </script>
 
-<PageWrapper icon={asset('/image/icon/page/downloads.svg')} />
+<PageWrapper icon={asset('/image/icon/fade/downloads.svg')} />

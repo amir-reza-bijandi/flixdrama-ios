@@ -20,8 +20,8 @@
 	const { isActive }: Props = $props();
 
 	$effect(() => {
-		if (isActive) pageIconStore.current = asset('/image/icon/page/search.svg');
-		else pageIconStore.current = asset('/image/icon/page/home.svg');
+		if (isActive) pageIconStore.current = asset('/image/icon/fade/search.svg');
+		else pageIconStore.current = asset('/image/icon/fade/home.svg');
 	});
 
 	let query = $state('');

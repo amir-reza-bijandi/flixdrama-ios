@@ -51,11 +51,11 @@
 	const isDoubleColumn = $derived(currentTab === 'preview' || currentTab === 'soundtrack');
 
 	$effect(() => {
-		pageIconStore.current = asset('/image/icon/page/sparkle.svg');
+		pageIconStore.current = asset('/image/icon/fade/sparkle.svg');
 	});
 </script>
 
-<PageWrapper icon={asset('/image/icon/page/sparkle.svg')} hasBottomPadding>
+<PageWrapper icon={asset('/image/icon/fade/sparkle.svg')} hasBottomPadding>
 	<div class="px-content-padding pt-3 pb-content-padding">
 		<Select offset={SELECT_OFFSET} options={TABS} bind:value={currentTab} />
 		<div class={['grid gap-3', isDoubleColumn ? 'grid-cols-2' : 'grid-cols-1']}>

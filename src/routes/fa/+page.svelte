@@ -56,7 +56,7 @@
 	showBackButton={isSearchActive}
 	actions={!isSearchActive ? profileButton : undefined}
 	isTransitionReversed={isSearchActive}
-	icon={asset('/image/icon/page/home.svg')}
+	icon={asset('/image/icon/fade/home.svg')}
 >
 	<div
 		style:--padding-bottom={toRem(sizeStore.navigationHeight)}

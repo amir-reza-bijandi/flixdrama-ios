@@ -3,7 +3,7 @@
 	import { cn, type ClassValue } from 'tailwind-variants';
 
 	type Props = {
-		children: Snippet;
+		children?: Snippet;
 		class?: ClassValue;
 		mustBounceOnClick?: boolean;
 	};
@@ -17,5 +17,5 @@
 		extraClass
 	)}
 >
-	{@render children()}
+	{@render children?.()}
 </div>

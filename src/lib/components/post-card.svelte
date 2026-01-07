@@ -3,6 +3,7 @@
 </script>
 
 <script lang="ts">
+	import { Pressable } from '$lib/components/pressable';
 	import { langStore } from '$lib/store/lang-store.svelte';
 	import type { HeroIcon } from '$lib/types/icon';
 	import { ChatBubbleLeftRight, Clock, Heart, Star } from '@steeze-ui/heroicons';
@@ -75,67 +76,71 @@
 	const dateInAgoFormat = $derived(date ? timeAgo.format(date) : 'نامشخص');
 </script>
 
-<a class={cn('block w-32 shrink-0', extraClass)} {href} draggable="false">
-	<div class="relative mb-1.5">
-		<div class="relative z-10 overflow-hidden">
-			<Image
-				class={getPostCardClass({ aspectRatio, isFullyRounded })}
-				{src}
-				hasOutline
-				hasLoadingGlow
-			/>
-			<div class="absolute start-2 top-2">
-				{#if score}
-					{@render badge({
-						variant: 'secondary',
-						icon: Star,
-						value:
-							langStore.current === 'en' ? score.toFixed(1) : toFarsi(parseFloat(score.toFixed(1)))
-					})}
-				{/if}
-				{#if likes}
-					{@render badge({
-						variant: 'danger',
-						icon: Heart,
-						value: formatCount(likes)
-					})}
-				{/if}
-				{#if comments}
-					{@render badge({
-						variant: 'success',
-						icon: ChatBubbleLeftRight,
-						value: formatCount(comments)
-					})}
-				{/if}
-				{#if date}
-					{@render badge({
-						variant: 'tertiary',
-						icon: Clock,
-						value: dateInAgoFormat
-					})}
-				{/if}
+<Pressable.Root as="a" class={cn('block w-32 shrink-0', extraClass)} {href}>
+	<Pressable.Content>
+		<div class="relative mb-1.5">
+			<div class="relative z-10 overflow-hidden">
+				<Image
+					class={getPostCardClass({ aspectRatio, isFullyRounded })}
+					{src}
+					hasOutline
+					hasLoadingGlow
+				/>
+				<div class="absolute start-2 top-2">
+					{#if score}
+						{@render badge({
+							variant: 'secondary',
+							icon: Star,
+							value:
+								langStore.current === 'en'
+									? score.toFixed(1)
+									: toFarsi(parseFloat(score.toFixed(1)))
+						})}
+					{/if}
+					{#if likes}
+						{@render badge({
+							variant: 'danger',
+							icon: Heart,
+							value: formatCount(likes)
+						})}
+					{/if}
+					{#if comments}
+						{@render badge({
+							variant: 'success',
+							icon: ChatBubbleLeftRight,
+							value: formatCount(comments)
+						})}
+					{/if}
+					{#if date}
+						{@render badge({
+							variant: 'tertiary',
+							icon: Clock,
+							value: dateInAgoFormat
+						})}
+					{/if}
+				</div>
 			</div>
+			<Image class="absolute -bottom-3 left-6 -z-10 h-16 w-20 opacity-75 blur-xl" {src} />
 		</div>
-		<Image class="absolute -bottom-3 left-6 -z-10 h-16 w-20 opacity-75 blur-xl" {src} />
-	</div>
-	<div class={['relative z-10 px-2', textAlignment === 'center' ? 'text-center' : 'text-start']}>
-		<div
-			class={[
-				'mb-0.5 line-clamp-2 text-sm leading-normal transition-colors',
-				subtitle && 'font-bold'
-			]}
-		>
-			{title}
-		</div>
-		{#if subtitle}
+		<div class={['relative z-10 px-2', textAlignment === 'center' ? 'text-center' : 'text-start']}>
 			<div
-				class="line-clamp-1 text-xs leading-none font-medium text-foreground-secondary transition-colors"
+				class={[
+					'mb-0.5 line-clamp-2 text-sm leading-normal transition-colors',
+					subtitle && 'font-bold'
+				]}
 			>
-				{subtitle}
+				{title}
 			</div>
-		{/if}
-	</div>
-</a>
+			{#if subtitle}
+				<div
+					class="line-clamp-1 text-xs leading-none font-medium text-foreground-secondary transition-colors"
+				>
+					{subtitle}
+				</div>
+			{/if}
+		</div>
+	</Pressable.Content>
+</Pressable.Root>
 
 {#snippet badge({
 	variant,

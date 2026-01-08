@@ -25,3 +25,4 @@ export const Post = {
 };
 export type { PostInfoData } from '../../../../_lib/components/post-info.svelte';
 export type { AdditionalInfoData as PostAdditionalInfoData } from './additional-info.svelte';
+export type { LikeToggleEventHandler as PostLikeToggleEventHandler } from './like.svelte';

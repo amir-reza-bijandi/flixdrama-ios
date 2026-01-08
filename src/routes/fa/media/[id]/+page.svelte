@@ -22,13 +22,15 @@
 	import { backgroundStore } from '../../../_lib/store/background-store.svelte';
 	import Backdrop from '../../_lib/components/backdrop.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
-	import { Post, type PostInfoData } from '../../_lib/components/post';
-	import type { LikeToggleEventHandler } from '../../_lib/components/post/like.svelte';
+	import {
+		Post,
+		type PostInfoData,
+		type PostLikeToggleEventHandler
+	} from '../../_lib/components/post';
 	import { HASH } from '../../_lib/constants/hash';
 	import { sizeStore } from '../../_lib/store/size-store.svelte';
 	import { toFarsi } from '../../_lib/utilities/to-farsi';
 	import AddToListDrawer from './_lib/components/add-to-list-drawer.svelte';
-	import NewCommentDrawer from './_lib/components/new-comment-drawer.svelte';
 	import NewPlaylistDrawer from './_lib/components/new-playlist-drawer.svelte';
 	import NewReviewDrawer from './_lib/components/new-review-drawer.svelte';
 	import BackstageTab from './_lib/components/tabs/backstage-tab.svelte';
@@ -88,7 +90,7 @@
 		backgroundStore.current = backdrop;
 	});
 
-	const handleLikeToggle: LikeToggleEventHandler = (isActive) => (isLiked = isActive);
+	const handleLikeToggle: PostLikeToggleEventHandler = (isActive) => (isLiked = isActive);
 	const handleNotificationsToggle = () => (isNotificationsActive = !isNotificationsActive);
 </script>
 
@@ -148,5 +150,4 @@
 </PageWrapper>
 <AddToListDrawer />
 <NewPlaylistDrawer />
-<NewCommentDrawer />
 <NewReviewDrawer />

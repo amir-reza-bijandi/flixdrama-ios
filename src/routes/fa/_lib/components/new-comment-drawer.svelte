@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Button from '$lib/components/button.svelte';
-	import { Drawer, type DrawerSwitchSelectEventHandler } from '../../../../_lib/components/drawer';
-	import { HASH } from '../../../../_lib/constants/hash';
+	import { HASH } from '../constants/hash';
+	import { Drawer, type DrawerSwitchSelectEventHandler } from './drawer';
 
 	let text = $state('');
 	let isSpoiler = $state(false);

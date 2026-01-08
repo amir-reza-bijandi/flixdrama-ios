@@ -10,13 +10,11 @@
 	import PostExpandable from '../../../_lib/components/post-expandable.svelte';
 	import type { PostInfoData } from '../../../_lib/components/post-info.svelte';
 	import PostInfo from '../../../_lib/components/post-info.svelte';
+	import { backgroundStore } from '../../../_lib/store/background-store.svelte';
 	import { navigationStore } from '../../_lib/stores/navigation-store.svelte';
 	import PostSection from './_lib/components/post-section.svelte';
 	import Score from './_lib/components/score.svelte';
 	import TrailerBackdrop from './_lib/components/trailer-backdrop.svelte';
-
-	const SWIPER_OFFSET = 24;
-	const SWIPER_SPACE_BETWEEN = 8;
 
 	const { backdrop, title, type, country, year, genres, synopsis, score } = $derived(
 		MEDIA_EN.find(({ id }) => id === Number(page.params.id)) ?? MEDIA_EN[0]
@@ -35,6 +33,10 @@
 			label: String(year)
 		}
 	]);
+
+	$effect(() => {
+		backgroundStore.current = backdrop;
+	});
 </script>
 
 <div class="flex flex-1 flex-col">

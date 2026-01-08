@@ -17,6 +17,7 @@
 	import { backOut } from 'svelte/easing';
 	import { fly } from 'svelte/transition';
 	import { cn, type ClassValue } from 'tailwind-variants';
+	import { backgroundStore } from '../../../_lib/store/background-store.svelte';
 	import { pageIconStore } from '../../../_lib/store/page-icon-store.svelte';
 	import { historyStore } from '../store/history-store.svelte';
 	import { sizeStore } from '../store/size-store.svelte';
@@ -28,6 +29,7 @@
 		isTransitionReversed?: boolean;
 		showBackButton?: boolean;
 		icon?: string;
+		background?: string;
 		hasBottomPadding?: boolean;
 		hasContentPadding?: boolean;
 	};
@@ -38,6 +40,7 @@
 		isTransitionReversed,
 		showBackButton = false,
 		icon,
+		background,
 		hasBottomPadding,
 		hasContentPadding
 	}: Props = $props();
@@ -47,6 +50,9 @@
 
 	$effect(() => {
 		pageIconStore.current = icon ?? '';
+	});
+	$effect(() => {
+		backgroundStore.current = background ?? '';
 	});
 
 	const handleToggleDarkMode = () => setMode(mode.current === 'light' ? 'dark' : 'light');

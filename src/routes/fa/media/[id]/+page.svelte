@@ -19,7 +19,6 @@
 	import type { Component } from 'svelte';
 	import Button from '../../../../lib/components/button.svelte';
 	import Score from '../../../_lib/components/score.svelte';
-	import { backgroundStore } from '../../../_lib/store/background-store.svelte';
 	import Backdrop from '../../_lib/components/backdrop.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
 	import {
@@ -86,15 +85,11 @@
 	]);
 	const Tab = $derived(OPTION_TAB_MAP[currentTab]);
 
-	$effect(() => {
-		backgroundStore.current = backdrop;
-	});
-
 	const handleLikeToggle: PostLikeToggleEventHandler = (isActive) => (isLiked = isActive);
 	const handleNotificationsToggle = () => (isNotificationsActive = !isNotificationsActive);
 </script>
 
-<PageWrapper showBackButton>
+<PageWrapper background={backdrop} showBackButton>
 	{#snippet actions()}
 		<Button
 			isCircle

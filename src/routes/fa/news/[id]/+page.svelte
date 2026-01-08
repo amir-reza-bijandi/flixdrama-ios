@@ -8,7 +8,6 @@
 	import { toLocaleDateString } from '$lib/utilities/date';
 	import { toRem } from '$lib/utilities/general';
 	import { CalendarIcon, MessageCircleIcon, PencilIcon, PlusIcon } from '@lucide/svelte';
-	import { backgroundStore } from '../../../_lib/store/background-store.svelte';
 	import Backdrop from '../../_lib/components/backdrop.svelte';
 	import Comment from '../../_lib/components/comment.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
@@ -43,10 +42,6 @@
 	let isLiked = $state(false);
 	let likeCount = $state(674);
 
-	$effect(() => {
-		backgroundStore.current = BACKDROP_IMAGE;
-	});
-
 	const handleLikeToggle: PostLikeToggleEventHandler = (isActive) => {
 		if (isActive) likeCount++;
 		else likeCount--;
@@ -54,7 +49,7 @@
 	};
 </script>
 
-<PageWrapper showBackButton>
+<PageWrapper background={BACKDROP_IMAGE} showBackButton>
 	<Backdrop image={BACKDROP_IMAGE} />
 	<Box.Root
 		--padding-bottom={toRem(sizeStore.navigationHeight)}

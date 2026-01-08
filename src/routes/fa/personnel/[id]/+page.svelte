@@ -7,7 +7,6 @@
 	import { MEDIA_FA } from '$lib/constants/data';
 	import { toLocaleDateString } from '$lib/utilities/date';
 	import { CakeIcon, CalendarIcon, FilmIcon, PlusIcon } from '@lucide/svelte';
-	import { backgroundStore } from '../../../_lib/store/background-store.svelte';
 	import Comment from '../../_lib/components/comment.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
 	import { Post, type PostInfoData } from '../../_lib/components/post';
@@ -15,6 +14,7 @@
 	import { generateMockComment, generateRandomNumber } from '../../_lib/utilities/comment';
 	import { toFarsi } from '../../_lib/utilities/to-farsi';
 
+	const IMAGE = asset('/image/personnel/1.webp');
 	const SWIPER_OFFSET = 20;
 	const POST_INFO_DATA = [
 		{
@@ -33,18 +33,14 @@
 	const comments = Array.from({ length: generateRandomNumber(20) }).map(() =>
 		generateMockComment()
 	);
-
-	$effect(() => {
-		backgroundStore.current = asset('/image/personnel/1.webp');
-	});
 </script>
 
-<PageWrapper hasBottomPadding>
+<PageWrapper background={IMAGE} hasBottomPadding>
 	<Post.Root>
 		<div class="mb-4 flex flex-col items-center">
 			<Image
 				class="mb-4 aspect-2/3 h-auto w-40 rounded-2xl"
-				src={asset('/image/personnel/1.webp')}
+				src={IMAGE}
 				hasLoadingGlow
 				hasOutline
 			/>

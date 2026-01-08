@@ -14,19 +14,49 @@
 	import { Lang } from '$lib/types/general';
 	import type { SwiperRootProps } from './swiper/root.svelte';
 
+	const SESSION_STORAGE_KEY = 'select-value';
+	function getSelectValues() {
+		if ('sessionStorage' in window) {
+			const storageData = window.sessionStorage.getItem(SESSION_STORAGE_KEY);
+			if (storageData) return JSON.parse(storageData) as Record<string, unknown>;
+		}
+		return null;
+	}
+	function saveSelectValue(key: string) {
+		const selectValues = getSelectValues();
+		window.sessionStorage.setItem(
+			SESSION_STORAGE_KEY,
+			JSON.stringify({ ...selectValues, [key]: bindableValue })
+		);
+	}
+
 	type Props = Pick<SwiperRootProps, 'offset'> & {
 		options: T;
 		alignment?: 'start' | 'center';
 		value?: OptionsValue<T>;
+		preservationKey?: string;
 	};
 	let {
 		options,
 		alignment = 'start',
 		offset,
-		value: currentValue = $bindable(options[0]?.value ?? '')
+		value: bindableValue = $bindable(options[0]?.value ?? ''),
+		preservationKey
 	}: Props = $props();
 
+	let currentValue = $state(
+		preservationKey ? (getSelectValues()?.[preservationKey] ?? bindableValue) : bindableValue
+	);
 	const optionElms = $state<HTMLElement[]>([]);
+
+	$effect(() => {
+		bindableValue = currentValue;
+	});
+	$effect(() => {
+		if (preservationKey) {
+			saveSelectValue(preservationKey);
+		}
+	});
 </script>
 
 <div class={[alignment === 'center' && 'flex justify-center']}>

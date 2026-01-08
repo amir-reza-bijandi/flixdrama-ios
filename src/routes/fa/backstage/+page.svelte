@@ -57,7 +57,12 @@
 
 <PageWrapper icon={asset('/image/icon/fade/sparkle.svg')} hasBottomPadding>
 	<div class="px-content-padding pt-3 pb-content-padding">
-		<Select offset={SELECT_OFFSET} options={TABS} bind:value={currentTab} />
+		<Select
+			offset={SELECT_OFFSET}
+			options={TABS}
+			bind:value={currentTab}
+			preservationKey="backstage-tabs"
+		/>
 		<div class={['grid gap-3', isDoubleColumn ? 'grid-cols-2' : 'grid-cols-1']}>
 			{@render TAB_SNIPPET_MAP[currentTab]()}
 		</div>

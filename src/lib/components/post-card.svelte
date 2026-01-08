@@ -97,21 +97,21 @@
 									: toFarsi(parseFloat(score.toFixed(1)))
 						})}
 					{/if}
-					{#if likes}
+					{#if likes !== undefined}
 						{@render badge({
 							variant: 'danger',
 							icon: Heart,
 							value: formatCount(likes)
 						})}
 					{/if}
-					{#if comments}
+					{#if comments !== undefined}
 						{@render badge({
 							variant: 'success',
 							icon: ChatBubbleLeftRight,
 							value: formatCount(comments)
 						})}
 					{/if}
-					{#if date}
+					{#if date !== undefined}
 						{@render badge({
 							variant: 'tertiary',
 							icon: Clock,

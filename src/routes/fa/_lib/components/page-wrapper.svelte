@@ -46,9 +46,7 @@
 	let actionWidth = $state(0);
 
 	$effect(() => {
-		if (icon) {
-			pageIconStore.current = icon;
-		}
+		pageIconStore.current = icon ?? '';
 	});
 
 	const handleToggleDarkMode = () => setMode(mode.current === 'light' ? 'dark' : 'light');

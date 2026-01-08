@@ -89,7 +89,8 @@
 	{#each { length: 15 }, index}
 		<PostCard
 			class="w-full"
-			title="عنوان آلبوم"
+			title="عنوان سریال"
+			subtitle="عنوان آلبوم"
 			href={resolve(`/fa/album/[id]`, {
 				id: String(index + 1)
 			})}

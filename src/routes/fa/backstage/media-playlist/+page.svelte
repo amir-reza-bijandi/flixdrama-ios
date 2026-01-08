@@ -32,9 +32,12 @@
 	);
 </script>
 
-<PageWrapper icon={asset('/image/icon/fade/film.svg')} hasBottomPadding>
-	<div class="p-content-padding pt-3">
-		<Select options={TABS} bind:value={currentTab} />
-		<Playlists {data} />
-	</div>
+<PageWrapper
+	icon={asset('/image/icon/fade/film.svg')}
+	hasBottomPadding
+	showBackButton
+	hasContentPadding
+>
+	<Select class="mt-6" options={TABS} bind:value={currentTab} />
+	<Playlists {data} />
 </PageWrapper>

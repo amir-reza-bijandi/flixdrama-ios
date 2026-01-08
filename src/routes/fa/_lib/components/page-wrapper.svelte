@@ -29,6 +29,7 @@
 		showBackButton?: boolean;
 		icon?: string;
 		hasBottomPadding?: boolean;
+		hasContentPadding?: boolean;
 	};
 	const {
 		children,
@@ -37,7 +38,8 @@
 		isTransitionReversed,
 		showBackButton = false,
 		icon,
-		hasBottomPadding
+		hasBottomPadding,
+		hasContentPadding
 	}: Props = $props();
 
 	let isNotificationsActive = $state(false);
@@ -150,5 +152,7 @@
 			</Button>
 		</div>
 	</div>
-	{@render children?.()}
+	<div class={[hasContentPadding && 'px-content-padding']}>
+		{@render children?.()}
+	</div>
 </div>

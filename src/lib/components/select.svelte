@@ -12,6 +12,7 @@
 	import { Swiper } from '$lib/components/swiper';
 	import { langStore } from '$lib/store/lang-store.svelte';
 	import { Lang } from '$lib/types/general';
+	import { cn, type ClassValue } from 'tailwind-variants';
 	import type { SwiperRootProps } from './swiper/root.svelte';
 
 	const SESSION_STORAGE_KEY = 'select-value';
@@ -32,12 +33,14 @@
 
 	type Props = Pick<SwiperRootProps, 'offset'> & {
 		options: T;
+		class?: ClassValue;
 		alignment?: 'start' | 'center';
 		value?: OptionsValue<T>;
 		preservationKey?: string;
 	};
 	let {
 		options,
+		class: extraClass,
 		alignment = 'start',
 		offset,
 		value: bindableValue = $bindable(options[0]?.value ?? ''),
@@ -59,7 +62,7 @@
 	});
 </script>
 
-<div class={[alignment === 'center' && 'flex justify-center']}>
+<div class={cn(alignment === 'center' && 'flex justify-center', extraClass)}>
 	<Swiper.Root class="mt-3 mb-4" {offset} spaceBetween={8}>
 		<Swiper.Wrapper>
 			{#each options as { label: name, value }, index (value)}

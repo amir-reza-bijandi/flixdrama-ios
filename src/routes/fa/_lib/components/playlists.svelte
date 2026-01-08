@@ -17,11 +17,12 @@
 	type Props = {
 		data: Data;
 		class?: ClassValue;
+		imageAspectRatio?: 'photo' | 'square';
 	};
-	const { data, class: extraClass }: Props = $props();
+	const { data, class: extraClass, imageAspectRatio = 'photo' }: Props = $props();
 </script>
 
-<div class={cn('flex flex-col gap-2', extraClass)}>
+<div class={cn('flex flex-col gap-3', extraClass)}>
 	{#each data as { title, subtitle, href, images }}
 		<Pressable.Root as="a" class="block" {href}>
 			<Pressable.Content>
@@ -37,7 +38,15 @@
 						class="flex w-44.5 gap-1.5 mask-linear-90 mask-linear-from-black mask-linear-to-transparent"
 					>
 						{#each images as image}
-							<Image class="aspect-2/3 w-10 rounded-lg" src={image} hasLoadingGlow hasOutline />
+							<Image
+								class={[
+									'rounded-lg',
+									imageAspectRatio === 'photo' ? 'aspect-2/3 w-10' : 'aspect-square w-12'
+								]}
+								src={image}
+								hasLoadingGlow
+								hasOutline
+							/>
 						{/each}
 					</div>
 				</Box.Root>

@@ -3,7 +3,7 @@ import { SUBSCRIPTIONS } from '../constants/user';
 import type { CommentData, Recipient } from '../types/feedback';
 
 export function generateRandomNumber(max: number) {
-	return Math.floor(Math.random() * max);
+	return Math.floor(1 + Math.random() * (max - 1));
 }
 export function generateMockComment(recipient?: Recipient): CommentData {
 	const DISPLAY_NAME = 'نام کاربر';

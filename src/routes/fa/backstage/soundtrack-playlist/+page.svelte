@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { asset, resolve } from '$app/paths';
-	import { MEDIA_FA } from '$lib/constants/data';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
 	import type { PlaylistsData } from '../../_lib/components/playlists.svelte';
 	import Playlists from '../../_lib/components/playlists.svelte';
@@ -10,8 +9,8 @@
 		href: resolve(`/fa/playlist/[id]`, {
 			id: String(index + 1)
 		}),
-		images: Array.from({ length: 4 }).map(
-			() => MEDIA_FA[generateRandomNumber(MEDIA_FA.length)].poster
+		images: Array.from({ length: 4 }).map(() =>
+			asset(`/image/album/${generateRandomNumber(15)}.png`)
 		),
 		title: 'عنوان لیست پخش',
 		subtitle: 'نام کاربری'

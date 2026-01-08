@@ -1,22 +1,14 @@
 <script lang="ts">
 	import { asset } from '$app/paths';
-	import { Box } from '$lib/components/box';
-	import Button from '$lib/components/button.svelte';
-	import { Pressable } from '$lib/components/pressable';
-	import Toggle from '$lib/components/toggle.svelte';
-	import { Heart, Pause, Play } from '@steeze-ui/heroicons';
-	import { Icon } from '@steeze-ui/svelte-icon';
 	import Backdrop from '../../_lib/components/backdrop.svelte';
-	import List from '../../_lib/components/list.svelte';
+	import LikeAction, {
+		type LikeActionToggleHandler
+	} from '../../_lib/components/like-action.svelte';
 	import PageHeader from '../../_lib/components/page-header.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
+	import Soundtracks, { type SoundtracksData } from '../../_lib/components/soundtracks.svelte';
 
-	type Soundtrack = {
-		id: number;
-		title: string;
-		artist: string;
-	};
-	const SOUNDTRACKS: Soundtrack[] = [
+	const SOUNDTRACKS: SoundtracksData = [
 		{ id: 1, title: 'Way Back Then', artist: 'Jung Jae-il' },
 		{ id: 2, title: 'Round I', artist: 'Jung Jae-il' },
 		{ id: 3, title: 'The Rope is Tied', artist: 'Jung Jae-il' },
@@ -39,49 +31,15 @@
 		{ id: 20, title: 'Let’s Go Out Tonight', artist: 'Jung Jae-il' }
 	];
 
-	let currentId = $state<number | null>(null);
-	let isLiked = $state(false);
-
-	const handleToggleLike = () => (isLiked = !isLiked);
+	const handleToggleLike: LikeActionToggleHandler = (isLiked) => console.log(`Liked: ${isLiked}`);
 </script>
 
 <PageWrapper hasContentPadding hasBottomPadding showBackButton>
 	{#snippet actions()}
-		<Button isCircle onClick={handleToggleLike} variant="danger" isActive={isLiked}>
-			<Toggle isActive={isLiked}>
-				{#snippet active()}
-					<Icon class="size-5" src={Heart} theme="solid" />
-				{/snippet}
-				{#snippet inactive()}
-					<Icon class="size-5" src={Heart} theme="outline" />
-				{/snippet}
-			</Toggle>
-		</Button>
+		<LikeAction onToggle={handleToggleLike} isLiked={false} />
 	{/snippet}
 	<Backdrop image={asset('/image/album/13.png')}>
 		<PageHeader heading="بازی مرکب" subheading="۲۰ ترک موسیقی" />
 	</Backdrop>
-	<List class="relative z-20 mt-49 pb-content-padding">
-		{#each SOUNDTRACKS as { id, title, artist }}
-			<Pressable.Root onClick={() => (currentId = currentId !== id ? id : null)}>
-				<Pressable.Content>
-					<Box.Root class="flex items-center justify-between p-4">
-						<Box.Visuals class="rounded-2xl bg-background-tertiary" />
-						<Toggle isActive={id === currentId}>
-							{#snippet active()}
-								<Icon class="size-5" src={Pause} theme="solid" />
-							{/snippet}
-							{#snippet inactive()}
-								<Icon class="size-5" src={Play} theme="solid" />
-							{/snippet}
-						</Toggle>
-						<div class="flex flex-col items-start gap-1 ltr">
-							<div class="text-sm leading-none font-bold">{title}</div>
-							<div class="text-xs leading-none text-foreground-secondary">{artist}</div>
-						</div>
-					</Box.Root>
-				</Pressable.Content>
-			</Pressable.Root>
-		{/each}
-	</List>
+	<Soundtracks class="relative z-20 mt-49 pb-content-padding" data={SOUNDTRACKS} />
 </PageWrapper>

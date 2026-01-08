@@ -6,7 +6,7 @@
 	import { generateRandomNumber } from '../../_lib/utilities/comment';
 
 	const PLAYLISTS_DATA: PlaylistsData = Array.from({ length: 8 }).map((_, index) => ({
-		href: resolve(`/fa/playlist/[id]`, {
+		href: resolve(`/fa/playlist/soundtrack/[id]`, {
 			id: String(index + 1)
 		}),
 		images: Array.from({ length: 4 }).map(() =>

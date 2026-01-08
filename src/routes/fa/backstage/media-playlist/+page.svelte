@@ -20,7 +20,7 @@
 	let currentTab = $state<Tab>('users');
 	let data = $derived<PlaylistsData>(
 		Array.from({ length: 8 }).map((_, index) => ({
-			href: resolve(`/fa/playlist/[id]`, {
+			href: resolve(`/fa/playlist/media/[id]`, {
 				id: String(index + 1)
 			}),
 			images: Array.from({ length: 4 }).map(

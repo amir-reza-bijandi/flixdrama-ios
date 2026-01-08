@@ -115,5 +115,5 @@
 	>
 		<PageHeader heading="عنوان لیست پخش" subheading="نام کاربری" />
 	</Backdrop>
-	<Soundtracks class="relative z-20 mt-49 pb-content-padding" data={SOUNDTRACKS} />
+	<Soundtracks class="relative z-20 mt-49" data={SOUNDTRACKS} />
 </PageWrapper>

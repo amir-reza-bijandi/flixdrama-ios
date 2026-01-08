@@ -112,7 +112,12 @@
 	<div class="swiper-wrapper overflow-visible!">
 		{#each data as { backdrop, score, id, country, ...restOfMedia }, index}
 			<div
-				class="swiper-slide group aspect-video h-auto! w-[calc(100%-var(--spacing-content-padding)*2)]! overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-primary transition-colors [&.active]:shadow-[0px_0px_6rem_--alpha(var(--color-foreground-primary)/10%)]"
+				class={[
+					'swiper-slide group aspect-video h-auto! overflow-hidden rounded-2xl outline -outline-offset-1 outline-stroke-primary transition-colors [&.active]:shadow-[0px_0px_6rem_--alpha(var(--color-foreground-primary)/10%)]',
+					langStore.current === 'en'
+						? 'w-[calc(100%-var(--spacing-content-padding)*2)]!'
+						: 'w-full!'
+				]}
 				bind:this={slideElms[index]}
 			>
 				<a

@@ -36,7 +36,7 @@
 </script>
 
 <PageWrapper background={IMAGE} hasBottomPadding>
-	<Post.Root>
+	<Post.Root class="pb-0">
 		<div class="mb-4 flex flex-col items-center">
 			<Image
 				class="mb-4 aspect-2/3 h-auto w-40 rounded-2xl"

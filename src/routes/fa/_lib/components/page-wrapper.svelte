@@ -65,7 +65,11 @@
 
 <div
 	style:--padding-bottom={toRem(sizeStore.navigationHeight)}
-	class={cn('overflow-hidden', hasBottomPadding && 'pb-(--padding-bottom)', extraClass)}
+	class={cn(
+		'overflow-hidden',
+		hasBottomPadding && 'pb-[calc(var(--padding-bottom)+var(--spacing-content-padding))]',
+		extraClass
+	)}
 >
 	<div class="pt-content-padding" bind:clientHeight={sizeStore.headerHeight}>
 		<div class="relative z-40 mx-content-padding h-10 items-center transition-colors">

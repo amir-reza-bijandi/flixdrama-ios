@@ -19,7 +19,7 @@
 	<Backdrop images={MEDIA_FA.slice(0, 4).map(({ poster }) => poster)}>
 		<PageHeader heading="عنوان لیست پخش" subheading="نام کاربری" />
 	</Backdrop>
-	<Grid class="mt-49 mb-content-padding">
+	<Grid class="mt-49">
 		{#each MEDIA_FA as { id, titleFa, score, poster, country }}
 			<PostCard
 				class="w-full"

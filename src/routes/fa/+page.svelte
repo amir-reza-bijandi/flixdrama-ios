@@ -57,80 +57,77 @@
 	actions={!isSearchActive ? profileButton : undefined}
 	isTransitionReversed={isSearchActive}
 	icon={asset('/image/icon/fade/home.svg')}
+	hasContentPadding
+	hasBottomPadding
 >
+	<Search isActive={isSearchActive} />
 	<div
-		style:--padding-bottom={toRem(sizeStore.navigationHeight)}
-		class="pb-[calc(var(--padding-bottom)+var(--spacing-content-padding))]"
+		class={[
+			'transition-[opacity,scale] ease-overshoot-light',
+			isSearchActive && 'pointer-events-none scale-98 opacity-0'
+		]}
 	>
-		<Search isActive={isSearchActive} />
-		<div
-			class={[
-				'transition-[opacity,scale] ease-overshoot-light',
-				isSearchActive && 'pointer-events-none scale-98 opacity-0'
-			]}
-		>
-			<RecommendationsCarousel data={MEDIA_FA} />
-			<SubscriptionBanner />
-			<Section heading="فیلم و سریال‌های من">
-				<Select offset={SWIPER_OFFSET} options={LIST_OPTIONS} />
-				<Swiper.Root offset={SWIPER_OFFSET}>
-					<Swiper.Wrapper>
-						{#each MEDIA_FA as { id, poster, titleFa, score, country }}
-							<Swiper.Slide>
-								<PostCard
-									href={resolve('/fa/media/[id]', {
-										id: String(id)
-									})}
-									image={poster}
-									subtitle={COUNTRY_LABEL_MAP_FA[country]}
-									title={titleFa}
-									{score}
-								/>
-							</Swiper.Slide>
-						{/each}
-					</Swiper.Wrapper>
-				</Swiper.Root>
-			</Section>
-			<Section heading="جدیدترین سریال‌ها">
-				<Select offset={SWIPER_OFFSET} options={countryOptions} />
-				<Swiper.Root offset={SWIPER_OFFSET}>
-					<Swiper.Wrapper>
-						{#each MEDIA_FA as { id, poster, titleFa, score }}
-							<Swiper.Slide>
-								<PostCard
-									href={resolve('/fa/media/[id]', {
-										id: String(id)
-									})}
-									image={poster}
-									subtitle="قسمت {toFarsi(Math.floor(Math.random() * 16) + 1)}"
-									title={titleFa}
-									{score}
-								/>
-							</Swiper.Slide>
-						{/each}
-					</Swiper.Wrapper>
-				</Swiper.Root>
-			</Section>
-			<Section heading="جدیدترین فیلم‌ها">
-				<Select offset={SWIPER_OFFSET} options={countryOptions} />
-				<Swiper.Root offset={SWIPER_OFFSET}>
-					<Swiper.Wrapper>
-						{#each MEDIA_FA as { id, poster, titleFa, score }}
-							<Swiper.Slide>
-								<PostCard
-									href={resolve('/fa/media/[id]', {
-										id: String(id)
-									})}
-									image={poster}
-									subtitle="قسمت {toFarsi(Math.floor(Math.random() * 16) + 1)}"
-									title={titleFa}
-									{score}
-								/>
-							</Swiper.Slide>
-						{/each}
-					</Swiper.Wrapper>
-				</Swiper.Root>
-			</Section>
-		</div>
+		<RecommendationsCarousel data={MEDIA_FA} />
+		<SubscriptionBanner />
+		<Section heading="فیلم و سریال‌های من">
+			<Select offset={SWIPER_OFFSET} options={LIST_OPTIONS} />
+			<Swiper.Root offset={SWIPER_OFFSET}>
+				<Swiper.Wrapper>
+					{#each MEDIA_FA as { id, poster, titleFa, score, country }}
+						<Swiper.Slide>
+							<PostCard
+								href={resolve('/fa/media/[id]', {
+									id: String(id)
+								})}
+								image={poster}
+								subtitle={COUNTRY_LABEL_MAP_FA[country]}
+								title={titleFa}
+								{score}
+							/>
+						</Swiper.Slide>
+					{/each}
+				</Swiper.Wrapper>
+			</Swiper.Root>
+		</Section>
+		<Section heading="جدیدترین سریال‌ها">
+			<Select offset={SWIPER_OFFSET} options={countryOptions} />
+			<Swiper.Root offset={SWIPER_OFFSET}>
+				<Swiper.Wrapper>
+					{#each MEDIA_FA as { id, poster, titleFa, score }}
+						<Swiper.Slide>
+							<PostCard
+								href={resolve('/fa/media/[id]', {
+									id: String(id)
+								})}
+								image={poster}
+								subtitle="قسمت {toFarsi(Math.floor(Math.random() * 16) + 1)}"
+								title={titleFa}
+								{score}
+							/>
+						</Swiper.Slide>
+					{/each}
+				</Swiper.Wrapper>
+			</Swiper.Root>
+		</Section>
+		<Section heading="جدیدترین فیلم‌ها">
+			<Select offset={SWIPER_OFFSET} options={countryOptions} />
+			<Swiper.Root offset={SWIPER_OFFSET}>
+				<Swiper.Wrapper>
+					{#each MEDIA_FA as { id, poster, titleFa, score }}
+						<Swiper.Slide>
+							<PostCard
+								href={resolve('/fa/media/[id]', {
+									id: String(id)
+								})}
+								image={poster}
+								subtitle="قسمت {toFarsi(Math.floor(Math.random() * 16) + 1)}"
+								title={titleFa}
+								{score}
+							/>
+						</Swiper.Slide>
+					{/each}
+				</Swiper.Wrapper>
+			</Swiper.Root>
+		</Section>
 	</div>
 </PageWrapper>

@@ -41,5 +41,5 @@
 	<Backdrop image={asset('/image/album/13.png')}>
 		<PageHeader heading="بازی مرکب" subheading="۲۰ ترک موسیقی" />
 	</Backdrop>
-	<Soundtracks class="relative z-20 mt-49 pb-content-padding" data={SOUNDTRACKS} />
+	<Soundtracks class="relative z-20 mt-49" data={SOUNDTRACKS} />
 </PageWrapper>

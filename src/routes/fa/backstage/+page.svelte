@@ -6,7 +6,6 @@
 	import type { Snippet } from 'svelte';
 	import { pageIconStore } from '../../_lib/store/page-icon-store.svelte';
 	import PageWrapper from '../_lib/components/page-wrapper.svelte';
-	import type { PlaylistsData } from '../_lib/components/playlists.svelte';
 	import { generateRandomNumber } from '../_lib/utilities/comment';
 	import PlaylistCategory from './_lib/components/playlist-category.svelte';
 
@@ -36,16 +35,6 @@
 		playlist,
 		preview
 	};
-	const PLAYLISTS_DATA: PlaylistsData = Array.from({ length: 8 }).map((_, index) => ({
-		href: resolve(`/fa/playlist/[id]`, {
-			id: String(index + 1)
-		}),
-		images: Array.from({ length: 4 }).map(
-			() => MEDIA_FA[generateRandomNumber(MEDIA_FA.length)].poster
-		),
-		title: 'عنوان لیست پخش',
-		subtitle: 'نام کاربری'
-	}));
 
 	let currentTab = $state<Tab>('news');
 	const isDoubleColumn = $derived(currentTab === 'preview' || currentTab === 'soundtrack');
@@ -55,17 +44,16 @@
 	});
 </script>
 
-<PageWrapper icon={asset('/image/icon/fade/sparkle.svg')} hasBottomPadding>
-	<div class="px-content-padding pt-3 pb-content-padding">
-		<Select
-			offset={SELECT_OFFSET}
-			options={TABS}
-			bind:value={currentTab}
-			preservationKey="backstage-tabs"
-		/>
-		<div class={['grid gap-3', isDoubleColumn ? 'grid-cols-2' : 'grid-cols-1']}>
-			{@render TAB_SNIPPET_MAP[currentTab]()}
-		</div>
+<PageWrapper icon={asset('/image/icon/fade/sparkle.svg')} hasBottomPadding hasContentPadding>
+	<Select
+		class="mt-3"
+		offset={SELECT_OFFSET}
+		options={TABS}
+		bind:value={currentTab}
+		preservationKey="backstage-tabs"
+	/>
+	<div class={['grid gap-3', isDoubleColumn ? 'grid-cols-2' : 'grid-cols-1']}>
+		{@render TAB_SNIPPET_MAP[currentTab]()}
 	</div>
 </PageWrapper>
 

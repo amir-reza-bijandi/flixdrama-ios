@@ -8,6 +8,7 @@
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import Backdrop from '../../_lib/components/backdrop.svelte';
 	import List from '../../_lib/components/list.svelte';
+	import PageHeader from '../../_lib/components/page-header.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
 
 	type Soundtrack = {
@@ -58,10 +59,7 @@
 		</Button>
 	{/snippet}
 	<Backdrop image={asset('/image/album/13.png')}>
-		<div class="text-center">
-			<div class="mb-2 text-2xl leading-none font-bold">بازی مرکب</div>
-			<div class="text-xs leading-none font-bold text-foreground-secondary">۲۰ ترک موسیقی</div>
-		</div>
+		<PageHeader heading="بازی مرکب" subheading="۲۰ ترک موسیقی" />
 	</Backdrop>
 	<List class="relative z-20 mt-49 pb-content-padding">
 		{#each SOUNDTRACKS as { id, title, artist }}

@@ -52,7 +52,7 @@
 		pageIconStore.current = icon ?? '';
 	});
 	$effect(() => {
-		backgroundStore.current = background ?? '';
+		if (background) backgroundStore.current = background;
 	});
 
 	const handleToggleDarkMode = () => setMode(mode.current === 'light' ? 'dark' : 'light');

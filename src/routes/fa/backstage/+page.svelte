@@ -90,7 +90,7 @@
 		<PostCard
 			class="w-full"
 			title="عنوان آلبوم"
-			href={resolve(`/fa/soundtrack/[id]`, {
+			href={resolve(`/fa/album/[id]`, {
 				id: String(index + 1)
 			})}
 			image={asset(`/image/album/${index + 1}.png`)}

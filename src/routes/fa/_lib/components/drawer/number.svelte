@@ -88,7 +88,7 @@
 		<div class="absolute top-1/2 right-0 translate-x-full -translate-y-1/2">
 			<input
 				style="direction: ltr;"
-				class="h-10 w-15 max-w-full min-w-10 rounded-full border border-stroke-primary bg-background-tertiary px-1.5 text-center outline-2 outline-offset-4 outline-transparent transition-[outline,outline-offset,background-color] duration-250 focus-visible:outline-offset-0 focus-visible:outline-accent-primary-tint"
+				class="h-10 w-15 max-w-full min-w-10 rounded-full border border-stroke-primary bg-background-tertiary px-1.5 text-center outline-2 outline-offset-4 outline-transparent transition-[outline,outline-offset,background-color] duration-250 ltr focus-visible:outline-offset-0 focus-visible:outline-accent-primary-tint"
 				type="text"
 				autocomplete="off"
 				inputmode="numeric"

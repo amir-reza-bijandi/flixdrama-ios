@@ -49,7 +49,7 @@
 						<PostCard
 							class="w-44"
 							title="عنوان آلبوم"
-							href={resolve(`/fa/soundtrack/[id]`, {
+							href={resolve(`/fa/album/[id]`, {
 								id: String(index + 1)
 							})}
 							image={asset(`/image/album/${13 + index}.png`)}

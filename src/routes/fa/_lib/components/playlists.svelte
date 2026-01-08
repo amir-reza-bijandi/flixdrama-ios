@@ -12,7 +12,8 @@
 	import { Box } from '$lib/components/box';
 	import Image from '$lib/components/image.svelte';
 	import { Pressable } from '$lib/components/pressable';
-	import { cn, type ClassValue } from 'tailwind-variants';
+	import { type ClassValue } from 'tailwind-variants';
+	import List from './list.svelte';
 
 	type Props = {
 		data: Data;
@@ -22,7 +23,7 @@
 	const { data, class: extraClass, imageAspectRatio = 'photo' }: Props = $props();
 </script>
 
-<div class={cn('flex flex-col gap-3', extraClass)}>
+<List class={extraClass}>
 	{#each data as { title, subtitle, href, images }}
 		<Pressable.Root as="a" class="block" {href}>
 			<Pressable.Content>
@@ -53,4 +54,4 @@
 			</Pressable.Content>
 		</Pressable.Root>
 	{/each}
-</div>
+</List>

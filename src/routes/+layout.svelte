@@ -20,8 +20,10 @@
 </svelte:head>
 
 <div
-	style="direction: {langStore.current === Lang.En ? 'ltr' : 'rtl'};"
-	class="relative isolate min-h-screen leading-none font-semibold text-foreground-primary select-none"
+	class={[
+		'relative isolate min-h-screen leading-none font-semibold text-foreground-primary select-none',
+		langStore.current === Lang.En ? 'ltr' : 'rtl'
+	]}
 >
 	<ModeWatcher
 		modeStorageKey={MODE_STORAGE_KEY}

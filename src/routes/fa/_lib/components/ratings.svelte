@@ -32,7 +32,7 @@
 	{#each RATING_OPTIONS as score}
 		<div class="flex items-center justify-between">
 			<div>{SCORE_LABEL_MAP[score]}</div>
-			<div style="direction: ltr;" class="flex items-center gap-0.5">
+			<div class="flex items-center gap-0.5 ltr">
 				{#each { length: 5 }, index}
 					<Pressable.Root
 						onClick={() => (value[score] = index + 1)}

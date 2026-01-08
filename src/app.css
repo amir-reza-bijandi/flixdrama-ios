@@ -179,6 +179,13 @@
 	);
 }
 
+@utility rtl {
+	direction: rtl;
+}
+@utility ltr {
+	direction: ltr;
+}
+
 @utility scrollbar-hidden {
 	&::-webkit-scrollbar {
 		display: none;

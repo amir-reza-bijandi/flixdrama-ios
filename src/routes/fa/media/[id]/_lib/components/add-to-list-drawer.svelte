@@ -15,8 +15,8 @@
 	import { HASH } from '../../../../_lib/constants/hash';
 	import type { WatchingStatus } from '../../../../_lib/types/media';
 
-	type Tab = TabsDataValue<typeof TABS_DATA>;
 	const EPISODE_COUNT = 1000;
+	type Tab = TabsDataValue<typeof TABS_DATA>;
 	const TABS_DATA = [
 		{
 			label: 'وضعیت تماشا',

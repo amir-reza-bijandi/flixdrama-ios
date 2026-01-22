@@ -22,7 +22,7 @@
 	const { data, children }: Props = $props();
 </script>
 
-<div class="flex gap-2">
+<div class="relative z-20 flex gap-2">
 	{#each data as buttonProps (buttonProps.id)}
 		<div
 			class="flex-1"

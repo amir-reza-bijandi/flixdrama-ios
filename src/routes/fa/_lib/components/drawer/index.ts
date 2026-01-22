@@ -31,6 +31,7 @@ export type {
 	MultiSelectOptionsValues as DrawerMultiSelectOptionsValues
 } from './multi-select.svelte';
 export type {
+	SingleSelectOption as DrawerSingleSelectOption,
 	SingleSelectOptions as DrawerSingleSelectOptions,
 	SingleSelectOptionsValue as DrawerSingleSelectOptionsValue
 } from './single-select.svelte';

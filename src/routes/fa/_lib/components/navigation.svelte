@@ -209,7 +209,7 @@
 				</div>
 				{#if isCenterButtonActive}
 					<span
-						class="absolute inline-block translate-y-px p-4.5 text-sm leading-none font-bold wrap-normal whitespace-nowrap"
+						class="absolute inline-block translate-y-px p-4.5 font-bold wrap-normal whitespace-nowrap"
 						bind:clientWidth={centerButtonContentWidth}
 						in:scale={{
 							duration: TRANSITION.DURATION,

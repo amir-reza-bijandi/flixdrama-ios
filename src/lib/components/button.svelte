@@ -1,6 +1,6 @@
 <script module>
 	const getClass = tv({
-		base: 'active:scale-scale-95 isolate flex items-center justify-center gap-1.5 rounded-full bg-transparent bg-gradient text-sm before:absolute before:inset-0 before:-z-20 before:bg-gradient after:absolute after:inset-0 after:-z-10 after:bg-gradient after:transition-opacity',
+		base: 'active:scale-scale-95 isolate flex items-center justify-center gap-1.5 rounded-full bg-transparent bg-gradient before:absolute before:inset-0 before:-z-20 before:bg-gradient after:absolute after:inset-0 after:-z-10 after:bg-gradient after:transition-opacity',
 		variants: {
 			isActive: {
 				false: 'after:opacity-0',
@@ -71,7 +71,7 @@
 
 <Pressable.Root
 	class={cn(
-		'block h-10 text-sm leading-none',
+		'block h-10 leading-none',
 		isCircle ? 'w-10 shrink-0' : 'w-full',
 		isActive && 'text-foreground-accent',
 		isDisabled && 'pointer-events-none opacity-50',

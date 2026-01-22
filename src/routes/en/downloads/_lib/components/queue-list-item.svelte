@@ -43,7 +43,7 @@
 			hasLoadingGlow
 		/>
 		<div class="flex-1">
-			<span class="mb-1.5 inline-block text-sm leading-none font-bold">{title}</span>
+			<span class="mb-1.5 inline-block font-bold">{title}</span>
 			<div>
 				<div class="mb-1 flex items-center gap-1 text-xs leading-none">
 					<div class="flex items-center gap-0.5">

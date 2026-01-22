@@ -146,9 +146,9 @@
 							'absolute start-4 bottom-4 flex scale-75 items-center gap-2 font-bold opacity-0 transition-[opacity,scale] ease-overshoot-light group-[&.active]:scale-100 group-[&.active]:opacity-100'
 						]}
 					>
-						<span class="line-clamp-1"
-							>{'title' in restOfMedia ? restOfMedia.title : restOfMedia.titleFa}</span
-						>
+						<span class="line-clamp-1 text-base leading-none">
+							{'title' in restOfMedia ? restOfMedia.title : restOfMedia.titleFa}
+						</span>
 						<Separator variant="secondary" size={10} />
 						<Score value={score} />
 					</div>

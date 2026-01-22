@@ -61,7 +61,7 @@
 					}}
 				>
 					<Pressable.Content>
-						<span class="grid place-items-center p-3.5 text-sm leading-none">{label}</span>
+						<span class="grid place-items-center p-3.5">{label}</span>
 					</Pressable.Content>
 				</Pressable.Root>
 			</div>

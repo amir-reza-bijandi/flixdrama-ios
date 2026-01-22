@@ -1,6 +1,3 @@
-<script module>
-</script>
-
 <script lang="ts">
 	import { Box } from '$lib/components/box';
 	import type { Snippet } from 'svelte';

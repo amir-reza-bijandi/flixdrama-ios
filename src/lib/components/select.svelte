@@ -79,7 +79,7 @@
 							>
 								<span
 									class={[
-										'inline-block text-sm leading-none transition-colors duration-250',
+										'inline-block transition-colors duration-250',
 										langStore.current === Lang.En && 'translate-y-px',
 										value === currentValue && 'text-foreground-accent'
 									]}

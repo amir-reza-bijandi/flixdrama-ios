@@ -11,6 +11,8 @@
 </script>
 
 <div>
-	<div class={cn('mb-3 font-bold transition-colors', extraClass)}>{heading}</div>
+	<div class={cn('mb-3 text-base leading-none font-bold transition-colors', extraClass)}>
+		{heading}
+	</div>
 	{@render children?.()}
 </div>

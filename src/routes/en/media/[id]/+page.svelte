@@ -49,7 +49,7 @@
 			class="absolute inset-0 rounded-t-3xl border-t border-stroke-primary bg-background-tertiary backdrop-blur-lg transition-colors"
 		></div>
 		<div class="relative z-10">
-			<div class="text-2xl leading-none font-bold">{title}</div>
+			<div class="mb-2 text-2xl leading-none font-bold">{title}</div>
 			<Score>
 				{score}
 			</Score>

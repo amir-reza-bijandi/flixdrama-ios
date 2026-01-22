@@ -124,10 +124,7 @@
 		</div>
 		<div class={['relative z-10 px-2', textAlignment === 'center' ? 'text-center' : 'text-start']}>
 			<div
-				class={[
-					'mb-0.5 line-clamp-2 text-sm leading-normal transition-colors',
-					subtitle && 'font-bold'
-				]}
+				class={['mb-0.5 line-clamp-2 leading-normal transition-colors', subtitle && 'font-bold']}
 			>
 				{title}
 			</div>

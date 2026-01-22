@@ -7,7 +7,7 @@
 </script>
 
 <textarea
-	class="h-48 w-full resize-none rounded-t-3xl p-4 text-sm leading-none transition-colors outline-none placeholder:text-foreground-primary/50 focus-visible:bg-background-tertiary"
+	class="h-48 w-full resize-none rounded-t-3xl p-4 transition-colors outline-none placeholder:text-foreground-primary/50 focus-visible:bg-background-tertiary"
 	{placeholder}
 	bind:value
 ></textarea>

@@ -23,7 +23,7 @@
 		/>
 	</div>
 	<div class="mb-1.5 text-xl leading-none font-bold">اشتراک بگیر و حالشو ببر!</div>
-	<div class="text-sm leading-normal">
+	<div class="leading-normal">
 		اوپاها و آیدل‌های مورد علاقه‌ت رو با خیال راحت و Full HD ببین. دیگه لازم نیست دنبال لینک
 		بگردی...
 	</div>

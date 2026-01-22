@@ -17,7 +17,7 @@
 
 <div class="flex h-(--height) w-(--width) items-center gap-1.5">
 	{#each data as { icon: Icon, label }, index}
-		<div class="flex items-center gap-1 text-sm text-foreground-secondary transition-colors">
+		<div class="flex items-center gap-1 text-foreground-secondary transition-colors">
 			<Icon class="size-3.5 stroke-2" />
 			<div class={langStore.current === Lang.En ? 'translate-y-0.5' : 'translate-y-px'}>
 				{label}

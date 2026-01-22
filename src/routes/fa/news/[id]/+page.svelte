@@ -58,11 +58,11 @@
 		<Box.Visuals class="bg-background-tertiary" roundedSide="top" />
 		<Post.Root class="p-6">
 			<Post.Like value={likeCount} isActive={isLiked} onToggle={handleLikeToggle} />
-			<Post.Heading class="mb-1.5 max-w-70 text-base leading-[135%]">
+			<Post.Heading class="mb-2.5 max-w-70 text-base leading-[135%]">
 				بازگشت «ییم سی وان» و «سئول این آه» به کمدی رمانتیک با درام جدید tvN
 			</Post.Heading>
 			<Post.Info data={POST_INFO_DATA} />
-			<div class="mt-3 mb-4 text-sm leading-normal">
+			<div class="mt-3 mb-4 leading-normal">
 				سئول، کره جنوبی – طرفداران سریال‌های کره‌ای آماده‌ی یک خبر هیجان‌انگیز باشند! پس از سال‌ها
 				دوری از ژانر کمدی رمانتیک، بازیگران محبوب، ییم سی وان (Im Siwan) و سئول این آه (Seol In Ah)،
 				با درام جدید شبکه‌ی tvN به نام «لحظه‌های شیرین ما» (Our Sweet Moments) به این ژانر باز

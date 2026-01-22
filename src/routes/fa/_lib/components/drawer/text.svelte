@@ -8,7 +8,7 @@
 
 <Box.Root>
 	<input
-		class="peer h-11.5 w-full px-4 text-sm outline-none placeholder:text-foreground-primary/50"
+		class="peer h-11.5 w-full px-4 outline-none placeholder:text-foreground-primary/50"
 		type="text"
 		bind:value
 		{placeholder}

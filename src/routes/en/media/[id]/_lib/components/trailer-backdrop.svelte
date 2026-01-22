@@ -29,6 +29,6 @@
 				<Icon class="size-5" src={ArrowDownTray} theme="micro" />
 			</button>
 		</div>
-		<div class="mt-2 text-center text-sm leading-none font-bold">Trailer</div>
+		<div class="mt-2 text-center font-bold">Trailer</div>
 	</div>
 </div>

@@ -21,7 +21,7 @@
 
 <div
 	class={[
-		'relative isolate min-h-screen leading-none font-semibold text-foreground-primary select-none',
+		'relative isolate min-h-screen text-sm leading-none font-semibold text-foreground-primary select-none',
 		langStore.current === Lang.En ? 'ltr' : 'rtl'
 	]}
 >

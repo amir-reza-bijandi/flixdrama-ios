@@ -22,9 +22,7 @@
 	const { value = $bindable(), isInteractable = false, layout }: Props = $props();
 </script>
 
-<Box.Root
-	class={['flex flex-col text-sm leading-none', layout === 'compact' ? 'gap-2 p-3' : 'gap-3 p-4']}
->
+<Box.Root class={['flex flex-col', layout === 'compact' ? 'gap-2 p-3' : 'gap-3 p-4']}>
 	<Box.Visuals
 		class={[layout === 'compact' ? 'rounded-2xl' : 'rounded-3xl', 'bg-background-tertiary']}
 		hasBlur={false}

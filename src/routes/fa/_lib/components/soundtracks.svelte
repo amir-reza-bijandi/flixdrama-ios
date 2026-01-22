@@ -35,7 +35,7 @@
 					<Box.Visuals class="rounded-2xl bg-background-tertiary" />
 					<div class="flex items-center gap-2">
 						<div class="flex translate-y-0.5 flex-col items-start gap-1 ltr">
-							<div class="text-sm leading-none font-bold">{title}</div>
+							<div class="font-bold">{title}</div>
 							<div class="text-xs leading-none text-foreground-secondary">{artist}</div>
 						</div>
 						{#if image}

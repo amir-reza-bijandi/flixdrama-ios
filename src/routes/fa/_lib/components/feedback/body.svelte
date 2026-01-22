@@ -51,7 +51,7 @@
 	<div class="grid size-full place-items-center">
 		<div
 			class={[
-				'text-sm leading-normal transition-[scale,opacity] ease-overshoot-light',
+				'leading-normal transition-[scale,opacity] ease-overshoot-light',
 				!isTextVisible && 'scale-75 opacity-0'
 			]}
 			bind:clientHeight={textHeight}

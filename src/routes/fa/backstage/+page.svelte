@@ -5,6 +5,8 @@
 	import { MEDIA_FA } from '$lib/constants/data';
 	import type { Snippet } from 'svelte';
 	import { pageIconStore } from '../../_lib/store/page-icon-store.svelte';
+	import Grid from '../_lib/components/grid.svelte';
+	import List from '../_lib/components/list.svelte';
 	import PageWrapper from '../_lib/components/page-wrapper.svelte';
 	import { generateRandomNumber } from '../_lib/utilities/comment';
 	import PlaylistCategory from './_lib/components/playlist-category.svelte';
@@ -37,7 +39,7 @@
 	};
 
 	let currentTab = $state<Tab>('news');
-	const isDoubleColumn = $derived(currentTab === 'preview' || currentTab === 'soundtrack');
+	const Container = $derived(currentTab === 'preview' || currentTab === 'soundtrack' ? Grid : List);
 
 	$effect(() => {
 		pageIconStore.current = asset('/image/icon/fade/sparkle.svg');
@@ -52,9 +54,9 @@
 		bind:value={currentTab}
 		preservationKey="backstage-tabs"
 	/>
-	<div class={['grid gap-3', isDoubleColumn ? 'grid-cols-2' : 'grid-cols-1']}>
+	<Container>
 		{@render TAB_SNIPPET_MAP[currentTab]()}
-	</div>
+	</Container>
 </PageWrapper>
 
 {#snippet news()}

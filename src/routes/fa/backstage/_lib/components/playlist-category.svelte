@@ -25,7 +25,7 @@
 				/>
 			</Box.Visuals>
 			<div class="relative z-10 max-w-66">
-				<div class="mb-1 text-sm leading-none font-bold">{title}</div>
+				<div class="mb-1 font-bold">{title}</div>
 				<div class="text-xs leading-normal text-foreground-secondary">{body}</div>
 			</div>
 			<FadingIcon class="top-1/2 left-5 -translate-y-1/2 mix-blend-overlay" src={icon} size={40} />

@@ -21,7 +21,7 @@
 		<Icon class="size-5 text-accent-secondary" src={Star} theme="mini" />
 	</div>
 	<div class="text-center">
-		<div class="text-sm leading-none font-bold">{@render children()}</div>
-		<div class="text-[0.625rem] leading-none">Score</div>
+		<div class="mb-0.5 font-bold">{@render children()}</div>
+		<div class="text-2xs leading-none">Score</div>
 	</div>
 </div>

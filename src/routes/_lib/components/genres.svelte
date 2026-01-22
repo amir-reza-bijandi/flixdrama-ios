@@ -11,7 +11,7 @@
 <div class="my-3 flex items-center gap-1">
 	{#each data as genre}
 		<div class="transition-colors">
-			<Pressable.Root class="text-sm leading-none">
+			<Pressable.Root>
 				<Pressable.Content>
 					<Box.Root class="inline-block p-2">
 						<Box.Visuals />

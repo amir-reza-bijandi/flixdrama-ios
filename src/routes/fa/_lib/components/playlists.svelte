@@ -30,7 +30,7 @@
 				<Box.Root class="flex items-center justify-between p-4">
 					<Box.Visuals class="rounded-2xl bg-background-tertiary" />
 					<div class="flex flex-col gap-2">
-						<div class={['text-sm leading-none', subtitle && 'font-bold']}>{title}</div>
+						<div class={[subtitle && 'font-bold']}>{title}</div>
 						{#if subtitle}
 							<div class="text-xs leading-none text-foreground-secondary">{subtitle}</div>
 						{/if}

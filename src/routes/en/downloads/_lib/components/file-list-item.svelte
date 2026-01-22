@@ -33,7 +33,7 @@
 			hasLoadingGlow
 		/>
 		<div>
-			<span class="mb-1 inline-block text-sm leading-none font-bold">{title}</span>
+			<span class="mb-1 inline-block font-bold">{title}</span>
 			<div class="flex items-center gap-1 text-xs leading-none">
 				<Icon class="size-3" src={Clock} theme="micro" />
 				<span class="inline-block translate-y-px">

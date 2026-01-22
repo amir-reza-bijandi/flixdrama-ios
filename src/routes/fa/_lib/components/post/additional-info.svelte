@@ -14,7 +14,7 @@
 	const { data }: Props = $props();
 </script>
 
-<Box.Root class="text-sm leading-none">
+<Box.Root>
 	<Box.Visuals class="rounded-2xl bg-background-tertiary" />
 	{#each data as { label, value }, index}
 		{#if value}

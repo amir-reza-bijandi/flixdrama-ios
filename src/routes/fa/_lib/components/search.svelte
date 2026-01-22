@@ -48,7 +48,7 @@
 	]}
 	bind:clientHeight={sizeStore.searchHeight}
 >
-	<form class="leading-non mt-6 px-content-padding text-sm">
+	<form class="mt-6 px-content-padding">
 		<Box.Root class="overflow-hidden">
 			<Box.Visuals
 				class={[

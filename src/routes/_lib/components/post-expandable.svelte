@@ -31,7 +31,7 @@
 	const handleToggleExpand = () => (isExpanded = !isExpanded);
 </script>
 
-<Box.Root class="text-sm leading-normal transition-colors">
+<Box.Root class="leading-normal transition-colors">
 	<Box.Visuals class="rounded-2xl bg-background-tertiary" />
 	<div
 		style:--height={isExpanded ? toRem(maxTextHeight) : toRem(MIN_TEXT_HEIGHT)}
@@ -84,7 +84,10 @@
 
 {#snippet expandButtonText(text: string)}
 	<div
-		class="absolute end-(--padding) top-1/2 translate-y-[calc(-50%+0.0625rem)] pe-1 text-sm leading-none text-nowrap"
+		class={[
+			'absolute end-(--padding) top-1/2 pe-1 text-nowrap',
+			langStore.current === Lang.En ? 'translate-y-[calc(-50%+0.0625rem)]' : '-translate-y-1/2'
+		]}
 		bind:clientWidth={expandTextWidth}
 		in:scale={{}}
 		out:scale={{}}

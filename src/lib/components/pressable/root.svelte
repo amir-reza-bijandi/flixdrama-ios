@@ -1,6 +1,7 @@
 <script module>
 	type AnchorProps = Pick<HTMLAnchorAttributes, 'href'> & {
 		as: 'a';
+		replaceState?: boolean;
 	};
 	type ButtonProps = Pick<HTMLButtonAttributes, 'type'> & {
 		as?: 'button';
@@ -26,7 +27,8 @@
 	class={cn('group cursor-pointer', extraClass)}
 	{...restOfProps.as === 'a'
 		? {
-				href: restOfProps.href
+				href: restOfProps.href,
+				...(restOfProps.replaceState ? { 'data-sveltekit-replacestate': true } : {})
 			}
 		: {
 				type: restOfProps.type ?? 'button'

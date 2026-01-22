@@ -84,7 +84,8 @@
 			href: HASH.NEW_PLAYLIST,
 			icon: PlusIcon,
 			label: 'لیست پخش جدید',
-			variant: 'tertiary'
+			variant: 'tertiary',
+			replaceState: true
 		},
 		{
 			...SUBMIT_BUTTON,

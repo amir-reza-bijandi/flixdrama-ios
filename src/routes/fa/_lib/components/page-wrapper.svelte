@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
-	import { asset, resolve } from '$app/paths';
-	import { page } from '$app/state';
+	import { asset } from '$app/paths';
 	import { Box } from '$lib/components/box';
 	import Button from '$lib/components/button.svelte';
 	import { Pressable } from '$lib/components/pressable';
@@ -19,7 +17,6 @@
 	import { cn, type ClassValue } from 'tailwind-variants';
 	import { backgroundStore } from '../../../_lib/store/background-store.svelte';
 	import { pageIconStore } from '../../../_lib/store/page-icon-store.svelte';
-	import { historyStore } from '../store/history-store.svelte';
 	import { sizeStore } from '../store/size-store.svelte';
 
 	type Props = {
@@ -57,10 +54,7 @@
 
 	const handleToggleDarkMode = () => setMode(mode.current === 'light' ? 'dark' : 'light');
 	const handleToggleNotifications = () => (isNotificationsActive = !isNotificationsActive);
-	const handleBack = () => {
-		if (page.url.hash) goto(page.url.toString().split('#')[0]);
-		else goto(historyStore.current.at(-2) ?? resolve('/fa/'));
-	};
+	const handleBack = () => window.history.back();
 </script>
 
 <div

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Box } from '$lib/components/box';
-	import Image, { type ImageSrcSet } from '$lib/components/image.svelte';
+	import Image from '$lib/components/image.svelte';
 	import { Pressable } from '$lib/components/pressable';
 	import FadingIcon from '../../../../_lib/components/fading-icon.svelte';
 
@@ -9,7 +9,7 @@
 		title: string;
 		body: string;
 		icon: string;
-		image: ImageSrcSet;
+		image: string;
 	};
 	const { href, title, body, icon, image }: Props = $props();
 </script>
@@ -19,8 +19,8 @@
 		<Box.Root class="relative p-5">
 			<Box.Visuals class="rounded-2xl bg-background-tertiary">
 				<Image
-					class="inset-0 mask-linear-90 mask-linear-from-transparent mask-linear-from-25% mask-linear-to-black/25"
-					srcSet={image}
+					class="absolute inset-0 mask-linear-90 mask-linear-from-transparent mask-linear-from-25% mask-linear-to-black/25"
+					src={image}
 					hasLoadingGlow
 				/>
 			</Box.Visuals>

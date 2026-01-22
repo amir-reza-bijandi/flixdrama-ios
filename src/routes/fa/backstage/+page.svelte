@@ -106,22 +106,14 @@
 {#snippet playlist()}
 	<PlaylistCategory
 		href={resolve('/fa/backstage/media-playlist')}
-		image={{
-			small: asset('/image/collage/media@1x.png'),
-			medium: asset('/image/collage/media@1.5x.png'),
-			large: asset('/image/collage/media@2x.png')
-		}}
+		image={asset('/image/collage/media.png')}
 		title="فیلم و سریال"
 		body="مجموعه‌هایی که باید دید: بهترین فیلم‌ها و سریال‌های آسیایی، دسته‌بندی شده و آماده تماشا."
 		icon={asset('/image/icon/fade/film.svg')}
 	/>
 	<PlaylistCategory
 		href={resolve('/fa/backstage/soundtrack-playlist')}
-		image={{
-			small: asset('/image/collage/soundtrack@1x.png'),
-			medium: asset('/image/collage/soundtrack@1.5x.png'),
-			large: asset('/image/collage/soundtrack@2x.png')
-		}}
+		image={asset('/image/collage/soundtrack.png')}
 		title="موسیقی متن"
 		body="آهنگ‌هایی که خاطره شدن: غرق در ملودی‌هایی شو که روح درام‌های مورد علاقه‌ت رو داخل‌شون دارن."
 		icon={asset('/image/icon/fade/music.svg')}

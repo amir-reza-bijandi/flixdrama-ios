@@ -4,13 +4,13 @@
 	import Select, { type Option, type OptionsValue } from '$lib/components/select.svelte';
 	import { MEDIA_FA } from '$lib/constants/data';
 	import type { Snippet } from 'svelte';
-	import { pageIconStore } from '../../_lib/store/page-icon-store.svelte';
 	import Grid from '../_lib/components/grid.svelte';
 	import List from '../_lib/components/list.svelte';
 	import PageWrapper from '../_lib/components/page-wrapper.svelte';
 	import { generateRandomNumber } from '../_lib/utilities/comment';
 	import PlaylistCategory from './_lib/components/playlist-category.svelte';
 
+	const PRESERVATION_KEY = 'backstage-tabs';
 	const SELECT_OFFSET = 20;
 	const TABS = [
 		{
@@ -40,10 +40,6 @@
 
 	let currentTab = $state<Tab>('news');
 	const Container = $derived(currentTab === 'preview' || currentTab === 'soundtrack' ? Grid : List);
-
-	$effect(() => {
-		pageIconStore.current = asset('/image/icon/fade/sparkle.svg');
-	});
 </script>
 
 <PageWrapper icon={asset('/image/icon/fade/sparkle.svg')} hasBottomPadding hasContentPadding>
@@ -52,7 +48,7 @@
 		offset={SELECT_OFFSET}
 		options={TABS}
 		bind:value={currentTab}
-		preservationKey="backstage-tabs"
+		preservationKey={PRESERVATION_KEY}
 	/>
 	<Container>
 		{@render TAB_SNIPPET_MAP[currentTab]()}

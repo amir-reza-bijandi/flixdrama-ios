@@ -1,14 +1,30 @@
-<script lang="ts">
-	import { Box } from '$lib/components/box';
-	import type { Snippet } from 'svelte';
-
-	type Props = {
-		children: Snippet;
+<script module>
+	type Context = {
+		id: symbol;
 	};
-	const { children }: Props = $props();
+	const [get, set] = createContext<Context>();
+	export { get as getDrawerGroupContext };
 </script>
 
-<Box.Root class="flex flex-col divide-y divide-stroke-primary">
+<script lang="ts">
+	import { Box } from '$lib/components/box';
+	import { createContext, type Snippet } from 'svelte';
+
+	type Props = {
+		children?: Snippet;
+		showDivider?: boolean;
+	};
+	const { children, showDivider = true }: Props = $props();
+
+	const context: Context = {
+		id: Symbol()
+	};
+	set(context);
+</script>
+
+<Box.Root class="flex flex-col">
 	<Box.Visuals class="rounded-3xl bg-background-tertiary" hasBlur={false} />
-	{@render children()}
+	<div class={['divide-y', showDivider ? 'divide-stroke-primary' : 'divide-transparent']}>
+		{@render children?.()}
+	</div>
 </Box.Root>

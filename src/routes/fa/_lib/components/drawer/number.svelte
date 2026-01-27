@@ -3,69 +3,25 @@
 	import Button from '$lib/components/button.svelte';
 	import { MinusIcon, PlusIcon } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
-	import type { FormEventHandler } from 'svelte/elements';
+	import type { NumberInputProps } from '../number-input.svelte';
+	import NumberInput from '../number-input.svelte';
 
-	const MIN_VALUE = 1;
-	const DIGIT_MAP: Record<string, string> = {
-		'0': '۰',
-		'1': '۱',
-		'2': '۲',
-		'3': '۳',
-		'4': '۴',
-		'5': '۵',
-		'6': '۶',
-		'7': '۷',
-		'8': '۸',
-		'9': '۹'
-	};
-	const REVERSE_MAP = Object.fromEntries(Object.entries(DIGIT_MAP).map(([en, fa]) => [fa, en]));
+	const MIN_VALUE = 0;
 
-	export function convertDigits(input: string | number | null, target: 'en' | 'fa'): string {
-		const str = String(input);
-		if (target === 'fa') {
-			return str.replace(/[0-9]/g, (d) => DIGIT_MAP[d]);
-		} else {
-			return str.replace(/[۰-۹]/g, (d) => REVERSE_MAP[d]);
-		}
-	}
-	function validateValue(value: number | null) {
-		return value !== null ? Math.max(MIN_VALUE, Math.min(value, max)) : null;
-	}
-
-	type Props = {
-		value: number | null;
-		max: number;
-		children: Snippet;
+	type Props = NumberInputProps & {
 		isDisabled?: boolean;
+		children: Snippet;
 	};
-	let { value: currentEnValue = $bindable(), max, children, isDisabled = true }: Props = $props();
+	let {
+		value = $bindable(0),
+		max = Number.MAX_SAFE_INTEGER,
+		min = MIN_VALUE,
+		children,
+		isDisabled = true
+	}: Props = $props();
 
-	currentEnValue = validateValue(currentEnValue);
-	let currentFaValue = $state(convertDigits(currentEnValue, 'fa'));
-
-	const handleInput: FormEventHandler<HTMLInputElement> = (e) => {
-		const value = e.currentTarget.value;
-		const numberValue = Number(convertDigits(value, 'en'));
-		if (numberValue) {
-			currentEnValue = validateValue(numberValue);
-			currentFaValue = convertDigits(currentEnValue, 'fa');
-		} else {
-			currentEnValue = null;
-			currentFaValue = '';
-		}
-	};
-	const handleIncrement = () => {
-		if (currentEnValue !== null) {
-			currentEnValue = validateValue(currentEnValue + 1);
-		} else currentEnValue = 1;
-		currentFaValue = convertDigits(currentEnValue, 'fa');
-	};
-	const handleDecrement = () => {
-		if (currentEnValue !== null) {
-			currentEnValue = validateValue(currentEnValue - 1);
-		} else currentEnValue = 1;
-		currentFaValue = convertDigits(currentEnValue, 'fa');
-	};
+	const handleIncrement = () => (value += 1);
+	const handleDecrement = () => (value -= 1);
 </script>
 
 <Box.Root
@@ -78,23 +34,29 @@
 	{@render children()}
 	<div class="relative">
 		<div class="flex gap-1.5 ps-1.5">
-			<Button isCircle variant="neutral" isActive={false} onClick={handleIncrement} hasBlur={false}>
+			<Button
+				isCircle
+				variant="neutral"
+				isActive={false}
+				onClick={handleIncrement}
+				hasBlur={false}
+				isDisabled={value === max}
+			>
 				<PlusIcon class="size-4" />
 			</Button>
-			<Button isCircle variant="neutral" isActive={false} onClick={handleDecrement} hasBlur={false}>
+			<Button
+				isCircle
+				variant="neutral"
+				isActive={false}
+				onClick={handleDecrement}
+				hasBlur={false}
+				isDisabled={value === min}
+			>
 				<MinusIcon class="size-4" />
 			</Button>
 		</div>
 		<div class="absolute top-1/2 right-0 translate-x-full -translate-y-1/2">
-			<input
-				style="direction: ltr;"
-				class="h-10 w-15 max-w-full min-w-10 rounded-full border border-stroke-primary bg-background-tertiary px-1.5 text-center outline-2 outline-offset-4 outline-transparent transition-[outline,outline-offset,background-color] duration-250 ltr focus-visible:outline-offset-0 focus-visible:outline-accent-primary-tint"
-				type="text"
-				autocomplete="off"
-				inputmode="numeric"
-				bind:value={currentFaValue}
-				oninput={handleInput}
-			/>
+			<NumberInput class="h-10 w-15 rounded-full text-center" bind:value {max} />
 		</div>
 	</div>
 </Box.Root>

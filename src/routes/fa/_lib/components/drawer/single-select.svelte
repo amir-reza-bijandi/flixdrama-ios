@@ -42,7 +42,7 @@
 				{/if}
 				<div class="grid gap-0.5 text-start">
 					<div class="flex items-center gap-1.5">
-						<div class="leading-normal font-bold">{label}</div>
+						<div class={['leading-normal', description && 'font-bold']}>{label}</div>
 						{#if badge}
 							<div
 								class="rounded-full bg-gradient bg-gradient-success p-1.5 text-2xs leading-none outline -outline-offset-1 outline-stroke-tertiary"

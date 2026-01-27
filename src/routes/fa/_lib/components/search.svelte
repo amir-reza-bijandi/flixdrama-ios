@@ -5,12 +5,12 @@
 <script lang="ts">
 	import { asset } from '$app/paths';
 	import { Box } from '$lib/components/box';
-	import { Pressable } from '$lib/components/pressable';
 	import { MEDIA_FA } from '$lib/constants/data';
 	import { toRem } from '$lib/utilities/general';
-	import { HistoryIcon, SearchIcon } from '@lucide/svelte';
+	import { SearchIcon } from '@lucide/svelte';
 	import { pageIconStore } from '../../../_lib/store/page-icon-store.svelte';
 	import { sizeStore } from '../store/size-store.svelte';
+	import SearchHistoryItem from './search-history-item.svelte';
 
 	const MAX_HISTORY = 4;
 
@@ -91,15 +91,7 @@
 					bind:clientHeight={historyHeight}
 				>
 					{#each reversedHistory as item}
-						<Pressable.Root
-							class="block w-full text-foreground-secondary transition-colors"
-							onClick={() => (query = item)}
-						>
-							<Pressable.Content class="flex origin-[center_right] items-center gap-1.5 p-3">
-								<HistoryIcon class="size-4" />
-								{item}
-							</Pressable.Content>
-						</Pressable.Root>
+						<SearchHistoryItem onClick={() => (query = item)}>{item}</SearchHistoryItem>
 					{/each}
 				</div>
 			</div>

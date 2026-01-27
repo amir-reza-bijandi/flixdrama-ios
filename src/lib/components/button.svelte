@@ -43,6 +43,7 @@
 	import type { DirectionFactor } from '$lib/types/transition';
 	import { toRem } from '$lib/utilities/general';
 	import type { Snippet } from 'svelte';
+	import type { MouseEventHandler } from 'svelte/elements';
 	import { fly } from 'svelte/transition';
 	import { cn, type VariantProps } from 'tailwind-variants';
 
@@ -63,15 +64,15 @@
 	let labelHeight = $state(0);
 	let directionFactor = $state<DirectionFactor>(-1);
 
-	const handleClick = () => {
+	const handleClick: MouseEventHandler<HTMLElement> = (e) => {
 		directionFactor = directionFactor === 1 ? -1 : 1;
-		if ('onClick' in restOfProps) restOfProps.onClick?.();
+		if ('onClick' in restOfProps) restOfProps.onClick?.(e);
 	};
 </script>
 
 <Pressable.Root
 	class={cn(
-		'block h-10 leading-none',
+		'block h-10 leading-none transition-opacity',
 		isCircle ? 'w-10 shrink-0' : 'w-full',
 		isActive && 'text-foreground-accent',
 		isDisabled && 'pointer-events-none opacity-50',

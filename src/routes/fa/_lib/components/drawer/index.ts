@@ -1,9 +1,11 @@
+import Accordion from './accordion.svelte';
 import Body from './body.svelte';
 import Footer from './footer.svelte';
 import Group from './group.svelte';
 import MultiSelect from './multi-select.svelte';
 import Number from './number.svelte';
 import Root from './root.svelte';
+import Scroll from './scroll.svelte';
 import SingleSelect from './single-select.svelte';
 import Switch from './switch.svelte';
 import Tabs from './tabs.svelte';
@@ -20,7 +22,9 @@ export const Drawer = {
 	Number,
 	Text,
 	TextArea,
-	Group
+	Group,
+	Accordion,
+	Scroll
 };
 export type {
 	FooterData as DrawerFooterData,

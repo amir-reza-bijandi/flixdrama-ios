@@ -15,7 +15,8 @@
 		children?: Snippet;
 		class?: ClassValue;
 		stopPropagation?: boolean;
-		onClick?: () => void;
+		onClick?: MouseEventHandler<HTMLElement>;
+		onPointerDown?: PointerEventHandler<HTMLElement>;
 	};
 	export { get as getPressableContext };
 	export type { Props as PressableProps };
@@ -26,6 +27,7 @@
 	import type {
 		HTMLAnchorAttributes,
 		HTMLButtonAttributes,
+		MouseEventHandler,
 		PointerEventHandler
 	} from 'svelte/elements';
 	import { cn, type ClassValue } from 'tailwind-variants';
@@ -35,6 +37,7 @@
 		class: extraClass,
 		stopPropagation = false,
 		onClick,
+		onPointerDown,
 		...restOfProps
 	}: Props = $props();
 
@@ -44,10 +47,17 @@
 	});
 	set(context);
 
-	const handlePointerDown = () => (context.isPointerDown = true);
+	const handlePointerDown: PointerEventHandler<HTMLElement> = (e) => {
+		onPointerDown?.(e);
+		context.isPointerDown = true;
+		document.body.addEventListener('pointerup', handlePointerUp);
+	};
 	const handlePointerDownCapture: PointerEventHandler<HTMLElement> = (e) =>
 		stopPropagation && e.stopImmediatePropagation();
-	const handlePointerUp = () => (context.isPointerDown = false);
+	const handlePointerUp = () => {
+		context.isPointerDown = false;
+		document.body.removeEventListener('pointerup', handlePointerUp);
+	};
 </script>
 
 <svelte:element
@@ -64,7 +74,6 @@
 	onclickcapture={onClick}
 	onpointerdowncapture={handlePointerDownCapture}
 	onpointerdown={handlePointerDown}
-	onpointerup={handlePointerUp}
 >
 	{@render children?.()}
 </svelte:element>

@@ -25,11 +25,14 @@
 	});
 
 	let query = $state('');
-	let history = $state<string[]>(MEDIA_FA.map(({ titleFa }) => titleFa).slice(0, MAX_HISTORY));
+	let history = $state<string[]>(
+		MEDIA_FA.map(({ titleFa }) => titleFa)
+			.slice(0, MAX_HISTORY)
+			.reverse()
+	);
 	let historyHeight = $state(0);
 	let isOnTop = $state(false);
 	const showHistory = $derived(!query && isActive && history.length);
-	const reversedHistory = $derived([...history].reverse());
 	const height = $derived(sizeStore.SEARCH_INPUT_HEIGHT + (showHistory ? historyHeight : 0));
 	const handleTransitionEnd = () => {
 		if (!isActive) isOnTop = false;
@@ -90,7 +93,7 @@
 					class={['absolute start-0 w-full transition-opacity', !showHistory && 'opacity-0']}
 					bind:clientHeight={historyHeight}
 				>
-					{#each reversedHistory as item}
+					{#each history as item}
 						<SearchHistoryItem onClick={() => (query = item)}>{item}</SearchHistoryItem>
 					{/each}
 				</div>

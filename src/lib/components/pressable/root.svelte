@@ -50,13 +50,15 @@
 	const handlePointerDown: PointerEventHandler<HTMLElement> = (e) => {
 		onPointerDown?.(e);
 		context.isPointerDown = true;
-		document.body.addEventListener('pointerup', handlePointerUp);
+		document.body.addEventListener('pointerup', handlePointerUpOrLeave);
+		document.body.addEventListener('pointerleave', handlePointerUpOrLeave);
 	};
 	const handlePointerDownCapture: PointerEventHandler<HTMLElement> = (e) =>
-		stopPropagation && e.stopImmediatePropagation();
-	const handlePointerUp = () => {
+		stopPropagation && e.stopPropagation();
+	const handlePointerUpOrLeave = () => {
 		context.isPointerDown = false;
-		document.body.removeEventListener('pointerup', handlePointerUp);
+		document.body.removeEventListener('pointerup', handlePointerUpOrLeave);
+		document.body.removeEventListener('pointerleave', handlePointerUpOrLeave);
 	};
 </script>
 

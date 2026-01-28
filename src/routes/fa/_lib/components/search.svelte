@@ -46,7 +46,7 @@
 	style:--header-height={toRem(sizeStore.headerHeight)}
 	style:--padding-bottom={toRem(sizeStore.navigationHeight)}
 	class={[
-		'absolute top-0 left-0 scrollbar-hidden w-full pt-(--header-height) pb-(--padding-bottom)',
+		'absolute top-0 left-0 scrollbar-hidden w-full pt-(--header-height) pb-(--padding-bottom) transition-opacity',
 		isOnTop && 'z-30'
 	]}
 	bind:clientHeight={sizeStore.searchHeight}

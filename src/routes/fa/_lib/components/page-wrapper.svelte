@@ -7,6 +7,7 @@
 	import Toggle from '$lib/components/toggle.svelte';
 	import { TRANSITION } from '$lib/constants/transition';
 	import { toRem } from '$lib/utilities/general';
+	import { CheckCheckIcon, TrashIcon } from '@lucide/svelte';
 	import { ChevronLeft, Moon, Sun, XMark } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
 	import { IconBell } from '@tabler/icons-svelte';
@@ -17,6 +18,8 @@
 	import { cn, type ClassValue } from 'tailwind-variants';
 	import { backgroundStore } from '../../../_lib/store/background-store.svelte';
 	import { pageIconStore } from '../../../_lib/store/page-icon-store.svelte';
+	import { HASH } from '../constants/hash';
+	import { hashStore } from '../store/hash-store.svelte';
 	import { sizeStore } from '../store/size-store.svelte';
 
 	type Props = {
@@ -30,11 +33,11 @@
 		hasBottomPadding?: boolean;
 		hasContentPadding?: boolean;
 	};
-	const {
+	let {
 		children,
 		class: extraClass,
 		actions,
-		isTransitionReversed,
+		isTransitionReversed = $bindable(false),
 		showBackButton = false,
 		icon,
 		background,
@@ -42,7 +45,8 @@
 		hasContentPadding
 	}: Props = $props();
 
-	let isNotificationsActive = $state(false);
+	let isNotificationsActive = $derived(hashStore.current === HASH.NOTIFICATIONS);
+	let isSearchActive = $derived(hashStore.current === HASH.SEARCH);
 	let actionWidth = $state(0);
 
 	$effect(() => {
@@ -51,23 +55,39 @@
 	$effect(() => {
 		if (background) backgroundStore.current = background;
 	});
+	$effect(() => {
+		isTransitionReversed = isNotificationsActive;
+	});
 
 	const handleToggleDarkMode = () => setMode(mode.current === 'light' ? 'dark' : 'light');
-	const handleToggleNotifications = () => (isNotificationsActive = !isNotificationsActive);
 	const handleBack = () => window.history.back();
+	const handleCloseNotification = () => {
+		if (isNotificationsActive) window.history.back();
+	};
 </script>
 
 <div
 	style:--padding-bottom={toRem(sizeStore.navigationHeight)}
+	style:--height={toRem(
+		isSearchActive
+			? sizeStore.searchHeight
+			: isNotificationsActive
+				? sizeStore.notificationsHeight
+				: 0
+	)}
+	style:--min-height={toRem(
+		window.innerHeight - sizeStore.headerHeight - sizeStore.navigationHeight
+	)}
 	class={cn(
 		'overflow-hidden',
 		hasBottomPadding && 'pb-[calc(var(--padding-bottom)+var(--spacing-content-padding))]',
+		(isSearchActive || isNotificationsActive) && 'h-(--height) min-h-(--min-height)',
 		extraClass
 	)}
 >
 	<div class="pt-content-padding" bind:clientHeight={sizeStore.headerHeight}>
 		<div class="relative z-40 mx-content-padding h-10 items-center transition-colors">
-			{#key actions}
+			{#key actions && isNotificationsActive}
 				<div
 					class="absolute top-1/2 right-0 -translate-y-1/2"
 					in:fly={{
@@ -84,9 +104,18 @@
 					}}
 					bind:clientWidth={actionWidth}
 				>
-					{#if actions}
+					{#if isNotificationsActive || actions}
 						<div class="flex items-center gap-1.5">
-							{@render actions()}
+							{#if isNotificationsActive}
+								<Button variant="danger" isCircle isActive={false} hasBlur={false}>
+									<TrashIcon class="size-5 stroke-[1.5]" />
+								</Button>
+								<Button variant="success" isCircle isActive={false} hasBlur={false}>
+									<CheckCheckIcon class="size-5 stroke-[1.5]" />
+								</Button>
+							{:else}
+								{@render actions!()}
+							{/if}
 						</div>
 					{:else}
 						<div class="relative isolate">
@@ -112,9 +141,14 @@
 				]}
 			>
 				<Box.Visuals class="bg-transparent bg-gradient bg-gradient-neutral/25" />
-				<Pressable.Root class="-ml-0.5 size-10" onClick={handleToggleNotifications}>
-					<Pressable.Content class="grid place-items-center">
-						<Toggle isActive={isNotificationsActive} speed="slow" mustRotate>
+				<Pressable.Root
+					as="a"
+					onClick={handleCloseNotification}
+					href={HASH.NOTIFICATIONS}
+					class="-ml-0.5 size-10"
+				>
+					<Pressable.Content class="grid size-full place-items-center">
+						<Toggle isActive={isNotificationsActive} mustRotate speed="slow">
 							{#snippet active()}
 								<Icon src={XMark} class="size-5 text-danger-tint" />
 							{/snippet}

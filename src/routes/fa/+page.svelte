@@ -6,7 +6,6 @@
 	import { Swiper } from '$lib/components/swiper';
 	import { COUNTRY_LABEL_MAP_FA, MEDIA_FA } from '$lib/constants/data';
 	import type { Country } from '$lib/types/data';
-	import { toRem } from '$lib/utilities/general';
 	import RecommendationsCarousel from '../_lib/components/recommendations-carousel.svelte';
 	import PageWrapper from './_lib/components/page-wrapper.svelte';
 	import Profile from './_lib/components/profile.svelte';
@@ -14,7 +13,6 @@
 	import SubscriptionBanner from './_lib/components/subscription-banner.svelte';
 	import { HASH } from './_lib/constants/hash';
 	import { hashStore } from './_lib/store/hash-store.svelte';
-	import { sizeStore } from './_lib/store/size-store.svelte';
 	import { toFarsi } from './_lib/utilities/to-farsi';
 
 	const SWIPER_OFFSET = 20;
@@ -42,7 +40,12 @@
 		value: country as Country
 	}));
 
-	let isSearchActive = $derived(hashStore.current === HASH.SEARCH);
+	const isSearchActive = $derived(hashStore.current === HASH.SEARCH);
+	let isTransitionReversed = $state(false);
+
+	$effect(() => {
+		isTransitionReversed = isSearchActive;
+	});
 </script>
 
 {#snippet profileButton()}
@@ -50,12 +53,9 @@
 {/snippet}
 
 <PageWrapper
-	--height={toRem(sizeStore.searchHeight)}
-	--min-height={toRem(window.innerHeight - sizeStore.headerHeight - sizeStore.navigationHeight)}
-	class={isSearchActive && 'h-(--height) min-h-(--min-height)'}
 	showBackButton={isSearchActive}
 	actions={!isSearchActive ? profileButton : undefined}
-	isTransitionReversed={isSearchActive}
+	bind:isTransitionReversed
 	icon={asset('/image/icon/fade/home.svg')}
 	hasContentPadding
 	hasBottomPadding

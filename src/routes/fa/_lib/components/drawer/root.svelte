@@ -2,11 +2,11 @@
 	import { Box } from '$lib/components/box';
 	import type { Snippet } from 'svelte';
 	import { cn, type ClassValue } from 'tailwind-variants';
-	import type { HASH } from '../../constants/hash';
 	import { hashStore } from '../../store/hash-store.svelte';
+	import type { Hash } from '../../types/hash';
 
 	type Props = {
-		hash: (typeof HASH)[keyof typeof HASH];
+		hash: Hash;
 		class?: ClassValue;
 		children?: Snippet;
 	};

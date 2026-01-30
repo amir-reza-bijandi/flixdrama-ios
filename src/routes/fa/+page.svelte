@@ -48,18 +48,15 @@
 	});
 </script>
 
-{#snippet profileButton()}
-	<Profile />
-{/snippet}
-
 <PageWrapper
 	showBackButton={isSearchActive}
-	actions={!isSearchActive ? profileButton : undefined}
-	bind:isTransitionReversed
 	icon={asset('/image/icon/fade/home.svg')}
 	hasContentPadding
 	hasBottomPadding
 >
+	{#snippet actions()}
+		<Profile />
+	{/snippet}
 	<Search isActive={isSearchActive} />
 	<div
 		class={[

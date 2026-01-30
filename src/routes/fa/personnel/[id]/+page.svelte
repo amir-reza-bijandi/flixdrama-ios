@@ -8,6 +8,9 @@
 	import { toLocaleDateString } from '$lib/utilities/date';
 	import { CakeIcon, CalendarIcon, FilmIcon, PlusIcon } from '@lucide/svelte';
 	import Comment from '../../_lib/components/comment.svelte';
+	import LikeAction, {
+		type LikeActionToggleHandler
+	} from '../../_lib/components/like-action.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
 	import { Post, type PostInfoData } from '../../_lib/components/post';
 	import { HASH } from '../../_lib/constants/hash';
@@ -33,9 +36,15 @@
 	const comments = Array.from({ length: generateRandomNumber(20) }).map(() =>
 		generateMockComment()
 	);
+
+	let isLiked = $state(false);
+	const handleToggleLike: LikeActionToggleHandler = (isActive) => (isLiked = isActive);
 </script>
 
-<PageWrapper background={IMAGE} hasBottomPadding>
+<PageWrapper background={IMAGE} hasBottomPadding showBackButton>
+	{#snippet actions()}
+		<LikeAction {isLiked} onToggle={handleToggleLike} />
+	{/snippet}
 	<Post.Root class="pb-0">
 		<div class="mb-4 flex flex-col items-center">
 			<Image

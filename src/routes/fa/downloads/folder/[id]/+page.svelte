@@ -37,7 +37,7 @@
 	);
 </script>
 
-<PageWrapper hasContentPadding hasBottomPadding>
+<PageWrapper hasContentPadding hasBottomPadding showBackButton>
 	{#snippet actions()}
 		<Button variant="danger" isCircle isActive={false}>
 			<Trash2Icon class="size-5 stroke-[1.5]" />

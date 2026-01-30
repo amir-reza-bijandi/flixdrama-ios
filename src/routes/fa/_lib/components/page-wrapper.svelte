@@ -5,7 +5,6 @@
 	import { Pressable } from '$lib/components/pressable';
 	import Separator from '$lib/components/separator.svelte';
 	import Toggle from '$lib/components/toggle.svelte';
-	import { TRANSITION } from '$lib/constants/transition';
 	import { toRem } from '$lib/utilities/general';
 	import { CheckCheckIcon, TrashIcon } from '@lucide/svelte';
 	import { ChevronLeft, Moon, Sun, XMark } from '@steeze-ui/heroicons';
@@ -13,8 +12,6 @@
 	import { IconBell } from '@tabler/icons-svelte';
 	import { mode, setMode } from 'mode-watcher';
 	import type { Snippet } from 'svelte';
-	import { backOut } from 'svelte/easing';
-	import { fly } from 'svelte/transition';
 	import { cn, type ClassValue } from 'tailwind-variants';
 	import { backgroundStore } from '../../../_lib/store/background-store.svelte';
 	import { pageIconStore } from '../../../_lib/store/page-icon-store.svelte';
@@ -26,7 +23,6 @@
 		children?: Snippet;
 		class?: ClassValue;
 		actions?: Snippet;
-		isTransitionReversed?: boolean;
 		showBackButton?: boolean;
 		icon?: string;
 		background?: string;
@@ -37,7 +33,6 @@
 		children,
 		class: extraClass,
 		actions,
-		isTransitionReversed = $bindable(false),
 		showBackButton = false,
 		icon,
 		background,
@@ -48,15 +43,13 @@
 	let isNotificationsActive = $derived(hashStore.current === HASH.NOTIFICATIONS);
 	let isSearchActive = $derived(hashStore.current === HASH.SEARCH);
 	let actionWidth = $state(0);
+	let brandingWidth = $state(0);
 
 	$effect(() => {
 		pageIconStore.current = icon ?? '';
 	});
 	$effect(() => {
 		if (background) backgroundStore.current = background;
-	});
-	$effect(() => {
-		isTransitionReversed = isNotificationsActive;
 	});
 
 	const handleToggleDarkMode = () => setMode(mode.current === 'light' ? 'dark' : 'light');
@@ -86,53 +79,59 @@
 	)}
 >
 	<div class="pt-content-padding" bind:clientHeight={sizeStore.headerHeight}>
-		<div class="relative z-40 mx-content-padding h-10 items-center transition-colors">
-			{#key actions && isNotificationsActive}
-				<div
-					class="absolute top-1/2 right-0 -translate-y-1/2"
-					in:fly={{
-						x: isTransitionReversed ? actionWidth : 0,
-						y: !isTransitionReversed ? -sizeStore.headerHeight : 0,
-						duration: TRANSITION.DURATION,
-						easing: backOut
-					}}
-					out:fly={{
-						x: !isTransitionReversed ? actionWidth : 0,
-						y: isTransitionReversed ? -sizeStore.headerHeight : 0,
-						duration: TRANSITION.DURATION,
-						easing: backOut
-					}}
-					bind:clientWidth={actionWidth}
-				>
-					{#if isNotificationsActive || actions}
-						<div class="flex items-center gap-1.5">
-							{#if isNotificationsActive}
-								<Button variant="danger" isCircle isActive={false} hasBlur={false}>
-									<TrashIcon class="size-5 stroke-[1.5]" />
-								</Button>
-								<Button variant="success" isCircle isActive={false} hasBlur={false}>
-									<CheckCheckIcon class="size-5 stroke-[1.5]" />
-								</Button>
-							{:else}
-								{@render actions!()}
-							{/if}
-						</div>
-					{:else}
-						<div class="relative isolate">
-							<img
-								class="brightness-125 saturate-150"
-								src={asset('/image/brand-name-fa.svg')}
-								alt=""
-							/>
-							<img
-								class="absolute top-1/2 left-1/2 -z-10 -translate-1/2 blur-xl"
-								src={asset('/image/brand-name-fa.svg')}
-								alt=""
-							/>
-						</div>
-					{/if}
+		<div
+			style:--header-height={toRem(sizeStore.headerHeight)}
+			class="relative z-40 mx-content-padding h-10 items-center transition-colors"
+		>
+			<div
+				style:--branding-width={toRem(brandingWidth)}
+				class={[
+					'absolute top-1/2 right-0 transition-[translate,opacity] ease-overshoot-light',
+					isSearchActive || (!isNotificationsActive && !actions)
+						? 'translate-x-0 -translate-y-1/2'
+						: isNotificationsActive
+							? 'translate-x-[calc(var(--branding-width)+var(--spacing-content-padding))] -translate-y-1/2'
+							: '-translate-y-[calc(var(--header-height)+var(--spacing-content-padding))]',
+					(isNotificationsActive || !isSearchActive) && 'opacity-0'
+				]}
+				bind:clientWidth={brandingWidth}
+			>
+				<div class="relative isolate">
+					<img class="brightness-125 saturate-150" src={asset('/image/brand-name-fa.svg')} alt="" />
+					<img
+						class="absolute top-1/2 left-1/2 -z-10 blur-xl"
+						src={asset('/image/brand-name-fa.svg')}
+						alt=""
+					/>
 				</div>
-			{/key}
+			</div>
+			<div
+				class={[
+					'absolute top-1/2 right-0 flex items-center gap-1.5 transition-transform ease-overshoot-light',
+					isNotificationsActive
+						? '-translate-y-1/2'
+						: '-translate-y-[calc(var(--header-height)+var(--spacing-content-padding))]'
+				]}
+			>
+				<Button variant="danger" isCircle isActive={false} hasBlur={false}>
+					<TrashIcon class="size-5 stroke-[1.5]" />
+				</Button>
+				<Button variant="success" isCircle isActive={false} hasBlur={false}>
+					<CheckCheckIcon class="size-5 stroke-[1.5]" />
+				</Button>
+			</div>
+			<div
+				style:--action-width={toRem(actionWidth)}
+				class={[
+					'absolute top-1/2 right-0 flex -translate-y-1/2 items-center gap-1.5 transition-transform ease-overshoot-light',
+					!isNotificationsActive && !isSearchActive
+						? 'translate-x-0'
+						: 'translate-x-[calc(var(--action-width)+var(--spacing-content-padding))]'
+				]}
+				bind:clientWidth={actionWidth}
+			>
+				{@render actions?.()}
+			</div>
 			<!-- Global Actions -->
 			<Box.Root
 				class={[

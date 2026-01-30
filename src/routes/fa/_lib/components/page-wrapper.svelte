@@ -44,12 +44,18 @@
 	let isSearchActive = $derived(hashStore.current === HASH.SEARCH);
 	let actionWidth = $state(0);
 	let brandingWidth = $state(0);
+	let hasTransition = $state(false);
 
 	$effect(() => {
 		pageIconStore.current = icon ?? '';
 	});
 	$effect(() => {
 		if (background) backgroundStore.current = background;
+	});
+	$effect(() => {
+		requestAnimationFrame(() => {
+			hasTransition = true;
+		});
 	});
 
 	const handleToggleDarkMode = () => setMode(mode.current === 'light' ? 'dark' : 'light');
@@ -86,13 +92,14 @@
 			<div
 				style:--branding-width={toRem(brandingWidth)}
 				class={[
-					'absolute top-1/2 right-0 transition-[translate,opacity] ease-overshoot-light',
+					'absolute top-1/2 right-0 ease-overshoot-light',
 					isSearchActive || (!isNotificationsActive && !actions)
 						? 'translate-x-0 -translate-y-1/2'
 						: isNotificationsActive
 							? 'translate-x-[calc(var(--branding-width)+var(--spacing-content-padding))] -translate-y-1/2'
 							: '-translate-y-[calc(var(--header-height)+var(--spacing-content-padding))]',
-					(isNotificationsActive || !isSearchActive) && 'opacity-0'
+					(isNotificationsActive || !isSearchActive) && 'opacity-0',
+					hasTransition && 'transition-[translate,opacity]'
 				]}
 				bind:clientWidth={brandingWidth}
 			>
@@ -107,10 +114,11 @@
 			</div>
 			<div
 				class={[
-					'absolute top-1/2 right-0 flex items-center gap-1.5 transition-transform ease-overshoot-light',
+					'absolute top-1/2 right-0 flex items-center gap-1.5 ease-overshoot-light',
 					isNotificationsActive
 						? '-translate-y-1/2'
-						: '-translate-y-[calc(var(--header-height)+var(--spacing-content-padding))]'
+						: '-translate-y-[calc(var(--header-height)+var(--spacing-content-padding))]',
+					hasTransition && 'transition-transform'
 				]}
 			>
 				<Button variant="danger" isCircle isActive={false} hasBlur={false}>
@@ -123,10 +131,11 @@
 			<div
 				style:--action-width={toRem(actionWidth)}
 				class={[
-					'absolute top-1/2 right-0 flex -translate-y-1/2 items-center gap-1.5 transition-transform ease-overshoot-light',
+					'absolute top-1/2 right-0 flex -translate-y-1/2 items-center gap-1.5 ease-overshoot-light',
 					!isNotificationsActive && !isSearchActive
 						? 'translate-x-0'
-						: 'translate-x-[calc(var(--action-width)+var(--spacing-content-padding))]'
+						: 'translate-x-[calc(var(--action-width)+var(--spacing-content-padding))]',
+					hasTransition && 'transition-transform'
 				]}
 				bind:clientWidth={actionWidth}
 			>

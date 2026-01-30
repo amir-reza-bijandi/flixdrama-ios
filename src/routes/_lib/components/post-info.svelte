@@ -15,7 +15,7 @@
 	const { data }: Props = $props();
 </script>
 
-<div class="flex h-(--height) w-(--width) items-center gap-1.5">
+<div class="flex items-center gap-1.5">
 	{#each data as { icon: Icon, label }, index}
 		<div class="flex items-center gap-1 text-foreground-secondary transition-colors">
 			<Icon class="size-3.5 stroke-2" />

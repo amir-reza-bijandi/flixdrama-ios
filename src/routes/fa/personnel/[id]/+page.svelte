@@ -44,7 +44,7 @@
 				hasLoadingGlow
 				hasOutline
 			/>
-			<Post.Heading class="mb-2">لی جونگ جائه</Post.Heading>
+			<Post.Heading class="mb-2.5">لی جونگ جائه</Post.Heading>
 			<Post.Info data={POST_INFO_DATA} />
 		</div>
 		<Post.Expandable>

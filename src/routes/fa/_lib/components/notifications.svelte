@@ -102,7 +102,7 @@
 						<Pressable.Root class="block w-full">
 							<Pressable.Content mustBounceOnClick={type !== 'follow'}>
 								<Box.Root class="grid gap-3 p-4">
-									<FadingIcon class="top-4 left-4 opacity-50" size={40} src={TYPE_ICON_MAP[type]} />
+									<FadingIcon class="top-4 left-4 opacity-50" src={TYPE_ICON_MAP[type]} />
 									<Box.Visuals class="rounded-2xl bg-background-tertiary" hasBlur={false} />
 									<div class="grid gap-2">
 										<div class="flex items-center gap-2">

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import PageIcon from '../_lib/components/page-icon.svelte';
+	import FilterDrawer from './_lib/components/filter-drawer.svelte';
 	import Navigation from './_lib/components/navigation.svelte';
 	import NewCommentDrawer from './_lib/components/new-comment-drawer.svelte';
 	import Notifications from './_lib/components/notifications.svelte';
@@ -12,5 +13,6 @@
 <Navigation />
 <Overlay />
 <NewCommentDrawer />
+<FilterDrawer />
 <Notifications />
 {@render children()}

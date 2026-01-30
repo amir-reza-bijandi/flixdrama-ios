@@ -12,7 +12,7 @@
 
 	import Image from '$lib/components/image.svelte';
 	import { Clock } from '@steeze-ui/heroicons';
-	import { formatDuration } from '../utilities/format-duration';
+	import { formatDuration } from '../../../../../lib/utilities/format-duration';
 	import type { ListItemDeleteHandler } from './list-item.svelte';
 	import ListItem from './list-item.svelte';
 

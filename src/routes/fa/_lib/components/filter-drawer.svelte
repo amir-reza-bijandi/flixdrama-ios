@@ -11,13 +11,11 @@
 		LayoutGridIcon,
 		StarIcon
 	} from '@lucide/svelte';
-	import { Drawer } from '../../../_lib/components/drawer';
-	import NumberInput, {
-		type NumberInputChangeEventHandler
-	} from '../../../_lib/components/number-input.svelte';
-	import RangeSlider from '../../../_lib/components/range-slider.svelte';
-	import { HASH } from '../../../_lib/constants/hash';
-	import { GENRES } from '../constant/genres';
+	import { GENRES } from '../../archive/_lib/constant/genres';
+	import { HASH } from '../constants/hash';
+	import { Drawer } from './drawer';
+	import NumberInput, { type NumberInputChangeEventHandler } from './number-input.svelte';
+	import RangeSlider from './range-slider.svelte';
 
 	const DEFAULT_YEAR: Range<number> = {
 		min: 1970,

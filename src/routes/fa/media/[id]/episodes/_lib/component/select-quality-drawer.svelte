@@ -6,6 +6,7 @@
 	import { Drawer, type DrawerSingleSelectOption } from '../../../../../_lib/components/drawer';
 	import type { TabsData, TabsDataValue } from '../../../../../_lib/components/drawer/tabs.svelte';
 	import { HASH } from '../../../../../_lib/constants/hash';
+	import type { Quality } from '../../../../../_lib/types/media';
 	import { generateRandomNumber } from '../../../../../_lib/utilities/comment';
 	import { toFarsi } from '../../../../../_lib/utilities/to-farsi';
 
@@ -25,7 +26,6 @@
 		hardsub
 	};
 
-	type Quality = (typeof QUALITY)[number];
 	const QUALITY = [
 		'360p',
 		'480p',
@@ -35,7 +35,7 @@
 		'720p x265 10bit',
 		'1080p x265 10bit'
 	] as const;
-	const QUALITY_BADGE_MAP: Record<Quality, string> = {
+	const QUALITY_LABEL_MAP: Record<Quality, string> = {
 		'360p': 'qSD',
 		'480p': 'SD',
 		'540p': 'qHD',
@@ -48,7 +48,7 @@
 		label: `کیفیت ${quality}`,
 		description: `${toFarsi(generateRandomNumber(999))} مگابایت`,
 		value: quality,
-		short: QUALITY_BADGE_MAP[quality],
+		short: QUALITY_LABEL_MAP[quality],
 		badge: QUALITY.length - 3 < index ? 'کم‌حجم' : ''
 	}));
 

@@ -7,11 +7,11 @@
 	import { COUNTRY_LABEL_MAP_FA, MEDIA_FA } from '$lib/constants/data';
 	import type { Country } from '$lib/types/data';
 	import { SearchIcon, SlidersHorizontalIcon } from '@lucide/svelte';
+	import FilterDrawer from '../_lib/components/filter-drawer.svelte';
 	import Grid from '../_lib/components/grid.svelte';
 	import PageWrapper from '../_lib/components/page-wrapper.svelte';
 	import { HASH } from '../_lib/constants/hash';
 	import { toFarsi } from '../_lib/utilities/to-farsi';
-	import FilterDrawer from './_lib/component/filter-drawer.svelte';
 	import SearchDrawer from './_lib/component/search-drawer.svelte';
 
 	const PRESERVATION_KEY = 'archive-tabs';

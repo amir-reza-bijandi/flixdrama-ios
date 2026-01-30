@@ -9,6 +9,6 @@
 	const { children, class: extraClass }: Props = $props();
 </script>
 
-<div class={cn('grid gap-3', extraClass)}>
+<div class={cn('relative z-10 grid gap-3', extraClass)}>
 	{@render children?.()}
 </div>

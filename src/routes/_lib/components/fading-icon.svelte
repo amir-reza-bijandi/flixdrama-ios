@@ -9,10 +9,10 @@
 
 	type Props = {
 		src: string;
-		size: number;
+		size?: number;
 		class?: ClassValue;
 	};
-	const { src, size, class: extraClass }: Props = $props();
+	const { src, size = 40, class: extraClass }: Props = $props();
 </script>
 
 {#if mode.current === 'dark'}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Asset } from '$app/types';
 	import Image from '$lib/components/image.svelte';
 	import { TRANSITION } from '$lib/constants/transition';
 	import { toRem } from '$lib/utilities/general';
@@ -8,7 +9,7 @@
 	import { cn, type ClassValue } from 'tailwind-variants';
 
 	type Props = {
-		src: string;
+		src: Asset;
 		size?: number;
 		class?: ClassValue;
 	};

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { asset } from '$app/paths';
+	import type { Asset } from '$app/types';
 	import { Box } from '$lib/components/box';
 	import Button from '$lib/components/button.svelte';
 	import Image from '$lib/components/image.svelte';
@@ -23,7 +24,7 @@
 		news: asset('/image/icon/fade/rss.svg'),
 		soundtrack: asset('/image/icon/fade/music.svg'),
 		follow: asset('/image/icon/fade/user-plus.svg')
-	} as const satisfies Record<NotificationType, ReturnType<typeof asset>>;
+	} as const satisfies Record<NotificationType, Asset>;
 
 	type NotificationType = 'reply' | 'episode' | 'preview' | 'news' | 'soundtrack' | 'follow';
 	type Notification = {

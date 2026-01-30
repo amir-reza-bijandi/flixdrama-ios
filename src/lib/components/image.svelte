@@ -1,4 +1,5 @@
 <script lang="ts">
+	import type { Asset } from '$app/types';
 	import { tv } from '$lib/tv';
 	import type { EventHandler } from 'svelte/elements';
 	import { type ClassValue, type VariantProps } from 'tailwind-variants';
@@ -16,7 +17,7 @@
 	});
 
 	type SrcProps = {
-		src: string;
+		src: Asset;
 	};
 	type Props = VariantProps<typeof getClass> &
 		SrcProps & {

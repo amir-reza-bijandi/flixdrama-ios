@@ -2,10 +2,10 @@
 	import { resolve } from '$app/paths';
 	import PostCard from '$lib/components/post-card.svelte';
 	import { COUNTRY_LABEL_MAP_FA, MEDIA_FA } from '$lib/constants/data';
+	import type { LikeActionToggleHandler } from '../../../_lib/components/actions/like-action.svelte';
+	import LikeAction from '../../../_lib/components/actions/like-action.svelte';
 	import Backdrop from '../../../_lib/components/backdrop.svelte';
 	import Grid from '../../../_lib/components/grid.svelte';
-	import type { LikeActionToggleHandler } from '../../../_lib/components/like-action.svelte';
-	import LikeAction from '../../../_lib/components/like-action.svelte';
 	import PageHeader from '../../../_lib/components/page-header.svelte';
 	import PageWrapper from '../../../_lib/components/page-wrapper.svelte';
 

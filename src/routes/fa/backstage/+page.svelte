@@ -7,8 +7,8 @@
 	import Grid from '../_lib/components/grid.svelte';
 	import List from '../_lib/components/list.svelte';
 	import PageWrapper from '../_lib/components/page-wrapper.svelte';
+	import PlaylistCategories from '../_lib/components/playlist-categories.svelte';
 	import { generateRandomNumber } from '../_lib/utilities/comment';
-	import PlaylistCategory from './_lib/components/playlist-category.svelte';
 
 	const PRESERVATION_KEY = 'backstage-tabs';
 	const SELECT_OFFSET = 20;
@@ -44,7 +44,7 @@
 
 <PageWrapper icon={asset('/image/icon/fade/sparkle.svg')} hasBottomPadding hasContentPadding>
 	<Select
-		class="mt-3"
+		class="mt-6"
 		offset={SELECT_OFFSET}
 		options={TABS}
 		bind:value={currentTab}
@@ -102,18 +102,8 @@
 	{/each}
 {/snippet}
 {#snippet playlist()}
-	<PlaylistCategory
-		href={resolve('/fa/backstage/media-playlist')}
-		image={asset('/image/collage/media.png')}
-		title="فیلم و سریال"
-		body="مجموعه‌هایی که باید دید: بهترین فیلم‌ها و سریال‌های آسیایی، دسته‌بندی شده و آماده تماشا."
-		icon={asset('/image/icon/fade/film.svg')}
-	/>
-	<PlaylistCategory
-		href={resolve('/fa/backstage/soundtrack-playlist')}
-		image={asset('/image/collage/soundtrack.png')}
-		title="موسیقی متن"
-		body="آهنگ‌هایی که خاطره شدن: غرق در ملودی‌هایی شو که روح درام‌های مورد علاقه‌ت رو داخل‌شون دارن."
-		icon={asset('/image/icon/fade/music.svg')}
+	<PlaylistCategories
+		mediaHref="/fa/backstage/media-playlist"
+		soundtrackHref="/fa/backstage/soundtrack-playlist"
 	/>
 {/snippet}

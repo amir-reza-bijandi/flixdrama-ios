@@ -1,26 +1,47 @@
 <script lang="ts">
 	import Button from '$lib/components/button.svelte';
 
-	import { ReplyIcon, TextQuoteIcon } from '@lucide/svelte';
-	import type { CommentData } from '../types/feedback';
+	import type { Asset } from '$app/types';
+	import { PencilIcon, ReplyIcon, TextQuoteIcon } from '@lucide/svelte';
+	import { HASH } from '../constants/hash';
+	import type { CommentData, CommentInfo, CommentUser } from '../types/feedback';
 	import { formatCount } from '../utilities/format-count';
 	import Comment from './comment.svelte';
 	import { Feedback } from './feedback';
 
-	type Props = {
-		data: CommentData;
-		isReply?: boolean;
+	type DefaultProps = {
+		type?: 'default';
+		data: CommentData<CommentUser>;
 	};
-	const { data, isReply = false }: Props = $props();
+	type ProfileProps = {
+		type: 'profile';
+		data: CommentData<CommentInfo>;
+	};
+	type Props = (DefaultProps | ProfileProps) & {
+		isReply?: boolean;
+		isEditable?: boolean;
+		image?: Asset | Asset[];
+	};
+	const {
+		data,
+		isReply = false,
+		type = 'default',
+		isEditable = type === 'default' ? false : true,
+		image
+	}: Props = $props();
 
 	let areReplysVisible = $state(false);
 
 	const handleToggleReplys = () => (areReplysVisible = !areReplysVisible);
 </script>
 
-<Feedback.Root id={data.id} hasVisuals={!isReply}>
-	<Feedback.Container>
-		<Feedback.UserHeader {...data.user} date={data.date} />
+<Feedback.Root id={data.id} hasVisuals={!isReply} {image}>
+	<Feedback.Container class={type !== 'default' && 'p-5'}>
+		{#if type === 'default'}
+			<Feedback.UserHeader {...data.data as CommentUser} date={data.date} />
+		{:else if type === 'profile'}
+			<Feedback.InfoHeader {...data.data as CommentInfo} />
+		{/if}
 		<Feedback.Body isSpoiler={data.isSpoiler}>
 			{#if data.recipient}
 				<Feedback.Recipient data={data.recipient} />
@@ -30,7 +51,20 @@
 		<Feedback.Footer>
 			<Feedback.Like isLiked={data.isLiked} likeCount={data.likeCount} />
 			<Feedback.Group>
+				{#if isEditable}
+					<Button
+						as="a"
+						href={HASH.NEW_COMMENT}
+						isCircle={true}
+						isActive={false}
+						variant="tertiary"
+						icon={PencilIcon}
+						hasBlur={false}
+					/>
+				{/if}
 				<Button
+					as="a"
+					href={HASH.NEW_COMMENT}
 					isCircle={!isReply}
 					isActive={false}
 					variant="secondary"

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { asset } from '$app/paths';
+	import type { Asset } from '$app/types';
 	import { Box } from '$lib/components/box';
 	import Button from '$lib/components/button.svelte';
 	import { Pressable } from '$lib/components/pressable';
@@ -24,7 +25,7 @@
 		class?: ClassValue;
 		actions?: Snippet;
 		showBackButton?: boolean;
-		icon?: string;
+		icon?: Asset;
 		background?: string;
 		hasBottomPadding?: boolean;
 		hasContentPadding?: boolean;
@@ -98,7 +99,7 @@
 						: isNotificationsActive
 							? 'translate-x-[calc(var(--branding-width)+var(--spacing-content-padding))] -translate-y-1/2'
 							: '-translate-y-[calc(var(--header-height)+var(--spacing-content-padding))]',
-					(isNotificationsActive || !isSearchActive) && 'opacity-0',
+					(isNotificationsActive || !isSearchActive) && actions && 'opacity-0',
 					hasTransition && 'transition-[translate,opacity]'
 				]}
 				bind:clientWidth={brandingWidth}

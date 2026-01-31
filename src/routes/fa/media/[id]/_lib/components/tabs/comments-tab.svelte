@@ -3,10 +3,13 @@
 	import Button from '../../../../../../../lib/components/button.svelte';
 	import Comment from '../../../../../_lib/components/comment.svelte';
 	import { HASH } from '../../../../../_lib/constants/hash';
-	import { generateMockComment, generateRandomNumber } from '../../../../../_lib/utilities/comment';
+	import {
+		generateRandomNumber,
+		generateUserMockComment
+	} from '../../../../../_lib/utilities/comment';
 
 	const comments = Array.from({ length: generateRandomNumber(20) }).map(() =>
-		generateMockComment()
+		generateUserMockComment()
 	);
 </script>
 

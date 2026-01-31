@@ -10,13 +10,17 @@
 	};
 	type Props = (SingleImageProps | MultiImageProps) & {
 		children?: Snippet;
+		visibility?: 'default' | 'low';
 	};
-	const { children, ...restOfProps }: Props = $props();
+	const { children, visibility = 'default', ...restOfProps }: Props = $props();
 </script>
 
 <div class="absolute top-0 left-1/2 z-10 -translate-x-1/2">
 	<div
-		class="aspect-video h-auto w-lg mask-linear-180 mask-linear-from-black/50 mask-linear-to-transparent"
+		class={[
+			'aspect-video h-auto w-lg mask-linear-180 mask-linear-to-transparent',
+			visibility === 'default' ? 'mask-linear-from-black/50' : 'mask-linear-from-black/10'
+		]}
 	>
 		{#if 'image' in restOfProps}
 			<Image class="size-full" src={restOfProps.image} hasLoadingGlow />

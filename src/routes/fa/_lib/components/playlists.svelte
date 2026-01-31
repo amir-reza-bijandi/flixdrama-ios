@@ -3,12 +3,13 @@
 		images: string[];
 		title: string;
 		subtitle?: string;
-		href: string;
+		href: ResolvedPathname;
 	}[];
 	export type { Data as PlaylistsData };
 </script>
 
 <script lang="ts">
+	import type { ResolvedPathname } from '$app/types';
 	import { Box } from '$lib/components/box';
 	import Image from '$lib/components/image.svelte';
 	import { Pressable } from '$lib/components/pressable';

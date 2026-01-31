@@ -120,7 +120,7 @@
 					{/if}
 				</div>
 			</div>
-			<Image class="absolute -bottom-3 left-6 -z-10 h-16 w-20 opacity-75 blur-xl" {src} />
+			<Image class="absolute right-12 -bottom-3 left-12 -z-10 h-16 opacity-75 blur-xl" {src} />
 		</div>
 		<div class={['relative z-10 px-2', textAlignment === 'center' ? 'text-center' : 'text-start']}>
 			<div

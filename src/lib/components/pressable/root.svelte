@@ -76,6 +76,7 @@
 	onclickcapture={onClick}
 	onpointerdowncapture={handlePointerDownCapture}
 	onpointerdown={handlePointerDown}
+	draggable={false}
 >
 	{@render children?.()}
 </svelte:element>

@@ -4,12 +4,15 @@
 	import { HASH } from '../../../../../_lib/constants/hash';
 	import { WATCHING_STATUS } from '../../../../../_lib/constants/media';
 	import { SUBSCRIPTIONS } from '../../../../../_lib/constants/user';
-	import type { ReviewData } from '../../../../../_lib/types/feedback';
-	import { generateMockComment, generateRandomNumber } from '../../../../../_lib/utilities/comment';
+	import type { CommentUser, ReviewData } from '../../../../../_lib/types/feedback';
+	import {
+		generateRandomNumber,
+		generateUserMockComment
+	} from '../../../../../_lib/utilities/comment';
 	import { AVATAR_COUNT, AVATARS } from '../../constants/comment';
 	import Review from './review.svelte';
 
-	function generateMockReview(): ReviewData {
+	function generateUserMockReview(): ReviewData<CommentUser> {
 		const DISPLAY_NAME = 'نام کاربر';
 		const id = generateRandomNumber(100_000);
 		return {
@@ -27,21 +30,23 @@
 				rewatchability: generateRandomNumber(5),
 				soundtracks: generateRandomNumber(5)
 			},
-			user: {
+			data: {
 				displayName: DISPLAY_NAME,
 				avatar: AVATARS[generateRandomNumber(AVATAR_COUNT - 1)],
 				subscription: SUBSCRIPTIONS[generateRandomNumber(SUBSCRIPTIONS.length - 1)],
 				userName: 'username'
 			},
 			replies: Array.from({ length: generateRandomNumber(10) }).map(() =>
-				generateMockComment({
+				generateUserMockComment({
 					feedbackId: id,
 					displayName: DISPLAY_NAME
 				})
 			)
 		};
 	}
-	const reviews = Array.from({ length: generateRandomNumber(20) }).map(() => generateMockReview());
+	const reviews = Array.from({ length: generateRandomNumber(20) }).map(() =>
+		generateUserMockReview()
+	);
 </script>
 
 <Button as="a" href={HASH.NEW_REVIEW} variant="tertiary" icon={PlusIcon}>نقد جدید</Button>

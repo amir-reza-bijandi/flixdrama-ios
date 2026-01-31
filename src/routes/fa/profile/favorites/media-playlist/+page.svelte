@@ -2,11 +2,12 @@
 	import { asset, resolve } from '$app/paths';
 	import Select, { type Option, type OptionsValue } from '$lib/components/select.svelte';
 	import { MEDIA_FA } from '$lib/constants/data';
-	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
-	import Playlists, { type PlaylistsData } from '../../_lib/components/playlists.svelte';
-	import { generateRandomNumber } from '../../_lib/utilities/comment';
+	import PageWrapper from '../../../_lib/components/page-wrapper.svelte';
+	import type { PlaylistsData } from '../../../_lib/components/playlists.svelte';
+	import Playlists from '../../../_lib/components/playlists.svelte';
+	import { generateRandomNumber } from '../../../_lib/utilities/comment';
 
-	const PRESERVATION_KEY = 'backstage-media-playlist-tab';
+	const PRESERVATION_KEY = 'favorites-media-playlist-tab';
 	const TABS = [
 		{
 			label: 'کاربرها',
@@ -34,7 +35,7 @@
 </script>
 
 <PageWrapper
-	icon={asset('/image/icon/fade/film.svg')}
+	icon={asset('/image/icon/fade/heart.svg')}
 	hasBottomPadding
 	showBackButton
 	hasContentPadding

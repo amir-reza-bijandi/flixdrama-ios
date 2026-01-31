@@ -3,7 +3,7 @@
 	import Image from '$lib/components/image.svelte';
 	import { Pressable } from '$lib/components/pressable';
 	import { toLocaleDateString, toLocaleTimeString } from '$lib/utilities/date';
-	import type { User } from '../../types/feedback';
+	import type { CommentUser } from '../../types/feedback';
 	import type { Subscription } from '../../types/user';
 	import Avatar from '../avatar.svelte';
 
@@ -14,7 +14,7 @@
 		fox: asset('/image/subscription/4.svg')
 	};
 
-	type Props = User & {
+	type Props = CommentUser & {
 		date: Date;
 	};
 	const { displayName, userName, avatar, date, subscription }: Props = $props();

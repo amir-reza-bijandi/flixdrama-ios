@@ -7,14 +7,14 @@
 	import { MEDIA_FA } from '$lib/constants/data';
 	import { toLocaleDateString } from '$lib/utilities/date';
 	import { CakeIcon, CalendarIcon, FilmIcon, PlusIcon } from '@lucide/svelte';
-	import Comment from '../../_lib/components/comment.svelte';
 	import LikeAction, {
 		type LikeActionToggleHandler
-	} from '../../_lib/components/like-action.svelte';
+	} from '../../_lib/components/actions/like-action.svelte';
+	import Comment from '../../_lib/components/comment.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
 	import { Post, type PostInfoData } from '../../_lib/components/post';
 	import { HASH } from '../../_lib/constants/hash';
-	import { generateMockComment, generateRandomNumber } from '../../_lib/utilities/comment';
+	import { generateRandomNumber, generateUserMockComment } from '../../_lib/utilities/comment';
 	import { toFarsi } from '../../_lib/utilities/to-farsi';
 
 	const IMAGE = asset('/image/personnel/1.webp');
@@ -34,7 +34,7 @@
 		}
 	] as const satisfies PostInfoData;
 	const comments = Array.from({ length: generateRandomNumber(20) }).map(() =>
-		generateMockComment()
+		generateUserMockComment()
 	);
 
 	let isLiked = $state(false);

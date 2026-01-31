@@ -30,9 +30,7 @@
 </script>
 
 <div class={getClass({ roundedSide, class: extraClass })}>
-	<div
-		class={['absolute inset-0 -z-10 backdrop-blur-2xl transition-opacity', !hasBlur && 'opacity-0']}
-	>
+	<div class={['absolute inset-0 -z-10', hasBlur && 'backdrop-blur-2xl']}>
 		{@render children?.()}
 	</div>
 </div>

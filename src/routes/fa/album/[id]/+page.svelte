@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { asset } from '$app/paths';
-	import Backdrop from '../../_lib/components/backdrop.svelte';
 	import LikeAction, {
 		type LikeActionToggleHandler
-	} from '../../_lib/components/like-action.svelte';
+	} from '../../_lib/components/actions/like-action.svelte';
+	import Backdrop from '../../_lib/components/backdrop.svelte';
 	import PageHeader from '../../_lib/components/page-header.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
 	import Soundtracks, { type SoundtracksData } from '../../_lib/components/soundtracks.svelte';

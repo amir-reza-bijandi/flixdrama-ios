@@ -7,14 +7,14 @@
 	import { CalendarIcon, HeartIcon, InfoIcon, MessageCircleIcon, PlusIcon } from '@lucide/svelte';
 	import { Play } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
-	import Comment from '../../_lib/components/comment.svelte';
 	import LikeAction, {
 		type LikeActionToggleHandler
-	} from '../../_lib/components/like-action.svelte';
+	} from '../../_lib/components/actions/like-action.svelte';
+	import Comment from '../../_lib/components/comment.svelte';
 	import PageWrapper from '../../_lib/components/page-wrapper.svelte';
 	import { Post, type PostInfoData } from '../../_lib/components/post';
 	import { HASH } from '../../_lib/constants/hash';
-	import { generateMockComment, generateRandomNumber } from '../../_lib/utilities/comment';
+	import { generateRandomNumber, generateUserMockComment } from '../../_lib/utilities/comment';
 
 	const IMAGE = asset('/image/preview/1.png');
 	const POST_INFO_DATA = [
@@ -32,7 +32,7 @@
 		}
 	] as const satisfies PostInfoData;
 	const comments = Array.from({ length: generateRandomNumber(20) }).map(() =>
-		generateMockComment()
+		generateUserMockComment()
 	);
 
 	let isLiked = $state(false);

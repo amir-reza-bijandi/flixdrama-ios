@@ -5,13 +5,13 @@
 	import Select, { type Option, type OptionsValue } from '$lib/components/select.svelte';
 	import Toggle from '$lib/components/toggle.svelte';
 	import { MEDIA_FA } from '$lib/constants/data';
-	import { SlidersHorizontalIcon, Trash2Icon } from '@lucide/svelte';
+	import { Trash2Icon } from '@lucide/svelte';
 	import { Pause, Play } from '@steeze-ui/heroicons';
 	import { Icon } from '@steeze-ui/svelte-icon';
+	import FilterAction from '../_lib/components/actions/filter-action.svelte';
 	import Grid from '../_lib/components/grid.svelte';
 	import List from '../_lib/components/list.svelte';
 	import PageWrapper from '../_lib/components/page-wrapper.svelte';
-	import { HASH } from '../_lib/constants/hash';
 	import { QUALITY } from '../_lib/constants/media';
 	import { generateRandomNumber } from '../_lib/utilities/comment';
 	import { toFarsi } from '../_lib/utilities/to-farsi';
@@ -64,9 +64,7 @@
 				<Trash2Icon class="size-5 stroke-[1.5]" />
 			</Button>
 		{:else}
-			<Button as="a" href={HASH.FILTER} variant="neutral" isActive={false} isCircle>
-				<SlidersHorizontalIcon class="size-5 stroke-[1.5]" />
-			</Button>
+			<FilterAction />
 		{/if}
 	{/snippet}
 	<Select

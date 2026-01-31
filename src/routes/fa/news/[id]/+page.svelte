@@ -18,7 +18,7 @@
 	} from '../../_lib/components/post';
 	import { HASH } from '../../_lib/constants/hash';
 	import { sizeStore } from '../../_lib/store/size-store.svelte';
-	import { generateMockComment, generateRandomNumber } from '../../_lib/utilities/comment';
+	import { generateRandomNumber, generateUserMockComment } from '../../_lib/utilities/comment';
 
 	const BACKDROP_IMAGE = asset('/image/news/1.png');
 	const POST_INFO_DATA: PostInfoData = [
@@ -36,7 +36,7 @@
 		}
 	];
 	const comments = Array.from({ length: generateRandomNumber(20) }).map(() =>
-		generateMockComment()
+		generateUserMockComment()
 	);
 
 	let isLiked = $state(false);
